@@ -12,7 +12,8 @@
             "discord.js",
             "discord-akairo",
             "dotenv",
-            "common-tags"
+            "common-tags",
+            "moment-duration-format"
         ],
         "noEmitOnError": true
     },

@@ -1,11 +1,11 @@
-import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler } from 'discord-akairo';
-import { ClientApplication, Message } from 'discord.js';
+import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler, Flag } from 'discord-akairo';
+import { ClientApplication, Message, Util } from 'discord.js';
 import { join } from 'path';
 import { Connection } from 'typeorm';
 import { createLogger, format, Logger, transports } from 'winston';
-import { Setting } from '../models/Settings';
 import database from '../structures/Database';
 import TypeORMProvider from '../structures/SettingsProvider';
+import { Tag, Setting } from '../models/index';
 
 declare module 'discord-akairo' {
     interface AkairoClient {
@@ -52,7 +52,7 @@ export default class SunshineClient extends AkairoClient {
             otherwise: ''
         },
         aliasReplacement: /-/g,
-        prefix: async (message: Message): Promise<string> => this.settings.get(message.guild!, 'prefix', 's$')
+        prefix: (message: Message): string => this.settings.get(message.guild!, 'prefix', process.env.PREFIX)
     })
 
     public application!: ClientApplication;
@@ -75,6 +75,34 @@ export default class SunshineClient extends AkairoClient {
         super({
             disableEveryone: true,
             disabledEvents: ['TYPING_START']
+        });
+
+        this.commandHandler.resolver.addType('tag', async (message, phrase): Promise<any> => {
+            if (!phrase) return Flag.fail(phrase);
+            phrase = Util.cleanContent(phrase.toLowerCase(), message);
+            const tagsRepo = this.db.getRepository(Tag);
+            const tags = await tagsRepo.find();
+
+            const [tag] = tags.filter((t): boolean => t.name === phrase || t.aliases.includes(phrase));
+
+            return tag || Flag.fail(phrase);
+        });
+        this.commandHandler.resolver.addType('existingTag', async (message, phrase): Promise<any> => {
+            if (!phrase) return Flag.fail(phrase);
+            phrase = Util.cleanContent(phrase.toLowerCase(), message);
+            const tagsRepo = this.db.getRepository(Tag);
+
+            const tags = await tagsRepo.find();
+            const [tag] = tags.filter((t): boolean => t.name === phrase || t.aliases.includes(phrase));
+
+            return tag ? Flag.fail(phrase) : phrase;
+        });
+        this.commandHandler.resolver.addType('tagContent', async (message, phrase): Promise<any> => {
+            if (!phrase) phrase = '';
+            phrase = Util.cleanContent(phrase, message);
+            if (message.attachments.first()) phrase += `\n${message.attachments.first()!.url}`;
+
+            return phrase || Flag.fail(phrase);
         });
     }
 
