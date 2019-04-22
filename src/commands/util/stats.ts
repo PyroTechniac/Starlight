@@ -1,6 +1,6 @@
-import { Command } from 'discord-akairo';
-import { Message, MessageEmbed } from 'discord.js';
 import { stripIndents } from 'common-tags';
+import { Command } from 'discord-akairo';
+import { Message } from 'discord.js';
 import * as moment from 'moment';
 import 'moment-duration-format';
 
@@ -20,8 +20,8 @@ export default class StatsCommand extends Command {
     }
 
     public async exec(message: Message): Promise<Message | Message[]> {
-        const embed = new MessageEmbed()
-            .setColor(3447003)
+        const embed = this.client.util.embed()
+            .setColor(this.client.defaultEmbedColor)
             .setDescription(`**${this.client.user.username} Statistics**`)
             .addField('❯ Uptime', moment.duration(this.client.uptime).format('d[d ]h[h ]m[m ]s[s]'), true)
             .addField('❯ Memory Usage', `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`, true)

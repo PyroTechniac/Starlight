@@ -15,6 +15,7 @@ declare module 'discord-akairo' {
         logger: Logger;
         application: ClientApplication;
         cachedCases: Set<string>;
+        defaultEmbedColor: [number, number, number]
     }
 }
 
@@ -62,6 +63,8 @@ export default class StarlightClient extends AkairoClient {
     public settings!: TypeORMProvider
 
     public cachedCases = new Set();
+
+    public defaultEmbedColor: [number, number, number] = [132, 61, 164]
 
     public inhibitorHandler: InhibitorHandler = new InhibitorHandler(this, {
         directory: join(__dirname, '..', 'inhibitors')

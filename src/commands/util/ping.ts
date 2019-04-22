@@ -1,6 +1,6 @@
 import { stripIndents } from 'common-tags';
-import { Message } from 'discord.js';
 import { Command } from 'discord-akairo';
+import { Message } from 'discord.js';
 
 const RESPONSES: string[] = [
     'No',
