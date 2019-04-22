@@ -1,11 +1,11 @@
-import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler, Flag } from 'discord-akairo';
-import { ClientApplication, Message, Util } from 'discord.js';
+import { AkairoClient, Command, CommandHandler, Flag, InhibitorHandler, ListenerHandler } from 'discord-akairo';
+import { ClientApplication, Message, Permissions, PermissionString, Util } from 'discord.js';
 import { join } from 'path';
 import { Connection } from 'typeorm';
 import { createLogger, format, Logger, transports } from 'winston';
+import { Setting, Tag } from '../models/index';
 import database from '../structures/Database';
 import TypeORMProvider from '../structures/SettingsProvider';
-import { Tag, Setting } from '../models/index';
 
 declare module 'discord-akairo' {
     interface AkairoClient {
@@ -15,7 +15,8 @@ declare module 'discord-akairo' {
         logger: Logger;
         application: ClientApplication;
         cachedCases: Set<string>;
-        defaultEmbedColor: [number, number, number]
+        defaultEmbedColor: [number, number, number];
+        invite: string;
     }
 }
 
@@ -107,6 +108,13 @@ export default class StarlightClient extends AkairoClient {
 
             return phrase || Flag.fail(phrase);
         });
+    }
+
+    public static basePermissions: Permissions = new Permissions(['SEND_MESSAGES', 'VIEW_CHANNEL'])
+
+    public get invite() {
+        const permissions = new Permissions(StarlightClient.basePermissions).add(...this.commandHandler.modules.map((command: Command) => command.clientPermissions as PermissionString)).bitfield;
+        return `https://discordapp.com/oauth2/authorize?client_id=${this.application.id}&permissions=${permissions}&scope=bot`;
     }
 
     private async _init(): Promise<void> {
