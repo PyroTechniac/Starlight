@@ -1,6 +1,6 @@
 import 'reflect-metadata';
-import SunshineClient from './client/SunshineClient';
+import StarlightClient from './client/StarlightClient';
 import { config } from 'dotenv';
 config();
 
-new SunshineClient().start();
+new StarlightClient().start();

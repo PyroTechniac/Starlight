@@ -9,7 +9,7 @@ export default class SetGitHubRepoCommand extends Command {
             description: {
                 content: 'Sets the repository the GitHub commands use',
                 usage: '<repo>',
-                examples: ['discordjs/discord.js', 'PyroTechniac/Sunshine']
+                examples: ['discordjs/discord.js', 'PyroTechniac/Starlight']
             },
             category: 'config',
             channel: 'guild',

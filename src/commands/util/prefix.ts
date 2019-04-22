@@ -8,7 +8,7 @@ export default class PrefixCommand extends Command {
             description: {
                 content: 'Displays or changes the prefix of the guild',
                 usage: '[prefix]',
-                examples: ['*', 'Sunshine']
+                examples: ['*', 'Starlight']
             },
             category: 'util',
             channel: 'guild',

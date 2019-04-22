@@ -5,7 +5,7 @@ config();
 
 const connectionManager = new ConnectionManager();
 connectionManager.create({
-    name: 'sunshine',
+    name: 'Starlight',
     type: 'postgres',
     url: process.env.DATABASE,
     entities: [Setting, Tag, RoleState, Case, Reminder],

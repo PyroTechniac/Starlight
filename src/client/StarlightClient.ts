@@ -18,7 +18,7 @@ declare module 'discord-akairo' {
     }
 }
 
-export default class SunshineClient extends AkairoClient {
+export default class StarlightClient extends AkairoClient {
     public logger = createLogger({
         format: format.combine(
             format.colorize({ level: true }),
@@ -119,7 +119,7 @@ export default class SunshineClient extends AkairoClient {
         this.inhibitorHandler.loadAll();
         this.listenerHandler.loadAll();
 
-        this.db = database.get('sunshine');
+        this.db = database.get('Starlight');
         await this.db.connect();
         this.settings = new TypeORMProvider(this.db.getRepository(Setting));
         await this.settings.init();
