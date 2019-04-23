@@ -6,6 +6,8 @@ import { createLogger, format, Logger, transports } from 'winston';
 import { Setting, Tag } from '../models/index';
 import database from '../structures/Database';
 import TypeORMProvider from '../structures/SettingsProvider';
+import { Documentation } from '../structures/Documentation';
+import { StarlightUtil } from '../util/StarlightUtil';
 
 declare module 'discord-akairo' {
     interface AkairoClient {
@@ -34,6 +36,8 @@ export default class StarlightClient extends AkairoClient {
             new transports.Console({ level: process.env.NODE_ENV === 'production' ? 'info' : 'debug' })
         ]
     })
+
+    public util: StarlightUtil = new StarlightUtil(this);
 
     public commandHandler: CommandHandler = new CommandHandler(this, {
         directory: join(__dirname, '..', 'commands'),
@@ -64,6 +68,8 @@ export default class StarlightClient extends AkairoClient {
     public settings!: TypeORMProvider
 
     public cachedCases = new Set();
+
+    public docs: Documentation = new Documentation(this);
 
     public defaultEmbedColor: [number, number, number] = [132, 61, 164]
 

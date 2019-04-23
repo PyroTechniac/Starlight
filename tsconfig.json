@@ -13,7 +13,8 @@
             "discord-akairo",
             "dotenv",
             "common-tags",
-            "moment-duration-format"
+            "moment-duration-format",
+            "node-fetch"
         ],
         "noEmitOnError": true
     },
