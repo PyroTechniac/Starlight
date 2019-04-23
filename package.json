@@ -21,6 +21,7 @@
         "discord-akairo": "discord-akairo/discord-akairo",
         "discord.js": "discordjs/discord.js",
         "dotenv": "^7.0.0",
+        "fast-levenshtein": "^2.0.6",
         "moment": "^2.24.0",
         "moment-duration-format": "^2.2.2",
         "mongodb": "^3.2.3",
@@ -50,7 +51,13 @@
             "quotes": [
                 "error",
                 "single"
-            ]
+            ],
+            "multiline-ternary": "off",
+            "@typescript-eslint/explicit-function-return-type": "off",
+            "radix": "off",
+            "@typescript-eslint/promise-function-async": "off",
+            "promise/prefer-await-to-callbacks": "off",
+            "@typescript-eslint/no-extraneous-class": "off"
         }
     },
     "eslintIgnore": [
