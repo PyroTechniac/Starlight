@@ -12,6 +12,7 @@
         "lint:fix": "npm run lint -- --fix"
     },
     "dependencies": {
+        "@naval-base/ms": "^2.2.1",
         "@types/common-tags": "^1.8.0",
         "@types/dotenv": "^6.1.1",
         "@types/moment-duration-format": "^2.2.2",
