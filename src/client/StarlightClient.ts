@@ -3,11 +3,11 @@ import { ClientApplication, Message, Permissions, PermissionString, Util } from 
 import { join } from 'path';
 import { Connection } from 'typeorm';
 import { createLogger, format, Logger, transports } from 'winston';
-import { Setting, Tag } from '../models/index';
+import { Setting, Tag, Reminder } from '../models/index';
 import database from '../structures/Database';
 import TypeORMProvider from '../structures/SettingsProvider';
-import { Documentation } from '../structures/Documentation';
 import { StarlightUtil } from '../util/StarlightUtil';
+import RemindScheduler from '../structures/RemindScheduler';
 
 declare module 'discord-akairo' {
     interface AkairoClient {
@@ -69,7 +69,7 @@ export default class StarlightClient extends AkairoClient {
 
     public cachedCases = new Set();
 
-    public docs: Documentation = new Documentation(this);
+    public remindScheduler: RemindScheduler;
 
     public defaultEmbedColor: [number, number, number] = [132, 61, 164]
 
@@ -140,6 +140,8 @@ export default class StarlightClient extends AkairoClient {
         await this.db.connect();
         this.settings = new TypeORMProvider(this.db.getRepository(Setting));
         await this.settings.init();
+        this.remindScheduler = new RemindScheduler(this, this.db.getRepository(Reminder));
+        await this.remindScheduler.init();
     }
 
     public async start(): Promise<string> {

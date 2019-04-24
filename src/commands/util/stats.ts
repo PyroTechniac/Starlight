@@ -40,7 +40,8 @@ export default class StatsCommand extends Command {
                 '[discord.js](https://discord.js.org)[-akairo](https://github.com/discord-akairo/discord-akairo)',
                 true
             )
-            .addField('❯ Invite me', `[Invite Link](${this.client.invite})`)
+            .setURL(this.client.invite)
+            .setTitle('Invite Me')
             .setThumbnail(this.client.user.displayAvatarURL());
 
         return message.util.send(embed);
