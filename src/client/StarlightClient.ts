@@ -2,40 +2,22 @@ import { AkairoClient, Command, CommandHandler, Flag, InhibitorHandler, Listener
 import { ClientApplication, Message, Permissions, PermissionString, Util } from 'discord.js';
 import { join } from 'path';
 import { Connection } from 'typeorm';
-import { createLogger, format, Logger, transports } from 'winston';
 import { Setting, Tag, Reminder } from '../models/index';
 import database from '../structures/Database';
 import TypeORMProvider from '../structures/SettingsProvider';
 import { StarlightUtil } from '../util/StarlightUtil';
-import RemindScheduler from '../structures/RemindScheduler';
 
 declare module 'discord-akairo' {
     interface AkairoClient {
         db: Connection;
         settings: TypeORMProvider;
         commandHandler: CommandHandler;
-        logger: Logger;
         application: ClientApplication;
-        cachedCases: Set<string>;
-        defaultEmbedColor: [number, number, number];
         invite: string;
     }
 }
 
 export default class StarlightClient extends AkairoClient {
-    public logger = createLogger({
-        format: format.combine(
-            format.colorize({ level: true }),
-            format.timestamp({ format: 'YYYY/MM/DD HH:mm:ss' }),
-            format.printf((info: any): string => {
-                const { timestamp, level, message, ...rest } = info;
-                return `[${timestamp}] ${level}: ${message}${Object.keys(rest).length ? `\n${JSON.stringify(rest, null, 2)}` : ''}`;
-            })
-        ),
-        transports: [
-            new transports.Console({ level: process.env.NODE_ENV === 'production' ? 'info' : 'debug' })
-        ]
-    })
 
     public util: StarlightUtil = new StarlightUtil(this);
 
@@ -67,12 +49,6 @@ export default class StarlightClient extends AkairoClient {
 
     public settings!: TypeORMProvider
 
-    public cachedCases = new Set();
-
-    public remindScheduler: RemindScheduler;
-
-    public defaultEmbedColor: [number, number, number] = [132, 61, 164]
-
     public inhibitorHandler: InhibitorHandler = new InhibitorHandler(this, {
         directory: join(__dirname, '..', 'inhibitors')
     })
@@ -85,34 +61,6 @@ export default class StarlightClient extends AkairoClient {
         super({
             disableEveryone: true,
             disabledEvents: ['TYPING_START']
-        });
-
-        this.commandHandler.resolver.addType('tag', async (message, phrase): Promise<any> => {
-            if (!phrase) return Flag.fail(phrase);
-            phrase = Util.cleanContent(phrase.toLowerCase(), message);
-            const tagsRepo = this.db.getRepository(Tag);
-            const tags = await tagsRepo.find();
-
-            const [tag] = tags.filter((t): boolean => t.name === phrase || t.aliases.includes(phrase));
-
-            return tag || Flag.fail(phrase);
-        });
-        this.commandHandler.resolver.addType('existingTag', async (message, phrase): Promise<any> => {
-            if (!phrase) return Flag.fail(phrase);
-            phrase = Util.cleanContent(phrase.toLowerCase(), message);
-            const tagsRepo = this.db.getRepository(Tag);
-
-            const tags = await tagsRepo.find();
-            const [tag] = tags.filter((t): boolean => t.name === phrase || t.aliases.includes(phrase));
-
-            return tag ? Flag.fail(phrase) : phrase;
-        });
-        this.commandHandler.resolver.addType('tagContent', async (message, phrase): Promise<any> => {
-            if (!phrase) phrase = '';
-            phrase = Util.cleanContent(phrase, message);
-            if (message.attachments.first()) phrase += `\n${message.attachments.first()!.url}`;
-
-            return phrase || Flag.fail(phrase);
         });
     }
 
@@ -140,8 +88,6 @@ export default class StarlightClient extends AkairoClient {
         await this.db.connect();
         this.settings = new TypeORMProvider(this.db.getRepository(Setting));
         await this.settings.init();
-        this.remindScheduler = new RemindScheduler(this, this.db.getRepository(Reminder));
-        await this.remindScheduler.init();
     }
 
     public async start(): Promise<string> {
