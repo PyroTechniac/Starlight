@@ -12,7 +12,7 @@ declare module 'discord-akairo' {
         isClass(input: any): input is Constructor<any>;
         deepClone<T = any>(source: T): T;
         arraysStrictEquals(arr1: any[], arr2: any[]): boolean;
-        mergeObjects<T = Record<string, any>, S = Record<string, any>>(objTarget: T, objSource: S): T & S
+        mergeObjects<T = Record<string, any>, S = Record<string, any>>(objTarget: T, objSource: S): T & S;
     }
 }
 
@@ -131,7 +131,7 @@ export class StarlightUtil extends ClientUtil {
 
     public mergeObjects<T = Record<string, any>, S = Record<string, any>>(objTarget: T = {} as T, objSource: S): T & S {
         // @ts-ignore
-        for (const key in objSource) objTarget[key] = this.isObject(objSource[key]) ? this.mergeObjects(objTarget[key], objSource[key]) : objSource[key];
+        for (const key in objSource) objTarget[key] = this.isObject(objSource[key]) ? this.mergeObjects(objTarget[key], objSource[key]) : objSource[key]; // eslint-disable-line
         return objTarget as T & S;
     }
 }
