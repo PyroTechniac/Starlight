@@ -11,6 +11,6 @@ export default class PromiseRejectionListener extends Listener {
 
     public exec(e: Error): void {
         if (!e) return;
-        console.error(`[PROMISE REJECTION] Uncaught Promise Error: \n${e.stack || e}`);
+        this.client.console.error(`[PROMISE REJECTION] Uncaught Promise Error: \n${e.stack || e}`);
     }
 }

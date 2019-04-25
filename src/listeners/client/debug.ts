@@ -11,6 +11,6 @@ export default class DebugListener extends Listener {
     }
 
     public exec(event: any): void {
-        console.log(`[DEBUG] ${event}`);
+        this.client.console.debug(`[DEBUG] ${event}`);
     }
 }
