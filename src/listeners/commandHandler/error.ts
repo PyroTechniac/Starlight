@@ -1,6 +1,8 @@
 import { Command, Listener } from 'discord-akairo';
 import { Message } from 'discord.js';
 
+/* eslint-disable promise/no-promise-in-callback */
+
 export default class CommandErrorListener extends Listener {
     public constructor() {
         super('commandError', {

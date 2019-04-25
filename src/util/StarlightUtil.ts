@@ -1,4 +1,13 @@
 import { ClientUtil } from 'discord-akairo';
+import { fromString, fromNumber } from 'long';
+
+const map: string[] = [
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K',
+    'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+    'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+    'h', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't',
+    'u', 'v', 'x', 'y', 'z', '2', '3', '4'
+];
 
 declare module 'discord-akairo' {
     interface ClientUtil {
@@ -13,6 +22,8 @@ declare module 'discord-akairo' {
         deepClone<T = any>(source: T): T;
         arraysStrictEquals(arr1: any[], arr2: any[]): boolean;
         mergeObjects<T = Record<string, any>, S = Record<string, any>>(objTarget: T, objSource: S): T & S;
+        encode(inp: string | number): string;
+        decode(encoded: string): string;
     }
 }
 
@@ -133,6 +144,28 @@ export class StarlightUtil extends ClientUtil {
         // @ts-ignore
         for (const key in objSource) objTarget[key] = this.isObject(objSource[key]) ? this.mergeObjects(objTarget[key], objSource[key]) : objSource[key]; // eslint-disable-line
         return objTarget as T & S;
+    }
+
+    public encode(inp: string | number): string {
+        let res = '';
+        let long = typeof inp === 'string' ? fromString(inp) : fromNumber(inp);
+        if (long.isZero()) return map[0];
+        while (long.gt(0)) {
+            const val = long.mod(map.length);
+            long = long.div(map.length);
+            res += map[val as unknown as number];
+        }
+        return res;
+    }
+
+    public decode(encoded: string): string {
+        let res = fromNumber(0);
+        for (let i = encoded.length - 1; i >= 0; i--) {
+            const ch = encoded[i];
+            const val = map.indexOf(ch);
+            res = res.mul(map.length).add(val);
+        }
+        return res.toString();
     }
 }
 
