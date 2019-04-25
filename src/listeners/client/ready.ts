@@ -13,7 +13,7 @@ export default class ReadyListener extends Listener {
     public async exec(): Promise<void> {
         await this.client.fetchApplication();
         if (!this.client.ownerID) this.client.ownerID = this.client.application.owner.id;
-        this.client.logger.info(`[READY] ${this.client.user.username} (${this.client.user.id}) is ready to serve ${this.client.guilds.size} guild${this.client.guilds.size === 1 ? '' : 's'}`);
+        console.log(`[READY] Ready to serve ${this.client.users.size} in ${this.client.guilds}`);
         this.client.user.setActivity(`${this.client.user.username}, help`);
     }
 }

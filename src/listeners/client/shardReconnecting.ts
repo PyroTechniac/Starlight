@@ -10,6 +10,6 @@ export default class ShardReconnectListener extends Listener {
     }
 
     public exec(id: number): void {
-        this.client.logger.info(`[SHARD] Reconnecting shard ${id}`);
+        console.info(`[SHARD] Reconnecting shard ${id}`);
     }
 }

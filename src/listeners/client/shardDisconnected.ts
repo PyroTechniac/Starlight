@@ -11,6 +11,6 @@ export default class ShardDisconnectListener extends Listener {
     }
 
     public exec(event: any, id: number): void {
-        this.client.logger.warn(`[SHARD] Shard ${id} disconnected with code ${event}`);
+        console.warn(`[SHARD] Shard ${id} disconnected with code ${event}`);
     }
 }

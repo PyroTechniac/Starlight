@@ -3,6 +3,7 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import * as moment from 'moment';
 import 'moment-duration-format';
+import { DefaultEmbedColor } from '../../util/Constants';
 
 const { version } = require('../../../package.json'); // eslint-disable-line
 
@@ -21,7 +22,7 @@ export default class StatsCommand extends Command {
 
     public async exec(message: Message): Promise<Message | Message[]> {
         const embed = this.client.util.embed()
-            .setColor(this.client.defaultEmbedColor)
+            .setColor(DefaultEmbedColor)
             .setDescription(`**${this.client.user.username} Statistics**`)
             .addField('❯ Uptime', moment.duration(this.client.uptime).format('d[d ]h[h ]m[m ]s[s]'), true)
             .addField('❯ Memory Usage', `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`, true)

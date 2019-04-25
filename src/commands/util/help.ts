@@ -1,7 +1,7 @@
-
 import { Command } from 'discord-akairo';
 import { Message, MessageEmbed } from 'discord.js';
 import { stripIndents } from 'common-tags';
+import { DefaultEmbedColor } from '../../util/Constants';
 
 export default class HelpCommand extends Command {
     public constructor() {
@@ -28,7 +28,7 @@ export default class HelpCommand extends Command {
         const prefix = this.handler.prefix(message);
         if (!command) {
             const embed = new MessageEmbed()
-                .setColor(this.client.defaultEmbedColor)
+                .setColor(DefaultEmbedColor)
                 .addField('❯ Commands', stripIndents`A list of available commands.
 					For additional info on a command, type \`${prefix}help <command>\`
 				`);

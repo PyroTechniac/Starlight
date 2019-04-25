@@ -1,8 +1,9 @@
-import { AkairoClient, Command, CommandHandler, Flag, InhibitorHandler, ListenerHandler } from 'discord-akairo';
-import { ClientApplication, Message, Permissions, PermissionString, Util } from 'discord.js';
+import { AkairoClient, Command, CommandHandler, InhibitorHandler, ListenerHandler } from 'discord-akairo';
+import { ClientApplication, Message, Permissions, PermissionString } from 'discord.js';
 import { join } from 'path';
 import { Connection } from 'typeorm';
-import { Setting, Tag, Reminder } from '../models/index';
+import { Setting } from '../models/index';
+import { createLogger, Logger, transports, format } from 'winston';
 import database from '../structures/Database';
 import TypeORMProvider from '../structures/SettingsProvider';
 import { StarlightUtil } from '../util/StarlightUtil';
@@ -14,10 +15,12 @@ declare module 'discord-akairo' {
         commandHandler: CommandHandler;
         application: ClientApplication;
         invite: string;
+        console: Logger
     }
 }
 
 export default class StarlightClient extends AkairoClient {
+    public console: Logger
 
     public util: StarlightUtil = new StarlightUtil(this);
 
@@ -58,45 +61,45 @@ export default class StarlightClient extends AkairoClient {
     })
 
     public constructor() {
-        super({
-            disableEveryone: true,
-            disabledEvents: ['TYPING_START']
-        });
-    }
+    super({
+        disableEveryone: true,
+        disabledEvents: ['TYPING_START']
+    });
+}
 
     public static basePermissions: Permissions = new Permissions(['SEND_MESSAGES', 'VIEW_CHANNEL'])
 
     public get invite() {
-        const permissions = new Permissions(StarlightClient.basePermissions).add(...this.commandHandler.modules.map((command: Command) => command.clientPermissions as PermissionString)).bitfield;
-        return `https://discordapp.com/oauth2/authorize?client_id=${this.application.id}&permissions=${permissions}&scope=bot`;
-    }
+    const permissions = new Permissions(StarlightClient.basePermissions).add(...this.commandHandler.modules.map((command: Command) => command.clientPermissions as PermissionString)).bitfield;
+    return `https://discordapp.com/oauth2/authorize?client_id=${this.application.id}&permissions=${permissions}&scope=bot`;
+}
 
-    private async _init(): Promise<void> {
-        this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
-        this.commandHandler.useListenerHandler(this.listenerHandler);
-        this.listenerHandler.setEmitters({
-            commandHandler: this.commandHandler,
-            listenerHandler: this.listenerHandler,
-            inhibitorHandler: this.inhibitorHandler,
-            process: process
-        });
-        this.commandHandler.loadAll();
-        this.inhibitorHandler.loadAll();
-        this.listenerHandler.loadAll();
+    private async _init(): Promise < void> {
+    this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
+    this.commandHandler.useListenerHandler(this.listenerHandler);
+    this.listenerHandler.setEmitters({
+        commandHandler: this.commandHandler,
+        listenerHandler: this.listenerHandler,
+        inhibitorHandler: this.inhibitorHandler,
+        process: process
+    });
+    this.commandHandler.loadAll();
+    this.inhibitorHandler.loadAll();
+    this.listenerHandler.loadAll();
 
-        this.db = database.get('Starlight');
-        await this.db.connect();
-        this.settings = new TypeORMProvider(this.db.getRepository(Setting));
-        await this.settings.init();
-    }
+    this.db = database.get('Starlight');
+    await this.db.connect();
+    this.settings = new TypeORMProvider(this.db.getRepository(Setting));
+    await this.settings.init();
+}
 
-    public async start(): Promise<string> {
-        await this._init();
-        return this.login(process.env.TOKEN);
-    }
+    public async start(): Promise < string > {
+    await this._init();
+    return this.login(process.env.TOKEN);
+}
 
-    public async fetchApplication(): Promise<ClientApplication> {
-        this.application = await super.fetchApplication();
-        return this.application;
-    }
+    public async fetchApplication(): Promise < ClientApplication > {
+    this.application = await super.fetchApplication();
+    return this.application;
+}
 }
