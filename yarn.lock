@@ -1193,9 +1193,10 @@ kuler@1.0.x:
   dependencies:
     colornames "^1.1.1"
 
-kurasuta@dev-yukine/kurasuta:
+kurasuta@^0.2.18:
   version "0.2.18"
-  resolved "https://codeload.github.com/dev-yukine/kurasuta/tar.gz/b7395170cc996bd9b8e62378c6a8452f2b871509"
+  resolved "https://registry.yarnpkg.com/kurasuta/-/kurasuta-0.2.18.tgz#c7a7fe65c016b669b56f898efece9f1615b43659"
+  integrity sha512-qQtiF6k4iPPqY0lPAFDve8P2qrHxFl8CLft6xVhoLLhHq047USHJDqtID3lN93u4UTg3TJ5yO6MB3WFdxHnhfA==
   dependencies:
     node-fetch "^2.3.0"
     veza "^0.4.0"
