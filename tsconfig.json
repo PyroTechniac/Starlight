@@ -14,7 +14,9 @@
             "dotenv",
             "common-tags",
             "moment-duration-format",
-            "node-fetch"
+            "node-fetch",
+            "serialized-tags",
+            "veza"
         ],
         "noEmitOnError": true
     },
