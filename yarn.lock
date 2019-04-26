@@ -1193,6 +1193,13 @@ kuler@1.0.x:
   dependencies:
     colornames "^1.1.1"
 
+kurasuta@dev-yukine/kurasuta:
+  version "0.2.18"
+  resolved "https://codeload.github.com/dev-yukine/kurasuta/tar.gz/b7395170cc996bd9b8e62378c6a8452f2b871509"
+  dependencies:
+    node-fetch "^2.3.0"
+    veza "^0.4.0"
+
 lcid@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/lcid/-/lcid-1.0.0.tgz#308accafa0bc483a3867b4b6f2b9506251d1b835"
@@ -2279,7 +2286,7 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-veza@kyranet/veza:
+veza@^0.4.0, veza@kyranet/veza:
   version "0.4.0"
   resolved "https://codeload.github.com/kyranet/veza/tar.gz/b2d8c3ebc785e2a57aedb9226c058852417408f1"
 
