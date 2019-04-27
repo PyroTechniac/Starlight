@@ -7,7 +7,11 @@ const RESPONSES: string[] = [
     'Not happening',
     'Maybe later',
     stripIndents`:ping_pong: Pong! \`$(ping)ms\`
-		Heartbeat: \`$(heartbeat)ms\``
+		Heartbeat: \`$(heartbeat)ms\``,
+    stripIndents`:ping_pong: Pong! \`$(ping)ms\`
+        Heartbeat: \`$(heartbeat)ms\``,
+    stripIndents`:ping_pong: Pong! \`$(ping)ms\`
+        Heartbeat: \`$(heartbeat)ms\``
 ];
 
 export default class PingCommand extends Command {
