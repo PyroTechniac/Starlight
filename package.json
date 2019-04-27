@@ -29,7 +29,6 @@
         "long": "^4.0.0",
         "moment": "^2.24.0",
         "moment-duration-format": "^2.2.2",
-        "mongodb": "^3.2.3",
         "node-fetch": "^2.3.0",
         "pg": "^7.10.0",
         "reflect-metadata": "^0.1.13",
