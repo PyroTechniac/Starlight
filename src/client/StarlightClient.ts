@@ -2,12 +2,11 @@ import { AkairoClient, Command, CommandHandler, InhibitorHandler, ListenerHandle
 import { ClientApplication, Message, Permissions, PermissionString } from 'discord.js';
 import { join } from 'path';
 import { Connection } from 'typeorm';
+import { createLogger, format, Logger, transports } from 'winston';
 import { Setting } from '../models/index';
-import { createLogger, Logger, transports, format } from 'winston';
 import database from '../structures/Database';
 import TypeORMProvider from '../structures/SettingsProvider';
 import { StarlightUtil } from '../util/StarlightUtil';
-import { ShardClientUtil as ShardUtil } from 'kurasuta';
 
 declare module 'discord-akairo' {
     interface AkairoClient {
@@ -17,12 +16,6 @@ declare module 'discord-akairo' {
         application: ClientApplication;
         invite: string;
         console: Logger;
-    }
-}
-
-declare module 'discord.js' {
-    interface Client {
-        ShardClientUtil: ShardUtil;
     }
 }
 
