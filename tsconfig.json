@@ -16,7 +16,8 @@
             "moment-duration-format",
             "node-fetch",
             "serialized-tags",
-            "veza"
+            "veza",
+            "kurasuta"
         ],
         "noEmitOnError": true
     },

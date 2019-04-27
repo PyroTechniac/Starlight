@@ -7,6 +7,7 @@ import { createLogger, Logger, transports, format } from 'winston';
 import database from '../structures/Database';
 import TypeORMProvider from '../structures/SettingsProvider';
 import { StarlightUtil } from '../util/StarlightUtil';
+import { ShardClientUtil as ShardUtil } from 'kurasuta';
 
 declare module 'discord-akairo' {
     interface AkairoClient {
@@ -16,6 +17,12 @@ declare module 'discord-akairo' {
         application: ClientApplication;
         invite: string;
         console: Logger;
+    }
+}
+
+declare module 'discord.js' {
+    interface Client {
+        ShardClientUtil: ShardUtil;
     }
 }
 
@@ -105,9 +112,9 @@ export default class StarlightClient extends AkairoClient {
         await this.settings.init();
     }
 
-    public async start(): Promise<string> {
+    public async login(): Promise<string> {
         await this._init();
-        return this.login(process.env.TOKEN);
+        return super.login(process.env.TOKEN);
     }
 
     public async fetchApplication(): Promise<ClientApplication> {
