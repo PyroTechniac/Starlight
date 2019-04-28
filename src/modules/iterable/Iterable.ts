@@ -65,6 +65,53 @@ export class Iterable<V> {
     }
 }
 
+const sameValueZero = (a: number, b: number): boolean => {
+    if (a === 0 && b === 0) {
+        return 1 / a === 1 / b;
+    }
+
+    if (a === b) return true;
+
+    return isNaN(a) && isNaN(b);
+};
+
+const consFunctions = {
+    Array: () => [],
+    Set: () => new Set(),
+    Map: () => new Map(),
+    String: () => ''
+};
+
+const extendFunctions = {
+    Array: (c: any[], i: any) => {
+        c.push(i);
+        return c;
+    },
+    Set: (c: Set<any>, i: any) => {
+        c.add(i);
+        return c;
+    },
+    Map: (c: Map<any, any>, i: any[]) => {
+        c.set(i[0], i[1]);
+        return c;
+    },
+    String: (c: string, i: string) => c + i
+};
+
+for (const type of ['Array', 'Set', 'Map', 'String']) {
+    const fnName = `collect${type}`;
+    Object.defineProperty(Iterable.prototype, fnName, {
+        value: {
+            [fnName]: function() {
+                return this.collect(consFunctions[type], extendFunctions[type]);
+            }
+        }[fnName],
+        writable: true,
+        enumerable: false,
+        configurable: true
+    });
+}
+
 class TakeIterable<V> extends Iterable<V> {
     private takeAmount: number;
     public constructor(iterator: Iterable<V>, takeAmount: number) {
