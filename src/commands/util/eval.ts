@@ -15,7 +15,7 @@ export default class EvalCommand extends Command {
 
     public constructor() {
         super('eval', {
-            aliases: ['eval'],
+            aliases: ['eval', 'ev'],
             description: {
                 content: 'You can\'t use this anyway, so why explain.',
                 usage: '<code>'

@@ -41,7 +41,7 @@ export default class HelpCommand extends Command {
         }
 
         const embed = new MessageEmbed()
-            .setColor(3447003)
+            .setColor(DefaultEmbedColor)
             .setTitle(`\`${command.aliases[0]} ${command.description.usage ? command.description.usage : ''}\``)
             .addField('❯ Description', command.description.content || '\u200b');
 

@@ -7,7 +7,9 @@ import { Setting } from '../models/index';
 import database from '../structures/Database';
 import TypeORMProvider from '../structures/SettingsProvider';
 import { StarlightUtil } from '../util/StarlightUtil';
-
+import { Config } from '../util/Config';
+import { config } from 'dotenv';
+config();
 declare module 'discord-akairo' {
     interface AkairoClient {
         db: Connection;
@@ -36,6 +38,10 @@ export default class StarlightClient extends AkairoClient {
 
     public util: StarlightUtil = new StarlightUtil(this);
 
+    public config: Config = new Config(this, {
+        token: process.env.TOKEN
+    });
+
     public commandHandler: CommandHandler = new CommandHandler(this, {
         directory: join(__dirname, '..', 'commands'),
         commandUtil: true,
@@ -55,7 +61,7 @@ export default class StarlightClient extends AkairoClient {
             otherwise: ''
         },
         aliasReplacement: /-/g,
-        prefix: (message: Message): string => this.settings.get(message.guild!, 'prefix', process.env.PREFIX)
+        prefix: (message: Message): string => this.settings.get(message.guild!, 'prefix', this.config.prefix)
     })
 
     public application!: ClientApplication;
@@ -107,7 +113,7 @@ export default class StarlightClient extends AkairoClient {
 
     public async login(): Promise<string> {
         await this._init();
-        return super.login(process.env.TOKEN);
+        return super.login(this.config.token);
     }
 
     public async fetchApplication(): Promise<ClientApplication> {
