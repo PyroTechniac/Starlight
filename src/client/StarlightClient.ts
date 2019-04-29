@@ -4,7 +4,7 @@ import { config } from 'dotenv';
 import { join } from 'path';
 import { Connection } from 'typeorm';
 import { createLogger, format, Logger, transports } from 'winston';
-import { Setting } from '../models/index';
+import { Setting } from '../models';
 import database from '../structures/Database';
 import TypeORMProvider from '../structures/SettingsProvider';
 import { Config } from '../util/Config';
@@ -23,6 +23,12 @@ declare module 'discord-akairo' {
 }
 
 export default class StarlightClient extends AkairoClient {
+    public util: StarlightUtil = new StarlightUtil(this);
+
+    public config: Config = new Config(this, {
+        token: process.env.TOKEN
+    });
+
     public console: Logger = createLogger({
         format: format.combine(
             format.colorize({ level: true }),
@@ -36,12 +42,6 @@ export default class StarlightClient extends AkairoClient {
             new transports.Console({ level: process.env.NODE_ENV === 'production' ? 'info' : 'debug' })
         ]
     })
-
-    public util: StarlightUtil = new StarlightUtil(this);
-
-    public config: Config = new Config(this, {
-        token: process.env.TOKEN
-    });
 
     public commandHandler: CommandHandler = new CommandHandler(this, {
         directory: join(__dirname, '..', 'commands'),
