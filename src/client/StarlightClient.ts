@@ -18,6 +18,7 @@ declare module 'discord-akairo' {
         application: ClientApplication;
         invite: string;
         console: Logger;
+        config: Config;
     }
 }
 
