@@ -8,8 +8,8 @@
         "prebuild": "npm run lint:fix",
         "build": "tsc",
         "start:js": "node ./dist/index.js",
-        "lint": "eslint src --ext .ts",
-        "lint:fix": "npm run lint -- --fix"
+        "lint": "npx eslint src --ext .ts",
+        "lint:fix": "npx eslint src --ext .ts --fix"
     },
     "dependencies": {
         "@naval-base/ms": "^2.2.1",
