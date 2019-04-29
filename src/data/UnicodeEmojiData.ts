@@ -1,3 +1,3 @@
-import { UnicodeEmojiData } from "../base/UnicodeEmoji";
+import { UnicodeEmojiData } from '../base/UnicodeEmoji';
 
-export const data: UnicodeEmojiData[] = []
+export const data: UnicodeEmojiData[] = [];

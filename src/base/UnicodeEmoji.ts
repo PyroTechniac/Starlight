@@ -1,6 +1,6 @@
 export class UnicodeEmoji {}
 
 export interface UnicodeEmojiData {
-	name: string;
-	icon: string;
+    name: string;
+    icon: string;
 }
