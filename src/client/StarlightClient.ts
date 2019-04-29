@@ -4,8 +4,9 @@ import { config } from 'dotenv';
 import { join } from 'path';
 import { Connection } from 'typeorm';
 import { createLogger, format, Logger, transports } from 'winston';
-import { Setting } from '../models';
+import { Reminder, Setting } from '../models';
 import database from '../structures/Database';
+import RemindScheduler from '../structures/RemindScheduler';
 import TypeORMProvider from '../structures/SettingsProvider';
 import { Config } from '../util/Config';
 import { StarlightUtil } from '../util/StarlightUtil';
@@ -18,6 +19,7 @@ declare module 'discord-akairo' {
         application: ClientApplication;
         invite: string;
         console: Logger;
+        remindScheduler: RemindScheduler
         config: Config;
     }
 }
@@ -69,6 +71,8 @@ export default class StarlightClient extends AkairoClient {
 
     public db!: Connection
 
+    public remindScheduler!: RemindScheduler;
+
     public settings!: TypeORMProvider
 
     public inhibitorHandler: InhibitorHandler = new InhibitorHandler(this, {
@@ -110,6 +114,8 @@ export default class StarlightClient extends AkairoClient {
         await this.db.connect();
         this.settings = new TypeORMProvider(this.db.getRepository(Setting));
         await this.settings.init();
+        this.remindScheduler = new RemindScheduler(this, this.db.getRepository(Reminder));
+        await this.remindScheduler.init();
     }
 
     public async login(): Promise<string> {
