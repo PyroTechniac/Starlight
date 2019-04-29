@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 import { ConnectionManager } from 'typeorm';
-import { Case, Tag, Reminder, RoleState, Setting } from '../models/index';
+import { Case, Reminder, RoleState, Setting, Tag } from '../models/index';
 config();
 
 const connectionManager = new ConnectionManager();

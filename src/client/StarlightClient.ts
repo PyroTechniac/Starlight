@@ -1,14 +1,14 @@
 import { AkairoClient, Command, CommandHandler, InhibitorHandler, ListenerHandler } from 'discord-akairo';
 import { ClientApplication, Message, Permissions, PermissionString } from 'discord.js';
+import { config } from 'dotenv';
 import { join } from 'path';
 import { Connection } from 'typeorm';
 import { createLogger, format, Logger, transports } from 'winston';
 import { Setting } from '../models/index';
 import database from '../structures/Database';
 import TypeORMProvider from '../structures/SettingsProvider';
-import { StarlightUtil } from '../util/StarlightUtil';
 import { Config } from '../util/Config';
-import { config } from 'dotenv';
+import { StarlightUtil } from '../util/StarlightUtil';
 config();
 declare module 'discord-akairo' {
     interface AkairoClient {

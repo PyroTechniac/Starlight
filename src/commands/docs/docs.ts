@@ -1,5 +1,5 @@
 import { Command } from 'discord-akairo';
-import { Message, MessageReaction, TextChannel, User, Collection } from 'discord.js';
+import { Collection, Message, MessageReaction, TextChannel, User } from 'discord.js';
 import fetch from 'node-fetch';
 import * as qs from 'querystring';
 

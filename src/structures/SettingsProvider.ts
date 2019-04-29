@@ -1,6 +1,6 @@
 import { Provider } from 'discord-akairo';
 import { Guild } from 'discord.js';
-import { Repository, DeleteResult } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { Setting } from '../models/Settings';
 
 export default class TypeORMProvider extends Provider {

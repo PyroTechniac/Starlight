@@ -1,6 +1,6 @@
+import { stripIndents } from 'common-tags';
 import { Command } from 'discord-akairo';
 import { Message, MessageEmbed } from 'discord.js';
-import { stripIndents } from 'common-tags';
 import { DefaultEmbedColor } from '../../util/Constants';
 
 export default class HelpCommand extends Command {

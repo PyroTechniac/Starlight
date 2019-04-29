@@ -1,7 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { stringify } from 'querystring';
 import fetch from 'node-fetch';
+import { stringify } from 'querystring';
 
 const Turndown = require('turndown') // eslint-disable-line
 export default class MDNCommand extends Command {

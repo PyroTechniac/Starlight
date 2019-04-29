@@ -1,5 +1,5 @@
 import { ClientUtil } from 'discord-akairo';
-import { fromString, fromNumber } from 'long';
+import { fromNumber, fromString } from 'long';
 
 const map: string[] = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K',
