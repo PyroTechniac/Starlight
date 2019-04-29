@@ -1,6 +1,6 @@
-import StarlightClient from '../client/StarlightClient';
 import { TextChannel } from 'discord.js';
-import { Repository, LessThan } from 'typeorm';
+import { LessThan, Repository } from 'typeorm';
+import StarlightClient from '../client/StarlightClient';
 import { Reminder } from '../models';
 
 export default class RemindScheduler {

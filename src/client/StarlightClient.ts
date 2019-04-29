@@ -4,8 +4,9 @@ import { config } from 'dotenv';
 import { join } from 'path';
 import { Connection } from 'typeorm';
 import { createLogger, format, Logger, transports } from 'winston';
-import { Reminder, Setting } from '../models';
+import { Case, Reminder, Setting } from '../models';
 import database from '../structures/Database';
+import MuteScheduler from '../structures/MuteScheduler';
 import RemindScheduler from '../structures/RemindScheduler';
 import TypeORMProvider from '../structures/SettingsProvider';
 import { Config } from '../util/Config';
@@ -78,6 +79,8 @@ export default class StarlightClient extends AkairoClient {
 
     public remindScheduler!: RemindScheduler;
 
+    public muteScheduler!: MuteScheduler;
+
     public settings!: TypeORMProvider
 
     public inhibitorHandler: InhibitorHandler = new InhibitorHandler(this, {
@@ -120,7 +123,9 @@ export default class StarlightClient extends AkairoClient {
         this.settings = new TypeORMProvider(this.db.getRepository(Setting));
         await this.settings.init();
         this.remindScheduler = new RemindScheduler(this, this.db.getRepository(Reminder));
+        this.muteScheduler = new MuteScheduler(this, this.db.getRepository(Case));
         await this.remindScheduler.init();
+        await this.muteScheduler.init();
     }
 
     public async login(): Promise<string> {
