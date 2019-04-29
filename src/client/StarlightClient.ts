@@ -11,7 +11,7 @@ import RemindScheduler from '../structures/RemindScheduler';
 import TypeORMProvider from '../structures/SettingsProvider';
 import { Config } from '../util/Config';
 import { StarlightUtil } from '../util/StarlightUtil';
-import { Util } from 'kurasuta'
+import { Util } from 'kurasuta';
 
 const { version }: { version: string } = require('../../package.json'); // eslint-disable-line
 config();
