@@ -1,5 +1,5 @@
 import { AkairoClient, Command, CommandHandler, InhibitorHandler, ListenerHandler } from 'discord-akairo';
-import { ClientApplication, Message, Permissions, PermissionString } from 'discord.js';
+import { ClientApplication, ClientOptions, Message, Permissions, PermissionString } from 'discord.js';
 import { config } from 'dotenv';
 import { join } from 'path';
 import { Connection } from 'typeorm';
@@ -11,6 +11,7 @@ import RemindScheduler from '../structures/RemindScheduler';
 import TypeORMProvider from '../structures/SettingsProvider';
 import { Config } from '../util/Config';
 import { StarlightUtil } from '../util/StarlightUtil';
+import { Util } from 'kurasuta'
 
 const { version }: { version: string } = require('../../package.json'); // eslint-disable-line
 config();
@@ -91,11 +92,11 @@ export default class StarlightClient extends AkairoClient {
         directory: join(__dirname, '..', 'listeners')
     })
 
-    public constructor() {
-        super({
+    public constructor(options: ClientOptions) {
+        super(Util.mergeDefault<ClientOptions>(options, {
             disableEveryone: true,
             disabledEvents: ['TYPING_START']
-        });
+        }));
     }
 
     public static basePermissions: Permissions = new Permissions(['SEND_MESSAGES', 'VIEW_CHANNEL'])
