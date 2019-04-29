@@ -1,6 +1,7 @@
 import { AkairoClient, Command, CommandHandler, InhibitorHandler, ListenerHandler } from 'discord-akairo';
 import { ClientApplication, ClientOptions, Message, Permissions, PermissionString } from 'discord.js';
 import { config } from 'dotenv';
+import { Util } from 'kurasuta';
 import { join } from 'path';
 import { Connection } from 'typeorm';
 import { createLogger, format, Logger, transports } from 'winston';
@@ -11,7 +12,7 @@ import RemindScheduler from '../structures/RemindScheduler';
 import TypeORMProvider from '../structures/SettingsProvider';
 import { Config } from '../util/Config';
 import { StarlightUtil } from '../util/StarlightUtil';
-import { Util } from 'kurasuta';
+import { CustomEmojiStore, CustomEmoji } from '../modules';
 
 const { version }: { version: string } = require('../../package.json'); // eslint-disable-line
 config();
@@ -26,6 +27,7 @@ declare module 'discord-akairo' {
         remindScheduler: RemindScheduler;
         config: Config;
         version: string;
+        customEmojis: CustomEmojiStore;
     }
 }
 
@@ -37,6 +39,8 @@ export default class StarlightClient extends AkairoClient {
     public config: Config = new Config(this, {
         token: process.env.TOKEN
     });
+
+    public customEmojis: CustomEmojiStore = new CustomEmojiStore(this);
 
     public console: Logger = createLogger({
         format: format.combine(
@@ -118,7 +122,7 @@ export default class StarlightClient extends AkairoClient {
         this.commandHandler.loadAll();
         this.inhibitorHandler.loadAll();
         this.listenerHandler.loadAll();
-
+        await this.customEmojis.init();
         this.db = database.get('Starlight');
         await this.db.connect();
         this.settings = new TypeORMProvider(this.db.getRepository(Setting));

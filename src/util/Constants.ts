@@ -1,5 +1,4 @@
 import { ConfigOptions } from './Config';
-import { Constructable } from 'discord.js';
 
 export interface AnyObj {
     [key: string]: any;
