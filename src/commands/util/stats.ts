@@ -5,8 +5,6 @@ import * as moment from 'moment';
 import 'moment-duration-format';
 import { DefaultEmbedColor } from '../../util/Constants';
 
-const { version } = require('../../../package.json'); // eslint-disable-line
-
 export default class StatsCommand extends Command {
     public constructor() {
         super('stats', {
@@ -34,7 +32,7 @@ export default class StatsCommand extends Command {
         `,
                 true
             )
-            .addField('❯ Version', `v${version}`, true)
+            .addField('❯ Version', `v${this.client.version}`, true)
             .addField('❯ Source Code', '[View Here](https://github.com/PyroTechniac/Starlight)', true)
             .addField(
                 '❯ Library',

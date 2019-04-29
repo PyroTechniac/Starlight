@@ -10,6 +10,8 @@ import RemindScheduler from '../structures/RemindScheduler';
 import TypeORMProvider from '../structures/SettingsProvider';
 import { Config } from '../util/Config';
 import { StarlightUtil } from '../util/StarlightUtil';
+
+const { version }: { version: string } = require('../../package.json'); // eslint-disable-line
 config();
 declare module 'discord-akairo' {
     interface AkairoClient {
@@ -19,12 +21,15 @@ declare module 'discord-akairo' {
         application: ClientApplication;
         invite: string;
         console: Logger;
-        remindScheduler: RemindScheduler
+        remindScheduler: RemindScheduler;
         config: Config;
+        version: string;
     }
 }
 
 export default class StarlightClient extends AkairoClient {
+    public version: string = version;
+
     public util: StarlightUtil = new StarlightUtil(this);
 
     public config: Config = new Config(this, {
