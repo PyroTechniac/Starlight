@@ -6,13 +6,13 @@ import { join } from 'path';
 import { Connection } from 'typeorm';
 import { createLogger, format, Logger, transports } from 'winston';
 import { Case, Reminder, Setting } from '../models';
+import { CustomEmojiStore } from '../modules/DEmoji';
 import database from '../structures/Database';
 import MuteScheduler from '../structures/MuteScheduler';
 import RemindScheduler from '../structures/RemindScheduler';
 import TypeORMProvider from '../structures/SettingsProvider';
 import { Config } from '../util/Config';
 import { StarlightUtil } from '../util/StarlightUtil';
-import { CustomEmojiStore, CustomEmoji } from '../modules';
 
 const { version }: { version: string } = require('../../package.json'); // eslint-disable-line
 config();

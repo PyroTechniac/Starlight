@@ -23,6 +23,13 @@
   resolved "https://registry.yarnpkg.com/@naval-base/ms/-/ms-2.2.1.tgz#def4aca5147b8c8888f787ae4248888ef68ce5ca"
   integrity sha512-VSphYbfd5wA6Dt4/j1tiUau1g4cBnEozA9oykFOKkhd6EREmBMiCZEc9ceSjqiHZTVJ2dcOypzdoLA63vfduHg==
 
+"@types/backoff@^2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@types/backoff/-/backoff-2.5.1.tgz#343d0f5c75c2c65d1f90f954f469506a3b4a41ed"
+  integrity sha512-eUNAT0dGCma0K35XcScxCP5usgCyxFypkVUN1TiHLhqGzbLnb/fVhz5yoXzj/SYLuXxE9SK6k4m+FQZQqQ4QaQ==
+  dependencies:
+    "@types/node" "*"
+
 "@types/common-tags@^1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@types/common-tags/-/common-tags-1.8.0.tgz#79d55e748d730b997be5b7fce4b74488d8b26a6b"
@@ -246,6 +253,13 @@ aws4@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
   integrity sha512-ReZxvNHIOv88FlT7rxcXIIC0fPt4KZqZbOlivyWtXLt8ESx84zd3kMC6iK5jVeS2qt+g7ftS7ye4fi06X5rtRQ==
+
+backoff@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/backoff/-/backoff-2.5.0.tgz#f616eda9d3e4b66b8ca7fca79f695722c5f8e26f"
+  integrity sha1-9hbtqdPktmuMp/ynn2lXIsX44m8=
+  dependencies:
+    precond "0.2"
 
 balanced-match@^1.0.0:
   version "1.0.0"
@@ -552,7 +566,7 @@ discord.js@discordjs/discord.js:
     form-data "^2.3.3"
     node-fetch "^2.3.0"
     pako "^1.0.8"
-    prism-media "^1.0.0"
+    prism-media amishshah/prism-media
     setimmediate "^1.0.5"
     tweetnacl "^1.0.1"
     ws "^6.1.3"
@@ -1662,15 +1676,19 @@ postgres-interval@^1.1.0:
   dependencies:
     xtend "^4.0.0"
 
+precond@0.2:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/precond/-/precond-0.2.3.tgz#aa9591bcaa24923f1e0f4849d240f47efc1075ac"
+  integrity sha1-qpWRvKokkj8eD0hJ0kD0fvwQdaw=
+
 prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
 
-prism-media@^1.0.0:
+prism-media@amishshah/prism-media:
   version "1.0.2"
-  resolved "https://registry.yarnpkg.com/prism-media/-/prism-media-1.0.2.tgz#1e0f097f67d799211177a50d5276fdd2ef1c7fd7"
-  integrity sha512-KCu3SlT1EtS0lvF74NGLSTzr5jrkRajE9n+S2jnUvvdiN5SpjsGj0/HgR1QK9+985Yv8cxjwZnpFRaj+SimDGA==
+  resolved "https://codeload.github.com/amishshah/prism-media/tar.gz/a2afc71f92f2e6b9e123c4a690e785faaa0e6391"
 
 process-nextick-args@~2.0.0:
   version "2.0.0"
