@@ -7,12 +7,8 @@ import { Connection } from 'typeorm';
 import { createLogger, format, Logger, transports } from 'winston';
 import { Case, Reminder, Setting } from '../models';
 import { CustomEmojiStore } from '../modules/DEmoji';
-import database from '../structures/Database';
-import MuteScheduler from '../structures/MuteScheduler';
-import RemindScheduler from '../structures/RemindScheduler';
-import TypeORMProvider from '../structures/SettingsProvider';
-import { Config } from '../util/Config';
-import { StarlightUtil } from '../util/StarlightUtil';
+import { Database as database, MuteScheduler, RemindScheduler, TypeORMProvider } from '../structures';
+import { Config, StarlightUtil } from '../util/';
 
 const { version }: { version: string } = require('../../package.json'); // eslint-disable-line
 config();
