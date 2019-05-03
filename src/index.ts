@@ -3,4 +3,7 @@ import 'reflect-metadata';
 import StarlightClient from './client/StarlightClient';
 config();
 
-new StarlightClient().start();
+new StarlightClient({
+    disableEveryone: true,
+    disabledEvents: ['TYPING_START']
+}).start();
