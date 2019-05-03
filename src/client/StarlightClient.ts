@@ -91,11 +91,8 @@ export default class StarlightClient extends AkairoClient {
         directory: join(__dirname, '..', 'listeners')
     })
 
-    public constructor() {
-        super({
-            disableEveryone: true,
-            disabledEvents: ['TYPING_START']
-        });
+    public constructor(options?: ClientOptions) {
+        super(options);
     }
 
     public static basePermissions: Permissions = new Permissions(['SEND_MESSAGES', 'VIEW_CHANNEL'])
