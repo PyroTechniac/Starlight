@@ -11,7 +11,7 @@ export default class SetGitHubRepositoryCommand extends Command {
                 examples: ['PyroTechniac/Starlight', 'discordjs/discord.js']
             },
             category: 'config',
-            channel: "guild",
+            channel: 'guild',
             userPermissions: ['MANAGE_GUILD'],
             ratelimit: 2,
             args: [
@@ -20,11 +20,11 @@ export default class SetGitHubRepositoryCommand extends Command {
                     type: 'string'
                 }
             ]
-        })
+        });
     }
 
-    public async exec(msg: Message, {repository}: {repository: string}): Promise<Message | Message[]> {
+    public async exec(msg: Message, { repository }: {repository: string}): Promise<Message | Message[]> {
         this.client.settings.set(msg.guild, 'githubRepository', repository);
-        return msg.util.reply(`Set repo to **${repository}**`)
+        return msg.util.reply(`Set repo to **${repository}**`);
     }
 }
