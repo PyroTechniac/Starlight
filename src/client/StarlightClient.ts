@@ -1,7 +1,6 @@
 import { AkairoClient, Command, CommandHandler, InhibitorHandler, ListenerHandler } from 'discord-akairo';
 import { ClientApplication, ClientOptions, Message, Permissions, PermissionString } from 'discord.js';
 import { config } from 'dotenv';
-import { Util } from 'kurasuta';
 import { join } from 'path';
 import { Connection } from 'typeorm';
 import { createLogger, format, Logger, transports } from 'winston';
@@ -92,11 +91,11 @@ export default class StarlightClient extends AkairoClient {
         directory: join(__dirname, '..', 'listeners')
     })
 
-    public constructor(options: ClientOptions) {
-        super(Util.mergeDefault<ClientOptions>(options, {
+    public constructor() {
+        super({
             disableEveryone: true,
             disabledEvents: ['TYPING_START']
-        }));
+        });
     }
 
     public static basePermissions: Permissions = new Permissions(['SEND_MESSAGES', 'VIEW_CHANNEL'])
@@ -129,9 +128,9 @@ export default class StarlightClient extends AkairoClient {
         await this.muteScheduler.init();
     }
 
-    public async login(): Promise<string> {
+    public async start(): Promise<string> {
         await this._init();
-        return super.login(this.config.token);
+        return this.login(this.config.token);
     }
 
     public async fetchApplication(): Promise<ClientApplication> {
