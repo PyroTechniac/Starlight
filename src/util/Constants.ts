@@ -47,5 +47,3 @@ export const Cron = {
 };
 
 export const tokenRegex = new RegExp(Object.keys(Cron.tokens).join('|'), 'g');
-
-export const DAY = 1000 * 60 * 60 * 24;
