@@ -25,6 +25,14 @@ export default class StatsCommand extends Command {
             .addField('❯ Uptime', moment.duration(this.client.uptime).format('d[d ]h[h ]m[m ]s[s]'), true)
             .addField('❯ Memory Usage', `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`, true)
             .addField(
+                '❯ Usage Stats',
+                stripIndents`
+            • Messages: ${this.client.config.messages.count}
+            • Commands: ${this.client.config.messages.count}
+                `,
+                true
+            )
+            .addField(
                 '❯ General Stats',
                 stripIndents`
             • Guilds: ${this.client.guilds.size}
