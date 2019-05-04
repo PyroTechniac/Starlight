@@ -5,5 +5,6 @@ config();
 
 new StarlightClient({
     disableEveryone: true,
-    disabledEvents: ['TYPING_START']
+    disabledEvents: ['TYPING_START'],
+    partials: ['MESSAGE']
 }).start();

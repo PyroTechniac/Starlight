@@ -61,6 +61,7 @@ export default class StarlightClient extends AkairoClient {
         handleEdits: true,
         commandUtilLifetime: 3e5,
         defaultCooldown: 3000,
+        fetchMembers: true,
         argumentDefaults: {
             prompt: {
                 modifyStart: (_, str): string => `${str}\n\nType \`cancel\` to cancel the command`,
