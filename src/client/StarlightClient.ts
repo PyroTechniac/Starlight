@@ -128,7 +128,7 @@ export default class StarlightClient extends AkairoClient {
     public async start(): Promise<string> {
         const timer = new Stopwatch();
         await this._init();
-        this.emit('debug', `Loaded in ${timer.stop()}`)
+        this.emit('debug', `Loaded in ${timer.stop()}`);
         return this.login(this.config.token);
     }
 
