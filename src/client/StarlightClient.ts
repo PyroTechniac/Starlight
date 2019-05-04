@@ -129,6 +129,12 @@ export default class StarlightClient extends AkairoClient {
         this.muteScheduler = new MuteScheduler(this, this.db.getRepository(Case));
         await this.remindScheduler.init();
         await this.muteScheduler.init();
+
+        this.setInterval(() => {
+            for (const guild of this.guilds.values()) {
+                guild.presences.clear();
+            }
+        }, 900);
     }
 
     public async start(): Promise<string> {
