@@ -11,7 +11,7 @@ export class Config {
     private _commands: Counter = new Counter(this.client, this);
     public constructor(public readonly client: StarlightClient, options?: ConfigOptions) {
         options = this.client.util.mergeDefault(DefaultConfigOptions, options);
-        Config.validate(options);
+        this.validate(options);
         this._token = options.token;
         this._prefix = options.prefix;
         this._ownerID = options.ownerID;
@@ -42,9 +42,10 @@ export class Config {
         this._ownerID = id;
     }
 
-    private static validate(options: ConfigOptions) {
+    private validate(options: ConfigOptions) {
         if (options.prefix.length < 1 || options.prefix.length > 15) throw new StarlightError('PREFIX_LENGTH', '1-15', options.prefix.length);
         if (!/^[a-zA-Z0-9._-]{59}$/.test(options.token)) throw new StarlightError('INVALID_TOKEN', options.token);
+        if (!options.ownerID) this.client.console.debug('No owner ID provided, will be loaded when client is ready');
     }
 }
 

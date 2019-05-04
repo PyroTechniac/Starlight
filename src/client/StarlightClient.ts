@@ -34,14 +34,6 @@ export default class StarlightClient extends AkairoClient {
 
     public util: StarlightUtil = new StarlightUtil(this);
 
-    public config: Config = new Config(this, {
-        token: process.env.TOKEN
-    });
-
-    public customEmojis: CustomEmojiStore = new CustomEmojiStore(this);
-
-    public static plugin = Symbol('StarlightPlugin');
-
     public console: Logger = createLogger({
         format: format.combine(
             format.colorize({ level: true }),
@@ -55,6 +47,14 @@ export default class StarlightClient extends AkairoClient {
             new transports.Console({ level: process.env.NODE_ENV === 'production' ? 'info' : 'debug' })
         ]
     })
+
+    public config: Config = new Config(this, {
+        token: process.env.TOKEN
+    });
+
+    public customEmojis: CustomEmojiStore = new CustomEmojiStore(this);
+
+    public static plugin = Symbol('StarlightPlugin');
 
     public commandHandler: CommandHandler = new CommandHandler(this, {
         directory: join(__dirname, '..', 'commands'),
