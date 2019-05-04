@@ -18,6 +18,7 @@ declare module 'discord-akairo' {
         db: Connection;
         settings: TypeORMProvider;
         commandHandler: CommandHandler;
+        listenerHandler: ListenerHandler;
         application: ClientApplication;
         invite: string;
         console: Logger;
