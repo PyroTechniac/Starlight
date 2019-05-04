@@ -1,17 +1,28 @@
 import StarlightClient from '../client/StarlightClient';
 import { DefaultConfigOptions } from './Constants';
 import { StarlightError } from './StarlightError';
+import { Counter } from './Counter';
 
 export class Config {
     private _token: string;
     private _prefix: string;
     private _ownerID: string;
+    private _messages: Counter = new Counter(this.client, this);
+    private _commands: Counter = new Counter(this.client, this);
     public constructor(public readonly client: StarlightClient, options?: ConfigOptions) {
         options = this.client.util.mergeDefault(DefaultConfigOptions, options);
         Config.validate(options);
         this._token = options.token;
         this._prefix = options.prefix;
         this._ownerID = options.ownerID;
+    }
+
+    public get messages(): Counter {
+        return this._messages;
+    }
+
+    public get commands(): Counter {
+        return this._commands;
     }
 
     public get token(): string {

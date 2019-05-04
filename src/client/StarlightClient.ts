@@ -9,6 +9,8 @@ import { CustomEmojiStore } from '../modules/DEmoji';
 import { Database as database, MuteScheduler, RemindScheduler, TypeORMProvider } from '../structures';
 import { Config, StarlightUtil, Stopwatch } from '../util/';
 
+const plugins = new Set();
+
 const { version }: { version: string } = require('../../package.json'); // eslint-disable-line
 config();
 declare module 'discord-akairo' {
@@ -36,6 +38,8 @@ export default class StarlightClient extends AkairoClient {
     });
 
     public customEmojis: CustomEmojiStore = new CustomEmojiStore(this);
+
+    public static plugin = Symbol('StarlightPlugin');
 
     public console: Logger = createLogger({
         format: format.combine(
@@ -93,6 +97,8 @@ export default class StarlightClient extends AkairoClient {
 
     public constructor(options?: ClientOptions) {
         super(options);
+
+        for (const plugin of plugins) plugin.call(this);
     }
 
     public static basePermissions: Permissions = new Permissions(['SEND_MESSAGES', 'VIEW_CHANNEL'])
@@ -135,5 +141,12 @@ export default class StarlightClient extends AkairoClient {
     public async fetchApplication(): Promise<ClientApplication> {
         this.application = await super.fetchApplication();
         return this.application;
+    }
+
+    public static use(mod: any): typeof StarlightClient {
+        const plugin = mod[this.plugin];
+        if (typeof plugin !== 'function') throw new TypeError('The provided module does not include a plugin function');
+        plugins.add(plugin);
+        return this;
     }
 }
