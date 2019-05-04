@@ -7,7 +7,7 @@ import { createLogger, format, Logger, transports } from 'winston';
 import { Case, Reminder, Setting } from '../models';
 import { CustomEmojiStore } from '../modules/DEmoji';
 import { Database as database, MuteScheduler, RemindScheduler, TypeORMProvider } from '../structures';
-import { Config, StarlightUtil } from '../util/';
+import { Config, StarlightUtil, Stopwatch } from '../util/';
 
 const { version }: { version: string } = require('../../package.json'); // eslint-disable-line
 config();
@@ -126,7 +126,9 @@ export default class StarlightClient extends AkairoClient {
     }
 
     public async start(): Promise<string> {
+        const timer = new Stopwatch();
         await this._init();
+        this.emit('debug', `Loaded in ${timer.stop()}`)
         return this.login(this.config.token);
     }
 
