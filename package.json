@@ -20,6 +20,7 @@
         "@types/moment-duration-format": "^2.2.2",
         "@types/node": "^12.0.0",
         "@types/node-fetch": "^2.3.2",
+        "@types/node-json-db": "0.0.1",
         "@types/ws": "^6.0.1",
         "bufferutil": "^4.0.1",
         "common-tags": "^1.8.0",
@@ -30,6 +31,7 @@
         "moment": "^2.24.0",
         "moment-duration-format": "^2.2.2",
         "node-fetch": "^2.5.0",
+        "node-json-db": "0.7.3",
         "pg": "^7.10.0",
         "reflect-metadata": "^0.1.13",
         "ts-node": "^8.1.0",
@@ -71,7 +73,8 @@
             "no-use-before-define": "off",
             "guard-for-in": "off",
             "promise/always-return": "off",
-            "promise/prefer-await-to-then": "off"
+            "promise/prefer-await-to-then": "off",
+            "max-statements-per-line": "off"
         }
     },
     "eslintIgnore": [

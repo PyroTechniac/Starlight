@@ -15,7 +15,8 @@
             "common-tags",
             "moment-duration-format",
             "node-fetch",
-            "veza"
+            "veza",
+            "node-json-db"
         ],
         "noEmitOnError": true
     },
