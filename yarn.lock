@@ -66,7 +66,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node-json-db@^0.0.1":
+"@types/node-json-db@0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@types/node-json-db/-/node-json-db-0.0.1.tgz#f5e60b36e8b3592ac047f427595de3f2d6592b86"
   integrity sha1-9eYLNuizWSrAR/QnWV3j8tZZK4Y=
@@ -1486,10 +1486,10 @@ node-gyp-build@~3.7.0:
   resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-3.7.0.tgz#daa77a4f547b9aed3e2aac779eaf151afd60ec8d"
   integrity sha512-L/Eg02Epx6Si2NXmedx+Okg+4UHqmaf3TNcxd50SF9NQGcJaON3AtU++kax69XV7YWz4tUspqZSAsVofhFKG2w==
 
-node-json-db@0.7.3:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/node-json-db/-/node-json-db-0.7.3.tgz#bf631ff4d4cf4211cbdffe6cae6aaafe6ee54cdf"
-  integrity sha1-v2Mf9NTPQhHL3/5srmqq/m7lTN8=
+node-json-db@0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/node-json-db/-/node-json-db-0.11.0.tgz#b62dfb9e43619a798ef14edb82002db55c27ef4b"
+  integrity sha512-QsP8/qJmVPhC2qnxO3O4NIsAd/FDVnO/eNtQvATkWjhPZe7sKeANGcELHk2vnJt6qXHmvolLP1ylaFjSvp9hcw==
   dependencies:
     mkdirp "0.5.x"
 
