@@ -66,7 +66,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node-json-db@^0.0.1":
+"@types/node-json-db@0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@types/node-json-db/-/node-json-db-0.0.1.tgz#f5e60b36e8b3592ac047f427595de3f2d6592b86"
   integrity sha1-9eYLNuizWSrAR/QnWV3j8tZZK4Y=
@@ -2350,7 +2350,8 @@ verror@1.10.0:
 
 veza@kyranet/veza:
   version "0.4.0"
-  resolved "https://codeload.github.com/kyranet/veza/tar.gz/b2d8c3ebc785e2a57aedb9226c058852417408f1"
+  uid ccf154e7708730c089d435b8ad343d227bcd9ce5
+  resolved "https://codeload.github.com/kyranet/veza/tar.gz/ccf154e7708730c089d435b8ad343d227bcd9ce5"
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"
