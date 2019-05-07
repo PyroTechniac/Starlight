@@ -8,15 +8,7 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "types": [
-            "node",
-            "discord.js",
-            "discord-akairo",
-            "dotenv",
-            "common-tags",
-            "moment-duration-format",
-            "node-fetch",
-            "veza",
-            "node-json-db"
+            "node"
         ],
         "noEmitOnError": true
     },
