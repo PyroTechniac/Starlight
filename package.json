@@ -4,10 +4,9 @@
     "author": "Gryffon Bellish <owenbellish@gmail.com>",
     "license": "MIT",
     "scripts": {
-        "build": "gulp default",
+        "build": "gulp build",
         "start:js": "node ./dist/index.js",
-        "lint": "npx eslint src --ext .ts",
-        "lint:fix": "npx eslint src --ext .ts --fix"
+        "lint": "gulp fix"
     },
     "dependencies": {
         "discord.js": "discordjs/discord.js",

@@ -1,0 +1,20 @@
+export enum ColorsBackgrounds {
+    black = 40,
+    red,
+    green,
+    yellow,
+    blue,
+    magenta,
+    cyan,
+    gray,
+    grey = 47,
+    lightgray = 100,
+    lightgrey = 100,
+    lightred,
+    lightgreen,
+    lightyellow,
+    lightblue,
+    lightmagenta,
+    lightcyan,
+    white
+}

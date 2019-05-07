@@ -19,7 +19,7 @@ const lint = () => {
 		.pipe(eslint.failAfterError())
 }
 
-const build = () => {
+const transpile = () => {
 	const tsCompile = gulp.src('src/**/*.ts')
 		.pipe(project())
 
@@ -33,4 +33,5 @@ const clean = () => {
 	return del([`${out}/**/*.*`])
 }
 
-exports.default = gulp.series(gulp.parallel(clean, lint), build)
+exports.build = gulp.series(gulp.parallel(clean, lint), transpile)
+exports.fix = gulp.parallel(clean, lint);
