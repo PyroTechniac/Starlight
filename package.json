@@ -4,9 +4,8 @@
     "author": "Gryffon Bellish <owenbellish@gmail.com>",
     "license": "MIT",
     "scripts": {
-        "start:ts": "ts-node ./src/index.ts",
         "prebuild": "npm run lint:fix",
-        "build": "tsc",
+        "build": "gulp build",
         "start:js": "node ./dist/index.js",
         "lint": "npx eslint src --ext .ts",
         "lint:fix": "npx eslint src --ext .ts --fix"
@@ -21,6 +20,7 @@
         "eslint": "^5.16.0",
         "eslint-config-marine": "^2.2.0",
         "gulp": "^4.0.2",
+        "gulp-eslint": "^5.0.0",
         "gulp-typescript": "^5.0.1",
         "typescript": "^3.4.5"
     },
