@@ -12,28 +12,25 @@ const isFixed = file => file.eslint != null && file.eslint.fixed
 
 const project = ts.createProject('tsconfig.json');
 const lint = () => {
-	gulp.src('src/**/*.ts')
+	return gulp.src('src/**/*.ts')
 		.pipe(eslint({ fix: true }))
+		.pipe(gulpIf(isFixed, gulp.dest('src')))
 		.pipe(eslint.format())
 		.pipe(eslint.failAfterError())
-		.pipe(gulpIf(isFixed, gulp.dest('src')))
-	return Promise.resolve();
 }
 
 const build = () => {
 	const tsCompile = gulp.src('src/**/*.ts')
 		.pipe(project())
 
-	tsCompile.pipe(gulp.dest(out))
-
 	gulp.src('src/**/*.js').pipe(gulp.dest(out))
 	gulp.src('src/**/*.json').pipe(gulp.dest(out))
-	return Promise.resolve();
+	return tsCompile.pipe(gulp.dest(out))
+
 }
 
-const preBuild = () => {
-	del.sync([`${out}/**/*.*`])
-	return Promise.resolve();
+const clean = () => {
+	return del([`${out}/**/*.*`])
 }
 
-exports.default = gulp.series(preBuild, lint, build)
+exports.default = gulp.series(gulp.parallel(clean, lint), build)
