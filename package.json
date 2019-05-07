@@ -4,8 +4,7 @@
     "author": "Gryffon Bellish <owenbellish@gmail.com>",
     "license": "MIT",
     "scripts": {
-        "prebuild": "npm run lint:fix",
-        "build": "gulp build",
+        "build": "gulp default",
         "start:js": "node ./dist/index.js",
         "lint": "npx eslint src --ext .ts",
         "lint:fix": "npx eslint src --ext .ts --fix"
@@ -18,42 +17,9 @@
         "@typescript-eslint/parser": "^1.6.0",
         "del": "^4.1.1",
         "eslint": "^5.16.0",
-        "eslint-config-marine": "^2.2.0",
         "gulp": "^4.0.2",
         "gulp-eslint": "^5.0.0",
         "gulp-typescript": "^5.0.1",
         "typescript": "^3.4.5"
-    },
-    "eslintConfig": {
-        "extends": "marine/node",
-        "rules": {
-            "@typescript-eslint/indent": [
-                "error",
-                4,
-                "spaces"
-            ],
-            "quotes": [
-                "error",
-                "single"
-            ],
-            "multiline-ternary": "off",
-            "@typescript-eslint/explicit-function-return-type": "off",
-            "radix": "off",
-            "@typescript-eslint/promise-function-async": "off",
-            "promise/prefer-await-to-callbacks": "off",
-            "@typescript-eslint/no-extraneous-class": "off",
-            "@typescript-eslint/no-object-literal-type-assertion": "off",
-            "@typescript-eslint/no-parameter-properties": "off",
-            "no-useless-constructor": "off",
-            "@typescript-eslint/no-use-before-define": "off",
-            "no-use-before-define": "off",
-            "guard-for-in": "off",
-            "promise/always-return": "off",
-            "promise/prefer-await-to-then": "off",
-            "max-statements-per-line": "off"
-        }
-    },
-    "eslintIgnore": [
-        "dist/**"
-    ]
+    }
 }
