@@ -10,7 +10,8 @@
         "types": [
             "node"
         ],
-        "noEmitOnError": true
+        "noEmitOnError": true,
+        "strictNullChecks": true
     },
     "include": [
         "src"

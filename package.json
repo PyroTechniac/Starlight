@@ -9,7 +9,10 @@
         "lint": "npx eslint src --ext .ts",
         "lint:fix": "npx eslint src --ext .ts --fix"
     },
-    "dependencies": {},
+    "dependencies": {
+        "discord.js": "discordjs/discord.js",
+        "fs-nextra": "^0.4.5"
+    },
     "devDependencies": {
         "@types/node": "^12.0.0",
         "@types/ws": "^6.0.1",
@@ -19,6 +22,7 @@
         "eslint": "^5.16.0",
         "gulp": "^4.0.2",
         "gulp-eslint": "^5.0.0",
+        "gulp-if": "^2.0.2",
         "gulp-typescript": "^5.0.1",
         "typescript": "^3.4.5"
     }

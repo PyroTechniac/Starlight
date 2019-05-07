@@ -3,21 +3,24 @@
 const gulp = require('gulp');
 const ts = require('gulp-typescript');
 const del = require('del');
+const gulpIf = require('gulp-if');
 const eslint = require('gulp-eslint');
 const path = require('path');
 const out = 'dist/'
 
+const isFixed = file => file.eslint != null && file.eslint.fixed
+
 const project = ts.createProject('tsconfig.json');
 const lint = () => {
 	gulp.src('src/**/*.ts')
-		.pipe(eslint({ configFile: path.join(__dirname, '.eslintrc.json') }))
-		.pipe(eslint.formatEach())
+		.pipe(eslint({ fix: true }))
+		.pipe(eslint.format())
 		.pipe(eslint.failAfterError())
+		.pipe(gulpIf(isFixed, gulp.dest('src')))
 	return Promise.resolve();
 }
 
 const build = () => {
-	del.sync([`${out}/**/*.*`])
 	const tsCompile = gulp.src('src/**/*.ts')
 		.pipe(project())
 
@@ -28,6 +31,9 @@ const build = () => {
 	return Promise.resolve();
 }
 
+const preBuild = () => {
+	del.sync([`${out}/**/*.*`])
+	return Promise.resolve();
+}
 
-
-exports.default = gulp.series(lint, build)
+exports.default = gulp.series(preBuild, lint, build)
