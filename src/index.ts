@@ -2,7 +2,7 @@ import { StarlightClient } from './client/Client';
 import { config } from 'dotenv';
 config();
 StarlightClient.use(require('./plugins/functions'))
-    .use(require('./plugins/points'));
+    .use(require('@kcp/channels-gateway'));
 
 const production = process.env.NODE_ENV === 'production';
 

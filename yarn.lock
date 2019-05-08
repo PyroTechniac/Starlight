@@ -18,6 +18,11 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
+"@kcp/channels-gateway@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@kcp/channels-gateway/-/channels-gateway-1.0.0.tgz#5634ba00029f5f21b23a428fdd3ebbc0c975fa92"
+  integrity sha512-aAr1rZoRiQEAD9HcRTN2xolMS3o5Qbt4t8YxJf2oZ6uqvEDZDKzw2mW9nU2cuvd/YzUZRfIPDeGYFGCbcZupFw==
+
 "@types/dotenv@^6.1.1":
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/@types/dotenv/-/dotenv-6.1.1.tgz#f7ce1cc4fe34f0a4373ba99fefa437b0bec54b46"
