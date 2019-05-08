@@ -8,7 +8,9 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "types": [
-            "node"
+            "node",
+            "discord.js",
+            "klasa"
         ],
         "noEmitOnError": true,
         "strictNullChecks": true
