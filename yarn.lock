@@ -736,12 +736,13 @@ detect-libc@^1.0.2:
 
 discord.js@discordjs/discord.js:
   version "12.0.0-dev"
-  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/8915bc1d37f1b83fc9bbd3cfef337bd5f75e4779"
+  uid "0dd3ed72ef3e2c76fe330e13ec572ad05be505a2"
+  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/0dd3ed72ef3e2c76fe330e13ec572ad05be505a2"
   dependencies:
     form-data "^2.3.3"
     node-fetch "^2.3.0"
     pako "^1.0.8"
-    prism-media amishshah/prism-media
+    prism-media "^1.0.0"
     setimmediate "^1.0.5"
     tweetnacl "^1.0.1"
     ws "^6.1.3"
@@ -2407,9 +2408,10 @@ pretty-hrtime@^1.0.0:
   resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
   integrity sha1-t+PqQkNaTJsnWdmeDyAesZWALuE=
 
-prism-media@amishshah/prism-media:
+prism-media@^1.0.0:
   version "1.0.2"
-  resolved "https://codeload.github.com/amishshah/prism-media/tar.gz/94e70ec6aee3e68cd0b972c44a38596707c92557"
+  resolved "https://registry.yarnpkg.com/prism-media/-/prism-media-1.0.2.tgz#1e0f097f67d799211177a50d5276fdd2ef1c7fd7"
+  integrity sha512-KCu3SlT1EtS0lvF74NGLSTzr5jrkRajE9n+S2jnUvvdiN5SpjsGj0/HgR1QK9+985Yv8cxjwZnpFRaj+SimDGA==
 
 process-nextick-args@^1.0.7:
   version "1.0.7"
