@@ -26,7 +26,7 @@ const transpile = () => {
 
 }
 
-const moveJson = () => {
+const copy = () => {
 	return gulp.src(['src/**/*.js', 'src/**/*.json']).pipe(gulp.dest(out))
 }
 
@@ -35,5 +35,5 @@ const clean = () => {
 }
 
 const fix = gulp.parallel(clean, lint);
-exports.build = gulp.series(fix, moveJson, transpile)
+exports.build = gulp.series(fix, copy, transpile)
 exports.fix = fix;
