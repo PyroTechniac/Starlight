@@ -15,7 +15,8 @@
             "dotenv"
         ],
         "noEmitOnError": true,
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "declaration": true
     },
     "include": [
         "src"

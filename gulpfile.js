@@ -2,10 +2,11 @@
 
 const gulp = require('gulp');
 const ts = require('gulp-typescript');
-const del = require('del');
 const gulpIf = require('gulp-if');
+const fsn = require('fs-nextra')
 const eslint = require('gulp-eslint');
-const path = require('path');
+const merge = require('merge2');
+const sourcemaps = require('gulp-sourcemaps');
 const out = 'dist/'
 
 const isFixed = file => file.eslint != null && file.eslint.fixed
@@ -20,10 +21,14 @@ const lint = () => {
 }
 
 const transpile = () => {
-	return gulp.src('src/**/*.ts')
+	const result = project.src()
+		.pipe(sourcemaps.init())
 		.pipe(project())
-		.pipe(gulp.dest(out))
 
+	return merge([
+		result.dts.pipe(gulp.dest('typings')),
+		result.js.pipe(sourcemaps.write('.'), { sourceRoot: '../src' }).pipe(gulp.dest(out))
+	])
 }
 
 const copy = () => {
@@ -31,7 +36,10 @@ const copy = () => {
 }
 
 const clean = () => {
-	return del([out])
+	return Promise.all([
+		fsn.emptyDir('dist'),
+		fsn.emptyDir('typings')
+	])
 }
 
 const fix = gulp.parallel(clean, lint);
