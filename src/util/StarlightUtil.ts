@@ -6,8 +6,121 @@ import { Stream } from 'stream';
 export class ClientUtil {
     public constructor(public readonly client: Klasa.KlasaClient) { }
 
-    public resolveEmoji(text: string, emojis: Discord.Collection<Discord.Snowflake, Discord.Emoji>, caseSensitive = false, wholeWord = false): Discord.Emoji {
-        return emojis.get(text) || emojis.find((emoji): boolean => this.checkEmoji)
+    public resolveUser(text: string, users: Discord.Collection<Discord.Snowflake, Klasa.KlasaUser>, caseSensitive = false, wholeWord = false): Klasa.KlasaUser | undefined {
+        return users.get(text) || users.find((user): boolean => this.checkUser(text, user, caseSensitive, wholeWord));
+    }
+
+    public resolveUsers(text: string, users: Discord.Collection<Discord.Snowflake, Klasa.KlasaUser>, caseSensitive = false, wholeWord = false): Discord.Collection<Discord.Snowflake, Klasa.KlasaUser> {
+        return users.filter((user): boolean => this.checkUser(text, user, caseSensitive, wholeWord));
+    }
+
+    public checkUser(text: string, user: Klasa.KlasaUser, caseSensitive = false, wholeWord = false): boolean {
+        if (user.id === text) return true;
+
+        const reg = /<@!?(\d{17,19})>/;
+        const match = text.match(reg);
+
+        if (match && user.id === match[1]) return true;
+
+        text = caseSensitive ? text : text.toLowerCase();
+        let {username, discriminator} = user;
+        username = caseSensitive ? username : username.toLowerCase();
+
+        if (!wholeWord) {
+            return username.includes(text)
+            || (username.includes(text.split('#')[0]) && discriminator.includes(text.split('#')[1]));
+        }
+
+        return username === text
+        || (username === text.split('#')[0] && discriminator === text.split('#')[1]);
+    }
+
+    public resolveMember(text: string, members: Discord.Collection<Discord.Snowflake, Discord.GuildMember>, caseSensitive = false, wholeWord = false): Discord.GuildMember | undefined {
+        return members.get(text) || members.find((member): boolean => this.checkMember(text, member, caseSensitive, wholeWord));
+    }
+
+    public resolveMembers(text: string, members: Discord.Collection<Discord.Snowflake, Discord.GuildMember>, caseSensitive = false, wholeWord = false): Discord.Collection<Discord.Snowflake, Discord.GuildMember> {
+        return members.filter((member): boolean => this.checkMember(text, member, caseSensitive, wholeWord));
+    }
+
+    public checkMember(text: string, member: Discord.GuildMember, caseSensitive = false, wholeWord = false): boolean {
+        if (member.id === text) return true;
+
+        const reg = /<@!?(\d{17,19})>/;
+        const match = text.match(reg);
+
+        if (match && member.id === match[1]) return true;
+
+        text = caseSensitive ? text : text.toLowerCase();
+        const username = caseSensitive ? member.user.username : member.user.username.toLowerCase();
+        const displayName = caseSensitive ? member.displayName : member.displayName.toLowerCase();
+        const { discriminator } = member.user;
+
+        if (!wholeWord) {
+            return displayName.includes(text)
+                || username.includes(text)
+                || ((username.includes(text.split('#')[0]) || displayName.includes(text.split('#')[0])) && discriminator.includes(text.split('#')[1]));
+        }
+
+        return displayName === text
+        || username === text
+        || ((username === text.split('#')[0] || displayName === text.split('#')[0]) && discriminator === text.split('#')[1]);
+    }
+
+    public resolveChannel(text: string, channels: Discord.Collection<Discord.Snowflake, Discord.GuildChannel>, caseSensitive = false, wholeWord = false): Discord.GuildChannel | undefined {
+        return channels.get(text) || channels.find((channel): boolean => this.checkChannel(text, channel, caseSensitive, wholeWord));
+    }
+
+    public resolveChannels(text: string, channels: Discord.Collection<Discord.Snowflake, Discord.GuildChannel>, caseSensitive = false, wholeWord = false): Discord.Collection<Discord.Snowflake, Discord.GuildChannel> {
+        return channels.filter((channel): boolean => this.checkChannel(text, channel, caseSensitive, wholeWord));
+    }
+
+    public checkChannel(text: string, channel: Discord.GuildChannel, caseSensitive = false, wholeWord = false): boolean {
+        if (channel.id === text) return true;
+
+        const reg = /<#(\d{17,19})>/;
+        const match = text.match(reg);
+
+        if (match && channel.id === match[1]) return true;
+
+        text = caseSensitive ? text : text.toLowerCase();
+        const name = caseSensitive ? channel.name : channel.name.toLowerCase();
+
+        if (!wholeWord) {
+            return name.includes(text) || name.includes(text.replace(/^#/, ''));
+        }
+
+        return name === text || name === text.replace(/^#/, '');
+    }
+
+    public resolveRole(text: string, roles: Discord.Collection<Discord.Snowflake, Discord.Role>, caseSensitive = false, wholeWord = false): Discord.Role | undefined {
+        return roles.get(text) || roles.find((role): boolean => this.checkRole(text, role, caseSensitive, wholeWord));
+    }
+
+    public resolveRoles(text: string, roles: Discord.Collection<Discord.Snowflake, Discord.Role>, caseSensitive = false, wholeWord = false): Discord.Collection<Discord.Snowflake, Discord.Role> {
+        return roles.filter((role): boolean => this.checkRole(text, role, caseSensitive, wholeWord));
+    }
+
+    public checkRole(text: string, role: Discord.Role, caseSensitive = false, wholeWord = false): boolean {
+        if (role.id === text) return true;
+
+        const reg = /<@&(\d{17,19})>/;
+        const match = text.match(reg);
+
+        if (match && role.id === match[1]) return true;
+
+        text = caseSensitive ? text : text.toLowerCase();
+        const name = caseSensitive ? role.name : role.name.toLowerCase();
+
+        if (!wholeWord) {
+            return name.includes(text) || name.includes(text.replace(/^@/, ''));
+        }
+
+        return name === text || name === text.replace(/^@/, '');
+    }
+
+    public resolveEmoji(text: string, emojis: Discord.Collection<Discord.Snowflake, Discord.Emoji>, caseSensitive = false, wholeWord = false): Discord.Emoji | undefined {
+        return emojis.get(text) || emojis.find((emoji): boolean => this.checkEmoji(text, emoji, caseSensitive, wholeWord));
     }
 
     public resolveEmojis(text: string, emojis: Discord.Collection<Discord.Snowflake, Discord.Emoji>, caseSensitive = false, wholeWord = false): Discord.Collection<Discord.Snowflake, Discord.Emoji> {
@@ -17,7 +130,7 @@ export class ClientUtil {
     public checkEmoji(text: string, emoji: Discord.Emoji, caseSensitive = false, wholeWord = false): boolean {
         if (emoji.id === text) return true;
 
-        const reg = /<a?:[a-zA-Z0-9_]+:(\d{17,19})>/
+        const reg = /<a?:[a-zA-Z0-9_]+:(\d{17,19})>/;
         const match = text.match(reg);
 
         if (match && emoji.id === match[1]) return true;
