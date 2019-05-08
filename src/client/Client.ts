@@ -1,5 +1,5 @@
 import { UserResolvable } from 'discord.js';
-import { KlasaClient, KlasaClientOptions } from 'klasa';
+import { KlasaClient, KlasaClientOptions, Stopwatch } from 'klasa';
 import { ClientUtil, Config, ConfigOptions } from '../util';
 
 declare module 'discord.js' {
@@ -14,7 +14,7 @@ export class StarlightClient extends KlasaClient {
     public util: ClientUtil
 
     public constructor(options?: KlasaClientOptions & ConfigOptions) {
-        super(options);
+        super(options as KlasaClientOptions);
 
         this.util = new ClientUtil(this);
 
@@ -24,5 +24,17 @@ export class StarlightClient extends KlasaClient {
     public isOwner(user: UserResolvable): boolean {
         const id = this.users.resolveID(user);
         return id === this.owner!.id;
+    }
+
+    public async start(): Promise<string> {
+        const timer = new Stopwatch();
+        const log = await super.login(this.config.token);
+        await this.init();
+        this.emit('log', `Initialized in ${timer.stop()}`);
+        return log;
+    }
+
+    private async init(): Promise<void> {
+        return;
     }
 }
