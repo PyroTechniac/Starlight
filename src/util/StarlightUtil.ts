@@ -189,7 +189,7 @@ export class ClientUtil {
         return guild.members.fetch({ user, cache });
     }
 
-    public embed(data: Discord.MessageEmbed | Discord.MessageEmbedOptions | undefined): Discord.MessageEmbed {
+    public embed(data?: Discord.MessageEmbed | Discord.MessageEmbedOptions | undefined): Discord.MessageEmbed {
         return new Discord.MessageEmbed(data);
     }
 
@@ -197,7 +197,7 @@ export class ClientUtil {
         return new Discord.MessageAttachment(file, name);
     }
 
-    public collection(iterable: Iterable<readonly [any, any]>): Discord.Collection<any, any> {
+    public collection(iterable?: readonly (readonly [any, any])[] | null | undefined): Discord.Collection<any, any> {
         return new Discord.Collection(iterable);
     }
 }
