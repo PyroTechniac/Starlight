@@ -1,8 +1,8 @@
 import { KlasaClient, KlasaClientOptions } from 'klasa';
 import { ClientUtil } from '../util/StarlightUtil';
 
-declare module 'klasa' {
-    interface KlasaClient {
+declare module 'discord.js' {
+    interface Client {
         util: ClientUtil;
     }
 }

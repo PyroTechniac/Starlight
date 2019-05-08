@@ -1,5 +1,5 @@
 import { StarlightClient } from './client/Client';
 
-StarlightClient.use('./plugins/functions');
+StarlightClient.use(require('./plugins/functions'));
 
 new StarlightClient().login();

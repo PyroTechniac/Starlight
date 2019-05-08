@@ -20,18 +20,20 @@ const lint = () => {
 }
 
 const transpile = () => {
-	const tsCompile = gulp.src('src/**/*.ts')
+	return gulp.src('src/**/*.ts')
 		.pipe(project())
+		.pipe(gulp.dest(out))
 
-	gulp.src('src/**/*.js').pipe(gulp.dest(out))
-	gulp.src('src/**/*.json').pipe(gulp.dest(out))
-	return tsCompile.pipe(gulp.dest(out))
+}
 
+const moveJson = () => {
+	return gulp.src(['src/**/*.js', 'src/**/*.json']).pipe(gulp.dest(out))
 }
 
 const clean = () => {
-	return del([`${out}/**/*.*`])
+	return del([out])
 }
 
-exports.build = gulp.series(gulp.parallel(clean, lint), transpile)
-exports.fix = gulp.parallel(clean, lint);
+const fix = gulp.parallel(clean, lint);
+exports.build = gulp.series(fix, moveJson, transpile)
+exports.fix = fix;

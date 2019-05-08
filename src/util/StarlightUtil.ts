@@ -6,6 +6,15 @@ import { Stream } from 'stream';
 export class ClientUtil {
     public constructor(public readonly client: Klasa.KlasaClient) { }
 
+    public checkGuild(text: string, guild: Klasa.KlasaGuild, caseSensitive = false, wholeWord = false): boolean {
+        if (guild.id === text) return true;
+        text = caseSensitive ? text : text.toLowerCase();
+        const name = caseSensitive ? guild.name : guild.name.toLowerCase();
+
+        if (!wholeWord) return name.includes(text);
+        return name === text;
+    }
+
     public get permissionNames(): string[] {
         return Object.keys(Discord.Permissions.FLAGS);
     }
