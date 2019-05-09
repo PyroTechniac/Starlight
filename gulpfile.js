@@ -38,7 +38,7 @@ const copy = () => {
 
 const clean = () => {
 	return Promise.all([
-		del([`${out}/**/*.js`, `${out}/**/*.js.map`]),
+		del([`${out}/**/*.js`, `!${out}/*.json`, `${out}/**/*.js.map`]),
 		fsn.emptyDir('typings')
 	])
 }

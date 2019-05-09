@@ -1,6 +1,8 @@
 import { config } from 'dotenv';
 import { SchemaFolder } from 'klasa';
 import { StarlightClient } from './client/Client';
+
+import './lib/extensions/MusicGuild';
 config();
 StarlightClient.use(require('./plugins/functions'))
     .use(require('@kcp/channels-gateway'));
