@@ -4,8 +4,15 @@ config();
 StarlightClient.use(require('./plugins/functions'))
     .use(require('@kcp/channels-gateway'));
 
+StarlightClient.defaultPermissionLevels
+    .add(4, ({ guild, member }) => guild! && member!.permissions.has('KICK_MEMBERS'), { fetch: true })
+    .add(5, ({ guild, member }) => guild! && member!.permissions.has('BAN_MEMBERS'), { fetch: true })
+
 StarlightClient.defaultGuildSchema
-    .add('antiinvite', 'boolean', { default: false });
+    .add('antiinvite', 'boolean', { default: false })
+    .add('channels', folder => folder
+        .add('modlog', 'TextChannel'))
+    .add('modlogs', 'any', { array: true })
 
 const production = process.env.NODE_ENV === 'production';
 

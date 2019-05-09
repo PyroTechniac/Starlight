@@ -46,3 +46,4 @@ const clean = () => {
 const fix = gulp.parallel(clean, lint);
 exports.build = gulp.series(fix, copy, transpile)
 exports.fix = fix;
+exports.lint = lint;
