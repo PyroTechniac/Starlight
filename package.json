@@ -16,7 +16,11 @@
         "fs-nextra": "^0.4.5",
         "klasa": "dirigeants/klasa",
         "node-fetch": "^2.5.0",
-        "rethinkdb-ts": "^2.4.0-rc.13"
+        "node-opus": "^0.3.1",
+        "opusscript": "^0.0.6",
+        "rethinkdb-ts": "^2.4.0-rc.13",
+        "ytdl-core": "^0.29.1",
+        "ytdl-core-discord": "amishshah/ytdl-core-discord"
     },
     "devDependencies": {
         "@types/dotenv": "^6.1.1",
