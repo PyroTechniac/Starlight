@@ -4,6 +4,9 @@ config();
 StarlightClient.use(require('./plugins/functions'))
     .use(require('@kcp/channels-gateway'));
 
+StarlightClient.defaultGuildSchema
+    .add('antiinvite', 'boolean', { default: false });
+
 const production = process.env.NODE_ENV === 'production';
 
 new StarlightClient({
