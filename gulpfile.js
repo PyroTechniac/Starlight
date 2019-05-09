@@ -5,6 +5,7 @@ const ts = require('gulp-typescript');
 const gulpIf = require('gulp-if');
 const fsn = require('fs-nextra')
 const eslint = require('gulp-eslint');
+const del = require('del');
 const merge = require('merge2');
 const sourcemaps = require('gulp-sourcemaps');
 const out = 'dist/'
@@ -37,7 +38,7 @@ const copy = () => {
 
 const clean = () => {
 	return Promise.all([
-		fsn.emptyDir('dist'),
+		del([`${out}/**/*.js`, `${out}/**/*.js.map`]),
 		fsn.emptyDir('typings')
 	])
 }

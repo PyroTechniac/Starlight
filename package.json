@@ -13,8 +13,10 @@
         "@kcp/channels-gateway": "^1.0.0",
         "discord.js": "discordjs/discord.js",
         "dotenv": "^8.0.0",
+        "fs-nextra": "^0.4.5",
         "klasa": "dirigeants/klasa",
-        "node-fetch": "^2.5.0"
+        "node-fetch": "^2.5.0",
+        "rethinkdb-ts": "^2.4.0-rc.13"
     },
     "devDependencies": {
         "@types/dotenv": "^6.1.1",
@@ -23,8 +25,8 @@
         "@types/ws": "^6.0.1",
         "@typescript-eslint/eslint-plugin": "^1.6.0",
         "@typescript-eslint/parser": "^1.6.0",
+        "del": "^4.1.1",
         "eslint": "^5.16.0",
-        "fs-nextra": "^0.4.5",
         "gulp": "^4.0.2",
         "gulp-eslint": "^5.0.0",
         "gulp-if": "^2.0.2",
@@ -32,5 +34,10 @@
         "gulp-typescript": "^5.0.1",
         "merge2": "^1.2.3",
         "typescript": "^3.4.5"
+    },
+    "optionalDependencies": {
+        "@discordjs/uws": "^11.149.1",
+        "erlpack": "discordapp/erlpack",
+        "zlib-sync": "^0.1.4"
     }
 }

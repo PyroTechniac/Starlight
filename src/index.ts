@@ -17,5 +17,11 @@ new StarlightClient({
         log: true,
         verbose: !production
     },
-    prefix: process.env.PREFIX
+    prefix: process.env.PREFIX,
+    production,
+    regexPrefix: /^(hey )?starlight(,|!)/i,
+    commandEditing: true,
+    commandLogging: true,
+    commandMessageLifetime: 1800,
+    providers: {}
 }).start();
