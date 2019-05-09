@@ -18,6 +18,7 @@ export default class CleanupTask extends Task {
     }
 
     public async run(): Promise<void> {
+        this.client.emit('verbose', `${this.header} Starting cleanup...`);
         const OLD_SNOWFLAKE = generate(Date.now() - THRESHOLD);
         let presences = 0, guildMembers = 0, voiceStates = 0, emojis = 0, lastMessages = 0, users = 0;
 
