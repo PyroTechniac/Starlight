@@ -19,7 +19,7 @@ export class Config {
         options = mergeDefault<ConfigOptions>(ConfigDefaults, options);
         Object.defineProperty(this, '_token', { value: options.token });
         Object.defineProperty(this, '_ownerID', { value: options.ownerID });
-        Object.defineProperty(this, '_googleKey', { value: options.googleKey })
+        Object.defineProperty(this, '_googleKey', { value: options.googleKey });
         this._prefix = options.prefix!;
     }
     public get ownerID(): string {
