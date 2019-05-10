@@ -1,10 +1,13 @@
 import * as Discord from 'discord.js';
 import * as Klasa from 'klasa';
 import { Stream } from 'stream';
+import { MarkdownUtil } from './MarkdownUtil';
 
 
 export class ClientUtil {
     public constructor(public readonly client: Klasa.KlasaClient) { }
+
+    public markdown: MarkdownUtil = new MarkdownUtil(this)
 
     public resolveUser(text: string, users: Discord.Collection<Discord.Snowflake, Klasa.KlasaUser>, caseSensitive = false, wholeWord = false): Klasa.KlasaUser | undefined {
         return users.get(text) || users.find((user): boolean => this.checkUser(text, user, caseSensitive, wholeWord));
@@ -184,7 +187,7 @@ export class ClientUtil {
         return 0;
     }
 
-    public async fetchMember(guild: Klasa.KlasaGuild, id: string, cache: boolean): Promise<Discord.GuildMember> {
+    public async fetchMember(guild: Klasa.KlasaGuild, id: string, cache: boolean = true): Promise<Discord.GuildMember> {
         const user = await this.client.users.fetch(id, cache);
         return guild.members.fetch({ user, cache });
     }

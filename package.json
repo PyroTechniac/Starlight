@@ -20,6 +20,7 @@
         "node-fetch": "^2.5.0",
         "node-opus": "^0.3.1",
         "opusscript": "^0.0.6",
+        "tslib": "^1.9.3",
         "ytdl-core": "^0.29.1",
         "ytdl-core-discord": "amishshah/ytdl-core-discord"
     },
@@ -31,7 +32,6 @@
         "@types/ws": "^6.0.1",
         "@typescript-eslint/eslint-plugin": "^1.6.0",
         "@typescript-eslint/parser": "^1.6.0",
-        "del": "^4.1.1",
         "eslint": "^5.16.0",
         "gulp": "^4.0.2",
         "gulp-eslint": "^5.0.0",
