@@ -47,6 +47,11 @@
   resolved "https://registry.yarnpkg.com/@kcp/channels-gateway/-/channels-gateway-1.0.1.tgz#bc97d1ae19b9d42fd6a0c7f557640c16703fad61"
   integrity sha512-5Es46Wk5Msq9gXZFDHW5ZG0gt8lvzy2b9HE4WWTnjmAVhV1717pqe9VD9m4b+VCjhhHUc+3kgDJksN9Ux7Pfkg==
 
+"@kcp/tags@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@kcp/tags/-/tags-1.0.0.tgz#d18ad9fc3c26027a2d0a6504b168c127cd34d654"
+  integrity sha512-Crjwrtn4g8wNsj2gmtR8Pbw78dER5QOqj1HqI08hInpxZUYOnLtJrKA9OaDHZthpG+JN0Vtvp4oNr8+8N5NiJw==
+
 "@types/dotenv@^6.1.1":
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/@types/dotenv/-/dotenv-6.1.1.tgz#f7ce1cc4fe34f0a4373ba99fefa437b0bec54b46"
@@ -2189,6 +2194,11 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
+node-addon-api@*:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-1.6.3.tgz#3998d4593e2dca2ea82114670a4eb003386a9fe1"
+  integrity sha512-FXWH6mqjWgU8ewuahp4spec8LkroFZK2NicOv6bNwZC3kcwZUI8LeZdG80UzTSLLhK4T7MsgNwlYDVRlDdfTDg==
+
 node-fetch@^2.3.0, node-fetch@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.5.0.tgz#8028c49fc1191bba56a07adc6e2a954644a48501"
@@ -2951,6 +2961,13 @@ snapdragon@^0.8.1:
     source-map "^0.5.6"
     source-map-resolve "^0.5.0"
     use "^3.1.0"
+
+sodium@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/sodium/-/sodium-3.0.2.tgz#4dbd7eb4a21c92ca7e7f684756cd733fee78112e"
+  integrity sha512-IsTwTJeoNBU97km3XkrbCGC/n/9aUQejgD3QPr2YY2gtbSPru3TI6nhCqgoez9Mv88frF9oVZS/jrXFbd6WXyA==
+  dependencies:
+    node-addon-api "*"
 
 source-map-resolve@^0.5.0, source-map-resolve@^0.5.2:
   version "0.5.2"

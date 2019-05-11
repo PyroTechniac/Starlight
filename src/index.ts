@@ -5,7 +5,8 @@ import { StarlightClient } from './client/Client';
 import './lib/extensions/MusicGuild';
 config();
 StarlightClient.use(require('./plugins/functions'))
-    .use(require('@kcp/channels-gateway'));
+    .use(require('@kcp/channels-gateway'))
+    .use(require('@kcp/tags'));
 
 StarlightClient.defaultPermissionLevels
     .add(4, ({ guild, member }): boolean => guild! && member!.permissions.has('KICK_MEMBERS'), { fetch: true })
