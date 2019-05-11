@@ -2,7 +2,6 @@ import { config } from 'dotenv';
 import { SchemaFolder } from 'klasa';
 import { StarlightClient } from './client/Client';
 
-import './lib/extensions/MusicGuild';
 config();
 StarlightClient.use(require('./plugins/functions'))
     .use(require('@kcp/channels-gateway'))
@@ -33,7 +32,7 @@ new StarlightClient({
     },
     prefix: process.env.PREFIX,
     production,
-    regexPrefix: /^(hey )?starlight(,|!)/i,
+    regexPrefix: /^(hey |OK )?star(s|light)?(,|!| )/i,
     commandEditing: true,
     commandLogging: true,
     commandMessageLifetime: 1800,
