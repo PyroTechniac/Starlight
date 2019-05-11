@@ -1,8 +1,12 @@
 import { config } from 'dotenv';
 import { SchemaFolder } from 'klasa';
 import { StarlightClient } from './client/Client';
+import * as Raven from 'raven';
 
 config();
+
+Raven.config(process.env.SENTRY, { captureUnhandledRejections: true }).install();
+
 StarlightClient.use(require('./plugins/functions'))
     .use(require('@kcp/channels-gateway'))
     .use(require('@kcp/tags'));
