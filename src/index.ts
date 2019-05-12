@@ -33,5 +33,6 @@ new StarlightClient({
     commandEditing: true,
     commandLogging: true,
     commandMessageLifetime: 1800,
-    providers: {}
+    gateways: {},
+    fetchAllMembers: true // Just for now, as my bot isn't large
 }).start();
