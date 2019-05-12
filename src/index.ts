@@ -3,6 +3,8 @@ import { SchemaFolder } from 'klasa';
 import { StarlightClient } from './client/Client';
 import * as Raven from 'raven';
 
+import './lib/extensions/MusicGuild';
+
 config();
 
 Raven.config(process.env.SENTRY, { captureUnhandledRejections: true }).install();
