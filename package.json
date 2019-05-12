@@ -19,7 +19,6 @@
         "moment": "^2.24.0",
         "moment-duration-format": "^2.2.2",
         "node-fetch": "^2.5.0",
-        "node-opus": "^0.3.1",
         "opusscript": "^0.0.6",
         "raven": "^2.6.4",
         "tslib": "^1.9.3",
@@ -47,6 +46,7 @@
     "optionalDependencies": {
         "@discordjs/uws": "^11.149.1",
         "erlpack": "discordapp/erlpack",
+        "node-opus": "^0.3.1",
         "sodium": "^3.0.2",
         "zlib-sync": "^0.1.4"
     }

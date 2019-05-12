@@ -1,21 +1,16 @@
 import { UserResolvable } from 'discord.js';
 import { KlasaClient, KlasaClientOptions, Stopwatch } from 'klasa';
 import { ClientUtil, Config, ConfigOptions } from '../util';
-import { MusicManager } from '../lib';
-
 declare module 'discord.js' {
     interface Client {
         util: ClientUtil;
         isOwner(user: UserResolvable): boolean;
         config: Config;
-        music: MusicManager;
     }
 }
 
 export class StarlightClient extends KlasaClient {
     public util: ClientUtil
-
-    public music: MusicManager = new MusicManager(this);
 
     public constructor(options?: KlasaClientOptions & ConfigOptions) {
         super(options as KlasaClientOptions);
