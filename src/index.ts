@@ -12,7 +12,10 @@ StarlightClient.use(require('./plugins/functions'))
     .use(require('@kcp/tags'));
 
 StarlightClient.defaultGuildSchema
-    .add('antiinvite', 'boolean', { default: false });
+    .add('antiinvite', 'boolean', { default: false })
+    .add('channels', (folder): SchemaFolder => folder
+        .add('modlog', 'TextChannel'))
+    .add('modlogs', 'any', { array: true });
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -34,5 +37,8 @@ new StarlightClient({
     commandLogging: true,
     commandMessageLifetime: 1800,
     gateways: {},
+    providers: {
+        default: 'rethinkdb'
+    },
     fetchAllMembers: true // Just for now, as my bot isn't large
 }).start();

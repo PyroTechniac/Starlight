@@ -21,6 +21,7 @@
         "node-fetch": "^2.5.0",
         "opusscript": "^0.0.6",
         "raven": "^2.6.4",
+        "rethinkdb-ts": "^2.4.0-rc.13",
         "tslib": "^1.9.3",
         "ytdl-core": "^0.29.1",
         "ytdl-core-discord": "amishshah/ytdl-core-discord"
