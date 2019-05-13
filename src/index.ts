@@ -20,7 +20,7 @@ StarlightClient.defaultGuildSchema
 
 const production = process.env.NODE_ENV === 'production';
 
-new StarlightClient({
+Raven.context((): any => new StarlightClient({
     token: process.env.TOKEN,
     disabledEvents: ['TYPING_START'],
     consoleEvents: {
@@ -42,4 +42,4 @@ new StarlightClient({
         default: 'rethinkdb'
     },
     fetchAllMembers: true // Just for now, as my bot isn't large
-}).start();
+}).start());
