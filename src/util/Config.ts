@@ -11,13 +11,13 @@ export interface ConfigOptions {
 
 export class Config {
     private readonly _ownerID!: string;
-    private _prefix!: string;
+    private readonly _prefix!: string;
     private readonly _token!: string;
     public constructor(private readonly _client: StarlightClient, options: ConfigOptions = {}) {
         options = mergeDefault<ConfigOptions>(ConfigDefaults, options);
         Object.defineProperty(this, '_token', { value: options.token });
         Object.defineProperty(this, '_ownerID', { value: options.ownerID });
-        this._prefix = options.prefix!;
+        Object.defineProperty(this, '_prefix', {value: options.prefix})
     }
     public get ownerID(): string {
         return this._ownerID;
@@ -29,9 +29,5 @@ export class Config {
 
     public get prefix(): string {
         return this._prefix;
-    }
-
-    public set prefix(prefix: string) {
-        this._prefix = prefix;
     }
 }
