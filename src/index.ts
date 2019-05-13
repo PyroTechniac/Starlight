@@ -15,7 +15,8 @@ StarlightClient.defaultGuildSchema
     .add('antiinvite', 'boolean', { default: false })
     .add('channels', (folder): SchemaFolder => folder
         .add('modlog', 'TextChannel'))
-    .add('modlogs', 'any', { array: true });
+    .add('modlogs', 'any', { array: true })
+    .add('deleteCommand', 'boolean', { default: false });
 
 const production = process.env.NODE_ENV === 'production';
 
