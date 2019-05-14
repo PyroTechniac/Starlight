@@ -1,4 +1,4 @@
-import {Argument, Possible, KlasaMessage} from 'klasa'
+import {Argument, Possible, KlasaMessage} from 'klasa';
 
 export default class DefaultArgument extends Argument {
     public run(arg: string, possible: Possible, message: KlasaMessage): string {
