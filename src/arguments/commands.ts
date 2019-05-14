@@ -1,11 +1,11 @@
 import { Argument, ArgumentStore, KlasaClient, MultiArgument } from 'klasa';
 
-export default class MultiArgumentArgument extends MultiArgument {
+export default class MultiCommandArgument extends MultiArgument {
     public constructor(client: KlasaClient, store: ArgumentStore, file: string[], directory: string) {
-        super(client, store, file, directory, { aliases: ['...argument'] });
+        super(client, store, file, directory, { aliases: ['...command'] });
     }
 
     public get base(): Argument {
-        return this.store.get('Argument');
+        return this.store.get('command');
     }
 }
