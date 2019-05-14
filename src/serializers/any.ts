@@ -1,7 +1,7 @@
-import { Serializer } from 'klasa'
+import { Serializer } from 'klasa';
 
 export default class AnySerializer extends Serializer {
-	public deserialize(data: any): any {
-		return data;
-	}
+    public deserialize(data: any): any {
+        return data;
+    }
 }
