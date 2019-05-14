@@ -1,4 +1,4 @@
-import {Language, util, KlasaClient, LanguageStore} from 'klasa';
+import { Language, util, KlasaClient, LanguageStore } from 'klasa';
 
 export default class EnglishLanguage extends Language {
     public constructor(client: KlasaClient, store: LanguageStore, file: string[], directory: string) {

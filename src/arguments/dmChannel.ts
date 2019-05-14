@@ -1,5 +1,5 @@
-import {Argument, KlasaMessage, Possible} from 'klasa';
-import {DMChannel} from 'discord.js';
+import { Argument, KlasaMessage, Possible } from 'klasa';
+import { DMChannel } from 'discord.js';
 
 export default class DMChannelArgument extends Argument {
     public async run(arg: string, possible: Possible, message: KlasaMessage): Promise<DMChannel> {

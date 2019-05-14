@@ -1,4 +1,4 @@
-import {Piece} from 'klasa';
+import { Piece } from 'klasa';
 
 export class Function extends Piece {
     [K: string]: any;

@@ -1,4 +1,4 @@
-import {Argument, KlasaMessage, Possible} from 'klasa';
+import { Argument, KlasaMessage, Possible } from 'klasa';
 import { Channel } from 'discord.js';
 
 export default class ChannelArgument extends Argument {

@@ -26,7 +26,7 @@ export class ClientUtil {
         if (match && user.id === match[1]) return true;
 
         text = caseSensitive ? text : text.toLowerCase();
-        let {username, discriminator} = user;
+        let { username, discriminator } = user;
         username = caseSensitive ? username : username.toLowerCase();
 
         if (!wholeWord) {

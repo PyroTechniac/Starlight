@@ -1,4 +1,4 @@
-import {Command, CommandStore, KlasaClient, KlasaMessage} from 'klasa';
+import { Command, CommandStore, KlasaClient, KlasaMessage } from 'klasa';
 
 export default class PrefixCommand extends Command {
     public constructor(client: KlasaClient, store: CommandStore, file: string[], directory: string) {

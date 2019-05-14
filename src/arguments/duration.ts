@@ -1,4 +1,4 @@
-import {Argument, Possible, KlasaMessage, Duration} from 'klasa';
+import { Argument, Possible, KlasaMessage, Duration } from 'klasa';
 
 export default class DurationArgument extends Argument {
     public run(arg: string, possible: Possible, message: KlasaMessage): Date {

@@ -11,7 +11,7 @@ export default class FetchImageExtendable extends Extendable {
     }
 
     public async fetchImage(): Promise<MessageAttachment> {
-        const messageBank = await (this as unknown as TextChannel | DMChannel).messages.fetch({limit: 20});
+        const messageBank = await (this as unknown as TextChannel | DMChannel).messages.fetch({ limit: 20 });
 
         for (const message of messageBank.values()) {
             const fetchedAttachment = message.attachments.first();

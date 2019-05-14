@@ -14,7 +14,7 @@ export default class PruneCommand extends Command {
     }
     
     public async run(msg: KlasaMessage, [limit = 50, filter = null]: [number, string | null]): Promise<KlasaMessage | KlasaMessage[]> {
-        let messages: any = await msg.channel.messages.fetch({limit: 100});
+        let messages: any = await msg.channel.messages.fetch({ limit: 100 });
         if (filter) {
             const user = typeof filter !== 'string' ? filter : null;
             const type = typeof filter === 'string' ? filter : 'user';

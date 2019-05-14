@@ -31,6 +31,6 @@
         "@typescript-eslint/no-non-null-assertion": 0,
         "@typescript-eslint/no-parameter-properties": 0,
         "no-dupe-class-members":"off",
-        "object-curly-spacing": "error"
+        "object-curly-spacing": ["error", "always"]
     }
 }
