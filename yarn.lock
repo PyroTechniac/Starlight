@@ -88,6 +88,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.10.tgz#4df59e5966b56f512bac98898bcbee5067411f0f"
   integrity sha512-leUNzbFTMX94TWaIKz8N15Chu55F9QSH+INKayQr5xpkasBQBRF3qQXfo3/dOnMU/dEIit+Y/SU8HyOjq++GwA==
 
+"@types/promise-queue@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@types/promise-queue/-/promise-queue-2.2.0.tgz#cdba35f1b2c0bd8aa2bf925c2b1ed02958067a0a"
+  integrity sha512-9QLtid6GxEWqpF+QImxBRG6bSVOHtpAm2kXuIyEvZBbSOupLvqhhJv8uaHbS8kUL8FDjzH3RWcSyC/52WOVtGw==
+
 "@types/raven@^2.5.3":
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/@types/raven/-/raven-2.5.3.tgz#bd4bed667dd9cfda39452f8ed64a87f45233bc3a"
@@ -2623,6 +2628,11 @@ progress@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
+
+promise-queue@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/promise-queue/-/promise-queue-2.2.5.tgz#2f6f5f7c0f6d08109e967659c79b88a9ed5e93b4"
+  integrity sha1-L29ffA9tCBCelnZZx5uIqe1ek7Q=
 
 pump@^2.0.0:
   version "2.0.1"
