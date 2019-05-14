@@ -33,7 +33,7 @@
         "@types/node-fetch": "^2.3.3",
         "@types/raven": "^2.5.3",
         "@types/ws": "^6.0.1",
-        "@typescript-eslint/eslint-plugin": "^1.6.0",
+        "@typescript-eslint/eslint-plugin": "^1.9.0",
         "@typescript-eslint/parser": "^1.6.0",
         "eslint": "^5.16.0",
         "gulp": "^4.0.2",
