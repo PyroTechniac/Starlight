@@ -1,7 +1,5 @@
-import { Extendable } from 'klasa';
-import { DMChannel, TextChannel, MessageAttachment } from 'discord.js';
-import { KlasaClient } from 'klasa';
-import { ExtendableStore } from 'klasa';
+import { DMChannel, MessageAttachment, TextChannel } from 'discord.js';
+import { Extendable, ExtendableStore, KlasaClient } from 'klasa';
 
 export default class FetchImageExtendable extends Extendable {
     public constructor(client: KlasaClient, store: ExtendableStore, file: string[], directory: string) {
@@ -19,5 +17,15 @@ export default class FetchImageExtendable extends Extendable {
         }
 
         throw 'Couldn\'t find an image';
+    }
+}
+
+declare module 'discord.js' {
+    interface DMChannel {
+        fetchImage(): Promise<MessageAttachment>
+    }
+
+    interface TextChannel {
+        fetchImage(): Promise<MessageAttachment>
     }
 }
