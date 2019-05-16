@@ -9,7 +9,8 @@ Raven.config(process.env.SENTRY, { captureUnhandledRejections: true }).install()
 
 StarlightClient.use(require('./plugins/functions'))
     .use(require('@kcp/channels-gateway'))
-    .use(require('@kcp/tags'));
+    .use(require('@kcp/tags'))
+    .use(require('./plugins/stats'));
 
 StarlightClient.defaultGuildSchema
     .add('antiinvite', 'boolean', { default: false })
