@@ -22,10 +22,10 @@ export default class FetchImageExtendable extends Extendable {
 
 declare module 'discord.js' {
     interface DMChannel {
-        fetchImage(): Promise<MessageAttachment>
+        fetchImage(): Promise<MessageAttachment>;
     }
 
     interface TextChannel {
-        fetchImage(): Promise<MessageAttachment>
+        fetchImage(): Promise<MessageAttachment>;
     }
 }
