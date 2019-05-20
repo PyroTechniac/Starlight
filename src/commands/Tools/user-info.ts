@@ -1,5 +1,5 @@
 import { GuildMember } from 'discord.js';
-import { Command, CommandStore, KlasaClient, KlasaMessage, Timestamp } from 'klasa';
+import { Command, CommandStore, KlasaMessage, Timestamp } from 'klasa';
 
 export default class UserInfoCommand extends Command {
     private statuses: { [key: string]: string } = {
@@ -10,8 +10,8 @@ export default class UserInfoCommand extends Command {
     }
 
     private timestamp: Timestamp = new Timestamp('d MMMM YYYY')
-    public constructor(client: KlasaClient, store: CommandStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor( store: CommandStore, file: string[], directory: string) {
+        super( store, file, directory, {
             description: 'Get information on a mentioned user',
             usage: '[Member:member]'
         });

@@ -1,9 +1,9 @@
-import { Command, CommandStore, KlasaClient, KlasaMessage } from 'klasa';
-import { TextChannel, Message } from 'discord.js';
+import { Message, TextChannel } from 'discord.js';
+import { Command, CommandStore, KlasaMessage } from 'klasa';
 
 export default class EchoCommand extends Command {
-    public constructor(client: KlasaClient, store: CommandStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super(store, file, directory, {
             name: 'echo',
             permissionLevel: 7,
             runIn: ['text'],

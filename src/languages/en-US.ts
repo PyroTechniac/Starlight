@@ -1,8 +1,8 @@
-import { Language, util, KlasaClient, LanguageStore } from 'klasa';
+import { Language, LanguageStore } from 'klasa';
 
 export default class EnglishLanguage extends Language {
-    public constructor(client: KlasaClient, store: LanguageStore, file: string[], directory: string) {
-        super(client, store, file, directory);
+    public constructor(store: LanguageStore, file: string[], directory: string) {
+        super(store, file, directory);
 
         this.language = {
             DEAR: 'Dear',

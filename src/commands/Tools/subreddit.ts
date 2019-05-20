@@ -1,9 +1,9 @@
-import { Command, CommandStore, Client, KlasaMessage } from 'klasa';
+import { Command, CommandStore, KlasaMessage } from 'klasa';
 import fetch from 'node-fetch';
 
 export default class SubredditCommand extends Command {
-    public constructor(client: Client, store: CommandStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super(store, file, directory, {
             aliases: ['cb'],
             description: 'Returns information on a subreddit',
             usage: '<subredditName:string>'

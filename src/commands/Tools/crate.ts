@@ -1,4 +1,4 @@
-import { Client, Command, CommandStore, KlasaMessage } from 'klasa';
+import { Command, CommandStore, KlasaMessage } from 'klasa';
 import fetch from 'node-fetch';
 
 const suffixes: string[] = ['Bytes', 'KB', 'MB'];
@@ -8,8 +8,8 @@ const getBytes = (bytes: number): string => {
 };
 
 export default class CrateCommand extends Command {
-    public constructor(client: Client, store: CommandStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super(store, file, directory, {
             description: 'Shows the publish/install size of a cargo crate',
             usage: '<name:string>'
         });

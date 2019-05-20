@@ -1,9 +1,9 @@
-import { Command, CommandStore, KlasaClient, KlasaMessage } from 'klasa';
+import { Command, CommandStore, KlasaMessage } from 'klasa';
 import fetch from 'node-fetch';
 
 export default class WikipediaCommand extends Command {
-    public constructor(client, store, file, directory) {
-        super(client, store, file, directory, {
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super( store, file, directory, {
             aliases: ['wiki'],
             description: 'Finds a Wikipedia Article by title',
             usage: '<query:str>'

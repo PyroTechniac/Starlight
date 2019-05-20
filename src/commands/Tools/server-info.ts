@@ -1,4 +1,4 @@
-import { Command, Timestamp, CommandStore, Client, KlasaMessage } from 'klasa';
+import { Command, CommandStore, KlasaMessage, Timestamp } from 'klasa';
 
 export default class ServerInfoCommand extends Command {
     private verificationLevels: [string, string, string, string, string] = [
@@ -14,8 +14,8 @@ export default class ServerInfoCommand extends Command {
         'Everyone'
     ]
     private timestamp: Timestamp = new Timestamp('d MMMM YYYY')
-    public constructor(client: Client, store: CommandStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor( store: CommandStore, file: string[], directory: string) {
+        super( store, file, directory, {
             runIn: ['text'],
             aliases: ['guild'],
             autoAliases: true,

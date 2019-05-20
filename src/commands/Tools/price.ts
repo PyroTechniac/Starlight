@@ -1,9 +1,9 @@
-import { Command, CommandStore, KlasaClient, KlasaMessage } from 'klasa';
+import { Command, CommandStore, KlasaMessage } from 'klasa';
 import fetch from 'node-fetch';
 
 export default class PriceCommand extends Command {
-    public constructor(client, store, file, directory) {
-        super(client, store, file, directory, {
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super(store, file, directory, {
             description: 'Compares the values of a currency (crypto, flat) with another',
             usage: '<coin:str{1,3}> <currency:str{1,3}> [amount:int{1}]',
             usageDelim: ' '

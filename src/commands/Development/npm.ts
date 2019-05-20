@@ -1,12 +1,11 @@
-import { Command, CommandStore, KlasaClient } from 'klasa';
+import { Command, CommandStore, KlasaMessage } from 'klasa';
 import * as moment from 'moment';
-import fetch from 'node-fetch';
 import 'moment-duration-format';
-import { KlasaMessage } from 'klasa';
+import fetch from 'node-fetch';
 
 export default class NPMCommand extends Command {
-    public constructor(client: KlasaClient, store: CommandStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super( store, file, directory, {
             aliases: ['npm-package'],
             name: 'npm',
             description: 'Get information on an NPM package',

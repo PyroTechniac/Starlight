@@ -1,4 +1,4 @@
-import { KlasaClient, Command, CommandStore, Timestamp, KlasaMessage } from 'klasa';
+import { Command, CommandStore, KlasaMessage, Timestamp } from 'klasa';
 
 export default class RoleInfoCommand extends Command {
     private perms: { [key: string]: string } = {
@@ -32,8 +32,8 @@ export default class RoleInfoCommand extends Command {
         USE_VAD: 'Use Voice Activity'
     }
     private timestamp: Timestamp = new Timestamp('dddd, MMMM d YYYY')
-    public constructor(client: KlasaClient, store: CommandStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super(store, file, directory, {
             runIn: ['text'],
             description: 'Get information on a role with an ID or a mention',
             usage: '[Role:role]'

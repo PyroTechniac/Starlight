@@ -1,10 +1,10 @@
 import { GuildMember } from 'discord.js';
-import { Command, CommandStore, KlasaClient, KlasaMessage } from 'klasa';
+import { Command, CommandStore, KlasaMessage } from 'klasa';
 import { ModLog } from '../../lib';
 
 export default class WarnCommand extends Command {
-    public constructor(client: KlasaClient, store: CommandStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super(store, file, directory, {
             name: 'warn',
             permissionLevel: 4,
             runIn: ['text'],

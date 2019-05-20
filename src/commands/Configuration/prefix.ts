@@ -1,8 +1,8 @@
-import { Command, CommandStore, KlasaClient, KlasaMessage } from 'klasa';
+import { Command, CommandStore, KlasaMessage } from 'klasa';
 
 export default class PrefixCommand extends Command {
-    public constructor(client: KlasaClient, store: CommandStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super(store, file, directory, {
             aliases: ['setPrefix'],
             cooldown: 5,
             description: 'Change the command prefix the bot uses in your server',

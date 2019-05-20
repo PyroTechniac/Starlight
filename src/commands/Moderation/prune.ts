@@ -1,8 +1,8 @@
-import { Command, CommandStore, KlasaClient, KlasaMessage, KlasaUser } from 'klasa';
+import { Command, CommandStore, KlasaMessage, KlasaUser } from 'klasa';
 
 export default class PruneCommand extends Command {
-    public constructor(client: KlasaClient, store: CommandStore, file, directory) {
-        super(client, store, file, directory, {
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super(store, file, directory, {
             name: 'prune',
             permissionLevel: 4,
             requiredPermissions: ['MANAGE_MESSAGES'],

@@ -22,7 +22,10 @@ export class StarlightClient extends KlasaClient {
 
     public isOwner(user: UserResolvable): boolean {
         const id = this.users.resolveID(user);
-        return id === this.owner!.id;
+        for (const user of this.owners.values()) {
+            if (user.id === id) return true;
+        }
+        return false;
     }
 
     public async start(): Promise<string> {

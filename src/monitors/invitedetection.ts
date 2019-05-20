@@ -1,8 +1,8 @@
-import { Monitor, MonitorStore, KlasaClient, KlasaMessage } from 'klasa';
+import { KlasaMessage, Monitor, MonitorStore } from 'klasa';
 
 export default class InviteMonitor extends Monitor {
-    public constructor(client: KlasaClient, store: MonitorStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor(store: MonitorStore, file: string[], directory: string) {
+        super( store, file, directory, {
             enabled: true,
             name: 'invitedetection',
             ignoreSelf: true,

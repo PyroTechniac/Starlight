@@ -1,9 +1,9 @@
-import { Event, EventStore, KlasaClient, ScheduledTaskOptions } from 'klasa';
+import { Event, EventStore, ScheduledTaskOptions } from 'klasa';
 import { DefaultPresence } from '../util';
 
 export default class KlasaReadyEvent extends Event {
-    public constructor(client: KlasaClient, store: EventStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor(store: EventStore, file: string[], directory: string) {
+        super(store, file, directory, {
             once: true,
             event: 'klasaReady'
         });

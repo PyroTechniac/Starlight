@@ -19,7 +19,7 @@
         "dotenv": "^8.0.0",
         "fs-nextra": "^0.4.5",
         "jimp": "^0.6.4",
-        "klasa": "dirigeants/klasa",
+        "klasa": "dirigeants/klasa#v1.0.0-alpha",
         "moment": "^2.24.0",
         "moment-duration-format": "^2.2.2",
         "node-fetch": "^2.5.0",

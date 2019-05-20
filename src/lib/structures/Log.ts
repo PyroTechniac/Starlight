@@ -1,6 +1,5 @@
-import { KlasaClient, KlasaGuild } from 'klasa';
-import { MessageEmbed, Message } from 'discord.js';
-import { KlasaUser } from 'klasa';
+import { Message, MessageEmbed } from 'discord.js';
+import { KlasaClient, KlasaGuild, KlasaUser } from 'klasa';
 
 export abstract class Log {
     protected readonly client!: KlasaClient;

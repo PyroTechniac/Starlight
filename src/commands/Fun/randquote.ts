@@ -1,9 +1,9 @@
-import { Command, CommandStore, KlasaMessage, Client } from 'klasa';
+import { Command, CommandStore, KlasaMessage } from 'klasa';
 const messageLimitHundreds = 1;
 
 export default class RandomQuoteCommand extends Command {
-    public constructor(client, store, file, directory) {
-        super(client, store, file, directory, {
+    public constructor( store: CommandStore, file: string[], directory: string) {
+        super( store, file, directory, {
             description: 'Returns a random message from someone in the channel',
             requiredPermissions: ['READ_MESSAGE_HISTORY', 'EMBED_LINKS']
         });

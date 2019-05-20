@@ -1,9 +1,9 @@
-import { Event, EventStore, Client } from 'klasa';
+import { Event, EventStore } from 'klasa';
 import { captureException } from 'raven';
 
 export default class UnhandledRejectionEvent extends Event {
-    public constructor(client: Client, store: EventStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor(store: EventStore, file: string[], directory: string) {
+        super(store, file, directory, {
             emitter: process
         });
     }

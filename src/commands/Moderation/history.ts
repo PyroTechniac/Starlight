@@ -1,9 +1,8 @@
-import { Command, CommandStore, KlasaClient, KlasaMessage, util } from 'klasa';
-import { KlasaUser } from 'klasa';
+import { Command, CommandStore, KlasaMessage, KlasaUser, util } from 'klasa';
 
 export default class HistoryCommand extends Command {
-    public constructor(client: KlasaClient, store: CommandStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super(store, file, directory, {
             name: 'history',
             permissionLevel: 0,
             runIn: ['text'],

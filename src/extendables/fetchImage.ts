@@ -1,9 +1,9 @@
 import { DMChannel, MessageAttachment, TextChannel } from 'discord.js';
-import { Extendable, ExtendableStore, KlasaClient } from 'klasa';
+import { Extendable, ExtendableStore } from 'klasa';
 
 export default class FetchImageExtendable extends Extendable {
-    public constructor(client: KlasaClient, store: ExtendableStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor(store: ExtendableStore, file: string[], directory: string) {
+        super(store, file, directory, {
             appliesTo: [DMChannel, TextChannel]
         });
     }

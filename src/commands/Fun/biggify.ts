@@ -1,9 +1,9 @@
 import * as jimp from 'jimp';
-import { Command, CommandStore, KlasaClient, KlasaMessage } from 'klasa';
+import { Command, CommandStore, KlasaMessage } from 'klasa';
 
 export default class BiggifyCommand extends Command {
-    public constructor(client: KlasaClient, store: CommandStore, file: string[], directory: string) {
-        super(client, store, file, directory, { description: 'Makes a bigger version of an image' });
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super(store, file, directory, { description: 'Makes a bigger version of an image' });
     }
 
     // @ts-ignore

@@ -1,12 +1,12 @@
-import { Client, Command, CommandStore, KlasaMessage } from 'klasa';
-import fetch from 'node-fetch';
 import { TextChannel } from 'discord.js';
+import { Command, CommandStore, KlasaMessage } from 'klasa';
+import fetch from 'node-fetch';
 
 const API_URL = 'https://discordemoji.com/api/';
 
 export default class DiscordEmojiCommand extends Command {
-    public constructor(client: Client, store: CommandStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super(store, file, directory, {
             aliases: ['de'],
             autoAliases: true,
             usage: '<query:str{1,20}> [count:int{1,100}]',

@@ -1,9 +1,9 @@
-import { Command, CommandStore, KlasaClient, KlasaMessage, util } from 'klasa';
+import { Command, CommandStore, KlasaMessage, util } from 'klasa';
 const { exec, codeBlock } = util;
 
 export default class ExecCommand extends Command {
-    public constructor(client: KlasaClient, store: CommandStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super(store, file, directory, {
             aliases: ['execute'],
             description: 'Execute commands in the terminal, use with EXTREME CAUTION',
             guarded: true,

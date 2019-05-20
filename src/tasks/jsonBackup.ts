@@ -1,11 +1,11 @@
 import { ensureDir, targz } from 'fs-nextra';
-import { KlasaClient, Provider, Task, TaskStore, Timestamp } from 'klasa';
+import { Provider, Task, TaskStore, Timestamp } from 'klasa';
 import { dirname, resolve } from 'path';
 
 export default class BackupTask extends Task {
     private timestamp: Timestamp = new Timestamp('YYYY-MM-DD[T]HHmmss')
-    public constructor(client: KlasaClient, store: TaskStore, file: string[], directory: string) {
-        super(client, store, file, directory);
+    public constructor(store: TaskStore, file: string[], directory: string) {
+        super(store, file, directory);
     }
 
     private get provider(): Provider {

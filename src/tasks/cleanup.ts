@@ -1,5 +1,5 @@
-import { Task, TaskStore, KlasaClient, Colors } from 'klasa';
-import { SnowflakeUtil, TextChannel, DMChannel } from 'discord.js';
+import { DMChannel, SnowflakeUtil, TextChannel } from 'discord.js';
+import { Colors, Task, TaskStore } from 'klasa';
 
 const { generate } = SnowflakeUtil;
 
@@ -13,8 +13,8 @@ export default class CleanupTask extends Task {
     }
 
     private header: string = new Colors({ text: 'lightblue' }).format('[CACHE CLEANUP]')
-    public constructor(client: KlasaClient, store: TaskStore, file: string[], directory: string) {
-        super(client, store, file, directory);
+    public constructor(store: TaskStore, file: string[], directory: string) {
+        super(store, file, directory);
     }
 
     public async run(): Promise<void> {

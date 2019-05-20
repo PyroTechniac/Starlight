@@ -1,8 +1,8 @@
-import { Command, CommandStore, Client, KlasaUser, KlasaMessage } from 'klasa';
+import { Command, CommandStore, KlasaMessage, KlasaUser } from 'klasa';
 
 export default class AvatarCommand extends Command {
-    public constructor(client: Client, store: CommandStore, file: string[], directory: string) {
-        super(client, store, file, directory, {
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super(store, file, directory, {
             description: 'Shows a user\'s avatar',
             usage: '[user:user]'
         });

@@ -1,6 +1,6 @@
+import { Message, MessageEmbed, TextChannel, User } from 'discord.js';
 import { KlasaGuild } from 'klasa';
 import { Log } from './Log';
-import { User, MessageEmbed, TextChannel, Message } from 'discord.js';
 
 export class ModLog extends Log {
     private reason: string | null;
