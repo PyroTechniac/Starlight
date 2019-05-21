@@ -19,13 +19,14 @@ export default class KlasaReadyEvent extends Event {
         this.ensureTask('cleanup', '*/10 * * * *');
         this.ensureTask('jsonBackup', '@weekly');
         this.ensureTask('setPresence', '@hourly', { data: DefaultPresence });
-        await this.client.user!.setPresence(DefaultPresence);
+        this.client.user!.setPresence(DefaultPresence);
     }
 
     private ensureTask(task: string, time: string | number | Date, data?: ScheduledTaskOptions | undefined): void {
         const { tasks } = this.client.schedule;
 
         if (!tasks.some((s): boolean => s.taskName === task)) {
+            this.client.emit('debug', `Creating task ${task}`);
             this.client.schedule.create(task, time, data);
         }
     }

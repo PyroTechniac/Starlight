@@ -11,6 +11,7 @@ export class Stats extends Collection<string, number> {
         for (const command of this.client.commands.values()) {
             this.set(command.name, 0);
         }
+        this.set('messages', 0);
         return this;
     }
 
