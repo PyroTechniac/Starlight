@@ -1,5 +1,6 @@
 import { Event, EventStore, ScheduledTaskOptions } from 'klasa';
 import { DefaultPresence } from '../util';
+import { Stats } from '../lib';
 
 export default class KlasaReadyEvent extends Event {
     public constructor(store: EventStore, file: string[], directory: string) {
@@ -9,7 +10,12 @@ export default class KlasaReadyEvent extends Event {
         });
     }
 
+    private get stats(): Stats {
+        return this.client.stats;
+    }
+
     public async run(): Promise<void> {
+        this.stats.init();
         this.ensureTask('cleanup', '*/10 * * * *');
         this.ensureTask('jsonBackup', '@weekly');
         this.ensureTask('setPresence', '@hourly', { data: DefaultPresence });

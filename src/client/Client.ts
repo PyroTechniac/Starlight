@@ -1,16 +1,20 @@
 import { UserResolvable } from 'discord.js';
 import { KlasaClient, KlasaClientOptions, Stopwatch } from 'klasa';
 import { ClientUtil, Config, ConfigOptions } from '../util';
+import { Stats } from '../lib';
 declare module 'discord.js' {
     interface Client {
         util: ClientUtil;
         isOwner(user: UserResolvable): boolean;
         config: Config;
+        stats: Stats;
     }
 }
 
 export class StarlightClient extends KlasaClient {
     public util: ClientUtil
+
+    public stats: Stats;
 
     public constructor(options?: KlasaClientOptions & ConfigOptions) {
         super(options as KlasaClientOptions);
@@ -18,6 +22,8 @@ export class StarlightClient extends KlasaClient {
         this.util = new ClientUtil(this);
 
         this.config = new Config(this, options);
+
+        this.stats = new Stats(this);
     }
 
     public isOwner(user: UserResolvable): boolean {
@@ -30,10 +36,9 @@ export class StarlightClient extends KlasaClient {
 
     public async start(): Promise<string> {
         const timer = new Stopwatch();
-        const log = await super.login(this.config.token);
         await this.init();
         this.emit('log', `Initialized in ${timer.stop()}`);
-        return log;
+        return this.login(this.config.token);
     }
 
     private async init(): Promise<void> {
