@@ -200,7 +200,7 @@ export class ClientUtil {
         return new Discord.MessageAttachment(file, name);
     }
 
-    public collection(iterable?: readonly (readonly [any, any])[] | null | undefined): Discord.Collection<any, any> {
+    public collection<K, V>(iterable?: readonly (readonly [K, V])[] | null | undefined): Discord.Collection<K, V> {
         return new Discord.Collection(iterable);
     }
 }
