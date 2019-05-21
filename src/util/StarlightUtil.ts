@@ -1,8 +1,8 @@
 import * as Discord from 'discord.js';
 import * as Klasa from 'klasa';
 import { Stream } from 'stream';
-import { MarkdownUtil } from './MarkdownUtil';
 import { List } from '../lib';
+import { MarkdownUtil } from './MarkdownUtil';
 
 
 export class ClientUtil {
@@ -32,11 +32,11 @@ export class ClientUtil {
 
         if (!wholeWord) {
             return username.includes(text)
-            || (username.includes(text.split('#')[0]) && discriminator.includes(text.split('#')[1]));
+                || (username.includes(text.split('#')[0]) && discriminator.includes(text.split('#')[1]));
         }
 
         return username === text
-        || (username === text.split('#')[0] && discriminator === text.split('#')[1]);
+            || (username === text.split('#')[0] && discriminator === text.split('#')[1]);
     }
 
     public resolveMember(text: string, members: Discord.Collection<Discord.Snowflake, Discord.GuildMember>, caseSensitive = false, wholeWord = false): Discord.GuildMember | undefined {
@@ -67,8 +67,8 @@ export class ClientUtil {
         }
 
         return displayName === text
-        || username === text
-        || ((username === text.split('#')[0] || displayName === text.split('#')[0]) && discriminator === text.split('#')[1]);
+            || username === text
+            || ((username === text.split('#')[0] || displayName === text.split('#')[0]) && discriminator === text.split('#')[1]);
     }
 
     public resolveChannel(text: string, channels: Discord.Collection<Discord.Snowflake, Discord.GuildChannel>, caseSensitive = false, wholeWord = false): Discord.GuildChannel | undefined {
@@ -207,5 +207,37 @@ export class ClientUtil {
 
     public list<V>(iterable?: readonly V[]): List<V> {
         return new List(iterable);
+    }
+
+    public display(embed?: Discord.MessageEmbed): Klasa.RichDisplay {
+        return new Klasa.RichDisplay(embed);
+    }
+
+    public menu(embed?: Discord.MessageEmbed): Klasa.RichMenu {
+        return new Klasa.RichMenu(embed);
+    }
+
+    public stopwatch(digits?: number): Klasa.Stopwatch {
+        return new Klasa.Stopwatch(digits);
+    }
+
+    public duration(pattern: string): Klasa.Duration {
+        return new Klasa.Duration(pattern);
+    }
+
+    public timestamp(pattern: string): Klasa.Timestamp {
+        return new Klasa.Timestamp(pattern);
+    }
+
+    public permissions(resolvable: Discord.PermissionResolvable): Discord.Permissions {
+        return new Discord.Permissions(resolvable);
+    }
+
+    public map<K, V>(iterable?: readonly (readonly [K, V])[]): Map<K, V> {
+        return new Map(iterable);
+    }
+
+    public set<V>(iterable: Iterable<V>): Set<V> {
+        return new Set(iterable);
     }
 }
