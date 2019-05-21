@@ -278,16 +278,6 @@
   dependencies:
     core-js "^2.5.7"
 
-"@kcp/channels-gateway@^1.0.0":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@kcp/channels-gateway/-/channels-gateway-1.0.1.tgz#bc97d1ae19b9d42fd6a0c7f557640c16703fad61"
-  integrity sha512-5Es46Wk5Msq9gXZFDHW5ZG0gt8lvzy2b9HE4WWTnjmAVhV1717pqe9VD9m4b+VCjhhHUc+3kgDJksN9Ux7Pfkg==
-
-"@kcp/tags@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@kcp/tags/-/tags-1.0.0.tgz#d18ad9fc3c26027a2d0a6504b168c127cd34d654"
-  integrity sha512-Crjwrtn4g8wNsj2gmtR8Pbw78dER5QOqj1HqI08hInpxZUYOnLtJrKA9OaDHZthpG+JN0Vtvp4oNr8+8N5NiJw==
-
 "@types/dotenv@^6.1.1":
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/@types/dotenv/-/dotenv-6.1.1.tgz#f7ce1cc4fe34f0a4373ba99fefa437b0bec54b46"
@@ -493,6 +483,13 @@ buffer@^5.2.0:
   dependencies:
     base64-js "^1.0.2"
     ieee754 "^1.1.4"
+
+bufferutil@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/bufferutil/-/bufferutil-4.0.1.tgz#3a177e8e5819a1243fe16b63a199951a7ad8d4a7"
+  integrity sha512-xowrxvpxojqkagPcWRQVXZl0YXhRhAtBEIq3VoER1NH5Mw1n1o0ojdspp+GS2J//2gCVyrzQDApQ4unGF+QOoA==
+  dependencies:
+    node-gyp-build "~3.7.0"
 
 callsites@^3.0.0:
   version "3.1.0"
@@ -1238,6 +1235,11 @@ node-fetch@^2.3.0, node-fetch@^2.5.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
   integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
+
+node-gyp-build@~3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-3.7.0.tgz#daa77a4f547b9aed3e2aac779eaf151afd60ec8d"
+  integrity sha512-L/Eg02Epx6Si2NXmedx+Okg+4UHqmaf3TNcxd50SF9NQGcJaON3AtU++kax69XV7YWz4tUspqZSAsVofhFKG2w==
 
 node-opus@^0.3.1:
   version "0.3.1"
