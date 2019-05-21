@@ -30,4 +30,12 @@ export class Config {
     public get prefix(): string {
         return this._prefix;
     }
+
+    public toJSON(): { [key: string]: string } {
+        return {
+            token: this.token,
+            owner: this.ownerID,
+            prefix: this.prefix
+        };
+    }
 }

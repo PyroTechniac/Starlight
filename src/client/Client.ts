@@ -53,4 +53,8 @@ export class StarlightClient extends KlasaClient {
         }
         return owners;
     }
+
+    public toJSON(): object {
+        return { ...super.toJSON(), config: this.config };
+    }
 }
