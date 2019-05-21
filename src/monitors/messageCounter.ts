@@ -8,7 +8,7 @@ export default class MessageCounterMonitor extends Monitor {
         });
     }
     public run(): void {
-        this.stats.inc('messages');
+        this.stats.get('messages')!.inc();
     }
 
     private get stats(): Stats {

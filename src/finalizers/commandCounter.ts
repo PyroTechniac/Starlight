@@ -3,7 +3,7 @@ import { Stats } from '../lib';
 
 export default class CommandCounterFinalizer extends Finalizer {
     public async run(msg: KlasaMessage, cmd: Command): Promise<void> {
-        this.stats.inc(cmd.name);
+        this.stats.get(cmd.name)!.inc();
         this.stats.pushCommand(cmd);
     }
 
