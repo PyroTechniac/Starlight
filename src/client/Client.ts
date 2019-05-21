@@ -1,7 +1,7 @@
-import { UserResolvable } from 'discord.js';
+import { User, UserResolvable } from 'discord.js';
 import { KlasaClient, KlasaClientOptions, Stopwatch } from 'klasa';
+import { List, Stats } from '../lib';
 import { ClientUtil, Config, ConfigOptions } from '../util';
-import { Stats } from '../lib';
 declare module 'discord.js' {
     interface Client {
         util: ClientUtil;
@@ -43,5 +43,14 @@ export class StarlightClient extends KlasaClient {
 
     private async init(): Promise<void> {
         return;
+    }
+
+    public get owners(): List<User> {
+        const owners = this.util.list<User>();
+        for (const owner of this.options.owners) {
+            const user = this.users.get(owner);
+            if (user) owners.add(user);
+        }
+        return owners;
     }
 }

@@ -2,6 +2,7 @@ import * as Discord from 'discord.js';
 import * as Klasa from 'klasa';
 import { Stream } from 'stream';
 import { MarkdownUtil } from './MarkdownUtil';
+import { List } from '../lib';
 
 
 export class ClientUtil {
@@ -192,15 +193,19 @@ export class ClientUtil {
         return guild.members.fetch({ user, cache });
     }
 
-    public embed(data?: Discord.MessageEmbed | Discord.MessageEmbedOptions | undefined): Discord.MessageEmbed {
+    public embed(data?: Discord.MessageEmbed | Discord.MessageEmbedOptions): Discord.MessageEmbed {
         return new Discord.MessageEmbed(data);
     }
 
-    public attachment(file: string | Buffer | Stream, name?: string | undefined): Discord.MessageAttachment {
+    public attachment(file: string | Buffer | Stream, name?: string): Discord.MessageAttachment {
         return new Discord.MessageAttachment(file, name);
     }
 
     public collection<K, V>(iterable?: readonly (readonly [K, V])[]): Discord.Collection<K, V> {
         return new Discord.Collection(iterable);
+    }
+
+    public list<V>(iterable?: readonly V[]): List<V> {
+        return new List(iterable);
     }
 }

@@ -1,7 +1,7 @@
 export class List<V> extends Set<V> {
     private _array: V[] | null;
     public static readonly default: typeof List = List;
-    public constructor(iterable: Iterable<V>) {
+    public constructor(iterable?: readonly V[]) {
         super(iterable);
 
         Object.defineProperty(this, '_array', { value: null, writable: true, configurable: true });
