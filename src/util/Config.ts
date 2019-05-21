@@ -13,8 +13,8 @@ export class Config {
     private readonly _ownerID!: string;
     private readonly _prefix!: string;
     private readonly _token!: string;
-    public constructor(private readonly _client: StarlightClient, options: ConfigOptions = {}) {
-        options = mergeDefault<ConfigOptions>(ConfigDefaults, options);
+    public constructor(private readonly _client: StarlightClient) {
+        const options = mergeDefault<ConfigOptions>(ConfigDefaults, this._client.options);
         Object.defineProperty(this, '_token', { value: options.token });
         Object.defineProperty(this, '_ownerID', { value: options.ownerID });
         Object.defineProperty(this, '_prefix', { value: options.prefix });

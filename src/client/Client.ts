@@ -21,7 +21,7 @@ export class StarlightClient extends KlasaClient {
 
         this.util = new ClientUtil(this);
 
-        this.config = new Config(this, options);
+        this.config = new Config(this);
 
         this.stats = new Stats(this);
     }
