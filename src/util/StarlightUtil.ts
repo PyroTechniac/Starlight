@@ -187,7 +187,7 @@ export class ClientUtil {
         return 0;
     }
 
-    public async fetchMember(guild: Klasa.KlasaGuild, id: string, cache: boolean = true): Promise<Discord.GuildMember> {
+    public async fetchMember(guild: Discord.Guild, id: string, cache: boolean = true): Promise<Discord.GuildMember> {
         const user = await this.client.users.fetch(id, cache);
         return guild.members.fetch({ user, cache });
     }
@@ -200,7 +200,7 @@ export class ClientUtil {
         return new Discord.MessageAttachment(file, name);
     }
 
-    public collection<K, V>(iterable?: readonly (readonly [K, V])[] | null | undefined): Discord.Collection<K, V> {
+    public collection<K, V>(iterable?: readonly (readonly [K, V])[]): Discord.Collection<K, V> {
         return new Discord.Collection(iterable);
     }
 }
