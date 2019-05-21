@@ -39,5 +39,5 @@ Raven.context((): any => new StarlightClient({
     providers: {
         default: 'rethinkdb'
     },
-    fetchAllMembers: true // Just for now, as my bot isn't large
+    fetchAllMembers: !production
 }).start());

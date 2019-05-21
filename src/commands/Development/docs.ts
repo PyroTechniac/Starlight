@@ -1,8 +1,7 @@
-import { Command, CommandStore } from 'klasa';
+import { Collection, MessageReaction, TextChannel } from 'discord.js';
+import { Command, CommandStore, KlasaMessage } from 'klasa';
 import fetch from 'node-fetch';
 import * as qs from 'querystring';
-import { KlasaMessage } from 'klasa';
-import { TextChannel } from 'discord.js';
 
 export default class DocsCommand extends Command {
     public constructor(store: CommandStore, file: string[], directory: string) {
@@ -29,6 +28,21 @@ export default class DocsCommand extends Command {
         if (msg.channel.type === 'dm' || !(msg.channel as TextChannel).permissionsFor(msg.guild!.me!)!.has(['ADD_REACTIONS'], false)) {
             return msg.sendEmbed(this.client.util.embed(embed));
         }
-        return msg.sendEmbed(this.client.util.embed(embed));
+        const message = await msg.sendEmbed(this.client.util.embed(embed)) as KlasaMessage;
+        message.react('🗑');
+        let react: Collection<string, MessageReaction>;
+        try {
+            react = await message.awaitReactions(
+                (reaction, user): boolean => reaction.emoji.name === '🗑' && user.id === msg.author!.id,
+                { max: 1, time: 5000, errors: ['time'] }
+            );
+        } catch (error) {
+            message.reactions.removeAll();
+
+            return msg;
+        }
+        react.first()!.message.delete();
+
+        return msg;
     }
 }

@@ -25,6 +25,7 @@
         "raven": "^2.6.4",
         "rethinkdb-ts": "^2.4.0-rc.13",
         "tslib": "^1.9.3",
+        "turndown": "^5.0.3",
         "ytdl-core": "^0.29.2",
         "ytdl-core-discord": "amishshah/ytdl-core-discord"
     },
