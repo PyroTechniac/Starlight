@@ -17,7 +17,7 @@
         "noEmitOnError": true,
         "strictNullChecks": true,
         "declaration": true,
-        "importHelpers": true,
+        "importHelpers": false,
         "tsBuildInfoFile": "./.cache/tsbuildinfo.json",
         "incremental": true,
         "listEmittedFiles": true,

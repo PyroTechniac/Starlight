@@ -1,6 +1,7 @@
 import { StarlightClient } from '../client/Client';
 import { util } from 'klasa';
 import { ConfigDefaults } from './Constants';
+import { StarlightError } from './StarlightError';
 const { mergeDefault } = util;
 
 export interface ConfigOptions {
@@ -37,5 +38,12 @@ export class Config {
             owner: this.ownerID,
             prefix: this.prefix
         };
+    }
+
+    public static validate(config: Config): Config {
+        if (typeof config.token !== 'string') throw new StarlightError('INVALID_ARG', 'string', 'token', typeof config.token);
+        if (typeof config.ownerID !== 'string') throw new StarlightError('INVALID_ARG', 'string', 'ownerID', typeof config.ownerID);
+        if (typeof config.prefix !== 'string') throw new StarlightError('INVALID_ARG', 'string', 'prefix', typeof config.prefix);
+        return config;
     }
 }

@@ -42,6 +42,7 @@ export class StarlightClient extends KlasaClient {
     }
 
     private async init(): Promise<void> {
+        Config.validate(this.config);
         return;
     }
 
