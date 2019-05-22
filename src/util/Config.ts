@@ -31,7 +31,7 @@ export class Config {
         return this._prefix;
     }
 
-    public toJSON(): { [key: string]: string } {
+    public toJSON(): object {
         return {
             token: this.token,
             owner: this.ownerID,

@@ -17,7 +17,7 @@ export default class ExecCommand extends Command {
         await message.sendMessage('Executing your command...');
 
         const result = await exec(expression, { timeout: 'timeout' in message.flags ? Number(message.flags.timeout) : 60000 })
-            .catch((error): any => ({ stdout: null, stderr: null }));
+            .catch((): any => ({ stdout: null, stderr: null }));
         const output = result.stdout ? `**\`OUTPUT\`**${codeBlock('prolog', result.stdout)}` : '';
         const outerr = result.stderr ? `**\`ERROR\`**${codeBlock('prolog', result.stderr)}` : '';
         
