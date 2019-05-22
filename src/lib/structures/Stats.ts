@@ -3,7 +3,10 @@ import { Command, KlasaClient } from 'klasa';
 
 class Stat {
     private _count: number = 0;
-    public constructor(public readonly client: KlasaClient, public readonly stats: Stats) { }
+    public readonly client: KlasaClient
+    public constructor(public readonly stats: Stats) {
+        this.client = stats.client;
+    }
 
     public get count(): number {
         return this._count;
@@ -28,9 +31,9 @@ export class Stats extends Collection<string, Stat> {
 
     public init(): this {
         for (const command of this.client.commands.values()) {
-            this.set(command.name, new Stat(this.client, this));
+            this.set(command.name, new Stat(this));
         }
-        this.set('messages', new Stat(this.client, this));
+        this.set('messages', new Stat(this));
         return this;
     }
 
@@ -41,7 +44,14 @@ export class Stats extends Collection<string, Stat> {
 
     public get total(): number {
         let total = 0;
-        for (const stat of this.values()) total += stat.count;
+        for (const [statType, statCount] of this.entries()) {
+            if (statType === 'messages') continue;
+            total += statCount.count;
+        }
         return total;
+    }
+
+    public get messageCount(): number {
+        return this.get('messages')!.count;
     }
 }
