@@ -57,4 +57,9 @@ export class StarlightClient extends KlasaClient {
     public toJSON(): object {
         return { ...super.toJSON(), config: this.config };
     }
+
+    public destroy(): void {
+        this.stats.destroy();
+        return super.destroy();
+    }
 }

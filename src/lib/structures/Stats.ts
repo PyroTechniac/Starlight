@@ -21,6 +21,10 @@ class Stat {
         this._count--;
         return this.count;
     }
+
+    public destroy(): void {
+        this._count = 0;
+    }
 }
 
 export class Stats extends Collection<string, Stat> {
@@ -53,5 +57,10 @@ export class Stats extends Collection<string, Stat> {
 
     public get messageCount(): number {
         return this.get('messages')!.count;
+    }
+
+    public destroy(): void {
+        for (const s of this.values()) s.destroy();
+        this.clear();
     }
 }

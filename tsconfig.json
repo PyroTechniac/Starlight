@@ -20,7 +20,8 @@
         "importHelpers": true,
         "tsBuildInfoFile": "./.cache/tsbuildinfo.json",
         "incremental": true,
-        "listEmittedFiles": true
+        "listEmittedFiles": true,
+        "sourceMap": true
     },
     "include": [
         "src"
