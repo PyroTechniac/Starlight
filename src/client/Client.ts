@@ -1,6 +1,6 @@
 import { User, UserResolvable } from 'discord.js';
 import { KlasaClient, KlasaClientOptions, Stopwatch } from 'klasa';
-import { List, Stats } from '../lib';
+import { List, Stats, CanvasStore } from '../lib';
 import { ClientUtil, Config, ConfigOptions } from '../util';
 declare module 'discord.js' {
     interface Client {
@@ -8,6 +8,7 @@ declare module 'discord.js' {
         isOwner(user: UserResolvable): boolean;
         config: Config;
         stats: Stats;
+        canvas: CanvasStore;
     }
 }
 
@@ -15,6 +16,8 @@ export class StarlightClient extends KlasaClient {
     public util: ClientUtil
 
     public stats: Stats;
+
+    public canvas: CanvasStore;
 
     public constructor(options?: KlasaClientOptions & ConfigOptions) {
         super(options as KlasaClientOptions);
@@ -24,6 +27,8 @@ export class StarlightClient extends KlasaClient {
         this.config = new Config(this);
 
         this.stats = new Stats(this);
+
+        this.canvas = new CanvasStore(this);
     }
 
     public isOwner(user: UserResolvable): boolean {
