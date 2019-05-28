@@ -2575,7 +2575,8 @@ yallist@^3.0.0, yallist@^3.0.2:
 
 ytdl-core-discord@amishshah/ytdl-core-discord:
   version "1.0.3"
-  resolved "https://codeload.github.com/amishshah/ytdl-core-discord/tar.gz/7d08bce1b0b257ade2c50a5bf2a64645234e0041"
+  uid "7dbf57a4382aad35e2c10fe0ecd8d1ff0e6a34ec"
+  resolved "https://codeload.github.com/amishshah/ytdl-core-discord/tar.gz/7dbf57a4382aad35e2c10fe0ecd8d1ff0e6a34ec"
   dependencies:
     "@types/node" "^11.11.3"
     prism-media "^1.0.1"
