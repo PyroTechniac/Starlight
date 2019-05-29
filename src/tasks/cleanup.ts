@@ -14,7 +14,9 @@ export default class CleanupTask extends Task {
 
     private header: string = new Colors({ text: 'lightblue' }).format('[CACHE CLEANUP]')
     public constructor(store: TaskStore, file: string[], directory: string) {
-        super(store, file, directory);
+        super(store, file, directory, {
+            enabled: false
+        });
     }
 
     public async run(): Promise<void> {

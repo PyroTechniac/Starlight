@@ -16,7 +16,7 @@ export default class KlasaReadyEvent extends Event {
 
     public async run(): Promise<void> {
         this.stats.init();
-        this.ensureTask('cleanup', '*/10 * * * *');
+        //        this.ensureTask('cleanup', '*/10 * * * *');
         this.ensureTask('jsonBackup', '@weekly');
         this.ensureTask('setPresence', '@hourly', { data: DefaultPresence });
         this.client.user!.setPresence(DefaultPresence);
