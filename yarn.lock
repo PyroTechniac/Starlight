@@ -1461,7 +1461,8 @@ jsprim@^1.2.2:
 
 klasa@dirigeants/klasa#v1.0.0-alpha:
   version "0.5.0-dev"
-  resolved "https://codeload.github.com/dirigeants/klasa/tar.gz/2798910339100bb88fa14c39ef7699c0c79a4f9b"
+  uid b14f61815b7d42f0760e3331db7231f7192a4162
+  resolved "https://codeload.github.com/dirigeants/klasa/tar.gz/b14f61815b7d42f0760e3331db7231f7192a4162"
   dependencies:
     fs-nextra "^0.4.3"
 
