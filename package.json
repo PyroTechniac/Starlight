@@ -17,6 +17,7 @@
         "dotenv": "^8.0.0",
         "klasa": "dirigeants/klasa#v1.0.0-alpha",
         "node-fetch": "^2.6.0",
+        "python-shell": "^1.0.7",
         "request": "^2.88.0",
         "xbox-smartglass-core-node": "openxbox/xbox-smartglass-core-node"
     },
