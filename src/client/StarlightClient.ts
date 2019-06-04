@@ -1,16 +1,15 @@
 import { KlasaClient } from 'klasa';
 import { StarlightClientOptions } from './StarlightClientOptions';
-import { SmartGlass } from '../lib/structures/SmartGlass';
+const SmartGlass = require('xbox-smartglass-core-node'); // eslint-disable-line
 
 export class StarlightClient extends KlasaClient {
     public options: Required<StarlightClientOptions>;
 
-    public xbox: SmartGlass;
-
+    public xbox: any;
     public constructor(options: StarlightClientOptions = {}) {
         super(options);
 
-        this.xbox = new SmartGlass(this, { xboxID: this.options.xboxID, xboxIP: this.options.xboxIP });
+        this.xbox = SmartGlass();
     }
 
     private get _token(): string {
