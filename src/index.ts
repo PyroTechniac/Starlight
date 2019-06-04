@@ -6,5 +6,6 @@ new StarlightClient({
     token: process.env.TOKEN,
     prefix: process.env.PREFIX,
     xboxID: process.env.XBOX_ID,
-    xboxIP: process.env.XBOX_IP
+    xboxIP: process.env.XBOX_IP,
+    commandEditing: true
 }).start();
