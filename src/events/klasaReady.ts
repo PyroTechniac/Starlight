@@ -8,7 +8,7 @@ export default class extends Event {
     }
 
     public async run(): Promise<void> {
-        await this.ensureTask('cleanup', '*/8 0 0 0 0');
+        await this.ensureTask('cleanup', '*/8 * * * *');
     }
 
     private async ensureTask(name: string, time: string | number | Date, data?: ScheduledTaskOptions): Promise<void> {

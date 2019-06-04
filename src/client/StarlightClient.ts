@@ -1,15 +1,20 @@
 import { KlasaClient } from 'klasa';
 import { StarlightClientOptions } from './StarlightClientOptions';
+import { SmartGlass } from '../lib/structures/SmartGlass';
 
 export class StarlightClient extends KlasaClient {
     public options: Required<StarlightClientOptions>;
 
-    private _token: string;
+    public xbox: SmartGlass;
 
     public constructor(options: StarlightClientOptions = {}) {
         super(options);
 
-        this._token = options.token || '';
+        this.xbox = new SmartGlass(this, { xboxID: this.options.xboxID, xboxIP: this.options.xboxIP });
+    }
+
+    private get _token(): string {
+        return this.options.token || '';
     }
 
     public async start(): Promise<string> {
