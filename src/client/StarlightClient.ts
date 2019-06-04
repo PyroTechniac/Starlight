@@ -24,4 +24,9 @@ export class StarlightClient extends KlasaClient {
     public async init(): Promise<void> {
         // Placeholder
     }
+
+    public powerOn(tries: number = 5): void {
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        this.xbox.powerOn({ ip: this.options.xboxIP, live_id: this.options.xboxID, tries }, this.console.log);
+    }
 }
