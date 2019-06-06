@@ -1,4 +1,4 @@
-import { ShardingManager } from 'kurasuta';
+import { ShardingManager, ShardClientUtil } from 'kurasuta';
 import { join } from 'path';
 import { config } from 'dotenv';
 import { StarlightClient } from './client/StarlightClient';
@@ -30,9 +30,11 @@ const sharder = new ShardingManager(join(__dirname, 'main'), {
             verbose: !production
         },
         production,
-        fetchAllMembers: !production
+        fetchAllMembers: !production,
+        readyMessage: (client: StarlightClient): string => `Successfully initialized. Shard ${(client.shard as unknown as ShardClientUtil).id} is ready to serve ${client.guilds.size} guilds.`
     } as KlasaClientOptions,
-    timeout: 60000
+    timeout: 60000,
+    shardCount: 'auto'
 });
 
 sharder.spawn().catch(console.error); // eslint-disable-line no-console
