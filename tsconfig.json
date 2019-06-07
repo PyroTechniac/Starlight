@@ -12,7 +12,7 @@
             "klasa",
             "node",
             "node-fetch",
-            "dotenv"
+            "dotenv",
         ],
         "noEmitOnError": true,
         "strictNullChecks": true,
