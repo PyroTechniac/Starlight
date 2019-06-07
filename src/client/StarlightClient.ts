@@ -1,13 +1,17 @@
-import { KlasaClient, KlasaClientOptions, KlasaUser } from 'klasa';
+import { Client, KlasaClientOptions, KlasaUser, Settings } from 'klasa';
 import { ClientUtil, List } from '../lib/util';
 
 declare module 'discord.js' {
     interface Client {
         util: ClientUtil;
     }
+
+    interface GuildMember {
+        settings: Settings;
+    }
 }
 
-export class StarlightClient extends KlasaClient {
+export class StarlightClient extends Client {
     public constructor(options: KlasaClientOptions) {
         super(options);
         this.util = new ClientUtil(this);

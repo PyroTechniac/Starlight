@@ -3,6 +3,7 @@ import { join } from 'path';
 import { config } from 'dotenv';
 import { StarlightClient } from './client/StarlightClient';
 import { KlasaClientOptions } from 'klasa';
+
 config();
 
 /* eslint-disable @typescript-eslint/no-object-literal-type-assertion */
@@ -31,6 +32,16 @@ const sharder = new ShardingManager(join(__dirname, 'main'), {
         },
         production,
         fetchAllMembers: !production,
+        providers: {
+            default: 'postgresql',
+            postgresql: {
+                options: {
+                    ssl: true,
+                    connectionTimeoutMillis: 10000,
+                    connectionString: process.env.PGSTRING
+                }
+            }
+        },
         readyMessage: (client: StarlightClient): string => `Successfully initialized. Shard ${(client.shard as unknown as ShardClientUtil).id} is ready to serve ${client.guilds.size} guilds.`
     } as KlasaClientOptions,
     timeout: 60000,
