@@ -1,8 +1,7 @@
 import { Serializer } from 'klasa';
 
 export default class extends Serializer {
-    // @ts-ignore
-    public deserialize(data: number): Date {
+    public async deserialize(data: number): Promise<Date> {
         return new Date(data);
     }
 

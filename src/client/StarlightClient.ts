@@ -1,6 +1,6 @@
-import { Client, KlasaClientOptions, KlasaUser } from 'klasa';
+import { Client, KlasaClientOptions, KlasaUser, Settings, Gateway } from 'klasa';
 import { ClientUtil, List } from '../lib/util';
-import { Collection, DMChannel,  VoiceChannel, StoreChannel, NewsChannel, TextChannel, CategoryChannel } from 'discord.js';
+import { Collection, DMChannel, VoiceChannel, StoreChannel, NewsChannel, TextChannel, CategoryChannel } from 'discord.js';
 
 declare module 'discord.js' {
     interface Client {
@@ -12,12 +12,20 @@ declare module 'discord.js' {
         readonly news: Collection<string, NewsChannel>;
         readonly categories: Collection<string, CategoryChannel>;
     }
+
+    interface GuildChannel {
+        settings: Settings;
+    }
 }
 
 export class StarlightClient extends Client {
     public constructor(options: KlasaClientOptions) {
         super(options);
         this.util = new ClientUtil(this);
+
+        this.gateways.register(new Gateway(this, 'categoryChannels'))
+            .register(new Gateway(this, 'textChannels'))
+            .register(new Gateway(this, 'voiceChannels'));
     }
     public get owners(): List<KlasaUser> {
         const owners = new List<KlasaUser>();

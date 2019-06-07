@@ -6,6 +6,9 @@ import { KlasaClientOptions } from 'klasa';
 
 import './lib/extensions/StarlightTextChannel';
 import './lib/extensions/StarlightDMChannel';
+import './lib/extensions/ChannelGatewaysCategoryChannel';
+import './lib/extensions/ChannelGatewaysTextChannel';
+import './lib/extensions/ChannelGatewaysVoiceChannel';
 
 config();
 
