@@ -1,6 +1,11 @@
 import { Client, KlasaClientOptions, KlasaUser, Settings, Gateway } from 'klasa';
 import { ClientUtil, List } from '../lib/util';
 import { Collection, DMChannel, VoiceChannel, StoreChannel, NewsChannel, TextChannel, CategoryChannel } from 'discord.js';
+import { Schema } from 'klasa';
+
+Client.defaultCategoryChannelSchema = new Schema();
+Client.defaultTextChannelSchema = new Schema();
+Client.defaultVoiceChannelSchema = new Schema();
 
 declare module 'discord.js' {
     interface Client {
@@ -15,6 +20,14 @@ declare module 'discord.js' {
 
     interface GuildChannel {
         settings: Settings;
+    }
+}
+
+declare module 'klasa' {
+    namespace Client { // eslint-disable-line
+        export let defaultTextChannelSchema: Schema;
+        export let defaultVoiceChannelSchema: Schema;
+        export let defaultCategoryChannelSchema: Schema;
     }
 }
 
