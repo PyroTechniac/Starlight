@@ -36,9 +36,9 @@ export class StarlightClient extends Client {
         super(options);
         this.util = new ClientUtil(this);
 
-        this.gateways.register(new Gateway(this, 'categoryChannels'))
-            .register(new Gateway(this, 'textChannels'))
-            .register(new Gateway(this, 'voiceChannels'));
+        this.gateways.register(new Gateway(this, 'categoryChannels', { schema: (this.constructor as typeof Client).defaultCategoryChannelSchema }))
+            .register(new Gateway(this, 'textChannels', { schema: (this.constructor as typeof Client).defaultTextChannelSchema }))
+            .register(new Gateway(this, 'voiceChannels', { schema: (this.constructor as typeof Client).defaultVoiceChannelSchema }));
     }
     public get owners(): List<KlasaUser> {
         const owners = new List<KlasaUser>();
