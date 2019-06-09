@@ -38,6 +38,7 @@ const sharder = new ShardingManager(join(__dirname, 'main'), {
         },
         production,
         fetchAllMembers: !production,
+        commandLogging: true,
         readyMessage: (client: StarlightClient): string => `Successfully initialized. Shard ${(client.shard as unknown as ShardClientUtil).id} is ready to serve ${client.guilds.size} guilds.`
     } as KlasaClientOptions,
     timeout: 60000,
