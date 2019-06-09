@@ -1,4 +1,5 @@
 import { Event, EventStore, ScheduledTaskOptions, ScheduledTask } from 'klasa';
+import { DefaultPresenceData } from '../lib/util';
 
 export default class extends Event {
     public constructor(store: EventStore, file: string[], directory: string) {
@@ -8,7 +9,9 @@ export default class extends Event {
     }
 
     public async run(): Promise<void> {
-        await Promise.all([this.ensureTask('jsonBackup', '@daily'), this.ensureTask('cleanup', '*/8 * * * *', { catchUp: false })]);
+        await Promise.all([this.ensureTask('cleanup', '*/8 * * * *', { catchUp: false }), this.ensureTask('setPresence', '@hourly', { data: DefaultPresenceData, catchUp: false })]);
+
+        await this.client.user!.setPresence(DefaultPresenceData);
     }
 
     private async ensureTask(task: string, time: string | number | Date, data?: ScheduledTaskOptions): Promise<ScheduledTask | void> {
