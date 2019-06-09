@@ -1,6 +1,6 @@
 import { Client, KlasaClientOptions, KlasaUser, Settings, Gateway } from 'klasa';
 import { ClientUtil, List } from '../lib/util';
-import { Collection, DMChannel, VoiceChannel, StoreChannel, NewsChannel, TextChannel, CategoryChannel } from 'discord.js';
+import { Collection, DMChannel, VoiceChannel, StoreChannel, NewsChannel, TextChannel, CategoryChannel, MessageReaction } from 'discord.js';
 import { Schema } from 'klasa';
 
 Client.defaultCategoryChannelSchema = new Schema();
@@ -20,6 +20,10 @@ declare module 'discord.js' {
 
     interface GuildChannel {
         settings: Settings;
+    }
+
+    interface Message {
+        unreact(emojiID: string): Promise<MessageReaction | null>;
     }
 }
 

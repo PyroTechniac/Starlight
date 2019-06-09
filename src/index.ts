@@ -14,7 +14,9 @@ import './lib/extensions/StarlightMessage';
 config();
 
 StarlightClient.defaultGuildSchema
-    .add('tags', 'any', { array: true });
+    .add('tags', 'any', { array: true })
+    .add('deleteCommand', 'boolean', { default: false })
+    .add('antiinvite', 'boolean', { default: false });
 /* eslint-disable @typescript-eslint/no-object-literal-type-assertion */
 
 const production = process.env.NODE_ENV === 'production';
