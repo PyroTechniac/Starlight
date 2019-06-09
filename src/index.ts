@@ -1,22 +1,21 @@
-import { ShardingManager, ShardClientUtil } from 'kurasuta';
-import { join } from 'path';
 import { config } from 'dotenv';
+import { KlasaClientOptions, SchemaFolder } from 'klasa';
+import { ShardClientUtil, ShardingManager } from 'kurasuta';
+import { join } from 'path';
 import { StarlightClient } from './client/StarlightClient';
-import { KlasaClientOptions } from 'klasa';
+import './lib/extensions';
 
-import './lib/extensions/StarlightTextChannel';
-import './lib/extensions/StarlightDMChannel';
-import './lib/extensions/ChannelGatewaysCategoryChannel';
-import './lib/extensions/ChannelGatewaysTextChannel';
-import './lib/extensions/ChannelGatewaysVoiceChannel';
-import './lib/extensions/StarlightMessage';
 
 config();
 
 StarlightClient.defaultGuildSchema
     .add('tags', 'any', { array: true })
     .add('deleteCommand', 'boolean', { default: false })
-    .add('antiinvite', 'boolean', { default: false });
+    .add('antiinvite', 'boolean', { default: false })
+    .add('no-mention-spam', (folder): SchemaFolder => folder
+        .add('enabled', 'boolean')
+        .add('mentionsAllowed', 'number', { default: 25 })
+        .add('timePeriod', 'number', { default: 7 }));
 /* eslint-disable @typescript-eslint/no-object-literal-type-assertion */
 
 const production = process.env.NODE_ENV === 'production';
