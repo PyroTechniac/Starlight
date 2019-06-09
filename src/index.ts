@@ -9,6 +9,7 @@ import './lib/extensions/StarlightDMChannel';
 import './lib/extensions/ChannelGatewaysCategoryChannel';
 import './lib/extensions/ChannelGatewaysTextChannel';
 import './lib/extensions/ChannelGatewaysVoiceChannel';
+import './lib/extensions/StarlightMessage';
 
 config();
 
