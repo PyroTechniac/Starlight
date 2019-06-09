@@ -12,6 +12,8 @@ import './lib/extensions/ChannelGatewaysVoiceChannel';
 
 config();
 
+StarlightClient.defaultGuildSchema
+    .add('tags', 'any', { array: true });
 /* eslint-disable @typescript-eslint/no-object-literal-type-assertion */
 
 const production = process.env.NODE_ENV === 'production';
