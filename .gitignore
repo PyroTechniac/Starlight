@@ -5,3 +5,4 @@ dist/
 typings/
 .cache/
 *.tar.gz
+.vscode/**

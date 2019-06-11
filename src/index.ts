@@ -11,11 +11,7 @@ config();
 StarlightClient.defaultGuildSchema
     .add('tags', 'any', { array: true })
     .add('deleteCommand', 'boolean', { default: false })
-    .add('antiinvite', 'boolean', { default: false })
-    .add('no-mention-spam', (folder): SchemaFolder => folder
-        .add('enabled', 'boolean')
-        .add('mentionsAllowed', 'number', { default: 25 })
-        .add('timePeriod', 'number', { default: 7 }));
+    .add('antiinvite', 'boolean', { default: false });
 /* eslint-disable @typescript-eslint/no-object-literal-type-assertion */
 
 const production = process.env.NODE_ENV === 'production';
