@@ -1,9 +1,8 @@
 import { config } from 'dotenv';
-import { KlasaClientOptions, SchemaFolder } from 'klasa';
+import { KlasaClientOptions } from 'klasa';
 import { ShardClientUtil, ShardingManager } from 'kurasuta';
 import { join } from 'path';
 import { StarlightClient } from './client/StarlightClient';
-import './lib/extensions';
 
 
 config();

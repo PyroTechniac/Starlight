@@ -1,7 +1,8 @@
-import { Client, KlasaClientOptions, KlasaUser, Settings, Gateway } from 'klasa';
+import { CategoryChannel, Collection, DMChannel, NewsChannel, StoreChannel, TextChannel, VoiceChannel } from 'discord.js';
+import { Client, Gateway, KlasaClientOptions, KlasaUser, Schema, Settings } from 'klasa';
 import { ClientUtil, List } from '../lib/util';
-import { Collection, DMChannel, VoiceChannel, StoreChannel, NewsChannel, TextChannel, CategoryChannel, MessageReaction } from 'discord.js';
-import { Schema } from 'klasa';
+import { ObjectStore } from '../lib/structures/ObjectStore';
+import './StarlightPreload';
 
 Client.defaultCategoryChannelSchema = new Schema();
 Client.defaultTextChannelSchema = new Schema();
@@ -36,9 +37,13 @@ declare module 'klasa' {
 }
 
 export class StarlightClient extends Client {
+    public objects: ObjectStore;
     public constructor(options: KlasaClientOptions) {
         super(options);
         this.util = new ClientUtil(this);
+
+        this.objects = new ObjectStore(this);
+        this.registerStore(this.objects);
 
         this.gateways.register(new Gateway(this, 'categoryChannels', { schema: (this.constructor as typeof Client).defaultCategoryChannelSchema }))
             .register(new Gateway(this, 'textChannels', { schema: (this.constructor as typeof Client).defaultTextChannelSchema }))
