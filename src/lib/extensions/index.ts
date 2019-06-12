@@ -2,6 +2,8 @@ export * from './ChannelGatewaysCategoryChannel';
 export * from './ChannelGatewaysTextChannel';
 export * from './ChannelGatewaysVoiceChannel';
 export * from './StarlightDMChannel';
+export * from './StarlightGuild';
 export * from './StarlightGuildEmoji';
+export * from './StarlightGuildMember';
 export * from './StarlightMessage';
 export * from './StarlightTextChannel';

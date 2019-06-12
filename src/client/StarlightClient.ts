@@ -7,6 +7,7 @@ import './StarlightPreload';
 Client.defaultCategoryChannelSchema = new Schema();
 Client.defaultTextChannelSchema = new Schema();
 Client.defaultVoiceChannelSchema = new Schema();
+Client.defaultMemberSchema = new Schema();
 
 declare module 'discord.js' {
     interface Client {
@@ -33,6 +34,7 @@ declare module 'klasa' {
         export let defaultTextChannelSchema: Schema;
         export let defaultVoiceChannelSchema: Schema;
         export let defaultCategoryChannelSchema: Schema;
+        export let defaultMemberSchema: Schema;
     }
 }
 
@@ -47,7 +49,8 @@ export class StarlightClient extends Client {
 
         this.gateways.register(new Gateway(this, 'categoryChannels', { schema: (this.constructor as typeof Client).defaultCategoryChannelSchema }))
             .register(new Gateway(this, 'textChannels', { schema: (this.constructor as typeof Client).defaultTextChannelSchema }))
-            .register(new Gateway(this, 'voiceChannels', { schema: (this.constructor as typeof Client).defaultVoiceChannelSchema }));
+            .register(new Gateway(this, 'voiceChannels', { schema: (this.constructor as typeof Client).defaultVoiceChannelSchema }))
+            .register(new Gateway(this, 'members', { schema: (this.constructor as typeof Client).defaultMemberSchema }));
     }
     public get owners(): List<KlasaUser> {
         const owners = new List<KlasaUser>();
