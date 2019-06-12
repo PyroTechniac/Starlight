@@ -1,5 +1,5 @@
-import { Task, Colors } from 'klasa';
 import { SnowflakeUtil, TextChannel } from 'discord.js';
+import { Colors, Task } from 'klasa';
 
 const THRESHOLD = 1000 * 60 * 30;
 

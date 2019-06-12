@@ -1,4 +1,4 @@
-import { Event, Colors } from 'klasa';
+import { Colors, Event } from 'klasa';
 
 const HEADER: string = new Colors({ text: 'red' }).format('[RATELIMIT]');
 

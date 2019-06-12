@@ -1,5 +1,5 @@
-import { Settings } from 'klasa';
 import { Structures, TextChannel } from 'discord.js';
+import { Settings } from 'klasa';
 
 class ChannelGatewaysTextChannel extends Structures.get('TextChannel') {
     public settings: Settings = this.client.gateways.get(`${this.type}Channels`)!.acquire(this);

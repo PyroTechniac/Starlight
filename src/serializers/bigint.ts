@@ -1,4 +1,4 @@
-import { Serializer, SchemaEntry, Language } from 'klasa';
+import { Language, SchemaEntry, Serializer } from 'klasa';
 
 export default class extends Serializer {
     public async deserialize(data: any, piece: SchemaEntry, language: Language): Promise<BigInt> {

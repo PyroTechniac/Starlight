@@ -1,5 +1,5 @@
-import { Command, CommandStore, KlasaMessage, Timestamp } from 'klasa';
 import { GuildMember } from 'discord.js';
+import { Command, CommandStore, KlasaMessage, Timestamp } from 'klasa';
 
 export default class extends Command {
     private statuses: Record<string, string> = {

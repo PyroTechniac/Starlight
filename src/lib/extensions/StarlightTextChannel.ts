@@ -1,4 +1,4 @@
-import { Structures, MessageAttachment, TextChannel } from 'discord.js';
+import { MessageAttachment, Structures, TextChannel } from 'discord.js';
 
 declare module 'discord.js' {
     interface TextChannel {

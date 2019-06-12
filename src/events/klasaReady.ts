@@ -1,4 +1,4 @@
-import { Event, EventStore, ScheduledTaskOptions, ScheduledTask } from 'klasa';
+import { Event, EventStore, ScheduledTask, ScheduledTaskOptions } from 'klasa';
 import { DefaultPresenceData } from '../lib/util';
 
 export default class extends Event {

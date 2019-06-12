@@ -9,7 +9,8 @@ config();
 
 StarlightClient.defaultGuildSchema
     .add('tags', 'any', { array: true })
-    .add('antiinvite', 'boolean', { default: false });
+    .add('antiinvite', 'boolean', { default: false })
+    .add('memberRoles', 'any', { array: true, configurable: false });
 /* eslint-disable @typescript-eslint/no-object-literal-type-assertion */
 
 const production = process.env.NODE_ENV === 'production';

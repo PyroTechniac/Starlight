@@ -1,7 +1,7 @@
 import { CategoryChannel, Collection, DMChannel, NewsChannel, StoreChannel, TextChannel, VoiceChannel } from 'discord.js';
 import { Client, Gateway, KlasaClientOptions, KlasaUser, Schema, Settings } from 'klasa';
-import { ClientUtil, List } from '../lib/util';
 import { ObjectStore } from '../lib/structures/ObjectStore';
+import { ClientUtil, List } from '../lib/util';
 import './StarlightPreload';
 
 Client.defaultCategoryChannelSchema = new Schema();

@@ -1,4 +1,4 @@
-import { Channel, Guild, Message, GuildChannel } from 'discord.js';
+import { Channel, Guild, GuildChannel, Message } from 'discord.js';
 import { Argument, KlasaMessage, Possible, util } from 'klasa';
 
 const { regExpEsc } = util;

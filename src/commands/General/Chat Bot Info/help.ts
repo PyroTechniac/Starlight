@@ -1,5 +1,5 @@
-import { Command, CommandStore, RichDisplay, util, Language, Possible, KlasaMessage, ReactionHandler } from 'klasa';
 import { Permissions, TextChannel } from 'discord.js';
+import { Command, CommandStore, KlasaMessage, Language, Possible, ReactionHandler, RichDisplay, util } from 'klasa';
 const { isFunction } = util;
 
 const time = 1000 * 60 * 3;

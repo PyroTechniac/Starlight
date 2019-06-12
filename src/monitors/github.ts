@@ -1,7 +1,6 @@
-import { Monitor, MonitorStore, KlasaMessage } from 'klasa';
-import fetch from 'node-fetch';
 import { MessageEmbed, MessageReaction } from 'discord.js';
-import { KlasaUser } from 'klasa';
+import { KlasaMessage, KlasaUser, Monitor, MonitorStore } from 'klasa';
+import fetch from 'node-fetch';
 
 class Issue extends Monitor {
     public constructor(store: MonitorStore, file: string[], directory: string) {

@@ -1,6 +1,6 @@
+import { TextChannel } from 'discord.js';
 import { Command, CommandStore, KlasaMessage } from 'klasa';
 import fetch from 'node-fetch';
-import { Message, TextChannel } from 'discord.js';
 
 const API_URL = 'https://discordemoji.com/api/';
 

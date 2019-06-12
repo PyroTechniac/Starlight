@@ -1,4 +1,4 @@
-import { GuildMemberStore, Collection, GuildMember, User, Message, FetchMemberOptions } from 'discord.js';
+import { Collection, FetchMemberOptions, GuildMember, GuildMemberStore, Message, User } from 'discord.js';
 import { Settings } from 'klasa';
 import { StarlightGuildMember } from '../extensions/StarlightGuildMember';
 

@@ -1,4 +1,4 @@
-import { Store, Piece, KlasaClient } from 'klasa';
+import { KlasaClient, Piece, Store } from 'klasa';
 
 export class ObjectStore extends Store<string, Piece> {
     public constructor(client: KlasaClient) {

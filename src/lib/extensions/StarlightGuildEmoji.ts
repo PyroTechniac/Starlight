@@ -1,4 +1,4 @@
-import { Structures, GuildEmoji } from 'discord.js';
+import { GuildEmoji, Structures } from 'discord.js';
 
 class StarlightGuildEmoji extends Structures.get('GuildEmoji') {
 }

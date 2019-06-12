@@ -12,3 +12,4 @@ class StarlightMessage extends (Structures.get('Message') as typeof KlasaMessage
 Structures.extend('Message', (): typeof Message => StarlightMessage);
 
 export { StarlightMessage };
+

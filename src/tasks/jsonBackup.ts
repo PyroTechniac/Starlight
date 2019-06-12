@@ -1,6 +1,6 @@
-import { Task, TaskStore, Timestamp, Provider } from 'klasa';
-import { targz, ensureDir } from 'fs-nextra';
-import { resolve, dirname } from 'path';
+import { ensureDir, targz } from 'fs-nextra';
+import { Provider, Task, TaskStore, Timestamp } from 'klasa';
+import { dirname, resolve } from 'path';
 
 export default class extends Task {
     private timestamp: Timestamp = new Timestamp('YYYY-MM-DD[T]HHmmss');

@@ -1,5 +1,4 @@
-import { Serializer, SerializerStore } from 'klasa';
-import { SchemaEntry, Language } from 'klasa';
+import { Language, SchemaEntry, Serializer, SerializerStore } from 'klasa';
 
 export default class extends Serializer {
     public constructor(store: SerializerStore, file: string[], directory: string) {

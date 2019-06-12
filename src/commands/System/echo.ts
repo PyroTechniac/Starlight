@@ -1,5 +1,5 @@
+import { DMChannel, MessageOptions, TextChannel } from 'discord.js';
 import { Command, CommandStore, KlasaMessage } from 'klasa';
-import { TextChannel, DMChannel, MessageOptions } from 'discord.js';
 
 export default class extends Command {
     public constructor(store: CommandStore, file: string[], directory: string) {
