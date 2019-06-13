@@ -10,7 +10,7 @@ config();
 StarlightClient.defaultGuildSchema
     .add('tags', 'any', { array: true })
     .add('antiinvite', 'boolean', { default: false })
-    .add('memberRoles', 'any', { array: true, configurable: false });
+    .add('minAccAge', 'integer', { default: 1800000 });
 /* eslint-disable @typescript-eslint/no-object-literal-type-assertion */
 
 const production = process.env.NODE_ENV === 'production';
@@ -38,7 +38,7 @@ const sharder = new ShardingManager(join(__dirname, 'main'), {
         production,
         fetchAllMembers: !production,
         commandLogging: true,
-        readyMessage: (client: StarlightClient): string => `Successfully initialized. Shard ${(client.shard as unknown as ShardClientUtil).id} is ready to serve ${client.guilds.size} guilds.`
+        readyMessage: (client: StarlightClient): string => `Successfully initialized. Shard ${(client.shard as unknown as ShardClientUtil).id} is ready to serve ${client.guilds.size} guild${client.guilds.size === 1 ? '' : 's'}.`
     } as KlasaClientOptions,
     timeout: 60000,
     shardCount: 'auto'
