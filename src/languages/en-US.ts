@@ -180,7 +180,8 @@ export default class extends Language {
             MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
             TEXT_PROMPT_ABORT_OPTIONS: ['abort', 'stop', 'cancel'],
             COMMAND_SET_LANGUAGE_NOLANG: (lang: string, languages: string): string => `${lang} is not an available language. The available languages are: ${languages}`,
-            COMMAND_SET_LANGUAGE_DESCRIPTION: 'Changes the language the bot uses in your server.'
+            COMMAND_SET_LANGUAGE_DESCRIPTION: 'Changes the language the bot uses in your server.',
+            COMMAND_SET_LANGUAGE_REMINDER: (lang: string, mappedLangs: string): string => `The language for this guild is \`${lang}\`.\nThe available languages are: ${mappedLangs}.`
         };
     }
 
