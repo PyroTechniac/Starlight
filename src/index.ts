@@ -1,11 +1,8 @@
-import { config } from 'dotenv';
 import { KlasaClientOptions } from 'klasa';
 import { ShardClientUtil, ShardingManager } from 'kurasuta';
 import { join } from 'path';
 import { StarlightClient } from './client/StarlightClient';
 
-
-config();
 
 StarlightClient.defaultGuildSchema
     .add('tags', 'any', { array: true })

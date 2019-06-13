@@ -1,2 +1,4 @@
 // Preload file, based on MissyBots
-import '../lib/extensions';
+import '../lib';
+import { config } from 'dotenv';
+config();

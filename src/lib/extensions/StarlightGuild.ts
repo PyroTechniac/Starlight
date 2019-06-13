@@ -1,6 +1,6 @@
 import { Guild, Structures } from 'discord.js';
 import { KlasaGuild } from 'klasa';
-import { StarlightGuildMemberStore } from '../structures/StarlightGuildMemberStore';
+import { StarlightGuildMemberStore } from '../structures';
 
 class StarlightGuild extends (Structures.get('Guild') as typeof KlasaGuild) {
     // @ts-ignore
