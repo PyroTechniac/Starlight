@@ -7,6 +7,7 @@ const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAG
 
 export default class extends Command {
     private handlers: Map<string, ReactionHandler>;
+
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             aliases: ['commands', 'cmd', 'cmds'],

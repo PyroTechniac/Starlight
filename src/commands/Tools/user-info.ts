@@ -8,7 +8,9 @@ export default class extends Command {
         dnd: '❤ Do Not Disturb',
         offline: '💔 Offline'
     };
+
     private timestamp: Timestamp = new Timestamp('d MMMM YYYY');
+
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             description: 'Get information on a mentioned user.',

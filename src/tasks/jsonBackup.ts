@@ -4,6 +4,7 @@ import { dirname, resolve } from 'path';
 
 export default class extends Task {
     private timestamp: Timestamp = new Timestamp('YYYY-MM-DD[T]HHmmss');
+
     public constructor(store: TaskStore, file: string[], directory: string) {
         super(store, file, directory);
     }

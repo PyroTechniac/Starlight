@@ -1,42 +1,35 @@
-import { Command, CommandStore, Duration } from 'klasa';
-import { Language } from 'klasa';
-import { KlasaMessage } from 'klasa';
+import { version as discordVersion } from 'discord.js';
+import { Command, CommandStore, Duration, KlasaMessage, Language, version as klasaVersion } from 'klasa';
 import { ShardClientUtil } from 'kurasuta';
 
 export default class extends Command {
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             guarded: true,
-            aliases: ['status'],
-            description: (language: Language): string => language.get('COMMAND_STATS_DESCRIPTION'),
-            requiredPermissions: ['EMBED_LINKS']
+            description: (language: Language): string => language.get('COMMAND_STATS_DESCRIPTION')
         });
     }
 
-    public async run(msg: KlasaMessage): Promise<KlasaMessage | KlasaMessage[]> {
+    public async run(message: KlasaMessage): Promise<KlasaMessage | KlasaMessage[]> {
         let [users, guilds, channels, memory] = [0, 0, 0, 0];
 
-        const results = await (this.client.shard as unknown as ShardClientUtil).broadcastEval<[number, number, number, number]>('[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.channels.size, (process.memoryUsage().heapUsed / 1024 / 1024)]');
-        for (const result of results) {
-            users += result[0];
-            guilds += result[1];
-            channels += result[2];
-            memory += result[3];
+        if (this.client.shard) {
+            const results = await (this.client.shard as unknown as ShardClientUtil).broadcastEval<[number, number, number, number]>('[this.users.size, this.guilds.size, this.channels.size, (process.memoryUsage().heapUsed / 1024 / 1024)]');
+            for (const result of results) {
+                users += result[0];
+                guilds += result[1];
+                channels += result[2];
+                memory += result[3];
+            }
         }
 
-        const shardID = msg.guild ? msg.guild.shardID + 1 : 1;
-        const embed = this.client.util.embed()
-            .setColor('RANDOM')
-            .setTimestamp()
-            .setThumbnail('https://i.imgur.com/HE0ZOSA.png')
-            .addField('❯ Memory Usage', `${memory.toFixed(2)} MB`, true)
-            .addField('❯ Uptime', Duration.toNow(Date.now() - (process.uptime() * 1000)), true)
-            .addField('❯ Users', users.toLocaleString(), true)
-            .addField('❯ Guilds', guilds.toLocaleString(), true)
-            .addField('❯ Channels', channels.toLocaleString(), true)
-            .addField('❯ Sharding', `**Cluster:** ${(this.client.shard as unknown as ShardClientUtil).id + 1} / ${(this.client.shard as unknown as ShardClientUtil).clusterCount} | **Shard:** ${shardID} / ${(this.client.shard as unknown as ShardClientUtil).shardCount}`, true)
-            .setAuthor(`${this.client.user!.tag} - Statistics`, this.client.user!.displayAvatarURL());
-
-        return msg.sendEmbed(embed);
+        return message.sendCode('asciidoc', message.language.get('COMMAND_STATS',
+            (memory || process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2),
+            Duration.toNow(Date.now() - (process.uptime() * 1000)),
+            (users || this.client.users.size).toLocaleString(),
+            (guilds || this.client.guilds.size).toLocaleString(),
+            (channels || this.client.channels.size).toLocaleString(),
+            klasaVersion, discordVersion, process.version, message
+        ));
     }
 }

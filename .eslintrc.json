@@ -32,6 +32,7 @@
         "@typescript-eslint/no-parameter-properties": 0,
         "no-dupe-class-members":"off",
         "object-curly-spacing": ["error", "always"],
-        "@typescript-eslint/no-namespace": 0
+        "@typescript-eslint/no-namespace": 0,
+        "lines-between-class-members": 2
     }
 }

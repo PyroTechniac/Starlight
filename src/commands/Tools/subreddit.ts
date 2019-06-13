@@ -3,6 +3,7 @@ import fetch from 'node-fetch';
 
 export default class extends Command {
     private errorMessage: string = 'There was an error. Reddit may be down, or the subreddit doesn\'t exist.'
+
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             aliases: ['sub'],

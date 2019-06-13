@@ -3,8 +3,11 @@ import { StarlightMessage } from '../lib/extensions';
 
 export default class extends Finalizer {
     private reprompted: [Colors, Colors] = [new Colors({ background: 'blue' }), new Colors({ background: 'red' })];
+
     private user: Colors = new Colors({ background: 'yellow', text: 'black' });
+
     private shard: Colors = new Colors({ background: 'cyan', text: 'black' })
+
     private channel: { text: Colors; dm: Colors } = {
         text: new Colors({ background: 'green', text: 'black' }),
         dm: new Colors({ background: 'magenta' })

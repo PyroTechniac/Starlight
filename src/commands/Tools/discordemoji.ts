@@ -6,6 +6,7 @@ const API_URL = 'https://discordemoji.com/api/';
 
 export default class extends Command {
     private emojis: any;
+
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             aliases: ['de'],

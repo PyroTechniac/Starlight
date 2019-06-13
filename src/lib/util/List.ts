@@ -1,5 +1,6 @@
 export class List<V> extends Set<V> {
     private _array!: V[] | null;
+
     public static readonly default: typeof List = List;
 
     public constructor(entries?: readonly V[] | null) {
@@ -24,7 +25,9 @@ export class List<V> extends Set<V> {
     }
 
     public first(): V | undefined;
+
     public first(amount: number): V[];
+
     public first(amount?: number): V | V[] | undefined {
         if (typeof amount === 'undefined') return this.values().next().value;
         if (amount < 0) return this.last(amount * -1);
@@ -34,7 +37,9 @@ export class List<V> extends Set<V> {
     }
 
     public last(): V | undefined;
+
     public last(amount: number): V[];
+
     public last(amount?: number): V | V[] | undefined {
         const arr = this.array();
         if (typeof amount === 'undefined') return arr[arr.length - 1];
@@ -44,7 +49,9 @@ export class List<V> extends Set<V> {
     }
 
     public random(): V;
+
     public random(amount: number): V[];
+
     public random(amount?: number): V | V[] {
         let arr = this.array();
         if (typeof amount === 'undefined') return arr[Math.floor(Math.random() * arr.length)];

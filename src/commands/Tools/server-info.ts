@@ -8,12 +8,15 @@ export default class extends Command {
         '(╯°□°）╯︵ ┻━┻',
         '┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻'
     ];
+
     private filterLevels: string[] = [
         'Off',
         'No Role',
         'Everyone'
     ]
+
     private timestamp: Timestamp = new Timestamp('d MMMM YYYY');
+
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             runIn: ['text'],

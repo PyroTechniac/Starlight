@@ -40,6 +40,7 @@ declare module 'klasa' {
 
 export class StarlightClient extends Client {
     public objects: ObjectStore;
+
     public constructor(options: KlasaClientOptions) {
         super(options);
         this.util = new ClientUtil(this);
@@ -52,6 +53,7 @@ export class StarlightClient extends Client {
             .register(new Gateway(this, 'voiceChannels', { schema: (this.constructor as typeof Client).defaultVoiceChannelSchema }))
             .register(new Gateway(this, 'members', { schema: (this.constructor as typeof Client).defaultMemberSchema }));
     }
+
     public get owners(): List<KlasaUser> {
         const owners = new List<KlasaUser>();
         for (const owner of this.options.owners) {
