@@ -18,7 +18,8 @@
         "fs-nextra": "^0.4.5",
         "klasa": "dirigeants/klasa#settings",
         "kurasuta": "^0.2.18",
-        "node-fetch": "^2.6.0"
+        "node-fetch": "^2.6.0",
+        "veza": "^0.5.0"
     },
     "devDependencies": {
         "@types/dotenv": "^6.1.1",
