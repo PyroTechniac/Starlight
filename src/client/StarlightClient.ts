@@ -3,6 +3,7 @@ import { Client, Gateway, KlasaClientOptions, KlasaUser, Schema, Settings } from
 import { ObjectStore } from '../lib/structures/ObjectStore';
 import { ClientUtil, List } from '../lib/util';
 import './StarlightPreload';
+import { Node } from 'veza';
 
 Client.defaultCategoryChannelSchema = new Schema();
 Client.defaultTextChannelSchema = new Schema();
@@ -40,6 +41,8 @@ declare module 'klasa' {
 
 export class StarlightClient extends Client {
     public objects: ObjectStore;
+
+    public server: Node = new Node('Starlight');
 
     public constructor(options: KlasaClientOptions) {
         super(options);
