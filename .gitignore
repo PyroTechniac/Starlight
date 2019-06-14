@@ -7,3 +7,5 @@ typings/
 *.tar.gz
 .vscode/**
 priv/**
+stardist/
+moondist/

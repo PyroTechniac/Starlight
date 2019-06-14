@@ -1,0 +1,10 @@
+{
+    "extends": "./base",
+    "compilerOptions": {
+        "outDir": "./stardist",
+        "tsBuildInfoFile": "./.cache/starlight.json"
+    },
+    "include": [
+        "starsrc"
+    ]
+}

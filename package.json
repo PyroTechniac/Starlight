@@ -4,12 +4,12 @@
     "author": "Gryffon Bellish <owenbellish@gmail.com>",
     "license": "MIT",
     "scripts": {
-        "build": "tsc",
+        "build": "tsc -p starlight.json && tsc -p moonlight.json",
         "start": "node --trace-warnings ./dist/index.js",
         "prebuild": "npm run lint:fix",
-        "lint:fix": "npx eslint src --ext .ts --fix",
+        "lint:fix": "npx eslint starsrc --ext .ts --fix && npx eslint moonsrc --ext .ts --fix",
         "lint": "npx eslint src --ext .ts",
-        "clean": "rimraf dist/ .cache/"
+        "clean": "rimraf stardist/ moondist/ .cache/"
     },
     "dependencies": {
         "discord.js": "discordjs/discord.js",
