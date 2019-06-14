@@ -1,5 +1,6 @@
 import { Event, EventStore, ScheduledTask, ScheduledTaskOptions } from 'klasa';
 import { DefaultPresenceData } from '../lib/util';
+import { Node } from 'veza';
 
 export default class extends Event {
     public constructor(store: EventStore, file: string[], directory: string) {
@@ -13,6 +14,8 @@ export default class extends Event {
         await this.ensureTask('setPresence', '@hourly', { data: DefaultPresenceData, catchUp: false });
 
         await this.client.user!.setPresence(DefaultPresenceData);
+
+        await this.node.connectTo('Moonlight', 6969);
     }
 
     private async ensureTask(task: string, time: string | number | Date, data?: ScheduledTaskOptions): Promise<ScheduledTask | void> {
@@ -22,5 +25,9 @@ export default class extends Event {
             this.client.emit('debug', `Creating task ${task}`);
             return this.client.schedule.create(task, time, data);
         }
+    }
+
+    private get node(): Node {
+        return this.client.node;
     }
 }

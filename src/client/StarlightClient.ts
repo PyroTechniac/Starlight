@@ -19,6 +19,7 @@ declare module 'discord.js' {
         readonly texts: Collection<string, TextChannel>;
         readonly news: Collection<string, NewsChannel>;
         readonly categories: Collection<string, CategoryChannel>;
+        node: Node;
     }
 
     interface GuildChannel {
@@ -42,7 +43,7 @@ declare module 'klasa' {
 export class StarlightClient extends Client {
     public objects: ObjectStore;
 
-    public server: Node = new Node('Starlight');
+    public node: Node = new Node('Starlight');
 
     public constructor(options: KlasaClientOptions) {
         super(options);
