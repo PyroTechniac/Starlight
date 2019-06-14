@@ -9,7 +9,7 @@ const production = process.env.NODE_ENV === 'production';
 
 
 new StarlightClient({
-    prefix: process.env.PREFIX,
+    prefix: process.env.STARLIGHT_PREFIX,
     commandEditing: true,
     disableEveryone: true,
     disabledEvents: ['TYPING_START'],
@@ -26,4 +26,4 @@ new StarlightClient({
     fetchAllMembers: !production,
     commandLogging: true,
     production
-}).login(process.env.TOKEN);
+}).login(process.env.STARLIGHT_TOKEN);

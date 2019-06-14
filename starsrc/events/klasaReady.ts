@@ -1,5 +1,5 @@
 import { Event, EventStore, ScheduledTask, ScheduledTaskOptions } from 'klasa';
-import { DefaultPresenceData } from '../lib/util';
+import { Constants } from '../lib/util';
 import { Node } from 'veza';
 
 export default class extends Event {
@@ -11,9 +11,9 @@ export default class extends Event {
 
     public async run(): Promise<void> {
         await this.ensureTask('cleanup', '*/8 * * * *', { catchUp: false });
-        await this.ensureTask('setPresence', '@hourly', { data: DefaultPresenceData, catchUp: false });
+        await this.ensureTask('setPresence', '@hourly', { data: Constants.DefaultPresenceData, catchUp: false });
 
-        await this.client.user!.setPresence(DefaultPresenceData);
+        await this.client.user!.setPresence(Constants.DefaultPresenceData);
 
         await this.node.connectTo('Moonlight', 6969);
     }
