@@ -5,7 +5,9 @@
     "license": "MIT",
     "scripts": {
         "build": "tsc -p starlight.json && tsc -p moonlight.json",
-        "start": "node --trace-warnings ./dist/index.js",
+        "start:moon": "pm2 start ./moondist/index.js --name moonlight",
+        "start:star": "pm2 start ./stardist/index.js --name starlight",
+        "stop": "pm2 stop all && pm2 delete all",
         "prebuild": "npm run lint:fix",
         "lint:fix": "npx eslint starsrc --ext .ts --fix && npx eslint moonsrc --ext .ts --fix",
         "lint": "npx eslint src --ext .ts",
@@ -18,6 +20,7 @@
         "klasa": "dirigeants/klasa#settings",
         "kurasuta": "^0.2.18",
         "node-fetch": "^2.6.0",
+        "pm2": "^3.5.1",
         "veza": "^0.5.0"
     },
     "devDependencies": {
