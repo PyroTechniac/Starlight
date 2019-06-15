@@ -1,5 +1,6 @@
 import { Event, EventStore } from 'klasa';
 import { Node } from 'veza';
+import { Constants } from '../lib/util';
 
 declare module 'klasa' {
     interface KlasaClient {
@@ -14,6 +15,7 @@ export default class extends Event {
     }
 
     public async run(): Promise<void> {
+        await this.client.user!.setPresence(Constants.DefaultPresenceData);
         await this.client.node.serve(6969);
     }
 }

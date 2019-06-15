@@ -8,4 +8,8 @@ export namespace Constants {
             name: 'Starlight, help'
         }
     };
+
+    export enum OPCODES {
+        HELLO
+    }
 }

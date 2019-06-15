@@ -1,6 +1,7 @@
 import { Event, EventStore, ScheduledTask, ScheduledTaskOptions } from 'klasa';
-import { Constants } from '../lib/util';
+import { Constants, Util } from '../lib/util';
 import { Node } from 'veza';
+import { stop } from 'pm2';
 
 export default class extends Event {
     public constructor(store: EventStore, file: string[], directory: string) {
@@ -15,7 +16,14 @@ export default class extends Event {
 
         await this.client.user!.setPresence(Constants.DefaultPresenceData);
 
-        await this.node.connectTo('Moonlight', 6969);
+        try {
+            await this.node.connectTo('Moonlight', 6969);
+        } catch (error) {
+            this.client.emit('error', error);
+
+            stop('starlight', Util.noop);
+            process.exit();
+        }
     }
 
     private async ensureTask(task: string, time: string | number | Date, data?: ScheduledTaskOptions): Promise<ScheduledTask | void> {
