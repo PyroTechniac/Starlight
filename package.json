@@ -3,19 +3,14 @@
     "version": "2.0.0",
     "author": "Gryffon Bellish <owenbellish@gmail.com>",
     "license": "MIT",
+    "main": "./dist/index.js",
     "scripts": {
-        "build": "tsc -p starlight.json && tsc -p moonlight.json",
-        "start:moon-old": "pm2 start ./moondist/index.js --name moonlight -i 1",
-        "start:star-old": "pm2 start ./stardist/index.js --name starlight -i 1",
-        "start:moon": "node ./moondist/index.js",
-        "start:star": "node ./stardist/index.js",
-        "start:all": "npm run start:moon && npm run start:star",
-        "logs": "pm2 logs",
-        "stop": "pm2 stop all && pm2 delete all",
+        "build": "tsc",
+        "start": "node .",
         "prebuild": "npm run lint:fix",
-        "lint:fix": "npx eslint starsrc --ext .ts --fix && npx eslint moonsrc --ext .ts --fix",
+        "lint:fix": "npx eslint src --ext .ts --fix",
         "lint": "npx eslint src --ext .ts",
-        "clean": "rimraf stardist/ moondist/ .cache/"
+        "clean": "rimraf dist/ .cache/"
     },
     "dependencies": {
         "discord.js": "discordjs/discord.js",
