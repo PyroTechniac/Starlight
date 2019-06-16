@@ -10,7 +10,7 @@
         "prebuild": "npm run lint:fix",
         "lint:fix": "npx eslint src --ext .ts --fix",
         "lint": "npx eslint src --ext .ts",
-        "clean": "rimraf dist/ .cache/"
+        "clean": "rimraf dist/ .cache/ && npm run build"
     },
     "dependencies": {
         "discord.js": "discordjs/discord.js",

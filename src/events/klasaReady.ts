@@ -7,10 +7,16 @@ export default class extends Event {
     }
 
     public async run(): Promise<void> {
-        await this.ensureTask('cleanup', '*/8 * * * *', { catchUp: false });
         await this.ensureTask('setPresence', '@hourly', { data: Constants.DefaultPresenceData, catchUp: false });
 
         await this.client.user!.setPresence(Constants.DefaultPresenceData);
+
+        for (const guild of this.client.guilds.values()) {
+            await guild.settings.sync(true);
+            if (guild.settings.get('created') as boolean) continue;
+            await guild.settings.update([['general.verificationLevel', guild.verificationLevel], ['created', true], ['general.name', guild.name]]);
+            this.client.emit('debug', `Created settings for ${guild.name} [${guild.id}]`);
+        }
     }
 
     private async ensureTask(task: string, time: string | number | Date, data?: ScheduledTaskOptions): Promise<ScheduledTask | void> {
