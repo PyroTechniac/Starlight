@@ -13,9 +13,11 @@ export default class extends Event {
 
         for (const guild of this.client.guilds.values()) {
             await guild.settings.sync(true);
-            if (guild.settings.get('created') as boolean) continue;
-            await guild.settings.update([['general.verificationLevel', guild.verificationLevel], ['created', true], ['general.name', guild.name]]);
-            this.client.emit('debug', `Created settings for ${guild.name} [${guild.id}]`);
+            if (!guild.settings.get('updateOnSave') && guild.settings.get('created')) continue;
+            await guild.settings.update([['general.verificationLevel', guild.verificationLevel], ['created', true], ['general.name', guild.name], ['general.region', guild.region], ['general.iconURL', guild.iconURL()]]);
+
+            await guild.settings.update([['afk.channel', guild.afkChannel], ['afk.timeout', guild.afkTimeout]]);
+            this.client.emit('debug', `Updated settings for ${guild.name} [${guild.id}]`);
         }
     }
 
