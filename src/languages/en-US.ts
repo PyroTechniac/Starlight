@@ -5,7 +5,7 @@ export default class extends Language {
         super(store, file, directory);
 
         this.language = {
-            COMMAND_SAVE_DESCRIPTION: 'Saves a guild settings.'
+            COMMAND_SET_DESCRIPTION: 'Used to manage a guild. Sets a name of whatever subcommand is used.'
         };
     }
 }

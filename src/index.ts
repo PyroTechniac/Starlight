@@ -1,17 +1,5 @@
 import { StarlightClient } from './client/StarlightClient';
-import { SchemaFolder } from 'klasa';
 
-StarlightClient.defaultGuildSchema
-    .add('created', 'boolean', { default: false, configurable: false })
-    .add('updateOnSave', 'boolean', { default: false })
-    .add('general', (folder): SchemaFolder => folder
-        .add('name', 'string', { configurable: false })
-        .add('verificationLevel', 'integer', { configurable: false })
-        .add('region', 'string', { configurable: false })
-        .add('iconURL', 'string', { configurable: false }))
-    .add('afk', (folder): SchemaFolder => folder
-        .add('channel', 'VoiceChannel', { configurable: false })
-        .add('timeout', 'integer', { configurable: false }));
 
 const production = process.env.NODE_ENV === 'production';
 

@@ -11,14 +11,6 @@ export default class extends Event {
 
         await this.client.user!.setPresence(Constants.DefaultPresenceData);
 
-        for (const guild of this.client.guilds.values()) {
-            await guild.settings.sync(true);
-            if (!guild.settings.get('updateOnSave') && guild.settings.get('created')) continue;
-            await guild.settings.update([['general.verificationLevel', guild.verificationLevel], ['created', true], ['general.name', guild.name], ['general.region', guild.region], ['general.iconURL', guild.iconURL()]]);
-
-            await guild.settings.update([['afk.channel', guild.afkChannel], ['afk.timeout', guild.afkTimeout]]);
-            this.client.emit('debug', `Updated settings for ${guild.name} [${guild.id}]`);
-        }
     }
 
     private async ensureTask(task: string, time: string | number | Date, data?: ScheduledTaskOptions): Promise<ScheduledTask | void> {
