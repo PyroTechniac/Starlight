@@ -1,7 +1,7 @@
-import { Event, EventStore, ScheduledTask, ScheduledTaskOptions } from 'klasa';
-import { Constants } from '../lib/util';
+import { EventStore, ScheduledTask, ScheduledTaskOptions } from 'klasa';
+import { Constants, Structures } from '../lib/util';
 
-export default class extends Event {
+export default class extends Structures.get('Event') {
     public constructor(store: EventStore, file: string[], directory: string) {
         super(store, file, directory, { once: true });
     }
