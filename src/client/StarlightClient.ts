@@ -36,6 +36,7 @@ declare module 'discord.js' {
 
     interface Message {
         unreact(emojiID: string): Promise<MessageReaction | null>;
+        readonly settings: Settings;
     }
 }
 
@@ -58,11 +59,8 @@ export class StarlightClient extends Client {
     }
 
     public get owners(): List<KlasaUser> {
-        const owners = new List<KlasaUser>();
-        for (const owner of this.options.owners) {
-            const user = this.users.get(owner);
-            if (user) owners.add(user);
-        }
+        const oldSet = super.owners;
+        const owners = new List([...oldSet.values()]);
         return owners;
     }
 
