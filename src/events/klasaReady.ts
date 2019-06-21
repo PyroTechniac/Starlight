@@ -8,6 +8,7 @@ export default class extends Structures.get('Event') {
 
     public async run(): Promise<void> {
         await this.ensureTask('setPresence', '@hourly', { data: Constants.DefaultPresenceData, catchUp: false });
+        await this.ensureTask('cleanup', '*/8 * * * *', { catchUp: false });
 
         await this.client.user!.setPresence(Constants.DefaultPresenceData);
 

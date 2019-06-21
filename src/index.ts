@@ -23,7 +23,15 @@ new ShardingManager(join(__dirname, 'main'), {
         },
         fetchAllMembers: !production,
         commandLogging: true,
-        production
+        production,
+        gateways: {
+            clientStorage: {
+                provider: 'json'
+            }
+        },
+        providers: {
+            default: 'sqlite'
+        }
     } as KlasaClientOptions,
     client: StarlightClient,
     token: process.env.TOKEN,
