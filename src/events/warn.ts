@@ -1,6 +1,6 @@
-import { Structures } from '../lib';
+import { Event } from 'klasa';
 
-export default class extends Structures.get('Event') {
+export default class extends Event {
     public run(warning: any): void {
         this.client.console.warn(warning);
     }

@@ -1729,6 +1729,12 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
   integrity sha512-s5kLOcnH0XqDO+FvuaLX8DDjZ18CGFk7VygH40QoKPUQhW4e2rvM0rwUq0t8IQDOwYSeLK01U90OjzBTme2QqA==
 
+klasa-dashboard-hooks@dirigeants/klasa-dashboard-hooks#settings:
+  version "0.0.1-dev"
+  resolved "https://codeload.github.com/dirigeants/klasa-dashboard-hooks/tar.gz/8015f432d44d85a009e8da0818595502f28fd0b1"
+  dependencies:
+    node-fetch "^2.6.0"
+
 klasa@dirigeants/klasa#settings:
   version "0.5.0-dev"
   resolved "https://codeload.github.com/dirigeants/klasa/tar.gz/614dd9f06dcba6f7d1ffb31bc5f365f0c9e52c55"

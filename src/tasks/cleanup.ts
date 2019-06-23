@@ -1,10 +1,9 @@
-import { Colors } from 'klasa';
-import { SnowflakeUtil, TextChannel, DMChannel } from 'discord.js';
-import { Structures } from '../lib';
+import { DMChannel, SnowflakeUtil, TextChannel } from 'discord.js';
+import { Colors, Task } from 'klasa';
 
 const THRESHOLD = 1000 * 60 * 30;
 
-export default class extends Structures.get('Task') {
+export default class extends Task {
     private colors: { red: Colors; green: Colors; yellow: Colors } = {
         red: new Colors({ text: 'lightred' }),
         yellow: new Colors({ text: 'lightyellow' }),

@@ -1,6 +1,6 @@
-import { CategoryChannel, Collection, DMChannel, NewsChannel, StoreChannel, TextChannel, VoiceChannel, MessageReaction } from 'discord.js';
+import { CategoryChannel, Collection, DMChannel, NewsChannel, StoreChannel, TextChannel, VoiceChannel } from 'discord.js';
 import { Client, Gateway, KlasaClientOptions, KlasaUser, Schema, Settings } from 'klasa';
-import { List } from '../lib/util';
+import { List } from '../lib';
 import './StarlightPreload';
 
 Client.defaultCategoryChannelSchema = new Schema();
@@ -51,8 +51,8 @@ declare module 'klasa' {
 export class StarlightClient extends Client {
     public constructor(options?: KlasaClientOptions) {
         super(options);
-
-        this.gateways
+        this
+            .gateways
             .register(new Gateway(this, 'textChannels', { schema: Client.defaultTextChannelSchema }))
             .register(new Gateway(this, 'categoryChannels', { schema: Client.defaultCategoryChannelSchema }))
             .register(new Gateway(this, 'voiceChannels', { schema: Client.defaultVoiceChannelSchema }));

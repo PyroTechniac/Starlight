@@ -1,8 +1,8 @@
-import { Structures, Util } from '../lib';
-import { QueryBuilder, Type, Timestamp, util } from 'klasa';
-import { resolve } from 'path';
 import { ensureDir, ensureFile } from 'fs-nextra';
-import { open, Database, Statement } from 'sqlite';
+import { QueryBuilder, SQLProvider, Timestamp, util } from 'klasa';
+import { resolve } from 'path';
+import { Database, open, Statement } from 'sqlite';
+import { Util } from '../lib';
 const { chunk } = util;
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -12,7 +12,7 @@ const TIMEPARSERS = {
     DATETIME: new Timestamp('YYYY-MM-DD hh:mm:ss')
 };
 
-export default class extends Structures.get('SQLProvider') {
+export default class extends SQLProvider {
     private baseDir: string = resolve(this.client.userBaseDirectory, 'bwd', 'provider', 'sqlite');
 
     public qb: QueryBuilder = new QueryBuilder()

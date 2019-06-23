@@ -3,6 +3,10 @@ import { ShardingManager } from 'kurasuta';
 import { join } from 'path';
 import { KlasaClientOptions } from 'klasa';
 
+import { DashboardClient } from 'klasa-dashboard-hooks';
+
+StarlightClient.use(DashboardClient);
+
 const production = process.env.NODE_ENV === 'production';
 
 new ShardingManager(join(__dirname, 'main'), {
@@ -31,7 +35,11 @@ new ShardingManager(join(__dirname, 'main'), {
         },
         providers: {
             default: 'sqlite'
-        }
+        },
+        clientID: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
+        cleanup: 0,
+        parallel: !production
     } as KlasaClientOptions,
     client: StarlightClient,
     token: process.env.TOKEN,

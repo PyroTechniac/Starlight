@@ -1,7 +1,7 @@
 import { PresenceData } from 'discord.js';
-import { Structures } from '../lib';
+import { Task } from 'klasa';
 
-export default class extends Structures.get('Task') {
+export default class extends Task {
     public async run(data: PresenceData): Promise<void> {
         await this.client.user!.setPresence(data);
     }
