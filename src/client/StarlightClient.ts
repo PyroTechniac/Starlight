@@ -1,5 +1,5 @@
-import { CategoryChannel, Collection, DMChannel, NewsChannel, StoreChannel, TextChannel, VoiceChannel, GuildEmojiStore } from 'discord.js';
-import { Client, Gateway, KlasaClientOptions, KlasaUser, Schema, Settings } from 'klasa';
+import { CategoryChannel, Collection, DMChannel, NewsChannel, StoreChannel, TextChannel, VoiceChannel } from 'discord.js';
+import { Client, Gateway, KlasaClientOptions, KlasaUser, Piece, Schema, Settings, Store } from 'klasa';
 import { List } from '../lib';
 import './StarlightPreload';
 
@@ -46,6 +46,10 @@ declare module 'klasa' {
         export let defaultVoiceChannelSchema: Schema;
         export let defaultCategoryChannelSchema: Schema;
     }
+
+    interface Client {
+        [Symbol.iterator](): IterableIterator<Store<string, Piece, typeof Piece>>;
+    }
 }
 
 export class StarlightClient extends Client {
@@ -91,5 +95,16 @@ export class StarlightClient extends Client {
     public async destroy(): Promise<void> {
         await Promise.all(this.providers.map((provider): Promise<void> => provider.shutdown()));
         return super.destroy();
+    }
+
+    public *[Symbol.iterator](): IterableIterator<Store<string, Piece, typeof Piece>> {
+        yield* this.pieceStores.values();
+    }
+
+    public get imports(): { discord: any; klasa: any } {
+        return {
+            discord: require('discord.js'),
+            klasa: require('klasa')
+        };
     }
 }
