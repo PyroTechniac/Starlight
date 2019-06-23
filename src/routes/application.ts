@@ -1,9 +1,9 @@
 import { ServerResponse } from 'http';
 import { Duration } from 'klasa';
 import { KlasaIncomingMessage, RouteStore } from 'klasa-dashboard-hooks';
-import { Route } from '../lib';
+import { Route, GetRequest } from '../lib';
 
-export default class extends Route {
+export default class extends Route implements GetRequest {
     public constructor(store: RouteStore, file: string[], directory: string) {
         super(store, file, directory, {
             route: 'application'

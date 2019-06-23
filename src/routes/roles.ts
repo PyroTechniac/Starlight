@@ -2,10 +2,10 @@ import { Route, GetRequest } from '../lib';
 import { RouteStore, KlasaIncomingMessage } from 'klasa-dashboard-hooks';
 import { ServerResponse } from 'http';
 
-export default class extends Route implements GetRequest{
+export default class extends Route implements GetRequest {
     public constructor(store: RouteStore, file: string[], directory: string) {
         super(store, file, directory, {
-            route: 'guilds/:guildID/emojis'
+            route: 'guilds/:guildID/roles'
         });
     }
 
@@ -13,6 +13,6 @@ export default class extends Route implements GetRequest{
         const { guildID } = request.params;
         const guild = this.client.guilds.get(guildID);
         if (!guild) return this.notFound(response);
-        return response.end(JSON.stringify(guild.emojis.keyArray()));
+        return response.end(JSON.stringify(guild.roles.keyArray()));
     }
 }
