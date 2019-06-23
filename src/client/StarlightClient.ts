@@ -1,4 +1,4 @@
-import { CategoryChannel, Collection, DMChannel, NewsChannel, StoreChannel, TextChannel, VoiceChannel } from 'discord.js';
+import { CategoryChannel, Collection, DMChannel, NewsChannel, StoreChannel, TextChannel, VoiceChannel, GuildEmojiStore } from 'discord.js';
 import { Client, Gateway, KlasaClientOptions, KlasaUser, Schema, Settings } from 'klasa';
 import { List } from '../lib';
 import './StarlightPreload';
@@ -86,5 +86,10 @@ export class StarlightClient extends Client {
 
     public get categories(): Collection<string, CategoryChannel> {
         return this.channels.filter((chan): boolean => chan.type === 'category') as Collection<string, CategoryChannel>;
+    }
+
+    public async destroy(): Promise<void> {
+        await Promise.all(this.providers.map((provider): Promise<void> => provider.shutdown()));
+        return super.destroy();
     }
 }

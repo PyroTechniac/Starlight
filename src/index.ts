@@ -28,11 +28,6 @@ new ShardingManager(join(__dirname, 'main'), {
         fetchAllMembers: !production,
         commandLogging: true,
         production,
-        // gateways: {
-        //     clientStorage: {
-        //         provider: 'json'
-        //     }
-        // },
         providers: {
             default: 'sqlite'
         },
