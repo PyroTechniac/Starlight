@@ -1,12 +1,8 @@
 import { CategoryChannel, Collection, DMChannel, NewsChannel, StoreChannel, TextChannel, VoiceChannel } from 'discord.js';
-import { Client, Gateway, KlasaClientOptions, KlasaUser, Schema, Settings } from 'klasa';
+import { Client, Gateway, KlasaClientOptions, KlasaMessage, KlasaUser, Schema, Settings, Stopwatch, Type, util } from 'klasa';
+import { inspect } from 'util';
 import { List, Util } from '../lib';
 import './StarlightPreload';
-import { KlasaMessage } from 'klasa';
-import { Stopwatch } from 'klasa';
-import { Type } from 'klasa';
-import { util } from 'klasa';
-import { inspect } from 'util';
 
 Client.defaultCategoryChannelSchema = new Schema();
 Client.defaultTextChannelSchema = new Schema();
@@ -73,9 +69,7 @@ export class StarlightClient extends Client {
     }
 
     public get owners(): List<KlasaUser> {
-        const oldSet = super.owners;
-        const owners = new List([...oldSet.values()]);
-        return owners;
+        return new List([...super.owners.values()]);
     }
 
     public get dms(): Collection<string, DMChannel> {

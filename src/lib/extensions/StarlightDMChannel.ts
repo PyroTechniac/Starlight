@@ -1,4 +1,4 @@
-import { Structures, DMChannel, MessageAttachment } from 'discord.js';
+import { DMChannel, MessageAttachment, Structures } from 'discord.js';
 
 class StarlightDMChannel extends Structures.get('DMChannel') {
     public async fetchImage(limit: number = 20): Promise<MessageAttachment | null> {

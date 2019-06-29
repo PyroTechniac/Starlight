@@ -8,6 +8,9 @@ import { DashboardClient } from 'klasa-dashboard-hooks';
 StarlightClient.use(DashboardClient)
     .defaultClientSchema
     .add('owners', 'User', { array: true });
+StarlightClient
+    .defaultGuildSchema
+    .add('deleteCommand', 'boolean', { default: false });
 
 const production = process.env.NODE_ENV === 'production';
 

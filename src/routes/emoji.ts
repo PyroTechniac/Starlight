@@ -1,5 +1,5 @@
-import { Route, GetRequest } from '../lib';
-import { RouteStore, KlasaIncomingMessage } from 'klasa-dashboard-hooks';
+import { GetRequest, Route } from '../lib';
+import { KlasaIncomingMessage, RouteStore } from 'klasa-dashboard-hooks';
 import { ServerResponse } from 'http';
 
 export default class extends Route implements GetRequest{
