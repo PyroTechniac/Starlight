@@ -16,7 +16,7 @@
         "discord.js": "discordjs/discord.js",
         "dotenv": "^8.0.0",
         "fs-nextra": "^0.4.5",
-        "klasa": "dirigeants/klasa#settings-frozen",
+        "klasa": "dirigeants/klasa#settings",
         "klasa-dashboard-hooks": "dirigeants/klasa-dashboard-hooks#settings",
         "kurasuta": "^0.2.18",
         "node-fetch": "^2.6.0",

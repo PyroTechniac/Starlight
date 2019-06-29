@@ -1735,9 +1735,9 @@ klasa-dashboard-hooks@dirigeants/klasa-dashboard-hooks#settings:
   dependencies:
     node-fetch "^2.6.0"
 
-klasa@dirigeants/klasa#settings-frozen:
+klasa@dirigeants/klasa#settings:
   version "0.5.0-dev"
-  resolved "https://codeload.github.com/dirigeants/klasa/tar.gz/02d63538a719ca3dc096855d7fb060a2304c2ee6"
+  resolved "https://codeload.github.com/dirigeants/klasa/tar.gz/cf3c43ba56dae1123453a68194a0fc98cc52b644"
   dependencies:
     fs-nextra "^0.4.5"
 

@@ -1,7 +1,12 @@
 import { CategoryChannel, Collection, DMChannel, NewsChannel, StoreChannel, TextChannel, VoiceChannel } from 'discord.js';
-import { Client, Gateway, KlasaClientOptions, KlasaUser, Piece, Schema, Settings, Store } from 'klasa';
-import { List } from '../lib';
+import { Client, Gateway, KlasaClientOptions, KlasaUser, Schema, Settings } from 'klasa';
+import { List, Util } from '../lib';
 import './StarlightPreload';
+import { KlasaMessage } from 'klasa';
+import { Stopwatch } from 'klasa';
+import { Type } from 'klasa';
+import { util } from 'klasa';
+import { inspect } from 'util';
 
 Client.defaultCategoryChannelSchema = new Schema();
 Client.defaultTextChannelSchema = new Schema();
@@ -48,7 +53,12 @@ declare module 'klasa' {
     }
 
     interface Client {
-        [Symbol.iterator](): IterableIterator<Store<string, Piece, typeof Piece>>;
+        eval(message: KlasaMessage, code: string): Promise<{
+            result: string;
+            type: Type;
+            success: boolean;
+            time: string;
+        }>;
     }
 }
 
@@ -97,14 +107,47 @@ export class StarlightClient extends Client {
         return super.destroy();
     }
 
-    public *[Symbol.iterator](): IterableIterator<Store<string, Piece, typeof Piece>> {
-        yield* this.pieceStores.values();
-    }
+    public async eval(message: KlasaMessage, code: string): Promise<{
+        result: string;
+        time: string;
+        type: Type;
+        success: boolean;
+    }> {
+        const msg = message;
+        const { flags } = message;
+        code = code.replace(/[“”]/g, '"').replace(/[‘’]/g, '\'');
+        const stopwatch = new Stopwatch();
+        let success: boolean, syncTime: string, asyncTime: string, result: string;
+        let thenable = false;
+        let type: Type;
+        try {
+            if (flags.async) code = `(async () => {\n${code}\n})();`;
+            result = eval(code);
+            syncTime = stopwatch.toString();
+            type = new Type(result);
+            if (util.isThenable(result)) {
+                thenable = true;
+                stopwatch.restart();
+                result = await result;
+                asyncTime = stopwatch.toString();
+            }
+            success = true;
+        } catch (error) {
+            if (!syncTime!) syncTime = stopwatch.toString();
+            if (!type!) type = new Type(error);
+            if (thenable && !asyncTime!) asyncTime = stopwatch.toString();
+            if (error && error.stack) this.emit('error', error.stack);
+            result = error;
+            success = false;
+        }
 
-    public get imports(): { discord: any; klasa: any } {
-        return {
-            discord: require('discord.js'),
-            klasa: require('klasa')
-        };
+        stopwatch.stop();
+        if (typeof result !== 'string') {
+            result = inspect(result, {
+                depth: flags.depth ? Number.parseInt(flags.depth) || 0 : 0,
+                showHidden: Boolean(flags.showHidden)
+            });
+        }
+        return { success, type: type!, time: Util.formatTime(syncTime!, asyncTime!), result: util.clean(result) };
     }
 }

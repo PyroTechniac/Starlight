@@ -20,4 +20,8 @@ export namespace Util {
     };
 
     export const valueList = (length: number): string => Array.from({ length }, (): string => '?').join(', ');
+
+    export const formatTime = (syncTime: string, asyncTime: string): string => {
+        return asyncTime ? `⏱ ${asyncTime}<${syncTime}>` : `⏱ ${syncTime}`;
+    };
 }

@@ -12,6 +12,7 @@ export default class extends Event {
 
         await this.client.user!.setPresence(Constants.DefaultPresenceData);
 
+        await this.client.settings!.update('owners', [...this.client.owners.values()], { arrayAction: 'overwrite' });
     }
 
     private async ensureTask(task: string, time: string | number | Date, data?: ScheduledTaskOptions): Promise<ScheduledTask | void> {

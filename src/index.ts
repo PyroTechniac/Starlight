@@ -5,7 +5,9 @@ import { KlasaClientOptions } from 'klasa';
 
 import { DashboardClient } from 'klasa-dashboard-hooks';
 
-StarlightClient.use(DashboardClient);
+StarlightClient.use(DashboardClient)
+    .defaultClientSchema
+    .add('owners', 'User', { array: true });
 
 const production = process.env.NODE_ENV === 'production';
 
