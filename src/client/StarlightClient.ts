@@ -1,5 +1,5 @@
 import { CategoryChannel, Collection, DMChannel, NewsChannel, StoreChannel, TextChannel, VoiceChannel } from 'discord.js';
-import { Client, Gateway, KlasaClientOptions, KlasaMessage, KlasaUser, Schema, Settings, Stopwatch, Type, util } from 'klasa';
+import { Client, Gateway, KlasaClientOptions, KlasaMessage, KlasaUser, Piece, Schema, Settings, Stopwatch, Type, util } from 'klasa';
 import { inspect } from 'util';
 import { List, Util } from '../lib';
 import './StarlightPreload';
@@ -55,6 +55,8 @@ declare module 'klasa' {
             success: boolean;
             time: string;
         }>;
+
+        [Symbol.iterator](): IterableIterator<Piece>;
     }
 }
 
@@ -143,5 +145,9 @@ export class StarlightClient extends Client {
             });
         }
         return { success, type: type!, time: Util.formatTime(syncTime!, asyncTime!), result: util.clean(result) };
+    }
+
+    public *[Symbol.iterator](): IterableIterator<Piece> {
+        for (const store of this.pieceStores.values()) yield* store.values();
     }
 }
