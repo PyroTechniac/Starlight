@@ -29,9 +29,20 @@
         "@typescript-eslint/no-explicit-any": 0,
         "@typescript-eslint/no-non-null-assertion": 0,
         "@typescript-eslint/no-parameter-properties": 0,
-        "no-dupe-class-members":"off",
-        "object-curly-spacing": ["error", "always"],
+        "no-dupe-class-members": "off",
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ],
         "@typescript-eslint/no-namespace": 0,
-        "lines-between-class-members": 2
+        "lines-between-class-members": 2,
+        "max-len": [
+            "error",
+            {
+                "code": 150,
+                "ignoreTemplateLiterals": true
+            }
+        ],
+        "complexity": "error"
     }
 }

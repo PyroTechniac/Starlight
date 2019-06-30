@@ -1,3 +1,5 @@
+import { Util } from './Util';
+
 export class List<V> extends Set<V> {
     private _array!: V[] | null;
 
@@ -192,6 +194,7 @@ export class List<V> extends Set<V> {
         return true;
     }
 
+    // eslint-disable-next-line max-len
     public sort(compareFunction: (firstVal1: V, secondVal1: V, firstVal2: V, secondVal2: V) => number = (x, y): number => Number(x > y) || Number(x === y) - 1): this {
         const entries = [...this.entries()];
         entries.sort((a, b): number => compareFunction(a[1], b[1], a[0], b[0]));

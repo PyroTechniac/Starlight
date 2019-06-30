@@ -10,9 +10,10 @@ export default class extends Event {
         await this.ensureTask('setPresence', '@hourly', { data: Constants.DefaultPresenceData, catchUp: false });
         await this.ensureTask('cleanup', '*/8 * * * *', { catchUp: false });
 
-        await this.client.user!.setPresence(Constants.DefaultPresenceData);
-
-        await this.client.settings!.update('owners', [...(this.client.owners as List<KlasaUser>).values()], { arrayAction: 'overwrite' });
+        await Promise.all([
+            this.client.user!.setPresence(Constants.DefaultPresenceData),
+            this.client.settings!.update('owners', [...(this.client.owners as List<KlasaUser>).values()], { arrayAction: 'overwrite' })
+        ]);
     }
 
     private async ensureTask(task: string, time: string | number | Date, data?: ScheduledTaskOptions): Promise<ScheduledTask | void> {
