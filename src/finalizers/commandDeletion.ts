@@ -13,6 +13,8 @@ export default class extends Finalizer {
 
         if (!response.deletable || !response.reactable) return;
 
+        if (!command.deletable) return;
+
         if (!((response.channel as TextChannel).permissionsFor(response.guild!.me!)!.has('MANAGE_MESSAGES'))) return;
 
         await response.react('🗑');

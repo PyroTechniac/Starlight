@@ -43,6 +43,9 @@
                 "ignoreTemplateLiterals": true
             }
         ],
-        "complexity": "error"
+        "complexity": [
+            "error",
+            15
+        ]
     }
 }
