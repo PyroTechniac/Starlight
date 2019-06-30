@@ -158,7 +158,7 @@ export class List<V> extends Set<V> {
         return accumulator;
     }
 
-    public each(fn: (val1: V, val2: V, list: List<V>) => any, thisArg?: any): this {
+    public each(fn: (val1: V, val2: V, list: Set<V>) => any, thisArg?: any): this {
         this.forEach(fn, thisArg);
         return this;
     }

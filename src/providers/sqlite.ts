@@ -3,6 +3,7 @@ import { QueryBuilder, SQLProvider, Timestamp, util } from 'klasa';
 import { resolve } from 'path';
 import { Database, open, Statement } from 'sqlite';
 import { Util } from '../lib';
+import { SchemaFolder, SchemaEntry } from 'klasa';
 const { chunk } = util;
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -64,7 +65,7 @@ export default class extends SQLProvider {
         return output.map((entry): Record<string, any> => this.parseEntry(table, entry));
     }
 
-    public get(table, key, value = null) {
+    public get(table: string, key: string, value = null) {
         return this.runGet(value === null ?
             `SELECT * FROM ${Util.sanitizeKeyName(table)} WHERE id = ?;` :
             `SELECT * FROM ${Util.sanitizeKeyName(table)} WHERE ${Util.sanitizeKeyName(key)} = ?;`, [value ? Util.transformValue(value) : key])
@@ -72,7 +73,7 @@ export default class extends SQLProvider {
             .catch(Util.noop);
     }
 
-    public async has(table, key): Promise<boolean> {
+    public async has(table: string, key: string): Promise<boolean> {
         try {
             await this.runGet(`SELECT id FROM ${Util.sanitizeKeyName(table)} WHERE id = ?;`, [key]);
             return true;
@@ -82,13 +83,13 @@ export default class extends SQLProvider {
         }
     }
 
-    public getRandom(table): Promise<any> {
+    public getRandom(table: string): Promise<any> {
         return this.runGet(`SELECT * FROM ${Util.sanitizeKeyName(table)} ORDER BY RANDOM() LIMIT 1;`)
             .then((entry): any => this.parseEntry(table, entry))
             .catch(Util.noop);
     }
 
-    public create(table, id, data): Promise<Statement> {
+    public create(table: string, id: string, data: any): Promise<Statement> {
         const [keys, values] = this.parseUpdateInput(data, false);
 
         if (!keys.includes('id')) {
@@ -98,24 +99,23 @@ export default class extends SQLProvider {
         return this.run(`INSERT INTO ${Util.sanitizeKeyName(table)} ( ${keys.map(Util.sanitizeKeyName).join(', ')} ) VALUES ( ${Util.valueList(values.length)} );`, values.map(Util.transformValue));
     }
 
-    public update(table, id, data): Promise<Statement> {
+    public update(table: string, id: string, data: any): Promise<Statement> {
         const [keys, values] = this.parseUpdateInput(data, false);
         return this.run(`
 			UPDATE ${Util.sanitizeKeyName(table)}
-			SET ${keys.map((key): string => `${Util.sanitizeKeyName(key)} = ?`)}
+			SET ${keys.map((key: any): string => `${Util.sanitizeKeyName(key)} = ?`)}
 			WHERE id = ?;`, [...values.map(Util.transformValue), id]);
     }
 
-    public replace(...args): Promise<Statement> {
-        // @ts-ignore
-        return this.update(...args);
+    public replace(table: string, entryID: string, data: any): Promise<Statement> {
+        return this.update(table, entryID, data);
     }
 
-    public delete(table, row) {
+    public delete(table: string, row: string) {
         return this.run(`DELETE FROM ${Util.sanitizeKeyName(table)} WHERE id = ?;`, [row]);
     }
 
-    public addColumn<T = Database>(table, piece): Promise<T> {
+    public addColumn<T = Database>(table: string, piece: SchemaFolder | SchemaEntry): Promise<T> {
         // @ts-ignore
         return this.exec(`ALTER TABLE ${Util.sanitizeKeyName(table)} ADD ${Util.sanitizeKeyName(piece.path)} ${piece.type}`);
     }
@@ -176,20 +176,20 @@ export default class extends SQLProvider {
         return true;
     }
 
-    public async getColumns(table): Promise<string[]> {
+    public async getColumns(table: string): Promise<string[]> {
         const result = await this.runAll(`PRAGMA table_info(${Util.sanitizeKeyName(table)});`);
         return result.map((row): string => row.name);
     }
 
-    private runGet(sql, ...options: any[]): Promise<any> {
+    private runGet(sql: any, ...options: any[]): Promise<any> {
         return this.db!.get(sql, ...options);
     }
 
-    private runAll(sql, ...options): Promise<any[]> {
+    private runAll(sql: any, ...options: any[]): Promise<any[]> {
         return this.db!.all(sql, ...options);
     }
 
-    private run(sql, ...options): Promise<Statement> {
+    private run(sql: any, ...options: any[]): Promise<Statement> {
         return this.db!.run(sql, ...options);
     }
 

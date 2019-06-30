@@ -1,4 +1,5 @@
 import { Type } from 'klasa';
+import { PresenceData } from 'discord.js';
 
 export namespace Util {
     export const noop = (): null => null;
@@ -23,5 +24,16 @@ export namespace Util {
 
     export const formatTime = (syncTime: string, asyncTime: string): string => {
         return asyncTime ? `⏱ ${asyncTime}<${syncTime}>` : `⏱ ${syncTime}`;
+    };
+}
+
+export namespace Constants {
+    export const DefaultPresenceData: PresenceData = {
+        afk: false,
+        status: 'online',
+        activity: {
+            type: 'PLAYING',
+            name: 'Starlight, help'
+        }
     };
 }

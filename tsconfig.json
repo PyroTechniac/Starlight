@@ -15,7 +15,7 @@
             "dotenv"
         ],
         "noEmitOnError": true,
-        "strictNullChecks": true,
+        "strict": true,
         "declaration": true,
         "importHelpers": true,
         "tsBuildInfoFile": "./.cache/tsbuildinfo.json",
