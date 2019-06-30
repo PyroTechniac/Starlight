@@ -1,5 +1,5 @@
+import { PresenceData, Permissions } from 'discord.js';
 import { Type } from 'klasa';
-import { PresenceData } from 'discord.js';
 
 export namespace Util {
     export const noop = (): null => null;
@@ -36,4 +36,6 @@ export namespace Constants {
             name: 'Starlight, help'
         }
     };
+
+    export const RichDisplayPermissions: Permissions = new Permissions([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.ADD_REACTIONS]);
 }

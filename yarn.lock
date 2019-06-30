@@ -121,6 +121,11 @@
   resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
   integrity sha512-EaObqwIvayI5a8dCzhFrjKzVwKLxjoG9T6Ppd5CEo07LRKfQ8Yokw54r5+Wq7FaBQ+yXRvQAYPrHwya1/UFt9g==
 
+"@types/heapdump@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@types/heapdump/-/heapdump-0.3.1.tgz#5f062cd1d8a6a3854f8fc470281ca29871a32399"
+  integrity sha512-1BaXjnso0bPxgG+Ngh1RKXxyjaugFN++xlXZxdRQxQVosIQf7DuJ6PiIRMCQJfL3MJRe02+zp8ApTsza3sCMgg==
+
 "@types/node-fetch@^2.3.3":
   version "2.3.7"
   resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.3.7.tgz#b7212e895100f8642dbdab698472bab5f3c1d2f1"
@@ -1374,6 +1379,13 @@ has-values@^1.0.0:
     is-number "^3.0.0"
     kind-of "^4.0.0"
 
+heapdump@^0.3.14:
+  version "0.3.14"
+  resolved "https://registry.yarnpkg.com/heapdump/-/heapdump-0.3.14.tgz#cd616c8f63855fd928eee8179ba462ce461c547d"
+  integrity sha512-omSf+s4yDxHWsh8uNdzhDQFi9tkuBEaxn3pUnHetcEB4XD5L/bWDAFmtnSHP2HmtfnYqkaK6Y76TbhfSOPP7/A==
+  dependencies:
+    nan "^2.13.2"
+
 http-errors@1.7.3:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-1.7.3.tgz#6c619e4f9c60308c38519498c14fbb10aacebb06"
@@ -1946,7 +1958,7 @@ mute-stream@~0.0.4:
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.8.tgz#1630c42b2251ff81e2a283de96a5497ea92e5e0d"
   integrity sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==
 
-nan@2, nan@^2.1.0, nan@^2.12.1, nan@^2.14.0, nan@^2.8.0:
+nan@2, nan@^2.1.0, nan@^2.12.1, nan@^2.13.2, nan@^2.14.0, nan@^2.8.0:
   version "2.14.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
   integrity sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
@@ -3093,7 +3105,7 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
-typescript@^3.4.5:
+typescript@^3.5.2:
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.2.tgz#a09e1dc69bc9551cadf17dba10ee42cf55e5d56c"
   integrity sha512-7KxJovlYhTX5RaRbUdkAXN1KUZ8PwWlTzQdHV6xNqvuFOs7+WBo10TQUqT19Q/Jz2hk5v9TQDIhyLhhJY4p5AA==

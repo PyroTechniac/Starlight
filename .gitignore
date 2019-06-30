@@ -9,3 +9,4 @@ typings/
 priv/**
 stardist/
 moondist/
+*.heapsnapshot
