@@ -3,14 +3,22 @@ import { Colors, Task } from 'klasa';
 
 const THRESHOLD = 1000 * 60 * 30;
 
+const yellow = new Colors({ text: 'lightyellow' });
+const green = new Colors({ text: 'green' });
+const red = new Colors({ text: 'lightred' });
+
 export default class extends Task {
-    private colors: { red: Colors; green: Colors; yellow: Colors } = {
-        red: new Colors({ text: 'lightred' }),
-        yellow: new Colors({ text: 'lightyellow' }),
-        green: new Colors({ text: 'green' })
+    private get colors(): {red: Colors; green: Colors; yellow: Colors} {
+        return {
+            red,
+            green,
+            yellow
+        };
     }
 
-    private header: string = new Colors({ text: 'lightblue' }).format('[CACHE CLEANUP]');
+    private get header(): string {
+        return new Colors({ text: 'lightblue' }).format('[CACHE CLEANUP]');
+    }
 
     public async run(): Promise<void> {
         const OLD_SNOWFLAKE = SnowflakeUtil.generate(Date.now() - THRESHOLD);

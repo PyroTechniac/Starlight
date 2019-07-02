@@ -7,8 +7,7 @@ import { DashboardClient } from 'klasa-dashboard-hooks';
 
 StarlightClient.use(DashboardClient)
     .defaultClientSchema
-    .add('owners', 'User', { array: true })
-    .add('messageCount', 'integer', { default: 0 });
+    .add('owners', 'User', { array: true });
 StarlightClient
     .defaultGuildSchema
     .add('deleteCommand', 'boolean', { default: false });
