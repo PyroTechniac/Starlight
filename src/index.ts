@@ -1,7 +1,7 @@
 import { StarlightClient } from './client/StarlightClient';
 import { ShardingManager } from 'kurasuta';
 import { join } from 'path';
-import { KlasaClientOptions } from 'klasa';
+import { KlasaClientOptions, SchemaFolder } from 'klasa';
 
 import { DashboardClient } from 'klasa-dashboard-hooks';
 
@@ -10,7 +10,10 @@ StarlightClient.use(DashboardClient)
     .add('owners', 'User', { array: true });
 StarlightClient
     .defaultGuildSchema
-    .add('deleteCommand', 'boolean', { default: false });
+    .add('deleteCommand', 'boolean', { default: false })
+    .add('antiinvite', 'boolean', { default: false })
+    .add('roles', (folder: SchemaFolder): SchemaFolder => folder
+        .add('muted', 'Role'));
 
 const production = process.env.NODE_ENV === 'production';
 

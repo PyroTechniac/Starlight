@@ -1,7 +1,8 @@
-import { PresenceData, Permissions } from 'discord.js';
-import { Type } from 'klasa';
+import { GuildMember, Permissions, PresenceData, User } from 'discord.js';
+import { Argument, KlasaGuild, Type } from 'klasa';
 
 export namespace Util {
+    const { userOrMember: USER_REGEXP } = Argument.regex;
     export const noop = (): null => null;
 
     export const sanitizeKeyName = (value: string): string => {
@@ -24,6 +25,19 @@ export namespace Util {
 
     export const formatTime = (syncTime: string, asyncTime: string): string => {
         return asyncTime ? `⏱ ${asyncTime}<${syncTime}>` : `⏱ ${syncTime}`;
+    };
+
+    export const resolveMember = async (query: GuildMember | User | string, guild: KlasaGuild): Promise<GuildMember | null> => {
+        if (query instanceof GuildMember) return query;
+        if (query instanceof User) return guild.members.fetch(query.id);
+        if (typeof query === 'string') {
+            if (USER_REGEXP.test(query)) return guild.members.fetch(USER_REGEXP.exec(query)![1]).catch(noop);
+            if (/\w{1,32}#\d{4}/.test(query)) {
+                const res = guild.members.find((member): boolean => member.user.tag.toLowerCase() === query.toLowerCase());
+                return res || null;
+            }
+        }
+        return null;
     };
 }
 
