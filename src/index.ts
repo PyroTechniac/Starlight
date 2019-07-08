@@ -11,9 +11,7 @@ StarlightClient.use(DashboardClient)
 StarlightClient
     .defaultGuildSchema
     .add('deleteCommand', 'boolean', { default: false })
-    .add('antiinvite', 'boolean', { default: false })
-    .add('roles', (folder: SchemaFolder): SchemaFolder => folder
-        .add('muted', 'Role'));
+    .add('antiinvite', 'boolean', { default: false });
 
 const production = process.env.NODE_ENV === 'production';
 

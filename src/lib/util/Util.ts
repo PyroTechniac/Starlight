@@ -1,8 +1,11 @@
-import { GuildMember, Permissions, PresenceData, User } from 'discord.js';
-import { Argument, KlasaGuild, Type } from 'klasa';
+import { GuildMember, Permissions, PresenceData, User, Role, Channel, Message, GuildChannel } from 'discord.js';
+import { Argument, KlasaGuild, Type, util } from 'klasa';
 
 export namespace Util {
-    const { userOrMember: USER_REGEXP } = Argument.regex;
+    const { userOrMember: USER_REGEXP, role: ROLE_REGEXP, channel: CHANNEL_REGEXP } = Argument.regex;
+    
+    const { regExpEsc } = util;
+
     export const noop = (): null => null;
 
     export const sanitizeKeyName = (value: string): string => {
@@ -37,6 +40,38 @@ export namespace Util {
                 return res || null;
             }
         }
+        return null;
+    };
+
+    export const resolveRole = async (query: Role | string, guild: KlasaGuild): Promise<Role | null> => {
+        if (query instanceof Role) return guild.roles.has(query.id) ? query : null;
+        // eslint-disable-next-line max-len
+        if (typeof query === 'string' && ROLE_REGEXP.test(query)) return guild.roles.fetch(ROLE_REGEXP.exec(query)![1]).catch(noop) as Promise<Role | null>;
+        return null;
+    };
+
+    export const resolveUser = async (query: User | GuildMember | string, guild: KlasaGuild): Promise<User | null> => {
+        if (query instanceof GuildMember) return query.user;
+        if (query instanceof User) return query;
+        if (typeof query === 'string') {
+            if (USER_REGEXP.test(query)) return guild.client.users.fetch(USER_REGEXP.exec(query)![1]).catch(noop);
+            if (/\w{1,32}#\d{4}/.test(query)) {
+                const res = guild.members.find((member): boolean => member.user.tag === query);
+                return res ? res.user : null;
+            }
+        }
+
+        return null;
+    };
+
+    export const generateArgRegex = (arg: string, escape = false): RegExp => {
+        return new RegExp(escape ? `\\b${regExpEsc(arg)}\\b` : regExpEsc(arg), 'i');
+    };
+
+    export const resolveChannel = (query: Channel | Message | string, guild: KlasaGuild): GuildChannel | null => {
+        if (query instanceof Channel) return guild.channels.has(query.id) ? (query as GuildChannel) : null;
+        if (query instanceof Message) return query.guild!.id === guild.id ? (query.channel as GuildChannel) : null;
+        if (typeof query === 'string' && CHANNEL_REGEXP.test(query)) return guild.channels.get(CHANNEL_REGEXP.exec(query)![1]) || null;
         return null;
     };
 }

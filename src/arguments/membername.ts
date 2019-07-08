@@ -10,14 +10,14 @@ export default class extends Argument {
         if (resUser) return resUser;
 
         const results: GuildMember[] = [];
-        const reg = new RegExp(regExpEsc(arg), 'i');
+        const reg = Util.generateArgRegex(arg);
         for (const member of msg.guild.members.values()) {
             if (reg.test(member.user.username)) results.push(member);
         }
 
         let querySearch: GuildMember[];
         if (results.length > 0) {
-            const regWord = new RegExp(`\\b${regExpEsc(arg)}\\b`, 'i');
+            const regWord = Util.generateArgRegex(arg, true);
             const filtered = results.filter((member): boolean => regWord.test(member.user.username));
             querySearch = filtered.length > 0 ? filtered : results;
         } else {
