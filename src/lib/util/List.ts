@@ -1,4 +1,4 @@
-import { Util } from './Util';
+// All the @ts-ignores are because ts doesn't like Symbol.species.
 
 export class List<V> extends Set<V> {
     private _array!: V[] | null;

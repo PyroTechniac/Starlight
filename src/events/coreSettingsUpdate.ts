@@ -1,6 +1,7 @@
 import { Event, EventStore, Settings } from 'klasa';
 import { ShardClientUtil } from 'kurasuta';
 const gateways = ['clientStorage', 'users'];
+// This is all here because sometimes for some reason the piece doesn't properly unload if sharding isn't being used.
 
 export default class extends Event {
     public constructor(store: EventStore, file: string[], directory: string) {

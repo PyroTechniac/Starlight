@@ -59,7 +59,7 @@ export default class extends SQLProvider {
 
     public async getAll(table: string, entries: any[] = []) {
         let output: any[] = [];
-        // @ts-ignore
+        // @ts-ignore idk man
         if (entries.length) for (const myChunk of chunk(entries, 999)) output.push(...await this.runAll(`SELECT * FROM ${Util.sanitizeKeyName(table)} WHERE id IN ( ${Util.valueList(myChunk.length)} );`, myChunk));
         else output = await this.runAll(`SELECT * FROM ${Util.sanitizeKeyName(table)};`);
         return output.map((entry): Record<string, any> => this.parseEntry(table, entry));
@@ -116,7 +116,7 @@ export default class extends SQLProvider {
     }
 
     public addColumn<T = Database>(table: string, piece: SchemaFolder | SchemaEntry): Promise<T> {
-        // @ts-ignore
+        // @ts-ignore it doesn't like exec
         return this.exec(`ALTER TABLE ${Util.sanitizeKeyName(table)} ADD ${Util.sanitizeKeyName(piece.path)} ${piece.type}`);
     }
 
@@ -148,7 +148,7 @@ export default class extends SQLProvider {
         return true;
     }
 
-    // @ts-ignore
+    // @ts-ignore cause mismatch args
     public async updateColumn(table, schemaPiece) {
         const gateway = this.client.gateways.get(table);
         if (!gateway) throw new Error(`There is no gateway defined with the name ${table}.`);
@@ -161,7 +161,7 @@ export default class extends SQLProvider {
         if (index === -1) throw new Error(`There is no key ${schemaPiece.key} defined in the current schema for ${table}.`);
 
         const allPiecesNames = allPieces.map((piece): string => Util.sanitizeKeyName(piece.path)).join(', ');
-        // @ts-ignore
+        // @ts-ignore idk
         const parsedDatatypes = allPieces.map(this.qb.parse.bind(this.qb));
         parsedDatatypes[index] = `${Util.sanitizeKeyName(schemaPiece.key)} ${schemaPiece.type}`;
 

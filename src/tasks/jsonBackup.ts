@@ -16,7 +16,7 @@ export default class extends Task {
         const file = resolve(data.folder!, `json-backup-${this.timestamp}.tar.gz`);
 
         await ensureDir(dirname(file));
-        // @ts-ignore
+        // @ts-ignore because provider typings don't have a `baseDirectory` prop
         await targz(file, this.provider.baseDirectory);
     }
 }

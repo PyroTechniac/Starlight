@@ -35,7 +35,7 @@ export default class extends Task {
                 if (member.lastMessageID && member.lastMessageID > OLD_SNOWFLAKE) continue;
                 guildMembers++;
                 voiceStates++;
-                // @ts-ignore
+                // @ts-ignore because voice states don't exist in typings yet
                 guild.voiceStates.delete(id);
                 guild.members.delete(id);
             }

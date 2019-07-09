@@ -19,7 +19,7 @@ export default class extends Command {
         await msg.send('Capturing HEAP Snapshot. This may take a while...');
 
         const path = join(process.cwd(), `${Date.now()}.heapsnapshot`);
-        // @ts-ignore
+        // @ts-ignore util.promisify causes this to think it doesn't take any args
         await writeSnapshot(path);
 
         return msg.send(`Captured in \`${path}\`, check! Remember, do NOT share this with anybody, it may contain lots of sensitive data.`);
