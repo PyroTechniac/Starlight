@@ -1,5 +1,5 @@
 import { CategoryChannel, Collection, DMChannel, NewsChannel, StoreChannel, TextChannel, VoiceChannel } from 'discord.js';
-import { Client, KlasaClientOptions, KlasaMessage, KlasaUser, Piece, Settings, Stopwatch, Type, util } from 'klasa';
+import { Client, KlasaClientOptions, KlasaMessage, KlasaUser, Piece, Stopwatch, Type, util, Settings } from 'klasa';
 import { inspect } from 'util';
 import { List, Util } from '../lib';
 import './StarlightPreload';
@@ -15,17 +15,8 @@ declare module 'discord.js' {
         readonly categories: Collection<string, CategoryChannel>;
     }
 
-    interface CategoryChannel {
-        settings: Settings;
-    }
-
     interface TextChannel {
         fetchImage(limit: number): Promise<MessageAttachment | null>;
-        settings: Settings;
-    }
-
-    interface VoiceChannel {
-        settings: Settings;
     }
 
     interface DMChannel {
