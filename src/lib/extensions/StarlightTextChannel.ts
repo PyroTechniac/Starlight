@@ -14,4 +14,4 @@ class StarlightTextChannel extends Structures.get('TextChannel') {
 
 Structures.extend('TextChannel', (): typeof TextChannel => StarlightTextChannel);
 
-export { StarlightTextChannel }
+export { StarlightTextChannel };
