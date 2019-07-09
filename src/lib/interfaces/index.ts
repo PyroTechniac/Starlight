@@ -1,3 +1,3 @@
 export * from './GetRequest';
-export * from './MuteInfo';
+export * from './BackupData';
 export * from './PostRequest';

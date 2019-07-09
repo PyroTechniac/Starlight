@@ -9,6 +9,8 @@ export default class extends Event {
     public async run(): Promise<void> {
         await this.ensureTask('setPresence', '@hourly', { data: Constants.DefaultPresenceData, catchUp: false });
         await this.ensureTask('cleanup', '*/8 * * * *', { catchUp: false });
+        await this.ensureTask('jsonBackup', '@hourly', { catchUp: false });
+
 
         await Promise.all([
             this.client.user!.setPresence(Constants.DefaultPresenceData),
