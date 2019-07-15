@@ -1758,7 +1758,8 @@ klasa-dashboard-hooks@dirigeants/klasa-dashboard-hooks#settings:
 
 klasa@dirigeants/klasa#settings:
   version "0.5.0-dev"
-  resolved "https://codeload.github.com/dirigeants/klasa/tar.gz/cf3c43ba56dae1123453a68194a0fc98cc52b644"
+  uid f41cda592bf88eef311ec5a2dcb592fb707e2aae
+  resolved "https://codeload.github.com/dirigeants/klasa/tar.gz/f41cda592bf88eef311ec5a2dcb592fb707e2aae"
   dependencies:
     fs-nextra "^0.4.5"
 
