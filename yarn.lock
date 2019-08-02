@@ -1958,7 +1958,7 @@ mute-stream@~0.0.4:
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.8.tgz#1630c42b2251ff81e2a283de96a5497ea92e5e0d"
   integrity sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==
 
-nan@2, nan@^2.1.0, nan@^2.12.1, nan@^2.13.2, nan@^2.14.0, nan@^2.8.0:
+nan@2, nan@^2.1.0, nan@^2.12.1, nan@^2.13.2, nan@^2.14.0:
   version "2.14.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
   integrity sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
@@ -3285,9 +3285,9 @@ yamljs@^0.3.0:
     argparse "^1.0.7"
     glob "^7.0.5"
 
-zlib-sync@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/zlib-sync/-/zlib-sync-0.1.4.tgz#510db6ea89040d4ff6fa22cd3936f5c1a2ad0987"
-  integrity sha512-DRy+RONKzy/J6skNmq8ZBXtVAIoB4qbun+FCChlSlEvF7s9LJ0wzUXjVwl4tQ/jYT8V+LPzCg/sTcRj4E0g0fQ==
+zlib-sync@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/zlib-sync/-/zlib-sync-0.1.5.tgz#bc8e39d11ea31f6583b94e1452cb48fe493a160a"
+  integrity sha512-+i+0BAu0fGs9hjImLWGJ6UXCLVj7VS9XBEYRot/pdFbVoUgqV2CFBRdrgsKLjIbbwHVXxHyESLhZcCx3eoFH5w==
   dependencies:
-    nan "^2.8.0"
+    nan "^2.14.0"
