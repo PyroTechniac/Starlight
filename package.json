@@ -14,7 +14,7 @@
     },
     "dependencies": {
         "discord.js": "discordjs/discord.js",
-        "dotenv": "^8.0.0",
+        "dotenv": "^8.1.0",
         "fs-nextra": "^0.4.5",
         "klasa": "dirigeants/klasa#settings",
         "klasa-dashboard-hooks": "dirigeants/klasa-dashboard-hooks#settings",
