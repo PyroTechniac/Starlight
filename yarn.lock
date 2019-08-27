@@ -594,7 +594,8 @@ json-stable-stringify-without-jsonify@^1.0.1:
 
 klasa-dashboard-hooks@dirigeants/klasa-dashboard-hooks#settings:
   version "0.0.1-dev"
-  resolved "https://codeload.github.com/dirigeants/klasa-dashboard-hooks/tar.gz/74dcfef8ff2fa821ef1079006fbad7b7c2256165"
+  uid "39c5be557c75d3fdfe73d65db760ab0167bf425b"
+  resolved "https://codeload.github.com/dirigeants/klasa-dashboard-hooks/tar.gz/39c5be557c75d3fdfe73d65db760ab0167bf425b"
   dependencies:
     node-fetch "^2.6.0"
 
