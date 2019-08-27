@@ -19,5 +19,8 @@ new StarlightClient({
 	fetchAllMembers: true,
 	schedule: {
 		interval: 'INTERVAL' in process.env ? Number(process.env.INTERVAL) || 5000 : 5000
+	},
+	providers: {
+		'default': 'rethinkdb'
 	}
 }).login(token);
