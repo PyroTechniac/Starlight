@@ -1,10 +1,14 @@
-import { Client, KlasaClientOptions } from 'klasa';
+import { Client, KlasaClientOptions, Settings } from 'klasa';
 import { Collection, VoiceRegion } from 'discord.js';
 import './StarlightPreload';
 
 declare module 'discord.js' {
 	interface Client {
 		regions: null | Collection<string, VoiceRegion>;
+	}
+
+	interface GuildMember {
+		settings: Settings;
 	}
 }
 
