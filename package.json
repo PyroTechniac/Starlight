@@ -18,7 +18,8 @@
         "fs-nextra": "^0.4.5",
         "klasa": "dirigeants/klasa#settings",
         "klasa-dashboard-hooks": "dirigeants/klasa-dashboard-hooks#settings",
-        "node-fetch": "^2.6.0"
+        "node-fetch": "^2.6.0",
+        "rethinkdb-ts": "^2.4.0-rc.16"
     },
     "devDependencies": {
         "@types/dotenv": "^6.1.1",

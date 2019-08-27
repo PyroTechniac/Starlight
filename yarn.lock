@@ -605,7 +605,6 @@ klasa-dashboard-hooks@dirigeants/klasa-dashboard-hooks#settings:
 
 klasa@dirigeants/klasa#settings:
   version "0.5.0-dev"
-  uid "07d0aa836ebd2e63db58227a0451d24a5b0bc82b"
   resolved "https://codeload.github.com/dirigeants/klasa/tar.gz/07d0aa836ebd2e63db58227a0451d24a5b0bc82b"
   dependencies:
     fs-nextra "^0.4.5"
@@ -784,6 +783,11 @@ restore-cursor@^2.0.0:
   dependencies:
     onetime "^2.0.0"
     signal-exit "^3.0.2"
+
+rethinkdb-ts@^2.4.0-rc.16:
+  version "2.4.0-rc.16"
+  resolved "https://registry.yarnpkg.com/rethinkdb-ts/-/rethinkdb-ts-2.4.0-rc.16.tgz#9fdeab069867e15dce69c9486abbbd7b16145d73"
+  integrity sha512-IeUfGk92dzF6Ii9thn0FIcr7rYOai1IIK6NaCoBgNUCIckoP4oDd/T2zXYrBsQCHw1gC97Ol6YP/rL0ssIbRdw==
 
 rimraf@2.6.3, rimraf@^2.6.3:
   version "2.6.3"
