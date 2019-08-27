@@ -1,5 +1,5 @@
-import { Event, EventOptions } from 'klasa';
-import { ApplyOptions } from '../lib';
+import { Event, EventOptions, ScheduledTaskOptions } from 'klasa';
+import { ApplyOptions, ClientSettings } from '../lib';
 
 @ApplyOptions<EventOptions>({
 	once: true
@@ -9,6 +9,19 @@ export default class extends Event {
 	public async run(): Promise<void> {
 		await this.client.settings!.update('owners', [...this.client.owners.values()], { arrayAction: 'overwrite' });
 
+		await this.ensureTask('jsonBackup', '@daily', { catchUp: false });
+	}
+
+	private async ensureTask(task: string, time: string | number | Date, data?: ScheduledTaskOptions): Promise<void> {
+		const tasks = this.client.settings!.get(ClientSettings.Schedules) as ClientSettings.Schedules;
+
+		const found = tasks.find((s): boolean => s.taskName === task);
+		if (found) {
+			this.client.emit('log', `Found task ${found.taskName} (${found.id})`);
+		} else {
+			const created = await this.client.schedule.create(task, time, data);
+			this.client.emit('log', `Created task ${created.taskName} (${created.id})`);
+		}
 	}
 
 }

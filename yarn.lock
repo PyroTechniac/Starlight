@@ -605,7 +605,6 @@ klasa-dashboard-hooks@dirigeants/klasa-dashboard-hooks#settings:
 
 klasa@dirigeants/klasa#settings:
   version "0.5.0-dev"
-  uid "07d0aa836ebd2e63db58227a0451d24a5b0bc82b"
   resolved "https://codeload.github.com/dirigeants/klasa/tar.gz/07d0aa836ebd2e63db58227a0451d24a5b0bc82b"
   dependencies:
     fs-nextra "^0.4.5"
