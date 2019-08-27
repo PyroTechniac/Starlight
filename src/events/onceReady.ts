@@ -20,9 +20,27 @@ export default class extends Event {
             await util.sleep(5000);
             return this.run();
         }
+
+        this.client.options.owners = Array.from(this.resolveOwners());
+
+        this.client.mentionPrefix = new RegExp(`^<@!?${this.client.user!.id}>`);
     }
 
-    private resolveOwners(): string[] {
-        
+    private resolveOwners(): Set<string> {
+        const owners: Set<string> = new Set();
+
+        const {owner} = this.client.application;
+
+        if (owner === null) throw new Error('Application owner is null, something went wrong.');
+        if (owner instanceof Team) {
+            for (const id of owner.members.keys()) owners.add(id);
+        } else {
+            owners.add(owner.id);
+        }
+        if (this.client.options.owners.length) {
+            for (const id of this.client.options.owners) owners.add(id);
+        }
+
+        return owners;
     }
 }
