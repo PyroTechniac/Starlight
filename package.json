@@ -19,7 +19,8 @@
         "klasa": "dirigeants/klasa#settings",
         "klasa-dashboard-hooks": "dirigeants/klasa-dashboard-hooks#settings",
         "node-fetch": "^2.6.0",
-        "rethinkdb-ts": "^2.4.0-rc.16"
+        "rethinkdb-ts": "^2.4.0-rc.16",
+        "tslib": "^1.10.0"
     },
     "devDependencies": {
         "@types/dotenv": "^6.1.1",

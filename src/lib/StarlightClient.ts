@@ -1,4 +1,4 @@
-import { Client, KlasaClientOptions, Settings, Schema } from 'klasa';
+import * as Klasa from 'klasa';
 import { Collection, VoiceRegion } from 'discord.js';
 import { MemberGateway } from './structures';
 import './StarlightPreload';
@@ -9,15 +9,19 @@ declare module 'discord.js' {
 	}
 
 	interface GuildMember {
-		settings: Settings;
+		settings: Klasa.Settings;
+	}
+
+	interface Message {
+		nuke(timeout?: number): Promise<Message>
 	}
 }
 
-export class StarlightClient extends Client {
+export class StarlightClient extends Klasa.Client {
 
 	public regions: Collection<string, VoiceRegion> | null = null;
 
-	public constructor(options: KlasaClientOptions = {}) {
+	public constructor(options: Klasa.KlasaClientOptions = {}) {
 		super(options);
 
 		const { members = {} } = this.options.gateways;
@@ -31,6 +35,6 @@ export class StarlightClient extends Client {
 		return this.regions;
 	}
 
-	public static defaultMemberSchema: Schema = new Schema();
+	public static defaultMemberSchema: Klasa.Schema = new Klasa.Schema();
 
 }
