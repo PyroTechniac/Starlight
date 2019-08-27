@@ -1,28 +1,7 @@
 {
+    "extends": "eslint-config-bamboo",
     "compilerOptions": {
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "outDir": "./dist",
-        "target": "esnext",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "types": [
-            "discord.js",
-            "klasa",
-            "node",
-            "node-fetch",
-            "dotenv"
-        ],
-        "noEmitOnError": true,
-        "strict": true,
-        "declaration": true,
-        "importHelpers": true,
-        "tsBuildInfoFile": "./.cache/tsbuildinfo.json",
-        "incremental": true,
-        "listEmittedFiles": true,
-        "sourceMap": true,
-        "esModuleInterop": true
+        "outDir": "./dist"
     },
     "include": [
         "src"
