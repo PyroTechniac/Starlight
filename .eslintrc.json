@@ -1,3 +1,6 @@
 {
-    "extends": "bamboo"
+    "extends": "bamboo",
+    "rules": {
+        "no-throw-literal": "off"
+    }
 }

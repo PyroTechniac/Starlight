@@ -1,5 +1,5 @@
 import { Event, EventOptions, ScheduledTaskOptions } from 'klasa';
-import { ApplyOptions, ClientSettings } from '../lib';
+import { ApplyOptions, ClientSettings, Events } from '../lib';
 
 @ApplyOptions<EventOptions>({
 	once: true
@@ -17,10 +17,10 @@ export default class extends Event {
 
 		const found = tasks.find((s): boolean => s.taskName === task);
 		if (found) {
-			this.client.emit('log', `Found task ${found.taskName} (${found.id})`);
+			this.client.emit(Events.LOG, `Found task ${found.taskName} (${found.id})`);
 		} else {
 			const created = await this.client.schedule.create(task, time, data);
-			this.client.emit('log', `Created task ${created.taskName} (${created.id})`);
+			this.client.emit(Events.LOG, `Created task ${created.taskName} (${created.id})`);
 		}
 	}
 

@@ -1,6 +1,6 @@
 import { Event, EventOptions, util } from 'klasa';
 import { Team } from 'discord.js';
-import { ApplyOptions } from '../lib';
+import { ApplyOptions, Events } from '../lib';
 let retries = 0;
 
 @ApplyOptions<EventOptions>({
@@ -17,7 +17,7 @@ export default class extends Event {
 			]);
 		} catch (err) {
 			if (++retries === 3) return process.exit();
-			this.client.emit('warning', `Unable to fetchVoiceRegions/fetchApplication at this time, waiting 5 seconds and retrying. Retries left: ${retries - 3}`);
+			this.client.emit(Events.WARNING, `Unable to fetchVoiceRegions/fetchApplication at this time, waiting 5 seconds and retrying. Retries left: ${retries - 3}`);
 			await util.sleep(5000);
 			return this.run();
 		}
@@ -46,12 +46,12 @@ export default class extends Event {
 		this.client.ready = true;
 
 		if (this.client.options.readyMessage !== null) {
-			this.client.emit('log', util.isFunction(this.client.options.readyMessage)
+			this.client.emit(Events.LOG, util.isFunction(this.client.options.readyMessage)
 				? this.client.options.readyMessage(this.client)
 				: this.client.options.readyMessage);
 		}
 
-		return this.client.emit('klasaReady');
+		return this.client.emit(Events.KLASA_READY);
 	}
 
 	private resolveOwners(): Set<string> {

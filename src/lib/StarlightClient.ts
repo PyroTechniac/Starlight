@@ -1,7 +1,7 @@
-import * as Klasa from 'klasa';
 import { Collection, VoiceRegion } from 'discord.js';
-import { MemberGateway } from './structures';
+import * as Klasa from 'klasa';
 import './StarlightPreload';
+import { MemberGateway } from './structures';
 
 declare module 'discord.js' {
 	interface Client {
@@ -10,10 +10,6 @@ declare module 'discord.js' {
 
 	interface GuildMember {
 		settings: Klasa.Settings;
-	}
-
-	interface Message {
-		nuke(timeout?: number): Promise<Message>
 	}
 }
 
