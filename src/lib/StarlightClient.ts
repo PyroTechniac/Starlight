@@ -24,6 +24,7 @@ export class StarlightClient extends Klasa.Client {
 		members.schema = 'schema' in members ? members.schema : StarlightClient.defaultMemberSchema;
 		this.gateways
 			.register(new MemberGateway(this, 'members', members));
+
 	}
 
 	public async fetchVoiceRegions(): Promise<Collection<string, VoiceRegion>> {

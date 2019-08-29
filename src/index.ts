@@ -2,7 +2,9 @@ import { StarlightClient } from './lib';
 
 const { PREFIX: prefix, TOKEN: token } = process.env;
 
-StarlightClient.defaultClientSchema
+StarlightClient
+	.use(require('klasa-dashboard-hooks'))
+	.defaultClientSchema
 	.add('owners', 'User', { array: true });
 
 new StarlightClient({
@@ -19,8 +21,5 @@ new StarlightClient({
 	fetchAllMembers: true,
 	schedule: {
 		interval: 'INTERVAL' in process.env ? Number(process.env.INTERVAL) || 5000 : 5000
-	},
-	providers: {
-		'default': 'rethinkdb'
 	}
 }).login(token);

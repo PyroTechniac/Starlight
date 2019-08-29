@@ -16,7 +16,7 @@ export function ApplyOptions<T extends PieceOptions>(options: T) {
 	});
 }
 
-export const fetch = async<T = Record<string, any>> (url: RequestInfo, init?: RequestInit): Promise<T> => (await nodeFetch(url, init)).json();
+export const fetch = async<T = Record<string, any>>(url: RequestInfo, init?: RequestInit): Promise<T> => (await nodeFetch(url, init)).json();
 
 export const noop = (): null => null;
 
