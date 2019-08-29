@@ -3,7 +3,8 @@
     "compilerOptions": {
         "outDir": "./dist",
         "importHelpers": true,
-        "listEmittedFiles": true
+        "listEmittedFiles": true,
+        "noImplicitAny": false
     },
     "include": [
         "src"

@@ -1,9 +1,9 @@
 import { Parser } from 'acorn';
 import * as CanvasConstructor from 'canvas-constructor';
 import { default as _fetch } from 'node-fetch';
-import { extname } from 'path'
+import { extname } from 'path';
 import { URL } from 'url';
-import { AlreadyDeclaredIdentifier, CompilationParseError, MissingPropertyError, SandboxError, SandboxPropertyError, UnknownIdentifier } from './util'
+import { AlreadyDeclaredIdentifier, CompilationParseError, MissingPropertyError, SandboxError, SandboxPropertyError, UnknownIdentifier } from './util';
 
 // @ts-ignore
 import * as numericalSeparator from 'acorn-numeric-separator';
@@ -11,127 +11,129 @@ const parser = Parser.extend(numericalSeparator);
 
 const kUnset = Symbol.for('unset');
 const defaultIdentifiers: [string, any][] = [
-    // Function#bind allows the code to be censored
-    ['fetch', fetch.bind(null)],
-    ...Object.entries({
-        undefined,
-        Infinity,
-        NaN, isFinite, isNaN,
-        parseFloat, parseInt,
-        decodeURI, decodeURIComponent, encodeURI, encodeURIComponent,
-        Boolean,
-        Number,
-        Symbol,
-        Object,
-        Array,
-        Int8Array, Uint8Array, Uint8ClampedArray,
-        Int16Array, Uint16Array,
-        Int32Array, Uint32Array,
-        Float32Array, Float64Array,
-        ArrayBuffer,
-        DataView,
-        JSON,
-        Reflect,
-        Map, WeakMap,
-        Set, WeakSet,
-        Promise,
-        Proxy,
-        Math,
-        Date,
-        Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError
-    }),
-    ...Object.entries(CanvasConstructor)
+	// Function#bind allows the code to be censored
+	['fetch', fetch.bind(null)],
+	...Object.entries({
+		undefined,
+		Infinity,
+		NaN, isFinite, isNaN,
+		parseFloat, parseInt,
+		decodeURI, decodeURIComponent, encodeURI, encodeURIComponent,
+		Boolean,
+		Number,
+		Symbol,
+		Object,
+		Array,
+		Int8Array, Uint8Array, Uint8ClampedArray,
+		Int16Array, Uint16Array,
+		Int32Array, Uint32Array,
+		Float32Array, Float64Array,
+		ArrayBuffer,
+		DataView,
+		JSON,
+		Reflect,
+		Map, WeakMap,
+		Set, WeakSet,
+		Promise,
+		Proxy,
+		Math,
+		Date,
+		Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError
+	}),
+	...Object.entries(CanvasConstructor)
 ];
 
 const binaryOperators: Map<string, (left: unknown, right: unknown) => unknown> = new Map()
-    // Math operators
-    .set('+', (left: number, right: number) => left + right) // eslint-disable-line @typescript-eslint/restrict-plus-operands
-    .set('-', (left: number, right: number) => left - right)
-    .set('/', (left: number, right: number) => left / right)
-    .set('*', (left: number, right: number) => left * right)
-    .set('%', (left: number, right: number) => left % right)
-    .set('**', (left: number, right: number) => left ** right)
+// Math operators
+	.set('+', (left: number, right: number) => left + right) // eslint-disable-line @typescript-eslint/restrict-plus-operands
+	.set('-', (left: number, right: number) => left - right)
+	.set('/', (left: number, right: number) => left / right)
+	.set('*', (left: number, right: number) => left * right)
+	.set('%', (left: number, right: number) => left % right)
+	.set('**', (left: number, right: number) => left ** right)
 
-    // Boolean operators
-    .set('&&', (left: number, right: number) => left && right)
-    .set('||', (left: number, right: number) => left || right)
+// Boolean operators
+	.set('&&', (left: number, right: number) => left && right)
+	.set('||', (left: number, right: number) => left || right)
 
-    // Equality operators
-    .set('==', (left: number, right: number) => left == right) // eslint-disable-line eqeqeq
-    .set('===', (left: number, right: number) => left === right)
-    .set('!=', (left: number, right: number) => left != right) // eslint-disable-line eqeqeq
-    .set('!==', (left: number, right: number) => left !== right)
-    .set('>', (left: number, right: number) => left > right)
-    .set('<', (left: number, right: number) => left < right)
-    .set('>=', (left: number, right: number) => left >= right)
-    .set('<=', (left: number, right: number) => left <= right)
+// Equality operators
+	.set('==', (left: number, right: number) => left == right) // eslint-disable-line eqeqeq
+	.set('===', (left: number, right: number) => left === right)
+	.set('!=', (left: number, right: number) => left != right) // eslint-disable-line eqeqeq
+	.set('!==', (left: number, right: number) => left !== right)
+	.set('>', (left: number, right: number) => left > right)
+	.set('<', (left: number, right: number) => left < right)
+	.set('>=', (left: number, right: number) => left >= right)
+	.set('<=', (left: number, right: number) => left <= right)
 
-    // Bitwise operators
-    .set('^', (left: number, right: number) => left ^ right)
-    .set('&', (left: number, right: number) => left & right)
-    .set('|', (left: number, right: number) => left | right)
-    .set('>>', (left: number, right: number) => left >> right)
-    .set('<<', (left: number, right: number) => left << right)
-    .set('>>>', (left: number, right: number) => left >>> right)
+// Bitwise operators
+	.set('^', (left: number, right: number) => left ^ right)
+	.set('&', (left: number, right: number) => left & right)
+	.set('|', (left: number, right: number) => left | right)
+	.set('>>', (left: number, right: number) => left >> right)
+	.set('<<', (left: number, right: number) => left << right)
+	.set('>>>', (left: number, right: number) => left >>> right)
 
-    // Object operators
-    .set('in', (left: string | number | symbol, right: object) => left in right);
+// Object operators
+	.set('in', (left: string | number | symbol, right: object) => left in right);
 
 const unaryOperators: Map<string, (value: unknown) => unknown> = new Map()
-    // Math operators
-    .set('+', (value: number) => +value) // eslint-disable-line no-implicit-coercion
-    .set('-', (value: number) => -value)
-    // Bitwise operators
-    .set('~', (value: number) => ~value)
+// Math operators
+	.set('+', (value: number) => +value) // eslint-disable-line no-implicit-coercion
+	.set('-', (value: number) => -value)
+// Bitwise operators
+	.set('~', (value: number) => ~value)
 
-    // Boolean operators
-    .set('!', (value: unknown) => !value)
+// Boolean operators
+	.set('!', (value: unknown) => !value)
 
-    // Object operators
-    .set('typeof', (value: unknown) => typeof value);
+// Object operators
+	.set('typeof', (value: unknown) => typeof value);
 
 
 enum ScopeType {
-    Global,
-    Local,
-    None
+	Global,
+	Local,
+	None
 }
 
 export class InternalError {
-    public error: Error;
-    public constructor(error: Error) {
-        this.error = error;
-    }
+
+	public error: Error;
+	public constructor(error: Error) {
+		this.error = error;
+	}
+
 }
 
 async function fetch(...args: [string]): Promise<Buffer> {
-    if (args.length !== 1) throw new TypeError('Expected only 1 argument (at fetch).');
-    if (typeof args[0] !== 'string') throw new TypeError('Expected url to be a string (at fetch).');
-    const url = new URL(args[0]);
-    const ext = extname(url.pathname);
-    if (/^\.(jpe?g|png)$/.test(ext)) {
-        const response = await _fetch(url.href);
-        if (response.ok) return response.buffer();
-        throw new InternalError(new Error(`${response.status}: ${response.statusText} | ${url.href}`));
-    }
-    throw new InternalError(new Error(`The url ${url.href} must have any of the following extensions: .png, .jpg, .jpeg`));
+	if (args.length !== 1) throw new TypeError('Expected only 1 argument (at fetch).');
+	if (typeof args[0] !== 'string') throw new TypeError('Expected url to be a string (at fetch).');
+	const url = new URL(args[0]);
+	const ext = extname(url.pathname);
+	if (/^\.(jpe?g|png)$/.test(ext)) {
+		const response = await _fetch(url.href);
+		if (response.ok) return response.buffer();
+		throw new InternalError(new Error(`${response.status}: ${response.statusText} | ${url.href}`));
+	}
+	throw new InternalError(new Error(`The url ${url.href} must have any of the following extensions: .png, .jpg, .jpeg`));
 }
 
 export async function evaluate(input: string): Promise<any> {
-    try {
-        return await parseNode({
-            allowSpread: false,
-            code: input,
-            identifiers: new Map(defaultIdentifiers)
-        }, parser.parse(input, {
-            // @ts-ignore
-            allowAwaitOutsideFunction: true,
+	try {
+		return await parseNode({
+			allowSpread: false,
+			code: input,
+			identifiers: new Map(defaultIdentifiers)
+		}, parser.parse(input, {
+			// @ts-ignore
+			allowAwaitOutsideFunction: true,
 			ecmaVersion: 2019
-        }), null);
-    } catch (error) {
-        if (error instanceof InternalError) throw error.error;
-        throw error;
-    }
+		}), null);
+	} catch (error) {
+		if (error instanceof InternalError) throw error.error;
+		throw error;
+	}
 }
 
 function parseNode(ctx: EvaluatorContext, node: acorn.Node, scope: Scope): Promise<any> {
