@@ -10,6 +10,10 @@ export default class extends Event {
 		await this.client.settings!.update('owners', [...this.client.owners.values()], { arrayAction: 'overwrite' });
 
 		await this.ensureTask('jsonBackup', '@daily', { catchUp: false });
+
+		for (const guild of this.client.guilds.values()) {
+			for (const member of guild.members.values()) await member.settings.sync();
+		}
 	}
 
 	private async ensureTask(task: string, time: string | number | Date, data?: ScheduledTaskOptions): Promise<void> {

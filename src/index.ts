@@ -4,7 +4,6 @@ const { PREFIX: prefix, TOKEN: token } = process.env;
 
 StarlightClient
 	.use(require('klasa-dashboard-hooks'))
-	.use(require('./lib/plugins/coding'))
 	.defaultClientSchema
 	.add('owners', 'User', { array: true });
 
