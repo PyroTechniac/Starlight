@@ -1,5 +1,6 @@
 export type Constructor<T> = new (...args: any[]) => T;
 
+
 export enum Events {
 	ERROR = 'error',
 	WARN = 'warn',

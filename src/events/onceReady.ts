@@ -1,6 +1,6 @@
 import { Event, EventOptions, util } from 'klasa';
 import { Team } from 'discord.js';
-import { ApplyOptions, Events } from '../lib';
+import { ApplyOptions, Events, filterArray, StarlightTypeError } from '../lib';
 let retries = 0;
 
 @ApplyOptions<EventOptions>({
@@ -54,22 +54,20 @@ export default class extends Event {
 		return this.client.emit(Events.KLASA_READY);
 	}
 
-	private resolveOwners(): Set<string> {
-		const owners: Set<string> = new Set();
+	private resolveOwners(): string[] {
+		const owners: string[] = [];
 
 		const { owner } = this.client.application;
-
-		if (owner === null) throw new Error('Application owner is null, something went wrong.');
+		if (owner === null) throw new StarlightTypeError('EXPECTED_FOUND').init('a Team or User', owner);
 		if (owner instanceof Team) {
-			for (const id of owner.members.keys()) owners.add(id);
+			owners.push(...owner.members.keys());
 		} else {
-			owners.add(owner.id);
-		}
-		if (this.client.options.owners.length) {
-			for (const id of this.client.options.owners) owners.add(id);
+			owners.push(owner.id);
 		}
 
-		return owners;
+		if (this.client.options.owners.length) owners.push(...this.client.options.owners);
+
+		return filterArray(...owners);
 	}
 
 }

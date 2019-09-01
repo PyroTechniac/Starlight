@@ -1,6 +1,7 @@
 {
     "extends": "bamboo",
     "rules": {
-        "no-throw-literal": "off"
+        "no-throw-literal": "off",
+        "@typescript-eslint/explicit-function-return-type": 2
     }
 }
