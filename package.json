@@ -24,7 +24,7 @@
         "reflect-metadata": "^0.1.13",
         "rethinkdb-ts": "^2.4.0-rc.16",
         "typescript": "^3.5.3",
-        "veza": "^1.0.0"
+        "veza": "^1.1.0"
     },
     "devDependencies": {
         "@types/dotenv": "^6.1.1",
