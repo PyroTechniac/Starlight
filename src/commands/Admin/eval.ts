@@ -51,8 +51,7 @@ export default class extends Command {
 		let thenable = false;
 		try {
 			if (flags.async) code = `(async () => {\n${code}\n})();`;
-			// @ts-ignore
-			result = this.client._eval(code);
+			result = eval(code); // eslint-disable-line no-eval
 			syncTime = stopwatch.toString();
 			type = new Type(result);
 			if (util.isThenable(result)) {
@@ -74,7 +73,7 @@ export default class extends Command {
 		stopwatch.stop();
 		if (typeof result !== 'string') {
 			result = inspect(result, {
-				depth: flags.depth ? Number(flags.depth) || 1 : 1,
+				depth: flags.depth ? Number(flags.depth) || 0 : 0,
 				showHidden: Boolean(flags.showHidden)
 			});
 		}
