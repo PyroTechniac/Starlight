@@ -1,5 +1,6 @@
 import { Type } from 'klasa';
 import { Constructor } from '../types';
+import { enumerable } from './util';
 
 const messages: Map<string, (...args: any[]) => string> = new Map([
 	['EXPECTED_FOUND', (expected: any, found: any): string => `Expected ${expected}, found ${new Type(found)}.`],
@@ -25,7 +26,9 @@ function CreateStarlightError(): Function {
 @CreateStarlightError()
 class StarlightError extends Error {
 
+	@enumerable(false)
 	private code!: string;
+
 	public init(...args: any[]): this {
 		this.message = messages.has(this.code) ? messages.get(this.code)!(...args) : messages.get('DEFAULT')!(...args);
 
@@ -37,7 +40,9 @@ class StarlightError extends Error {
 @CreateStarlightError()
 class StarlightTypeError extends TypeError {
 
+	@enumerable(false)
 	private code!: string;
+
 	public init(...args: any[]): this {
 		this.message = messages.has(this.code) ? messages.get(this.code)!(...args) : messages.get('DEFAULT')!(...args);
 
@@ -49,7 +54,9 @@ class StarlightTypeError extends TypeError {
 @CreateStarlightError()
 class StarlightRangeError extends RangeError {
 
+	@enumerable(false)
 	private code!: string;
+
 	public init(...args: any[]): this {
 		this.message = messages.has(this.code) ? messages.get(this.code)!(...args) : messages.get('DEFAULT')!(...args);
 

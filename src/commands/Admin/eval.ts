@@ -43,11 +43,11 @@ export default class extends Command {
 		const { flags } = message;
 		code = code.replace(/[“”]/g, '"').replace(/[‘’]/g, "'");
 		const stopwatch = new Stopwatch();
-		let success;
-		let syncTime;
-		let asyncTime;
-		let type;
-		let result;
+		let success: boolean;
+		let syncTime: string | undefined;
+		let asyncTime: string | undefined;
+		let type!: Type;
+		let result: string;
 		let thenable = false;
 		try {
 			if (flags.async) code = `(async () => {\n${code}\n})();`;
@@ -80,7 +80,7 @@ export default class extends Command {
 		return { success, type, time: this.formatTime(syncTime, asyncTime), result: util.clean(result) };
 	}
 
-	private formatTime(syncTime: string, asyncTime: string): string {
+	private formatTime(syncTime: string, asyncTime?: string): string {
 		return asyncTime ? `⏱ ${asyncTime}<${syncTime}>` : `⏱ ${syncTime}`;
 	}
 

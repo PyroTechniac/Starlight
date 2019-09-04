@@ -1,5 +1,5 @@
 import { Constructor } from 'discord.js';
-import { Piece, PieceOptions, Store } from 'klasa';
+import { Piece, PieceOptions, Store, util } from 'klasa';
 import nodeFetch, { RequestInfo, RequestInit } from 'node-fetch';
 
 export function createClassDecorator(fn: Function): Function {
@@ -37,3 +37,5 @@ export function enumerable(value: boolean): (target: any, key: string) => void {
 }
 
 export const filterArray = <T>(...entries: T[]): T[] => Array.from(new Set([...entries]));
+
+export const makeArgRegex = (arg: string, boundary: boolean = false): RegExp => new RegExp(boundary ? `\\b${util.regExpEsc(arg)}\\b` : util.regExpEsc(arg), 'i');
