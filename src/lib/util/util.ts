@@ -46,10 +46,10 @@ export function configurable(value: boolean): (target: any, key: string) => void
 					enumerable: true,
 					value: val,
 					writable: true
-				})
+				});
 			}
-		})
-	}
+		});
+	};
 }
 
 export const filterArray = <T>(...entries: T[]): T[] => Array.from(new Set([...entries]));
