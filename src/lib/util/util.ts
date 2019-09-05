@@ -36,6 +36,22 @@ export function enumerable(value: boolean): (target: any, key: string) => void {
 	};
 }
 
+export function configurable(value: boolean): (target: any, key: string) => void {
+	return (target: any, key: string): void => {
+		Object.defineProperty(target, key, {
+			configurable: value,
+			set(this: any, val: any): void {
+				Object.defineProperty(this, key, {
+					configurable: value,
+					enumerable: true,
+					value: val,
+					writable: true
+				})
+			}
+		})
+	}
+}
+
 export const filterArray = <T>(...entries: T[]): T[] => Array.from(new Set([...entries]));
 
 export const makeArgRegex = (arg: string, boundary: boolean = false): RegExp => new RegExp(boundary ? `\\b${util.regExpEsc(arg)}\\b` : util.regExpEsc(arg), 'i');
