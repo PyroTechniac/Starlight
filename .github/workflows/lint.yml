@@ -19,7 +19,7 @@ jobs:
     - name: Yarn
       run: yarn
     - name: ESLint
-      uses: discordjs/action-eslint@v1
+      uses: pyrotechniac/action-eslint@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_SECRET }}
       with:
