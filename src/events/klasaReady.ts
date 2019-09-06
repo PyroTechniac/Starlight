@@ -12,7 +12,7 @@ export default class extends Event {
 		await this.ensureTask('jsonBackup', '@daily', { catchUp: false });
 
 		for (const guild of this.client.guilds.values()) {
-			for (const member of guild.members.values()) await member.settings.sync()
+			for (const member of guild.members.values()) await member.settings.sync();
 		}
 	}
 
