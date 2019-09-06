@@ -6,6 +6,7 @@ import { MemberGateway } from './structures';
 declare module 'discord.js' {
 	interface Client {
 		regions: null | Collection<string, VoiceRegion>;
+		awaitEvent(event: string): Promise<unknown>;
 	}
 
 	interface GuildMember {
@@ -32,6 +33,31 @@ export class StarlightClient extends Klasa.Client {
 	public async fetchVoiceRegions(): Promise<Collection<string, VoiceRegion>> {
 		this.regions = await super.fetchVoiceRegions();
 		return this.regions;
+	}
+
+	public awaitEvent(event: string): Promise<unknown> {
+		return new Promise((resolve, reject): void => {
+			/* eslint-disable @typescript-eslint/no-use-before-define */
+			const eventListener = (...args: any[]): void => {
+				if (errorListener !== undefined) {
+					this.removeListener('error', errorListener);
+				}
+				resolve(args);
+			};
+			/* eslint-enable @typescript-eslint/no-use-before-define */
+			let errorListener;
+
+			if (event !== 'error') {
+				errorListener = (err: any): void => {
+					this.removeListener(event, eventListener);
+					reject(err);
+				};
+
+				this.once('error', errorListener);
+			}
+
+			this.once(event, eventListener);
+		});
 	}
 
 	public static defaultMemberSchema: Klasa.Schema = new Klasa.Schema();
