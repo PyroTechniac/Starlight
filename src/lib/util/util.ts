@@ -52,6 +52,6 @@ export function configurable(value: boolean): (target: any, key: string) => void
 	};
 }
 
-export const filterArray = <T>(...entries: T[]): T[] => Array.from(new Set([...entries]));
+export const filterArray = <T>(...entries: T[]): T[] => [...new Set([...entries])];
 
 export const makeArgRegex = (arg: string, boundary: boolean = false): RegExp => new RegExp(boundary ? `\\b${util.regExpEsc(arg)}\\b` : util.regExpEsc(arg), 'i');
