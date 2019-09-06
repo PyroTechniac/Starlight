@@ -20,6 +20,11 @@ function CreateStarlightError(): Function {
 			return `${super.name} [${this.code}]`;
 		}
 
+		public init(...args: any[]): this {
+			this.message = messages.has(this.code) ? messages.get(this.code)!(...args) : messages.get('DEFAULT')!(...args);
+			return this;
+		}
+
 	};
 }
 
@@ -30,8 +35,7 @@ class StarlightError extends Error {
 	private code!: string;
 
 	public init(...args: any[]): this {
-		this.message = messages.has(this.code) ? messages.get(this.code)!(...args) : messages.get('DEFAULT')!(...args);
-
+		this.message = (messages.get(this.code) || messages.get('DEFAULT'))!(...args);
 		return this;
 	}
 
@@ -44,8 +48,7 @@ class StarlightTypeError extends TypeError {
 	private code!: string;
 
 	public init(...args: any[]): this {
-		this.message = messages.has(this.code) ? messages.get(this.code)!(...args) : messages.get('DEFAULT')!(...args);
-
+		this.message = (messages.get(this.code) || messages.get('DEFAULT'))!(...args);
 		return this;
 	}
 
@@ -55,18 +58,15 @@ class StarlightTypeError extends TypeError {
 class StarlightRangeError extends RangeError {
 
 	@enumerable(false)
+
 	private code!: string;
 
 	public init(...args: any[]): this {
-		this.message = messages.has(this.code) ? messages.get(this.code)!(...args) : messages.get('DEFAULT')!(...args);
-
+		this.message = (messages.get(this.code) || messages.get('DEFAULT'))!(...args);
 		return this;
 	}
 
 }
 
-export {
-	StarlightError,
-	StarlightTypeError,
-	StarlightRangeError
-};
+export { StarlightError, StarlightTypeError, StarlightRangeError };
+

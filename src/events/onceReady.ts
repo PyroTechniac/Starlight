@@ -18,8 +18,7 @@ export default class extends Event {
 		} catch (err) {
 			if (++retries === 3) return process.exit();
 			this.client.emit(Events.WARNING, `Unable to fetchVoiceRegions/fetchApplication at this time, waiting 5 seconds and retrying. Retries left: ${retries - 3}`);
-			await util.sleep(5000);
-			return this.run();
+			return util.sleep(5000).then(this.run);
 		}
 
 		this.client.options.owners = Array.from(this.resolveOwners());
