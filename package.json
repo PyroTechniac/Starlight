@@ -23,7 +23,7 @@
         "node-fetch": "^2.6.0",
         "reflect-metadata": "^0.1.13",
         "rethinkdb-ts": "^2.4.0-rc.16",
-        "typescript": "^3.5.3",
+        "typescript": "^3.6.2",
         "veza": "^1.1.0"
     },
     "devDependencies": {
