@@ -20,6 +20,8 @@ export class StarlightClient extends Klasa.Client {
 	public constructor(options: Klasa.KlasaClientOptions = {}) {
 		super(options);
 
+		Reflect.defineMetadata('StarlightClient', true, this);
+
 		const { members = {} } = this.options.gateways;
 		members.schema = 'schema' in members ? members.schema : StarlightClient.defaultMemberSchema;
 		this.gateways

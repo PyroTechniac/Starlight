@@ -1,6 +1,6 @@
-import { Route, RouteOptions, ApplyOptions } from '../lib';
-import { KlasaIncomingMessage } from 'klasa-dashboard-hooks';
 import { ServerResponse } from 'http';
+import { KlasaIncomingMessage, Route, RouteOptions } from 'klasa-dashboard-hooks';
+import { ApplyOptions } from '../lib';
 
 @ApplyOptions<RouteOptions>({
 	route: 'pieces/:type'
