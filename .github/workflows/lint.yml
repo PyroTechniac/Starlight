@@ -21,7 +21,7 @@ jobs:
     - name: eslint
       uses: icrawl/action-eslint@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         ACTIONS_STEP_DEBUG: true
       with:
         job-name: eslint
