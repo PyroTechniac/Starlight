@@ -18,9 +18,9 @@ jobs:
         node-version: 12
     - name: Yarn
       run: yarn
-    - name: ESLint
+    - name: eslint
       uses: icrawl/action-eslint@v1
       env:
         GITHUB_TOKEN: ${{ secrets.LINTING_SECRET }}
       with:
-        job-name: ESLint
+        job-name: eslint
