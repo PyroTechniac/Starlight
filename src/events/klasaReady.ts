@@ -13,15 +13,12 @@ export default class extends Event {
 
 		for (const guild of this.client.guilds.values()) {
 			await guild.settings.sync();
-			this.client.emit(Events.VERBOSE, `[SETTINGS] Synced data for guild ${guild.name}.`);
 			for (const member of guild.members.values()) {
 				await member.settings.sync();
-				this.client.emit(Events.VERBOSE, `[SETTINGS] Synced data for member ${member.displayName}.`);
 			}
 		}
 		for (const user of this.client.users.values()) {
 			await user.settings.sync();
-			this.client.emit(Events.VERBOSE, `[SETTINGS] Synced data for user ${user.username}.`);
 		}
 
 		this.client.emit(Events.LOG, `[READY] ${this.client.user!.username} initialization complete.`);
