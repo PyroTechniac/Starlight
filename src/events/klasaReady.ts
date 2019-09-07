@@ -12,8 +12,19 @@ export default class extends Event {
 		await this.ensureTask('jsonBackup', '@daily', { catchUp: false });
 
 		for (const guild of this.client.guilds.values()) {
-			for (const member of guild.members.values()) await member.settings.sync();
+			await guild.settings.sync();
+			this.client.emit(Events.VERBOSE, `[SETTINGS] Synced data for guild ${guild.name}.`);
+			for (const member of guild.members.values()) {
+				await member.settings.sync();
+				this.client.emit(Events.VERBOSE, `[SETTINGS] Synced data for member ${member.displayName}.`);
+			}
 		}
+		for (const user of this.client.users.values()) {
+			await user.settings.sync();
+			this.client.emit(Events.VERBOSE, `[SETTINGS] Synced data for user ${user.username}.`);
+		}
+
+		this.client.emit(Events.LOG, `[READY] ${this.client.user!.username} initialization complete.`);
 	}
 
 	private async ensureTask(task: string, time: string | number | Date, data?: ScheduledTaskOptions): Promise<void> {
@@ -21,10 +32,10 @@ export default class extends Event {
 
 		const found = tasks.find((s): boolean => s.taskName === task);
 		if (found) {
-			this.client.emit(Events.LOG, `Found task ${found.taskName} (${found.id})`);
+			this.client.emit(Events.LOG, `[SCHEDULE] Found task ${found.taskName} (${found.id})`);
 		} else {
 			const created = await this.client.schedule.create(task, time, data);
-			this.client.emit(Events.LOG, `Created task ${created.taskName} (${created.id})`);
+			this.client.emit(Events.LOG, `[SCHEDULE] Created task ${created.taskName} (${created.id})`);
 		}
 	}
 
