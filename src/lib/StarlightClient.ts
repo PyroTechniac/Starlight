@@ -3,18 +3,6 @@ import * as Klasa from 'klasa';
 import './StarlightPreload';
 import { MemberGateway } from './structures';
 
-declare module 'discord.js' {
-	interface Client {
-		regions: null | Collection<string, VoiceRegion>;
-		readonly members: Collection<string, GuildMember>;
-		awaitEvent(event: string): Promise<unknown>;
-	}
-
-	interface GuildMember {
-		settings: Klasa.Settings;
-	}
-}
-
 export class StarlightClient extends Klasa.Client {
 
 	public regions: Collection<string, VoiceRegion> | null = null;
