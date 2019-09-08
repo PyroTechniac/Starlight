@@ -16,6 +16,7 @@ export default class extends Event {
 
 
 		await Promise.all([
+			this.client.settings!.sync(),
 			tasks.map(this.ensureTask.bind(this)),
 			this.client.guilds.map((guild): Promise<Settings> => guild.settings.sync()),
 			this.client.members.map((member): Promise<Settings> => member.settings.sync()),
