@@ -11,3 +11,12 @@ export enum Events {
 	KLASA_READY = 'klasaReady',
 	LOG = 'log'
 }
+
+
+export interface RateLimitInfo {
+	timeout: number;
+	limit: number;
+	method: string;
+	path: string;
+	route: string;
+}

@@ -1,5 +1,10 @@
-import { Event, EventOptions, ScheduledTaskOptions } from 'klasa';
-import { ApplyOptions, ClientSettings, Events } from '../lib';
+import { Event, EventOptions, ScheduledTaskOptions, Settings } from 'klasa';
+import { ApplyOptions, ClientSettings, Events, StarlightError } from '../lib';
+
+const tasks: [string, string, ScheduledTaskOptions?][] = [
+	['jsonBackup', '@daily', { catchUp: false }],
+	['syncSettings', '*/10 * * * *', { catchUp: false }]
+];
 
 @ApplyOptions<EventOptions>({
 	once: true
@@ -7,26 +12,22 @@ import { ApplyOptions, ClientSettings, Events } from '../lib';
 export default class extends Event {
 
 	public async run(): Promise<void> {
-		await this.client.settings!.update('owners', [...this.client.owners.values()], { arrayAction: 'overwrite' });
+		await this.client.settings!.update(ClientSettings.Owners, [...this.client.owners.values()], { arrayAction: 'overwrite' });
 
-		await this.ensureTask('jsonBackup', '@daily', { catchUp: false });
 
-		for (const guild of this.client.guilds.values()) {
-			await guild.settings.sync();
-			for (const member of guild.members.values()) {
-				await member.settings.sync();
-			}
-		}
-		for (const user of this.client.users.values()) {
-			await user.settings.sync();
-		}
+		await Promise.all([
+			tasks.map(this.ensureTask.bind(this)),
+			this.client.guilds.map((guild): Promise<Settings> => guild.settings.sync()),
+			this.client.members.map((member): Promise<Settings> => member.settings.sync()),
+			this.client.users.map((user): Promise<Settings> => user.settings.sync())
+		]);
 
 		this.client.emit(Events.LOG, `[READY] ${this.client.user!.username} initialization complete.`);
 	}
 
-	private async ensureTask(task: string, time: string | number | Date, data?: ScheduledTaskOptions): Promise<void> {
+	private async ensureTask([task, time, data]: [string, string | number | Date, ScheduledTaskOptions?]): Promise<void> {
 		const tasks = this.client.settings!.get(ClientSettings.Schedules) as ClientSettings.Schedules;
-
+		if (!this.client.tasks.has(task)) throw new StarlightError('NOT_FOUND').init(`task ${task}`)
 		const found = tasks.find((s): boolean => s.taskName === task);
 		if (found) {
 			this.client.emit(Events.LOG, `[SCHEDULE] Found task ${found.taskName} (${found.id})`);
