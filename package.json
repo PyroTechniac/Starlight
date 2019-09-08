@@ -11,10 +11,6 @@
         "clean": "rimraf dist/ .cache/ && npm run build"
     },
     "dependencies": {
-        "acorn": "^7.0.0",
-        "acorn-numeric-separator": "^0.3.0",
-        "canvas": "^2.6.0",
-        "canvas-constructor": "^3.1.0",
         "discord.js": "discordjs/discord.js",
         "dotenv": "^8.1.0",
         "fs-nextra": "^0.4.5",
@@ -23,8 +19,7 @@
         "node-fetch": "^2.6.0",
         "reflect-metadata": "^0.1.13",
         "rethinkdb-ts": "^2.4.0-rc.16",
-        "typescript": "^3.6.2",
-        "veza": "^1.1.0"
+        "typescript": "^3.6.2"
     },
     "devDependencies": {
         "@types/dotenv": "^6.1.1",
