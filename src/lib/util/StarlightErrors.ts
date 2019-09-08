@@ -22,7 +22,8 @@ function CreateStarlightError(): Function {
 		}
 
 		public init(...args: any[]): this {
-			this.message = messages.has(this.code) ? messages.get(this.code)!(...args) : messages.get('DEFAULT')!(...args);
+			this.code = messages.has(this.code) ? this.code : 'DEFAULT';
+			this.message = messages.get(this.code)!(...args);
 			return this;
 		}
 
@@ -33,40 +34,36 @@ function CreateStarlightError(): Function {
 class StarlightError extends Error {
 
 	@enumerable(false)
-	private code!: string;
+	public code!: string;
 
-	public init(...args: any[]): this {
-		this.message = (messages.get(this.code) || messages.get('DEFAULT'))!(...args);
-		return this;
-	}
+}
 
+interface StarlightError extends Error {
+	init(...args: any[]): this;
 }
 
 @CreateStarlightError()
 class StarlightTypeError extends TypeError {
 
 	@enumerable(false)
-	private code!: string;
+	public code!: string;
 
-	public init(...args: any[]): this {
-		this.message = (messages.get(this.code) || messages.get('DEFAULT'))!(...args);
-		return this;
-	}
+}
 
+interface StarlightTypeError extends TypeError {
+	init(...args: any[]): this;
 }
 
 @CreateStarlightError()
 class StarlightRangeError extends RangeError {
 
 	@enumerable(false)
+	public code!: string;
 
-	private code!: string;
+}
 
-	public init(...args: any[]): this {
-		this.message = (messages.get(this.code) || messages.get('DEFAULT'))!(...args);
-		return this;
-	}
-
+interface StarlightRangeError extends RangeError {
+	init(...args: any[]): this;
 }
 
 export { StarlightError, StarlightTypeError, StarlightRangeError };

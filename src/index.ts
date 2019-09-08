@@ -19,6 +19,9 @@ new StarlightClient({
 	commandEditing: true,
 	commandLogging: true,
 	fetchAllMembers: true,
+	providers: {
+		default: 'rethinkdb'
+	},
 	schedule: {
 		interval: 'INTERVAL' in process.env ? Number(process.env.INTERVAL) || 5000 : 5000
 	},

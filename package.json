@@ -31,5 +31,8 @@
         "eslint": "^5.16.0",
         "eslint-config-bamboo": "^2.0.0",
         "rimraf": "^3.0.0"
+    },
+    "optionalDependencies": {
+        "zlib-sync": "^0.1.5"
     }
 }

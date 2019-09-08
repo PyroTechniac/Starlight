@@ -1,5 +1,5 @@
-import { Argument, KlasaGuild, Possible, KlasaMessage } from 'klasa';
-import { Role } from 'discord.js';
+import { Message, Role } from 'discord.js';
+import { Argument, KlasaGuild, Possible } from 'klasa';
 import { makeArgRegex } from '../lib';
 
 const { role: ROLE_REGEXP } = Argument.regex;
@@ -12,7 +12,7 @@ function resolveRole(query: Role | string, guild: KlasaGuild): Role | null {
 
 export default class extends Argument {
 
-	public async run(arg: string, possible: Possible, msg: KlasaMessage): Promise<Role> {
+	public async run(arg: string, possible: Possible, msg: Message): Promise<Role> {
 		if (!msg.guild) return this.store.get('role').run(arg, possible, msg);
 		const resRole = resolveRole(arg, msg.guild);
 		if (resRole) return resRole;

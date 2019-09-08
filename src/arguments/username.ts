@@ -1,6 +1,6 @@
-import { Argument, KlasaGuild, Possible, KlasaMessage } from 'klasa';
 import { GuildMember, User } from 'discord.js';
-import { noop, makeArgRegex } from '../lib';
+import { Argument, KlasaGuild, KlasaMessage, Possible } from 'klasa';
+import { makeArgRegex, noop } from '../lib';
 
 const { userOrMember: USER_REGEXP } = Argument.regex;
 
