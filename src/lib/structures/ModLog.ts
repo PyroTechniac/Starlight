@@ -27,13 +27,23 @@ export class ModLog {
         this.reason = null;
     }
 
-    public setUser(user: User | ModLogUserInfo): this {
+    public setUser(user: User | ModLogUserInfo | null): this {
         this._patchUser(user, 'user');
         return this;
     }
 
-    public setModerator(user: User | ModLogUserInfo): this {
+    public setModerator(user: User | ModLogUserInfo | null): this {
         this._patchUser(user, 'moderator');
+        return this;
+    }
+
+    public setCase(caseNumber: number | null): this {
+        this.case = caseNumber;
+        return this;
+    }
+
+    public setReason(reason: string | null): this {
+        this.reason = reason;
         return this;
     }
 
@@ -48,14 +58,19 @@ export class ModLog {
         }
     }
 
-    private _patchUser(data: User | ModLogUserInfo, method: 'user' | 'moderator'): void {
-        this[method] = {
+    private _patchUser(data: User | ModLogUserInfo | null, method: 'user' | 'moderator'): void {
+        this[method] = data === null ? null : {
             avatar: data instanceof User ? data.displayAvatarURL() : data.avatar,
             id: data.id,
             tag: data.tag
         };
     }
 
-    public static fromJSON(data: ModLogJSONData) {
+    public static fromJSON(guild: Guild, data: ModLogJSONData) {
+        return new this(guild)
+            .setUser(data.user)
+            .setModerator(data.moderator)
+            .setCase(data.case)
+            .setReason(data.reason);
     }
 }
