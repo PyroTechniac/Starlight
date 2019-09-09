@@ -30,8 +30,10 @@ export default class extends Provider {
 
 	public deleteTable(table: string): Promise<void | null> {
 		return this.hasTable(table)
-			.then(exists => exists ? fsn.emptyDir(resolve(this.baseDirectory, table))
-				.then(() => fsn.remove(resolve(this.baseDirectory, table))) : null);
+			.then((exists): Promise<void | null> | null => exists
+				? fsn.emptyDir(resolve(this.baseDirectory, table))
+					.then((): Promise<void> => fsn.remove(resolve(this.baseDirectory, table)))
+				: null);
 	}
 
 	public async getAll(table: string, entries?: any[]): Promise<any[]> {

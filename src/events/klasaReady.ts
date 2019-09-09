@@ -1,4 +1,4 @@
-import { Collection, GuildMember, GuildMemberStore } from 'discord.js';
+import { GuildMember } from 'discord.js';
 import { Event, EventOptions, ScheduledTaskOptions, Settings } from 'klasa';
 import { ApplyOptions, ClientSettings, Events, StarlightError } from '../lib';
 
@@ -30,8 +30,8 @@ export default class extends Event {
 	}
 
 	private get members(): GuildMember[] {
-		const members = new Collection<string, GuildMember>();
-		return Array.from(members.concat(...this.client.guilds.map((guild): GuildMemberStore => guild.members)).values());
+		const members: GuildMember[] = [];
+		return members.concat(...this.client.guilds.map((guild): GuildMember[] => Array.from(guild.members.values())));
 	}
 
 	private async ensureTask([task, time, data]: [string, string | number | Date, ScheduledTaskOptions?]): Promise<void> {

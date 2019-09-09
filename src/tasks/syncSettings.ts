@@ -1,5 +1,5 @@
-import { Task, Settings } from 'klasa';
-import { GuildMember, Collection, GuildMemberStore } from 'discord.js';
+import { GuildMember } from 'discord.js';
+import { Settings, Task } from 'klasa';
 import { ClientSettings } from '../lib';
 
 export default class extends Task {
@@ -16,10 +16,8 @@ export default class extends Task {
 	}
 
 	private get members(): GuildMember[] {
-		const members = new Collection<string, GuildMember>();
-		const colls: GuildMemberStore[] = [];
-		for (const guild of this.client.guilds.values()) colls.push(guild.members);
-		return Array.from(members.concat(...colls).values());
+		const members: GuildMember[] = [];
+		return members.concat(...this.client.guilds.map((guild): GuildMember[] => Array.from(guild.members.values())));
 	}
 
 }
