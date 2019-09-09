@@ -6,7 +6,7 @@ StarlightClient
 	.use(require('klasa-dashboard-hooks'))
 	.defaultClientSchema
 	.add('owners', 'User', { array: true })
-	.add('syncCount', 'integer', { default: 0, max: 3 });
+	.add('syncCount', 'integer', { 'default': 0, 'max': 3 });
 
 new StarlightClient({
 	prefix,

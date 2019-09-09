@@ -14,7 +14,7 @@ function CreateStarlightError(): Function {
 		private code: string;
 		public constructor(key: string) {
 			super();
-			this.code = key;
+			this.code = messages.has(key) ? key : 'DEFAULT';
 		}
 
 		public get name(): string {
@@ -22,7 +22,6 @@ function CreateStarlightError(): Function {
 		}
 
 		public init(...args: any[]): this {
-			this.code = messages.has(this.code) ? this.code : 'DEFAULT';
 			this.message = messages.get(this.code)!(...args);
 			return this;
 		}
