@@ -24,7 +24,7 @@ export default class extends Event {
 			this.client.users.map((user): Promise<Settings> => user.settings.sync())
 		]);
 
-		this.client.emit(Events.LOG, `[READY] ${this.client.user!.username} initialization complete.`);
+		this.client.emit(Events.Log, `[READY] ${this.client.user!.username} initialization complete.`);
 	}
 
 	private get members(): GuildMember[] {
@@ -37,10 +37,10 @@ export default class extends Event {
 		if (!this.client.tasks.has(task)) throw new StarlightError('NOT_FOUND').init(`task ${task}`);
 		const found = tasks.find((s): boolean => s.taskName === task);
 		if (found) {
-			this.client.emit(Events.LOG, `[SCHEDULE] Found task ${found.taskName} (${found.id})`);
+			this.client.emit(Events.Log, `[SCHEDULE] Found task ${found.taskName} (${found.id})`);
 		} else {
 			const created = await this.client.schedule.create(task, time, data);
-			this.client.emit(Events.LOG, `[SCHEDULE] Created task ${created.taskName} (${created.id})`);
+			this.client.emit(Events.Log, `[SCHEDULE] Created task ${created.taskName} (${created.id})`);
 		}
 	}
 

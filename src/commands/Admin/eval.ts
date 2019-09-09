@@ -1,6 +1,6 @@
 import { Command, CommandOptions, Stopwatch, Type, util, Language, KlasaMessage } from 'klasa';
 import { inspect } from 'util';
-import { ApplyOptions } from '../../lib';
+import { ApplyOptions, Events } from '../../lib';
 
 @ApplyOptions<CommandOptions>({
 	aliases: ['ev'],
@@ -65,7 +65,7 @@ export default class extends Command {
 			if (!syncTime) syncTime = stopwatch.toString();
 			if (!type) type = new Type(error);
 			if (thenable && !asyncTime) asyncTime = stopwatch.toString();
-			if (error && error.stack) this.client.emit('error', error.stack);
+			if (error && error.stack) this.client.emit(Events.Error, error.stack);
 			result = error;
 			success = false;
 		}
