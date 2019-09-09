@@ -17,6 +17,29 @@ export enum Events {
 	Log = 'log'
 }
 
+export interface ModLogJSONData {
+	guild: string;
+	case: number | null;
+	type: ModLogType | null;
+	user: ModLogUserInfo | null;
+	moderator: ModLogUserInfo | null;
+	reason: string | null;
+}
+
+export enum ModLogType {
+	Kick,
+	Ban,
+	Softban,
+	Mute,
+	VoiceKick,
+	Appeal
+}
+
+export interface ModLogUserInfo {
+	avatar: string;
+	id: string;
+	tag: string;
+}
 
 export interface RateLimitInfo {
 	timeout: number;
@@ -25,4 +48,3 @@ export interface RateLimitInfo {
 	path: string;
 	route: string;
 }
-
