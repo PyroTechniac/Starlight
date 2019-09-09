@@ -19,7 +19,6 @@
         "klasa-dashboard-hooks": "dirigeants/klasa-dashboard-hooks#settings",
         "node-fetch": "^2.6.0",
         "reflect-metadata": "^0.1.13",
-        "rethinkdb-ts": "^2.4.0-rc.16",
         "typescript": "^3.6.2"
     },
     "devDependencies": {

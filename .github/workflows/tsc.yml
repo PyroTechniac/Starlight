@@ -17,7 +17,7 @@ jobs:
       with:
         node-version: 12
     - name: Yarn
-      run: yarn install
+      run: yarn --ignore-scripts
     - name: tsc
       uses: icrawl/action-tsc@v1
       env:
