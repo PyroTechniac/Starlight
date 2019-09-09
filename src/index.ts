@@ -5,7 +5,8 @@ const { PREFIX: prefix, TOKEN: token } = process.env;
 StarlightClient
 	.use(require('klasa-dashboard-hooks'))
 	.defaultClientSchema
-	.add('owners', 'User', { array: true });
+	.add('owners', 'User', { array: true })
+	.add('syncCount', 'integer', { default: 0, max: 3 });
 
 new StarlightClient({
 	prefix,
@@ -19,9 +20,6 @@ new StarlightClient({
 	commandEditing: true,
 	commandLogging: true,
 	fetchAllMembers: true,
-	providers: {
-		'default': 'rethinkdb'
-	},
 	schedule: {
 		interval: 'INTERVAL' in process.env ? Number(process.env.INTERVAL) || 5000 : 5000
 	},
