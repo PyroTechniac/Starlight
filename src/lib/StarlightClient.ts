@@ -1,4 +1,4 @@
-import { Collection, VoiceRegion, GuildMember } from 'discord.js';
+import { Collection, VoiceRegion } from 'discord.js';
 import * as Klasa from 'klasa';
 import './StarlightPreload';
 import { MemberGateway } from './structures';
@@ -22,16 +22,6 @@ export class StarlightClient extends Klasa.Client {
 	public async fetchVoiceRegions(): Promise<Collection<string, VoiceRegion>> {
 		this.regions = await super.fetchVoiceRegions();
 		return this.regions;
-	}
-
-	public get members(): Collection<string, GuildMember> {
-		const coll = new Collection<string, GuildMember>();
-		for (const guild of this.guilds.values()) {
-			if (!guild.available) continue;
-			for (const member of guild.members.values()) coll.set([guild.id, member.id].join('.'), member);
-		}
-
-		return coll;
 	}
 
 	public awaitEvent(event: string): Promise<unknown> {

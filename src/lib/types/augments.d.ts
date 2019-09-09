@@ -6,7 +6,6 @@ import { ServerResponse } from 'http';
 declare module 'discord.js' {
 	interface Client {
 		regions: null | Collection<string, VoiceRegion>;
-		readonly members: Collection<string, GuildMember>;
 		awaitEvent(event: string): Promise<unknown>;
 	}
 

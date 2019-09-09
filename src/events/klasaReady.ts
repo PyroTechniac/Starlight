@@ -1,5 +1,6 @@
 import { Event, EventOptions, ScheduledTaskOptions, Settings } from 'klasa';
 import { ApplyOptions, ClientSettings, Events, StarlightError } from '../lib';
+import { Collection, GuildMember, GuildMemberStore } from 'discord.js';
 
 const tasks: [string, string, ScheduledTaskOptions?][] = [
 	['jsonBackup', '@daily', { catchUp: false }],
@@ -19,11 +20,16 @@ export default class extends Event {
 			this.client.settings!.sync(),
 			tasks.map(this.ensureTask.bind(this)),
 			this.client.guilds.map((guild): Promise<Settings> => guild.settings.sync()),
-			this.client.members.map((member): Promise<Settings> => member.settings.sync()),
+			this.members.map((member): Promise<Settings> => member.settings.sync()),
 			this.client.users.map((user): Promise<Settings> => user.settings.sync())
 		]);
 
 		this.client.emit(Events.LOG, `[READY] ${this.client.user!.username} initialization complete.`);
+	}
+
+	private get members(): GuildMember[] {
+		const members = new Collection<string, GuildMember>();
+		return Array.from(members.concat(...this.client.guilds.map((guild): GuildMemberStore => guild.members)).values());
 	}
 
 	private async ensureTask([task, time, data]: [string, string | number | Date, ScheduledTaskOptions?]): Promise<void> {
