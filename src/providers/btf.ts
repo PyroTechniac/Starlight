@@ -10,8 +10,8 @@ export default class extends Provider {
 	public constructor(store: ProviderStore, file: string[], directory: string) {
 		super(store, file, directory);
 
-		const baseDirectory = resolve(this.client.userBaseDirectory, 'bwd', 'provider', 'etf');
-		const defaults = util.mergeDefault({ baseDirectory }, this.client.options.providers.etf);
+		const baseDirectory = resolve(this.client.userBaseDirectory, 'bwd', 'provider', 'btf');
+		const defaults = util.mergeDefault({ baseDirectory }, this.client.options.providers.btf);
 
 		this.baseDirectory = defaults.baseDirectory;
 	}
@@ -53,19 +53,19 @@ export default class extends Provider {
 		const filenames = await fsn.readdir(dir);
 		const files: string[] = [];
 		for (const filename of filenames) {
-			if (filename.endsWith('.etf')) files.push(filename.slice(0, filename.length - 4));
+			if (filename.endsWith('.btf')) files.push(filename.slice(0, filename.length - 4));
 		}
 		return files;
 	}
 
 	public get(table: string, id: string): Promise<unknown> {
-		return fsn.readFile(resolve(this.baseDirectory, table, `${id}.etf`))
+		return fsn.readFile(resolve(this.baseDirectory, table, `${id}.btf`))
 			.then(deserialize)
 			.catch(noop);
 	}
 
 	public has(table: string, id: string): Promise<boolean> {
-		return fsn.pathExists(resolve(this.baseDirectory, table, `${id}.etf`));
+		return fsn.pathExists(resolve(this.baseDirectory, table, `${id}.btf`));
 	}
 
 	public getRandom(table: string): Promise<any> {
@@ -73,20 +73,20 @@ export default class extends Provider {
 	}
 
 	public create(table: string, id: string, data: Record<string, any> = {}): Promise<void> {
-		return fsn.outputFileAtomic(resolve(this.baseDirectory, table, `${id}.etf`), serialize({ id, ...this.parseUpdateInput(data) }));
+		return fsn.outputFileAtomic(resolve(this.baseDirectory, table, `${id}.btf`), serialize({ id, ...this.parseUpdateInput(data) }));
 	}
 
 	public async update(table: string, id: string, data: Record<string, any>): Promise<void> {
 		const existent = await this.get(table, id);
-		return fsn.outputFileAtomic(resolve(this.baseDirectory, table, `${id}.etf`), serialize(util.mergeDefault(existent || { id }, this.parseUpdateInput(data))));
+		return fsn.outputFileAtomic(resolve(this.baseDirectory, table, `${id}.btf`), serialize(util.mergeDefault(existent || { id }, this.parseUpdateInput(data))));
 	}
 
 	public replace(table: string, id: string, data: Record<string, any>): Promise<void> {
-		return fsn.outputFileAtomic(resolve(this.baseDirectory, table, `${id}.etf`), serialize({ id, ...this.parseUpdateInput(data) }));
+		return fsn.outputFileAtomic(resolve(this.baseDirectory, table, `${id}.btf`), serialize({ id, ...this.parseUpdateInput(data) }));
 	}
 
 	public delete(table: string, id: string): Promise<void> {
-		return fsn.unlink(resolve(this.baseDirectory, table, `${id}.etf`));
+		return fsn.unlink(resolve(this.baseDirectory, table, `${id}.btf`));
 	}
 
 }
