@@ -2,7 +2,7 @@ import { Provider, util, ProviderStore } from 'klasa';
 import { serialize, deserialize } from 'binarytf';
 import { resolve } from 'path';
 import * as fsn from 'fs-nextra';
-import { Events, noop } from '../lib';
+import { Events, noop, BTFProviderOptions } from '../lib';
 
 export default class extends Provider {
 
@@ -11,7 +11,7 @@ export default class extends Provider {
 		super(store, file, directory);
 
 		const baseDirectory = resolve(this.client.userBaseDirectory, 'bwd', 'provider', 'btf');
-		const defaults = util.mergeDefault({ baseDirectory }, this.client.options.providers.btf);
+		const defaults: Required<BTFProviderOptions> = util.mergeDefault({ baseDirectory }, this.client.options.providers.btf);
 
 		this.baseDirectory = defaults.baseDirectory;
 	}
