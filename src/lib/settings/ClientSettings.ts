@@ -19,6 +19,4 @@ export namespace ClientSettings {
 
 	export type Owners = string[];
 	export const Owners = 'owners';
-	export type SyncCount = number;
-	export const SyncCount = 'syncCount';
 }

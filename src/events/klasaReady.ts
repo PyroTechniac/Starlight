@@ -4,7 +4,7 @@ import { ApplyOptions, ClientSettings, Events, StarlightError } from '../lib';
 
 const tasks: [string, string, ScheduledTaskOptions?][] = [
 	['jsonBackup', '@daily', { catchUp: false }],
-	['syncSettings', '*/10 * * * *', { catchUp: false, data: { syncCount: 0 } }]
+	['syncSettings', '*/10 * * * *', { catchUp: false, }]
 ];
 
 @ApplyOptions<EventOptions>({
