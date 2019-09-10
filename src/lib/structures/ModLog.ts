@@ -1,76 +1,119 @@
-import { Client, Guild, User } from "discord.js";
-import { ModLogUserInfo, ModLogJSONData, ModLogType } from '../types';
+import { Guild, Client, TextChannel, MessageEmbed, User, Message } from 'discord.js';
+import { ModLogType, ModLogUser, ModLogModerator, ModLogJSON, ModLogColor } from '../types';
+import { GuildSettings } from '../settings';
+
 
 export class ModLog {
 
-    public client: Client;
-    public guild: Guild;
+	public guild: Guild;
 
-    public moderator: ModLogUserInfo | null
+	public client: Client;
 
-    public user: ModLogUserInfo | null;
+	public type: ModLogType | null;
+	public user: ModLogUser | null;
+	public moderator: ModLogModerator | null;
+	public reason: string | null;
+	public case: number | null;
 
-    public type: ModLogType | null;
+	public constructor(guild: Guild) {
+		this.guild = guild;
+		this.client = guild.client;
 
-    public case: number | null;
+		this.type = null;
+		this.user = null;
+		this.moderator = null;
+		this.reason = null;
+		this.case = null;
+	}
 
-    public reason: string | null
+	public get channel(): TextChannel | null {
+		const id = this.guild.settings.get(GuildSettings.Channels.ModLog) as GuildSettings.Channels.ModLog;
+		if (!id) return null;
+		const channel = this.guild.channels.get(id);
+		if (!channel || channel.type !== 'text') return null;
+		if (!channel.permissionsFor(this.client.user!.id)!.has(['SEND_MESSAGES'])) return null;
+		return channel as TextChannel;
+	}
 
-    public constructor(guild: Guild) {
-        this.client = guild.client;
-        this.guild = guild;
+	public get embed(): MessageEmbed {
+		const embed = new MessageEmbed()
+			.setAuthor(this.moderator!.tag, this.moderator!.avatar)
+			.setColor(ModLogColor.resolve(this.type!))
+			.setDescription([
+				`**Type**: ${this.type![0].toUpperCase() + this.type!.slice(1)}`,
+				`**User**: ${this.user!.tag} (${this.user!.id})`,
+				`**Reason**: ${this.reason || `Use \`${this.guild.settings.get(GuildSettings.Prefix)}reason ${this.case}\` to claim this log.`}`
+			])
+			.setFooter(`Case ${this.case!}`)
+			.setTimestamp();
+		return embed;
+	}
 
-        this.user = null;
-        this.moderator = null;
-        this.type = null;
-        this.case = null;
-        this.reason = null;
-    }
+	public setUser(user: User): this {
+		this.user = {
+			id: user.id,
+			tag: user.tag
+		};
+		return this;
+	}
 
-    public setUser(user: User | ModLogUserInfo | null): this {
-        this._patchUser(user, 'user');
-        return this;
-    }
+	public setModerator(user: User): this {
+		this.moderator = {
+			id: user.id,
+			tag: user.tag,
+			avatar: user.displayAvatarURL()
+		};
+		return this;
+	}
 
-    public setModerator(user: User | ModLogUserInfo | null): this {
-        this._patchUser(user, 'moderator');
-        return this;
-    }
+	public setReason(reason: string | string[] | null = null): this {
+		this.reason = Array.isArray(reason) ? reason.join(' ') : reason;
+		return this;
+	}
 
-    public setCase(caseNumber: number | null): this {
-        this.case = caseNumber;
-        return this;
-    }
+	public setType(type: ModLogType): this {
+		this.type = type;
+		return this;
+	}
 
-    public setReason(reason: string | null): this {
-        this.reason = reason;
-        return this;
-    }
+	public async send(): Promise<Message> {
+		const { channel, embed } = this;
+		if (!channel) throw "The modlog channel doesn't seem to exist.";
+		await this.getCase();
+		return channel.send({ embed });
+	}
 
-    public toJSON(): ModLogJSONData {
-        return {
-            guild: this.guild.id,
-            case: this.case,
-            type: this.type,
-            user: this.user,
-            moderator: this.moderator,
-            reason: this.reason
-        }
-    }
+	public toJSON(): ModLogJSON {
+		return {
+			'guild': this.guild.id,
+			'type': this.type,
+			'user': this.user,
+			'moderator': this.moderator,
+			'case': this.case,
+			'reason': this.reason
+		};
+	}
 
-    private _patchUser(data: User | ModLogUserInfo | null, method: 'user' | 'moderator'): void {
-        this[method] = data === null ? null : {
-            avatar: data instanceof User ? data.displayAvatarURL() : data.avatar,
-            id: data.id,
-            tag: data.tag
-        };
-    }
+	private async getCase(): Promise<number> {
+		this.case = (this.guild.settings.get(GuildSettings.ModLogs) as GuildSettings.ModLogs).length;
+		const { errors } = await this.guild.settings.update('modlogs', this.toJSON(), { arrayAction: 'add', throwOnError: true });
+		if (errors.length) throw errors[0];
+		return this.case!;
+	}
 
-    public static fromJSON(guild: Guild, data: ModLogJSONData) {
-        return new this(guild)
-            .setUser(data.user)
-            .setModerator(data.moderator)
-            .setCase(data.case)
-            .setReason(data.reason);
-    }
+	private _patch(data: ModLogJSON): this {
+		this.case = data.case;
+		this.moderator = data.moderator;
+		this.reason = data.reason;
+		this.type = data.type;
+		this.user = data.user;
+
+		return this;
+	}
+
+	public static fromJSON(guild: Guild, data: ModLogJSON): ModLog {
+		return new this(guild)
+			._patch(data);
+	}
+
 }

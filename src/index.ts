@@ -1,4 +1,5 @@
 import { StarlightClient } from './lib';
+import { SchemaFolder } from 'klasa';
 
 const { PREFIX: prefix, TOKEN: token } = process.env;
 
@@ -6,6 +7,12 @@ StarlightClient
 	.use(require('klasa-dashboard-hooks'))
 	.defaultClientSchema
 	.add('owners', 'User', { array: true });
+
+StarlightClient
+	.defaultGuildSchema
+	.add('channels', (folder: SchemaFolder): SchemaFolder => folder
+		.add('modlogs', 'TextChannel'))
+	.add('modlogs', 'any', { array: true, configurable: false });
 
 new StarlightClient({
 	prefix,
