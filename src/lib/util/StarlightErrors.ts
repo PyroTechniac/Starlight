@@ -5,7 +5,8 @@ import { enumerable } from './util';
 const messages: Map<string, (...args: any[]) => string> = new Map([
 	['EXPECTED_FOUND', (expected: any, found: any): string => `Expected ${expected}, found ${new Type(found)}.`],
 	['DEFAULT', (): string => 'An unknown error occured.'],
-	['NOT_FOUND', (found: any): string => `The ${found} was not found.`]
+	['NOT_FOUND', (found: any): string => `The ${found} was not found.`],
+	['NOT_IMPLEMENTED', (type: string, method: string): string => `The ${type} does not have the ${method} method implemented.`]
 ]);
 
 function CreateStarlightError(): Function {

@@ -1,6 +1,6 @@
-import { Command, CommandOptions, Stopwatch, Type, util, Language, KlasaMessage } from 'klasa';
+import { Stopwatch, Type, util, CommandOptions, Language, KlasaMessage } from 'klasa';
+import { StarlightCommand, ApplyOptions, Events } from '../../lib';
 import { inspect } from 'util';
-import { ApplyOptions, Events } from '../../lib';
 
 @ApplyOptions<CommandOptions>({
 	aliases: ['ev'],
@@ -12,43 +12,55 @@ import { ApplyOptions, Events } from '../../lib';
 	usageDelim: undefined,
 	flagSupport: true
 })
-export default class extends Command {
+export default class extends StarlightCommand<{
+	result: string;
+	type: Type;
+	time: string;
+	success: boolean;
+}> {
 
-	public async run(message: KlasaMessage, [code]: [string]): Promise<KlasaMessage | KlasaMessage[] | null> {
-		const { success, result, type, time } = await this.eval(message, code);
+	public async execute(message: KlasaMessage, [response]: [{
+		result: string;
+		type: Type;
+		time: string;
+		success: boolean;
+	}]): Promise<KlasaMessage | KlasaMessage[] | null> {
+		const { success, result, time, type } = response;
 		const footer = util.codeBlock('ts', type);
-		const output = message.language.get(success ? `COMMAND_EVAL_OUTPUT` : 'COMMAND_EVAL_ERROR',
+		const output = message.language.get(success ? 'COMMAND_EVAL_OUTPUT' : 'COMMAND_EVAL_ERROR',
 			time, util.codeBlock('js', result), footer);
+
 		if ('silent' in message.flags) return null;
 
 		if (output.length > 2000) {
 			if (message.guild && message.channel.attachable) {
 				return message.channel.sendFile(Buffer.from(result), 'output.txt', message.language.get('COMMAND_EVAL_SENDFILE', time, footer));
 			}
-			this.client.emit('log', result);
+			this.client.emit(Events.Log, result);
 			return message.sendLocale('COMMAND_EVAL_SENDCONSOLE', [time, footer]);
 		}
 
 		return message.sendMessage(output);
 	}
 
-	private async eval(message: KlasaMessage, code: string): Promise<{
-		success: boolean;
+	public async preRun(message: KlasaMessage, [code]: [string]): Promise<{
+		result: string;
 		type: Type;
 		time: string;
-		result: string;
+		success: boolean;
 	}> {
 		// @ts-ignore
 		const msg = message; // eslint-disable-line @typescript-eslint/no-unused-vars
 		const { flags } = message;
+
 		code = code.replace(/[“”]/g, '"').replace(/[‘’]/g, "'");
 		const stopwatch = new Stopwatch();
 		let success: boolean;
-		let syncTime: string | undefined;
-		let asyncTime: string | undefined;
-		let type!: Type;
+		let syncTime: string;
+		let asyncTime: string;
 		let result: string;
 		let thenable = false;
+		let type: Type;
 		try {
 			if (flags.async) code = `(async () => {\n${code}\n})();`;
 			result = eval(code); // eslint-disable-line no-eval
@@ -61,12 +73,12 @@ export default class extends Command {
 				asyncTime = stopwatch.toString();
 			}
 			success = true;
-		} catch (error) {
-			if (!syncTime) syncTime = stopwatch.toString();
-			if (!type) type = new Type(error);
-			if (thenable && !asyncTime) asyncTime = stopwatch.toString();
-			if (error && error.stack) this.client.emit(Events.Error, error.stack);
-			result = error;
+		} catch (err) {
+			if (!syncTime!) syncTime = stopwatch.toString();
+			if (!type!) type = new Type(err);
+			if (thenable && !asyncTime!) asyncTime = stopwatch.toString();
+			if (err && (err as Error).stack) this.client.emit(Events.Error, err.stack);
+			result = err;
 			success = false;
 		}
 
@@ -77,10 +89,16 @@ export default class extends Command {
 				showHidden: Boolean(flags.showHidden)
 			});
 		}
-		return { success, type, time: this.formatTime(syncTime, asyncTime), result: util.clean(result) };
+
+		return {
+			success,
+			type: type!,
+			time: this.formatTime(syncTime!, asyncTime!),
+			result: util.clean(result)
+		};
 	}
 
-	private formatTime(syncTime: string, asyncTime?: string): string {
+	private formatTime(syncTime: string, asyncTime: string): string {
 		return asyncTime ? `⏱ ${asyncTime}<${syncTime}>` : `⏱ ${syncTime}`;
 	}
 

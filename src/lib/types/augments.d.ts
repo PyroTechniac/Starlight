@@ -1,6 +1,5 @@
 import { Settings } from 'klasa';
 import { ServerResponse } from 'http';
-import { ModManager } from '../structures/ModManager';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -12,10 +11,6 @@ declare module 'discord.js' {
 
 	interface GuildMember {
 		settings: Settings;
-	}
-
-	interface Guild {
-		moderation: ModManager;
 	}
 }
 
