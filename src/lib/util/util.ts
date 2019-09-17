@@ -17,15 +17,15 @@ export function ApplyOptions<T extends PieceOptions>(options: T): Function {
 	});
 }
 
-export const fetch = async<T = Record<string, any>>(url: RequestInfo, init?: RequestInit): Promise<T> => (await nodeFetch(url, init)).json();
+export const fetch = async<T = Record<string, unknown>>(url: RequestInfo, init?: RequestInit): Promise<T> => (await nodeFetch(url, init)).json();
 
 export const noop = (): null => null;
 
-export function enumerable(value: boolean): (target: any, key: string) => void {
-	return (target: any, key: string): void => {
+export function enumerable(value: boolean): (target: unknown, key: string) => void {
+	return (target: unknown, key: string): void => {
 		Object.defineProperty(target, key, {
 			enumerable: value,
-			set(this: any, val: any): void {
+			set(this: unknown, val: unknown): void {
 				Object.defineProperty(this, key, {
 					configurable: true,
 					enumerable: value,
@@ -37,11 +37,11 @@ export function enumerable(value: boolean): (target: any, key: string) => void {
 	};
 }
 
-export function configurable(value: boolean): (target: any, key: string) => void {
-	return (target: any, key: string): void => {
+export function configurable(value: boolean): (target: unknown, key: string) => void {
+	return (target: unknown, key: string): void => {
 		Object.defineProperty(target, key, {
 			configurable: value,
-			set(this: any, val: any): void {
+			set(this: unknown, val: unknown): void {
 				Object.defineProperty(this, key, {
 					configurable: value,
 					enumerable: true,

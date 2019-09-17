@@ -2,7 +2,7 @@ import { Event } from 'klasa';
 
 export default class extends Event {
 
-	public run(warning: any): void {
+	public run(warning: unknown): void {
 		this.client.console.debug(warning);
 	}
 

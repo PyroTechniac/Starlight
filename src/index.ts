@@ -11,8 +11,7 @@ StarlightClient
 StarlightClient
 	.defaultGuildSchema
 	.add('channels', (folder: SchemaFolder): SchemaFolder => folder
-		.add('modlogs', 'TextChannel'))
-	.add('modlogs', 'any', { array: true, configurable: false });
+		.add('modlogs', 'TextChannel'));
 
 new StarlightClient({
 	prefix,

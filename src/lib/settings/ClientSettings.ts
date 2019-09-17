@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-interface RawScheduledTask<T = Record<string, any>> {
+interface RawScheduledTask<T = Record<string, unknown>> {
 	id: string;
 	taskName: string;
 	time: number;

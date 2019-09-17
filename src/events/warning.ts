@@ -3,7 +3,7 @@ import { Events } from '../lib';
 
 export default class extends Event {
 
-	public run(...data: any[]): void {
+	public run(...data: unknown[]): void {
 		this.client.emit(Events.Warn, ...data);
 	}
 

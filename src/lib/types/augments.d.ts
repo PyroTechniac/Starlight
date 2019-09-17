@@ -8,7 +8,7 @@ declare module 'discord.js' {
 	interface Client {
 		regions: null | Collection<string, VoiceRegion>;
 		awaitEvent(event: string): Promise<unknown>;
-		resolver: CustomDataResolver
+		resolver: CustomDataResolver;
 	}
 
 	interface GuildMember {

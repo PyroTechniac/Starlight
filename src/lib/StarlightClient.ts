@@ -2,7 +2,7 @@ import { Collection, VoiceRegion } from 'discord.js';
 import * as Klasa from 'klasa';
 import './StarlightPreload';
 import { MemberGateway } from './structures';
-import { DataResolver } from './util'
+import { DataResolver } from './util';
 
 export class StarlightClient extends Klasa.Client {
 
@@ -30,7 +30,7 @@ export class StarlightClient extends Klasa.Client {
 	public awaitEvent(event: string): Promise<unknown> {
 		return new Promise((resolve, reject): void => {
 			/* eslint-disable @typescript-eslint/no-use-before-define */
-			const eventListener = (...args: any[]): void => {
+			const eventListener = (...args: unknown[]): void => {
 				if (errorListener !== undefined) {
 					this.removeListener('error', errorListener);
 				}
@@ -40,7 +40,7 @@ export class StarlightClient extends Klasa.Client {
 			let errorListener;
 
 			if (event !== 'error') {
-				errorListener = (err: any): void => {
+				errorListener = (err: unknown): void => {
 					this.removeListener(event, eventListener);
 					reject(err);
 				};

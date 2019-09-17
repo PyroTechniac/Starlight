@@ -4,7 +4,7 @@ import { Language, SchemaEntry, Serializer } from 'klasa';
 
 export default class extends Serializer {
 
-	public async deserialize(data: any, piece: SchemaEntry, language: Language): Promise<BigInt> {
+	public async deserialize(data: unknown, piece: SchemaEntry, language: Language): Promise<BigInt> {
 		if (data instanceof BigInt) return data;
 		try {
 			return BigInt(data);
