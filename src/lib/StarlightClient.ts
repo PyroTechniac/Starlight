@@ -2,6 +2,7 @@ import { Collection, VoiceRegion } from 'discord.js';
 import * as Klasa from 'klasa';
 import './StarlightPreload';
 import { MemberGateway } from './structures';
+import { DataResolver } from './util'
 
 export class StarlightClient extends Klasa.Client {
 
@@ -9,6 +10,8 @@ export class StarlightClient extends Klasa.Client {
 
 	public constructor(options: Klasa.KlasaClientOptions = {}) {
 		super(options);
+
+		this.resolver = new DataResolver(this);
 
 		Reflect.defineMetadata('StarlightClient', true, this);
 
