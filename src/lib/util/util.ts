@@ -1,6 +1,7 @@
 import { Constructor } from 'discord.js';
 import { Piece, PieceOptions, Store, util } from 'klasa';
 import nodeFetch, { RequestInfo, RequestInit } from 'node-fetch';
+import { Stream } from 'stream';
 
 export function createClassDecorator(fn: Function): Function {
 	return fn;
@@ -51,6 +52,8 @@ export function configurable(value: boolean): (target: any, key: string) => void
 		});
 	};
 }
+
+export const isStream = (input: unknown): input is Stream => input && typeof (input as Stream).pipe === 'function';
 
 export const filterArray = <T>(...entries: T[]): T[] => [...new Set([...entries])];
 

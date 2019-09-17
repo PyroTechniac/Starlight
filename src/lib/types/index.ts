@@ -4,6 +4,10 @@ export interface BTFProviderOptions {
 
 export type Constructor<T> = new (...args: any[]) => T;
 
+export interface RawDiscordPacket {
+	t?: string;
+}
+
 export enum Events {
 	Error = 'error',
 	Warn = 'warn',
@@ -12,8 +16,7 @@ export enum Events {
 	Wtf = 'wtf',
 	Warning = 'warning',
 	KlasaReady = 'klasaReady',
-	Log = 'log',
-	CommandError = 'commandError'
+	Log = 'log'
 }
 
 export interface RateLimitInfo {
