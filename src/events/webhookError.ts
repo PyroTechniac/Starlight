@@ -16,7 +16,7 @@ export default class extends Event {
 
 		if (!(err instanceof Error) || !err.stack) return;
 
-		let description = err.stack.split('\n').slice(0, 5)!.join('\n');
+		let description = err.stack.split('\n').slice(1, 5)!.join('\n');
 
 		if (description.length > 2048) description = description.substring(0, 2045).padEnd(3, '.');
 
@@ -26,10 +26,10 @@ export default class extends Event {
 			await errorWebhook.send(new MessageEmbed()
 				.setDescription(description)
 				.setTimestamp()
-				.setAuthor(err.name)
+				.setTitle(`${err.name}: ${err.message}`)
 				.setColor(0xFC1020));
 		} catch (error) {
-			this.client.emit(Events.Wtf, err);
+			this.client.emit(Events.Wtf, error);
 		}
 	}
 

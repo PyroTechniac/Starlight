@@ -5,7 +5,8 @@ import * as lib from '../lib';
 const tasks: [string, string, ScheduledTaskOptions?][] = [
 	['jsonBackup', '@daily', { catchUp: false }],
 	['syncSettings', '*/10 * * * *', { catchUp: false }],
-	['btfBackup', '@daily', { catchUp: false }]
+	['btfBackup', '@daily', { catchUp: false }],
+	['statsPost', '@daily', { catchUp: true }]
 ];
 
 const webhooks: [string, lib.APIWebhookData][] = [
