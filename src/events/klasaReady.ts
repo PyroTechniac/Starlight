@@ -9,11 +9,6 @@ const tasks: [string, string, ScheduledTaskOptions?][] = [
 	['statsPost', '@daily', { catchUp: true }]
 ];
 
-const webhooks: [string, lib.APIWebhookData][] = [
-	['error', lib.ERROR_WEBHOOK_DATA],
-	['stats', lib.STATS_WEBHOOK_DATA]
-];
-
 @lib.ApplyOptions<EventOptions>({
 	once: true
 })
@@ -32,8 +27,6 @@ export default class extends Event {
 		for (const task of tasks) {
 			await this.ensureTask(task);
 		}
-
-		webhooks.forEach(this.client.webhooks.add.bind(this.client.webhooks));
 
 		this.client.emit(lib.Events.Log, `[READY] ${this.client.user!.username} initialization complete.`);
 	}

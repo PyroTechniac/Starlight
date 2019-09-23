@@ -33,4 +33,9 @@ export default class extends Event {
 		}
 	}
 
+	public init(): Promise<void> {
+		if (!this.client.webhooks.has('error')) this.disable();
+		return Promise.resolve();
+	}
+
 }

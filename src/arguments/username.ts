@@ -40,9 +40,9 @@ export default class extends Argument {
 		}
 
 		switch (querySearch.length) {
-			case 0: throw `${possible.name} Must be a valid name, ID, or user mention.`;
+			case 0: throw msg.language.get<string, [string, string]>('RESOLVER_INVALID_NAME', possible.name, 'user');
 			case 1: return querySearch[0];
-			default: throw `Found multiple matches: \`${querySearch.map((user): string => user.tag).join('`, `')}\``;
+			default: throw msg.language.get<string, [string]>('RESOLVER_INVALID_MULTIPLE_ITEMS', querySearch.map((u): string => u.tag).join('`. `'));
 		}
 	}
 

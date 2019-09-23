@@ -1,7 +1,12 @@
 import { Event, EventOptions, util } from 'klasa';
 import { Team } from 'discord.js';
-import { ApplyOptions, Events, filterArray, StarlightTypeError } from '../lib';
+import { ApplyOptions, Events, filterArray, StarlightTypeError, ERROR_WEBHOOK_DATA, STATS_WEBHOOK_DATA, APIWebhookData } from '../lib';
 let retries = 0;
+
+const webhooks: [string, APIWebhookData][] = [
+	['error', ERROR_WEBHOOK_DATA],
+	['stats', STATS_WEBHOOK_DATA]
+];
 
 @ApplyOptions<EventOptions>({
 	event: 'ready',
@@ -21,6 +26,8 @@ export default class extends Event {
 			return util.sleep(5000).then(this.run);
 		}
 
+		webhooks.forEach(this.client.webhooks.add.bind(this.client.webhooks));
+
 		this.client.options.owners = Array.from(this.resolveOwners());
 
 		this.client.mentionPrefix = new RegExp(`^<@!?${this.client.user!.id}>`);
@@ -33,6 +40,7 @@ export default class extends Event {
 		await this.client.gateways.sync();
 
 		await this.client.schedule.init();
+
 
 		const initializing = this.client.pieceStores
 			.filter((store): boolean => !['extendables', 'providers'].includes(store.name))
