@@ -1,8 +1,7 @@
 import { Collection, VoiceRegion } from 'discord.js';
 import * as Klasa from 'klasa';
 import './StarlightPreload';
-import { MemberGateway } from './structures';
-import { DataResolver } from './util';
+import { MemberGateway, WebhookStore } from './structures';
 
 export class StarlightClient extends Klasa.Client {
 
@@ -11,14 +10,14 @@ export class StarlightClient extends Klasa.Client {
 	public constructor(options: Klasa.KlasaClientOptions = {}) {
 		super(options);
 
-		this.resolver = new DataResolver(this);
-
 		Reflect.defineMetadata('StarlightClient', true, this);
 
 		const { members = {} } = this.options.gateways;
 		members.schema = 'schema' in members ? members.schema : StarlightClient.defaultMemberSchema;
 		this.gateways
 			.register(new MemberGateway(this, 'members', members));
+
+		this.webhooks = new WebhookStore(this);
 
 	}
 

@@ -1,6 +1,6 @@
 import { GuildMember } from 'discord.js';
 import { Event, EventOptions, ScheduledTaskOptions, Settings } from 'klasa';
-import { ApplyOptions, ClientSettings, Events, StarlightError } from '../lib';
+import * as lib from '../lib';
 
 const tasks: [string, string, ScheduledTaskOptions?][] = [
 	['jsonBackup', '@daily', { catchUp: false }],
@@ -8,26 +8,33 @@ const tasks: [string, string, ScheduledTaskOptions?][] = [
 	['btfBackup', '@daily', { catchUp: false }]
 ];
 
-@ApplyOptions<EventOptions>({
+const webhooks: [string, lib.APIWebhookData][] = [
+	['error', lib.ERROR_WEBHOOK_DATA],
+	['stats', lib.STATS_WEBHOOK_DATA]
+];
+
+@lib.ApplyOptions<EventOptions>({
 	once: true
 })
 export default class extends Event {
 
 	public async run(): Promise<void> {
-		await this.client.settings!.update(ClientSettings.Owners, [...this.client.owners.values()], { arrayAction: 'overwrite' });
-
 		await Promise.all([
 			this.client.settings!.sync(),
-			this.client.guilds.map((guild): Promise<Settings> => guild.settings.sync()),
-			this.members.map((member): Promise<Settings> => member.settings.sync()),
-			this.client.users.map((user): Promise<Settings> => user.settings.sync())
+			Promise.all(this.client.guilds.map((guild): Promise<Settings> => guild.settings.sync())),
+			Promise.all(this.members.map((member): Promise<Settings> => member.settings.sync())),
+			Promise.all(this.client.users.map((user): Promise<Settings> => user.settings.sync()))
 		]);
+
+		await this.client.settings!.update(lib.ClientSettings.Owners, [...this.client.owners.values()]);
 
 		for (const task of tasks) {
 			await this.ensureTask(task);
 		}
 
-		this.client.emit(Events.Log, `[READY] ${this.client.user!.username} initialization complete.`);
+		webhooks.forEach(this.client.webhooks.add.bind(this.client.webhooks));
+
+		this.client.emit(lib.Events.Log, `[READY] ${this.client.user!.username} initialization complete.`);
 	}
 
 	private get members(): GuildMember[] {
@@ -36,14 +43,14 @@ export default class extends Event {
 	}
 
 	private async ensureTask([task, time, data]: [string, string | number | Date, ScheduledTaskOptions?]): Promise<void> {
-		const tasks = this.client.settings!.get(ClientSettings.Schedules) as ClientSettings.Schedules;
-		if (!this.client.tasks.has(task)) throw new StarlightError('NOT_FOUND').init(`task ${task}`);
+		const tasks = this.client.settings!.get(lib.ClientSettings.Schedules) as lib.ClientSettings.Schedules;
+		if (!this.client.tasks.has(task)) throw new lib.StarlightError('NOT_FOUND').init(`task ${task}`);
 		const found = tasks.find((s): boolean => s.taskName === task);
 		if (found) {
-			this.client.emit(Events.Log, `[SCHEDULE] Found task ${found.taskName} (${found.id})`);
+			this.client.emit(lib.Events.Log, `[SCHEDULE] Found task ${found.taskName} (${found.id})`);
 		} else {
 			const created = await this.client.schedule.create(task, time, data);
-			this.client.emit(Events.Log, `[SCHEDULE] Created task ${created.taskName} (${created.id})`);
+			this.client.emit(lib.Events.Log, `[SCHEDULE] Created task ${created.taskName} (${created.id})`);
 		}
 	}
 
