@@ -5,9 +5,7 @@ import { enumerable } from './util';
 const messages: Map<string, (...args: unknown[]) => string> = new Map([
 	['EXPECTED_FOUND', (expected: any, found: any): string => `Expected ${expected}, found ${new Type(found)}.`],
 	['DEFAULT', (): string => 'An unknown error occured.'],
-	['NOT_FOUND', (found: any): string => `The ${found} was not found.`],
-	['FILE_NOT_FOUND', (file: string): string => `File could not be found: ${file}`],
-	['REQ_RESOURCE_TYPE', (): string => 'The resource must be a string, Buffer or a valid file stream.']
+	['NOT_FOUND', (found: any): string => `The ${found} was not found.`]
 ]);
 
 function CreateStarlightError(): Function {
