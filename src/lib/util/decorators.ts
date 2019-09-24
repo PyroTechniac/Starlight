@@ -1,4 +1,5 @@
-import { KlasaMessage } from 'klasa';
+import { KlasaMessage, PieceOptions, Piece, Store } from 'klasa';
+import { Constructor } from '../types';
 
 // Copyright (c) 2019 kyranet. All rights reserved. MIT License
 // This is a recreation of kyranet's klasa-decorators but with proper type annotation.
@@ -6,6 +7,20 @@ import { KlasaMessage } from 'klasa';
 
 export function createMethodDecorator(fn: MethodDecorator): MethodDecorator {
 	return fn;
+}
+
+export function createClassDecorator(fn: Function): Function {
+	return fn;
+}
+
+export function ApplyOptions<T extends PieceOptions>(options: T): Function {
+	return createClassDecorator((target: Constructor<Piece>): typeof Piece => class extends target {
+
+		public constructor(store: Store<string, Piece, typeof Piece>, file: string[], directory: string) {
+			super(store, file, directory, options);
+		}
+
+	});
 }
 
 export function createFunctionInhibitor(inhibitor: Inhibitor, fallback: Fallback = (): undefined => undefined): MethodDecorator {

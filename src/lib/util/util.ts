@@ -1,21 +1,6 @@
-import { Constructor } from 'discord.js';
-import { Piece, PieceOptions, Store, util } from 'klasa';
+import { util } from 'klasa';
 import nodeFetch, { RequestInfo, RequestInit } from 'node-fetch';
 import { Stream } from 'stream';
-
-export function createClassDecorator(fn: Function): Function {
-	return fn;
-}
-
-export function ApplyOptions<T extends PieceOptions>(options: T): Function {
-	return createClassDecorator((target: Constructor<Piece>): typeof Piece => class extends target {
-
-		public constructor(store: Store<string, Piece, typeof Piece>, file: string[], dir: string) {
-			super(store, file, dir, options);
-		}
-
-	});
-}
 
 export const fetch = async<T = Record<string, unknown>>(url: RequestInfo, init?: RequestInit): Promise<T> => (await nodeFetch(url, init)).json();
 
