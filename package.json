@@ -6,12 +6,9 @@
     "main": "./dist/index.js",
     "scripts": {
         "build": "tsc -p .",
-        "build:test": "tsc -p test",
-        "test": "yarn build:test && yarn test:run",
-        "test:run": "node ./test",
         "start": "node .",
         "lint": "npx eslint src --ext .ts --fix",
-        "clean": "rimraf dist/ .cache/ && npm run build"
+        "clean": "rimraf dist/"
     },
     "dependencies": {
         "@discordjs/collection": "^0.1.3",

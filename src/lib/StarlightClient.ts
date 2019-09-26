@@ -1,7 +1,7 @@
-import { Collection, VoiceRegion } from 'discord.js';
+import { Collection, VoiceRegion, User } from 'discord.js';
 import * as Klasa from 'klasa';
 import './StarlightPreload';
-import { MemberGateway, WebhookStore } from './structures';
+import { MemberGateway, WebhookStore, StarlightIterator } from './structures';
 
 export class StarlightClient extends Klasa.Client {
 
@@ -19,6 +19,10 @@ export class StarlightClient extends Klasa.Client {
 
 		this.webhooks = new WebhookStore(this);
 
+	}
+
+	public get ownersIter(): StarlightIterator<User> {
+		return StarlightIterator.from(this.owners);
 	}
 
 	public async fetchVoiceRegions(): Promise<Collection<string, VoiceRegion>> {
@@ -52,5 +56,11 @@ export class StarlightClient extends Klasa.Client {
 	}
 
 	public static defaultMemberSchema: Klasa.Schema = new Klasa.Schema();
+
+	public static iter: typeof StarlightIterator = StarlightIterator;
+
+	public static from<V>(iterator: Iterable<V> | Iterator<V>) {
+		return StarlightIterator.from(iterator);
+	}
 
 }

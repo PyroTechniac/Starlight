@@ -9,10 +9,7 @@ export default class extends Event {
 
 	public async run(err: unknown): Promise<void> {
 		const errorWebhook = this.client.webhooks.get('error');
-		if (!errorWebhook) {
-			this.client.emit(Events.Wtf, 'Error webhook not found.');
-			return;
-		}
+		if (!errorWebhook) return;
 
 		if (!(err instanceof Error) || !err.stack) return;
 

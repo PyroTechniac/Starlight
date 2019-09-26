@@ -28,5 +28,6 @@ new StarlightClient({
 	schedule: {
 		interval: 'INTERVAL' in process.env ? Number(process.env.INTERVAL) || 5000 : 5000
 	},
-	readyMessage: (client: StarlightClient): string => `[INTERNAL] Successfully initialized. Ready to serve ${client.guilds.size} guild${client.guilds.size === 1 ? '' : 's'}.`
+	readyMessage: (client: StarlightClient): string => `[INTERNAL] Successfully initialized. Ready to serve ${client.guilds.size} guild${client.guilds.size === 1 ? '' : 's'}.`,
+	restRequestTimeout: 60000
 }).login(token);

@@ -1,7 +1,7 @@
 import { ServerResponse } from 'http';
 import { Settings } from 'klasa';
 import { BaseNodeOptions, Node as Lavalink } from 'lavalink';
-import { WebhookStore, StarlightIterator } from '../structures';
+import { StarlightIterator, WebhookStore } from '../structures';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -11,6 +11,13 @@ declare module 'discord.js' {
 		awaitEvent(event: string): Promise<unknown>;
 		lavalink: Lavalink | null;
 		webhooks: WebhookStore;
+		readonly ownersIter: StarlightIterator<User>;
+	}
+
+	namespace Client {
+		export function from<V>(iter: Iterator<V> | Iterable<V>): StarlightIterator<V>;
+
+		export const iter: typeof StarlightIterator;
 	}
 
 	interface GuildMember {
@@ -28,13 +35,5 @@ declare module 'klasa-dashboard-hooks' {
 declare module 'klasa' {
 	interface KlasaClientOptions {
 		lavalink?: BaseNodeOptions;
-	}
-}
-
-declare module '@discordjs/collection' {
-	interface Collection<K, V> {
-		iter(): StarlightIterator<V>;
-		iterKeys(): StarlightIterator<K>;
-		iterEntries(): StarlightIterator<[K, V]>;
 	}
 }
