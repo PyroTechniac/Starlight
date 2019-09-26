@@ -633,11 +633,20 @@ klasa-dashboard-hooks@dirigeants/klasa-dashboard-hooks#settings:
   dependencies:
     node-fetch "^2.6.0"
 
-klasa@dirigeants/klasa#settings:
+klasa@unseenfaith/klasa#settings-patch-bugfix:
   version "0.5.0-dev"
-  resolved "https://codeload.github.com/dirigeants/klasa/tar.gz/be0d9553d76703640b9b8691ce0121570b19a963"
+  resolved "https://codeload.github.com/unseenfaith/klasa/tar.gz/ee66086b85963be8e96f7d0db92d40485eb34cb9"
   dependencies:
     fs-nextra "^0.4.5"
+
+kurasuta@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/kurasuta/-/kurasuta-1.1.0.tgz#6fe76ce2b58b95ea894b33c8acc5832a654c68a4"
+  integrity sha512-K3SR7kkyFgjF4ZO5YrRndmhoaCakB5ofF8va3UUa2sVroC7kCoC1CcdYkrNkhynI7sp0mxdOh8YoGgRxAr04sg==
+  dependencies:
+    discord.js discordjs/discord.js
+    node-fetch "^2.6.0"
+    veza "^1.1.0"
 
 lavalink@^2.8.1:
   version "2.8.1"
@@ -1021,6 +1030,13 @@ uri-js@^4.2.2:
   integrity sha512-KY9Frmirql91X2Qgjry0Wd4Y+YTdrdZheS8TFwvkbLWf/G5KNJDCh6pKL5OZctEW4+0Baa5idK2ZQuELRwPznQ==
   dependencies:
     punycode "^2.1.0"
+
+veza@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/veza/-/veza-1.1.0.tgz#f1910bdfa5293cf812b01b8e033b7c216793b2ab"
+  integrity sha512-JxDVZZXwFJ+FxsX+kPdsjRK9XZdwayEYzPsPLxpZjzzgncWphjvMlzn8ioVAgeonZ/Aa7vEZOb4Hp13ergwybA==
+  dependencies:
+    binarytf "^2.0.0"
 
 which@^1.2.9:
   version "1.3.1"
