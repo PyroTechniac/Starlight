@@ -54,7 +54,8 @@ const sharder = new ShardingManager(join(__dirname, 'main'), {
         },
         readyMessage: (client: StarlightClient): string => `[INTERNAL] Successfully initialized. Ready to serve ${client.guilds.size} guild${client.guilds.size === 1 ? '' : 's'}.`,
         restRequestTimeout: 60000
-    } as KlasaClientOptions
+    } as KlasaClientOptions,
+    shardCount: 2
 })
 
 sharder.spawn();
