@@ -59,7 +59,7 @@ export class StarlightClient extends Klasa.Client {
 
 	public static iter: typeof StarlightIterator = StarlightIterator;
 
-	public static from<V>(iterator: Iterable<V> | Iterator<V>) {
+	public static from<V>(iterator: Iterable<V> | Iterator<V>): StarlightIterator<V> {
 		return StarlightIterator.from(iterator);
 	}
 

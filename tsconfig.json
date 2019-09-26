@@ -4,8 +4,7 @@
         "outDir": "./dist",
         "listEmittedFiles": true,
         "noImplicitAny": false,
-        "declaration": true,
-        "strictFunctionTypes": false
+        "declaration": true
     },
     "include": [
         "src"
