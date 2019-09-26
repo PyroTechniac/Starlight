@@ -1,7 +1,7 @@
 import { ServerResponse } from 'http';
 import { Settings } from 'klasa';
 import { BaseNodeOptions, Node as Lavalink } from 'lavalink';
-import { WebhookStore } from '../structures';
+import { WebhookStore, StarlightIterator } from '../structures';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -28,5 +28,13 @@ declare module 'klasa-dashboard-hooks' {
 declare module 'klasa' {
 	interface KlasaClientOptions {
 		lavalink?: BaseNodeOptions;
+	}
+}
+
+declare module '@discordjs/collection' {
+	interface Collection<K, V> {
+		iter(): StarlightIterator<V>;
+		iterKeys(): StarlightIterator<K>;
+		iterEntries(): StarlightIterator<[K, V]>;
 	}
 }

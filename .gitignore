@@ -6,7 +6,6 @@ typings/
 .cache/
 *.tar.gz
 .vscode/**
-priv/**
-stardist/
-moondist/
 *.heapsnapshot
+test/*.js
+test/*.tsbuildinfo

@@ -20,7 +20,7 @@ function resolveUser(query: string | User | GuildMember, guild: KlasaGuild): Pro
 export default class extends Argument {
 
 	public async run(arg: string, possible: Possible, msg: KlasaMessage): Promise<User> {
-		if (!msg.guild) return this.store.get('user').run(arg, possible, msg);
+		if (!msg.guild) return this.client.arguments.get('user').run(arg, possible, msg)!;
 		const resUser = await resolveUser(arg, msg.guild);
 		if (resUser) return resUser;
 
