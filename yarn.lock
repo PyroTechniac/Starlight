@@ -635,7 +635,8 @@ klasa-dashboard-hooks@dirigeants/klasa-dashboard-hooks#settings:
 
 klasa@unseenfaith/klasa#settings-patch-bugfix:
   version "0.5.0-dev"
-  resolved "https://codeload.github.com/unseenfaith/klasa/tar.gz/ee66086b85963be8e96f7d0db92d40485eb34cb9"
+  uid "2a4e1db060fdc17c1df3e72fa54ce8dcdf4ec68a"
+  resolved "https://codeload.github.com/unseenfaith/klasa/tar.gz/2a4e1db060fdc17c1df3e72fa54ce8dcdf4ec68a"
   dependencies:
     fs-nextra "^0.4.5"
 
