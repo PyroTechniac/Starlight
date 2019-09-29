@@ -1,4 +1,4 @@
-import { APIWebhookData } from '../types';
+import { APIWebhookData } from '../typings/Interfaces';
 // This is just in case the process.env isn't filled yet.
 import { config } from 'dotenv';
 config();

@@ -1,5 +1,5 @@
 import { Event } from 'klasa';
-import { RawDiscordPacket } from '../lib';
+import { RawDiscordPacket } from '@typings/Interfaces';
 
 export default class extends Event {
 

@@ -1,7 +1,7 @@
 import { Collection, VoiceRegion, User } from 'discord.js';
 import * as Klasa from 'klasa';
 import './StarlightPreload';
-import { MemberGateway } from './structures/MemberGateway'
+import { MemberGateway } from './structures/MemberGateway';
 import { WebhookStore } from './structures/WebhookStore';
 import { StarlightIterator } from './structures/StarlightIterator';
 import { ClientSettings } from './settings/ClientSettings';

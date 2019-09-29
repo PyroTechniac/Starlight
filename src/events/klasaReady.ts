@@ -1,9 +1,9 @@
 import { GuildMember } from 'discord.js';
 import { Event, EventOptions, ScheduledTaskOptions, Settings } from 'klasa';
-import * as lib from '../lib';
-import { StarlightError } from '@utils/StarlightErrors'
-import { ClientSettings } from '@settings/ClientSettings'
-import { ApplyOptions } from '@utils/Decorators'
+import { Events } from '@typings/Enums';
+import { StarlightError } from '@utils/StarlightErrors';
+import { ClientSettings } from '@settings/ClientSettings';
+import { ApplyOptions } from '@utils/Decorators';
 
 const tasks: [string, string, ScheduledTaskOptions?][] = [
 	['jsonBackup', '@daily', { catchUp: false }],
@@ -31,7 +31,7 @@ export default class extends Event {
 			await this.ensureTask(task);
 		}
 
-		this.client.emit(lib.Events.Log, `[READY] ${this.client.user!.username} initialization complete.`);
+		this.client.emit(Events.Log, `[READY] ${this.client.user!.username} initialization complete.`);
 	}
 
 	private get members(): GuildMember[] {
@@ -44,10 +44,10 @@ export default class extends Event {
 		if (!this.client.tasks.has(task)) throw new StarlightError('NOT_FOUND').init(`task ${task}`);
 		const found = tasks.find((s): boolean => s.taskName === task);
 		if (found) {
-			this.client.emit(lib.Events.Log, `[SCHEDULE] Found task ${found.taskName} (${found.id})`);
+			this.client.emit(Events.Log, `[SCHEDULE] Found task ${found.taskName} (${found.id})`);
 		} else {
 			const created = await this.client.schedule.create(task, time, data);
-			this.client.emit(lib.Events.Log, `[SCHEDULE] Created task ${created.taskName} (${created.id})`);
+			this.client.emit(Events.Log, `[SCHEDULE] Created task ${created.taskName} (${created.id})`);
 		}
 	}
 

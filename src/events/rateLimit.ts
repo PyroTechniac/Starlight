@@ -1,5 +1,6 @@
 import { Event, Colors } from 'klasa';
-import { RateLimitInfo, Events } from '../lib';
+import { RateLimitInfo } from '@typings/Interfaces';
+import { Events } from '@typings/Enums';
 
 const HEADER = new Colors({ text: 'red' }).format('[RATELIMIT]');
 

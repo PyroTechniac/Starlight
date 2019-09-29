@@ -1,7 +1,7 @@
+import { ApplyOptions } from '@utils/Decorators';
 import { MessageEmbed } from 'discord.js';
 import { Event, EventOptions } from 'klasa';
-import { Events } from '../lib';
-import { ApplyOptions } from '@utils/Decorators'
+import { Events } from '@typings/Enums';
 
 @ApplyOptions<EventOptions>({
 	event: 'error'
@@ -31,9 +31,9 @@ export default class extends Event {
 		}
 	}
 
-	public init(): Promise<void> {
-		if (!this.client.webhooks.has('error')) this.disable();
-		return Promise.resolve();
-	}
+	// public init(): Promise<void> {
+	// 	if (!this.client.webhooks.has('error')) this.disable();
+	// 	return Promise.resolve();
+	// }
 
 }

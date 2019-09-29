@@ -1,5 +1,5 @@
 import { Event } from 'klasa';
-import { Events } from '../lib';
+import { Events } from '@typings/Enums';
 
 export default class extends Event {
 

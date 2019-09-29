@@ -1,6 +1,6 @@
 import { MessageEmbed, version as discordVersion } from 'discord.js';
 import { Duration, Task, util, version as klasaVersion } from 'klasa';
-import { Events } from '../lib';
+import { Events } from '@typings/Enums';
 
 export default class extends Task {
 
