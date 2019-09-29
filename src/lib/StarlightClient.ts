@@ -2,6 +2,8 @@ import { Collection, VoiceRegion, User } from 'discord.js';
 import * as Klasa from 'klasa';
 import './StarlightPreload';
 import { MemberGateway, WebhookStore, StarlightIterator } from './structures';
+import { ClientSettings } from './settings';
+import { once } from 'events';
 
 export class StarlightClient extends Klasa.Client {
 
@@ -21,6 +23,20 @@ export class StarlightClient extends Klasa.Client {
 
 	}
 
+	public get owners(): Set<User> {
+		if (!this.settings) return super.owners;
+
+		const owners = super.owners;
+		const ids = this.settings.get(ClientSettings.Owners) as ClientSettings.Owners;
+
+		for (const id of ids) {
+			const user = this.users.get(id);
+			if (user) owners.add(user);
+		}
+
+		return owners;
+	}
+
 	public get ownersIter(): StarlightIterator<User> {
 		return StarlightIterator.from(this.owners);
 	}
@@ -30,29 +46,8 @@ export class StarlightClient extends Klasa.Client {
 		return this.regions;
 	}
 
-	public awaitEvent(event: string): Promise<unknown> {
-		return new Promise((resolve, reject): void => {
-			/* eslint-disable @typescript-eslint/no-use-before-define */
-			const eventListener = (...args: unknown[]): void => {
-				if (errorListener !== undefined) {
-					this.removeListener('error', errorListener);
-				}
-				resolve(args);
-			};
-			/* eslint-enable @typescript-eslint/no-use-before-define */
-			let errorListener;
-
-			if (event !== 'error') {
-				errorListener = (err: unknown): void => {
-					this.removeListener(event, eventListener);
-					reject(err);
-				};
-
-				this.once('error', errorListener);
-			}
-
-			this.once(event, eventListener);
-		});
+	public waitFor(event: string): Promise<any[]> {
+		return once(this, event);
 	}
 
 	public static defaultMemberSchema: Klasa.Schema = new Klasa.Schema();

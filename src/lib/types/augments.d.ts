@@ -8,7 +8,7 @@ import { StarlightIterator, WebhookStore } from '../structures';
 declare module 'discord.js' {
 	interface Client {
 		regions: null | Collection<string, VoiceRegion>;
-		awaitEvent(event: string): Promise<unknown>;
+		waitFor(event: string): Promise<any[]>;
 		lavalink: Lavalink | null;
 		webhooks: WebhookStore;
 		readonly ownersIter: StarlightIterator<User>;
