@@ -4,7 +4,19 @@
         "outDir": "./dist",
         "listEmittedFiles": true,
         "noImplicitAny": false,
-        "declaration": true
+        "declaration": true,
+        "baseUrl": "./",
+        "paths": {
+            "@settings/*": [
+                "src/lib/settings/*"
+            ],
+            "@structures/*": [
+                "src/lib/structures/*"
+            ],
+            "@utils/*": [
+                "src/lib/util/*"
+            ]
+        }
     },
     "include": [
         "src"

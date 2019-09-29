@@ -1,7 +1,9 @@
 import { ServerResponse } from 'http';
 import { Settings } from 'klasa';
 import { BaseNodeOptions, Node as Lavalink } from 'lavalink';
-import { StarlightIterator, WebhookStore } from '../structures';
+import { StarlightIterator } from '@structures/StarlightIterator';
+import { WebhookStore } from '@structures/WebhookStore'
+import { Client as VezaClient } from 'veza'
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -12,6 +14,7 @@ declare module 'discord.js' {
 		lavalink: Lavalink | null;
 		webhooks: WebhookStore;
 		readonly ownersIter: StarlightIterator<User>;
+		node: VezaClient;
 	}
 
 	namespace Client {

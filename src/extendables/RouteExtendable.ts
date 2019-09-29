@@ -1,6 +1,6 @@
 import { Extendable, ExtendableOptions } from 'klasa';
 import { Route } from 'klasa-dashboard-hooks';
-import { ApplyOptions } from '../lib';
+import { ApplyOptions } from '@utils/Decorators';
 import { ServerResponse } from 'http';
 
 const responses: [string, string] = ['[]', '{}'];

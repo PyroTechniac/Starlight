@@ -1,6 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import { Event, EventOptions } from 'klasa';
-import { ApplyOptions, Events } from '../lib';
+import { Events } from '../lib';
+import { ApplyOptions } from '@utils/Decorators'
 
 @ApplyOptions<EventOptions>({
 	event: 'error'

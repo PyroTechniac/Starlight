@@ -1,7 +1,14 @@
 import { SchemaFolder } from 'klasa';
 import { StarlightClient } from './lib';
+import { addAliases } from 'module-alias';
 
 const { PREFIX: prefix, TOKEN: token } = process.env;
+
+addAliases({
+	'@settings': `${__dirname}/lib/settings`,
+	'@structures': `${__dirname}/lib/structures`,
+	'@utils': `${__dirname}/lib/util`
+});
 
 StarlightClient
 	.use(require('klasa-dashboard-hooks'))
@@ -34,6 +41,9 @@ new StarlightClient({
 		'TYPING_START',
 		'PRESENCE_UPDATE'
 	],
+	providers: {
+		'default': 'btf'
+	},
 	console: {
 		colors: {
 			verbose: {

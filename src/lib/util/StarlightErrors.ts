@@ -1,6 +1,6 @@
 import { Type } from 'klasa';
 import { Constructor } from '../types';
-import { enumerable } from './util';
+import { enumerable } from './Utils';
 
 const messages: Map<string, (...args: unknown[]) => string> = new Map([
 	['EXPECTED_FOUND', (expected: any, found: any): string => `Expected ${expected}, found ${new Type(found)}.`],

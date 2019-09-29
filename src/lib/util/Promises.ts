@@ -1,5 +1,9 @@
 // These are nice utilities for Promises
 import { EventEmitter, once } from 'events';
+import { util } from 'klasa';
+import { StarlightTypeError } from './StarlightErrors';
+
+const { isFunction } = util;
 
 enum PromiseEvents {
 	Resolve = 'resolve',
@@ -7,11 +11,47 @@ enum PromiseEvents {
 	Finally = 'finally'
 }
 
+
+class PromiseUtil { // eslint-disable-line @typescript-eslint/no-extraneous-class
+
+	public static createReferPromise<T>(): {
+		promise: Promise<T>;
+		resolve: (value?: T | undefined) => void;
+		reject: (error?: Error | undefined) => void;
+	} {
+		let resolve: (value?: T) => void;
+		let reject: (error?: Error) => void;
+
+		const promise: Promise<T> = new Promise((res, rej): void => {
+			resolve = res;
+			reject = rej;
+		});
+
+		return { promise, resolve: resolve!, reject: reject! };
+	}
+
+	public static isThenable<V = unknown>(input: unknown): input is Promise<V> {
+		if (!input) return false;
+		return (input instanceof Promise)
+			|| (input !== Promise.prototype && PromiseUtil.hasThen(input as { then?: Function }) && PromiseUtil.hasCatch(input as { catch?: Function }));
+	}
+
+	private static hasThen(input: { then?: Function }): boolean {
+		return isFunction(input.then);
+	}
+
+	private static hasCatch(input: { catch?: Function }): boolean {
+		return isFunction(input.catch);
+	}
+
+}
+
 class PromiseEmitter<V> extends EventEmitter {
 
 	public promise: Promise<V>;
 	public constructor(promise: Promise<V>) {
 		super();
+		if (!PromiseUtil.isThenable(promise)) throw new StarlightTypeError('EXPECTED_FOUND').init('Promise', promise);
 		this.promise = promise;
 
 		this.init();
@@ -32,26 +72,6 @@ class PromiseEmitter<V> extends EventEmitter {
 			.finally((): void => {
 				this.emit(PromiseEvents.Finally);
 			});
-	}
-
-}
-
-class PromiseUtil { // eslint-disable-line @typescript-eslint/no-extraneous-class
-
-	public static createReferPromise<T>(): {
-		promise: Promise<T>;
-		resolve: (value?: T | undefined) => void;
-		reject: (error?: Error | undefined) => void;
-	} {
-		let resolve: (value?: T) => void;
-		let reject: (error?: Error) => void;
-
-		const promise: Promise<T> = new Promise((res, rej): void => {
-			resolve = res;
-			reject = rej;
-		});
-
-		return { promise, resolve: resolve!, reject: reject! };
 	}
 
 }

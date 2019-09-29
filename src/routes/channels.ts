@@ -1,6 +1,6 @@
 import { ServerResponse } from 'http';
 import { KlasaIncomingMessage, Route, RouteOptions } from 'klasa-dashboard-hooks';
-import { ApplyOptions } from '../lib';
+import { ApplyOptions } from '@utils/Decorators';
 
 @ApplyOptions<RouteOptions>({
 	route: 'guilds/:guildID/channels'

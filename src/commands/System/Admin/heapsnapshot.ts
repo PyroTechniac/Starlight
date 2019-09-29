@@ -1,5 +1,5 @@
 import { Command, CommandOptions, Language, KlasaMessage } from 'klasa';
-import { ApplyOptions, requiresDMContext } from '../../../lib';
+import { ApplyOptions, requiresDMContext } from '@utils/Decorators';
 import { promisify } from 'util';
 import { writeSnapshot as writeSnapshotSync } from 'heapdump';
 import { join } from 'path';

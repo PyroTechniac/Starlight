@@ -1,6 +1,9 @@
 import { GuildMember } from 'discord.js';
 import { Event, EventOptions, ScheduledTaskOptions, Settings } from 'klasa';
 import * as lib from '../lib';
+import { StarlightError } from '@utils/StarlightErrors'
+import { ClientSettings } from '@settings/ClientSettings'
+import { ApplyOptions } from '@utils/Decorators'
 
 const tasks: [string, string, ScheduledTaskOptions?][] = [
 	['jsonBackup', '@daily', { catchUp: false }],
@@ -9,7 +12,7 @@ const tasks: [string, string, ScheduledTaskOptions?][] = [
 	['statsPost', '@daily', { catchUp: true }]
 ];
 
-@lib.ApplyOptions<EventOptions>({
+@ApplyOptions<EventOptions>({
 	once: true
 })
 export default class extends Event {
@@ -22,7 +25,7 @@ export default class extends Event {
 			Promise.all(this.client.users.map((user): Promise<Settings> => user.settings.sync()))
 		]);
 
-		await this.client.settings!.update(lib.ClientSettings.Owners, [...this.client.owners.values()]);
+		await this.client.settings!.update(ClientSettings.Owners, [...this.client.owners.values()]);
 
 		for (const task of tasks) {
 			await this.ensureTask(task);
@@ -37,8 +40,8 @@ export default class extends Event {
 	}
 
 	private async ensureTask([task, time, data]: [string, string | number | Date, ScheduledTaskOptions?]): Promise<void> {
-		const tasks = this.client.settings!.get(lib.ClientSettings.Schedules) as lib.ClientSettings.Schedules;
-		if (!this.client.tasks.has(task)) throw new lib.StarlightError('NOT_FOUND').init(`task ${task}`);
+		const tasks = this.client.settings!.get(ClientSettings.Schedules) as ClientSettings.Schedules;
+		if (!this.client.tasks.has(task)) throw new StarlightError('NOT_FOUND').init(`task ${task}`);
 		const found = tasks.find((s): boolean => s.taskName === task);
 		if (found) {
 			this.client.emit(lib.Events.Log, `[SCHEDULE] Found task ${found.taskName} (${found.id})`);

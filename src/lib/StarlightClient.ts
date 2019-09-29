@@ -1,8 +1,10 @@
 import { Collection, VoiceRegion, User } from 'discord.js';
 import * as Klasa from 'klasa';
 import './StarlightPreload';
-import { MemberGateway, WebhookStore, StarlightIterator } from './structures';
-import { ClientSettings } from './settings';
+import { MemberGateway } from './structures/MemberGateway'
+import { WebhookStore } from './structures/WebhookStore';
+import { StarlightIterator } from './structures/StarlightIterator';
+import { ClientSettings } from './settings/ClientSettings';
 import { once } from 'events';
 
 export class StarlightClient extends Klasa.Client {

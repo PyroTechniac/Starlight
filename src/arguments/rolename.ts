@@ -1,6 +1,6 @@
 import { Role } from 'discord.js';
 import { Argument, KlasaGuild, KlasaMessage, Possible } from 'klasa';
-import { makeArgRegex } from '../lib';
+import { makeArgRegex } from '@utils/Utils';
 
 const { role: ROLE_REGEXP } = Argument.regex;
 
