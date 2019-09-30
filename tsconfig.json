@@ -17,7 +17,7 @@
                 "src/lib/util/*"
             ],
             "@typings/*": [
-                "src/lib/typings/*"
+                "src/lib/types/*"
             ]
         }
     },

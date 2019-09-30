@@ -1,5 +1,5 @@
 import { Webhook, Client } from 'discord.js';
-import { APIWebhookData } from '../typings/Interfaces';
+import { APIWebhookData } from '../types/Interfaces';
 import { CollectionConstructor, default as Collection } from '@discordjs/collection';
 
 export class WebhookStore extends Collection<string, Webhook> {

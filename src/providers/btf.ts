@@ -3,7 +3,7 @@ import { serialize, deserialize } from 'binarytf';
 import { resolve } from 'path';
 import * as fsn from 'fs-nextra';
 import { Events } from '@typings/Enums';
-import { BTFProviderOptions } from '@typings/Interfaces';
+import { BTFProviderOptions } from 'src/lib/types/Interfaces';
 import { noop } from '@utils/Utils';
 
 export default class extends Provider {

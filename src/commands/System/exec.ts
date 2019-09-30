@@ -1,5 +1,5 @@
-import { Command, CommandOptions, util, KlasaMessage } from 'klasa';
 import { ApplyOptions } from '@utils/Decorators';
+import { Command, CommandOptions, KlasaMessage, util } from 'klasa';
 const { codeBlock, exec } = util;
 
 @ApplyOptions<CommandOptions>({

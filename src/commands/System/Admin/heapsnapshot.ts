@@ -1,8 +1,8 @@
-import { Command, CommandOptions, Language, KlasaMessage } from 'klasa';
 import { ApplyOptions, requiresDMContext } from '@utils/Decorators';
-import { promisify } from 'util';
 import { writeSnapshot as writeSnapshotSync } from 'heapdump';
+import { Command, CommandOptions, KlasaMessage, Language } from 'klasa';
 import { join } from 'path';
+import { promisify } from 'util';
 
 const writeSnapshot = promisify(writeSnapshotSync) as (path: string) => Promise<void>;
 

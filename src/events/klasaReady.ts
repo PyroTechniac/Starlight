@@ -1,9 +1,9 @@
+import { ClientSettings } from '@settings/ClientSettings';
+import { Events } from '@typings/Enums';
+import { ApplyOptions } from '@utils/Decorators';
+import { StarlightError } from '@utils/StarlightErrors';
 import { GuildMember } from 'discord.js';
 import { Event, EventOptions, ScheduledTaskOptions, Settings } from 'klasa';
-import { Events } from '@typings/Enums';
-import { StarlightError } from '@utils/StarlightErrors';
-import { ClientSettings } from '@settings/ClientSettings';
-import { ApplyOptions } from '@utils/Decorators';
 
 const tasks: [string, string, ScheduledTaskOptions?][] = [
 	['jsonBackup', '@daily', { catchUp: false }],

@@ -1,6 +1,7 @@
 import { SchemaFolder } from 'klasa';
 import { StarlightClient } from './lib/StarlightClient';
 import { addAliases } from 'module-alias';
+import { Client } from 'klasa-dashboard-hooks'
 
 const { PREFIX: prefix, TOKEN: token } = process.env;
 
@@ -8,11 +9,11 @@ addAliases({
 	'@settings': `${__dirname}/lib/settings`,
 	'@structures': `${__dirname}/lib/structures`,
 	'@utils': `${__dirname}/lib/util`,
-	'@typings': `${__dirname}/lib/typings`
+	'@typings': `${__dirname}/lib/types`
 });
 
 StarlightClient
-	.use(require('klasa-dashboard-hooks'))
+	.use(Client)
 	.defaultClientSchema
 	.add('owners', 'User', { array: true });
 
@@ -44,6 +45,11 @@ new StarlightClient({
 	],
 	providers: {
 		'default': 'btf'
+	},
+	gateways: {
+		clientStorage: {
+			provider: "json"
+		}
 	},
 	console: {
 		colors: {

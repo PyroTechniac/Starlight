@@ -1,5 +1,5 @@
 import { Type } from 'klasa';
-import { Constructor } from '../typings/Types';
+import { Constructor } from '../types/Types';
 import { enumerable } from './Utils';
 
 const messages: Map<string, (...args: unknown[]) => string> = new Map([
