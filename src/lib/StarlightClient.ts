@@ -29,6 +29,7 @@ export class StarlightClient extends Klasa.Client {
 
 		this.nodeMonitors = new NodeMonitorStore(this);
 
+		this.registerStore(this.nodeMonitors);
 	}
 
 	public get owners(): Set<User> {
