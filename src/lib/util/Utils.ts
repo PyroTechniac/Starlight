@@ -35,7 +35,9 @@ export async function fetch(url: URL | string, options: RequestInit | 'result' |
 	}
 }
 
-export const noop = (): null => null;
+export function noop(): null {
+	return null;
+}
 
 export function enumerable(value: boolean): (target: unknown, key: string) => void {
 	return (target: unknown, key: string): void => {
@@ -69,8 +71,14 @@ export function configurable(value: boolean): (target: unknown, key: string) => 
 	};
 }
 
-export const isStream = (input: unknown): input is Stream => input && typeof (input as Stream).pipe === 'function';
+export function isStream(input: unknown): input is Stream {
+	return input && typeof (input as Stream).pipe === 'function';
+}
 
-export const filterArray = <T>(...entries: T[]): T[] => [...new Set([...entries])];
+export function filterArray<T>(...entries: T[]): T[] {
+	return Array.from(new Set([...entries]));
+}
 
-export const makeArgRegex = (arg: string, boundary: boolean = false): RegExp => new RegExp(boundary ? `\\b${util.regExpEsc(arg)}\\b` : util.regExpEsc(arg), 'i');
+export function makeArgRegex(arg: string, boundary: boolean = false): RegExp {
+	return new RegExp(boundary ? `\\b${util.regExpEsc(arg)}\\b` : util.regExpEsc(arg), 'i');
+}

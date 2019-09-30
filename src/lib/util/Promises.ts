@@ -42,6 +42,16 @@ class PromiseUtil { // eslint-disable-line @typescript-eslint/no-extraneous-clas
 			|| (input !== Promise.prototype && PromiseUtil.hasThen(input as { then?: Function }) && PromiseUtil.hasCatch(input as { catch?: Function }));
 	}
 
+	public static async *forEach<V>(...promises: Promise<V>[]): AsyncGenerator<V, void> {
+		for (const prom of promises) {
+			try {
+				yield await prom;
+			} catch (error) {
+				throw error;
+			}
+		}
+	}
+
 	private static hasThen(input: { then?: Function }): boolean {
 		return isFunction(input.then);
 	}
