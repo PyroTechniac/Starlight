@@ -19,7 +19,7 @@ jobs:
     - name: Yarn
       run: yarn --ignore-scripts
     - name: tsc
-      uses: icrawl/action-tsc@v1
+      run: tsc -p . --noEmit
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
