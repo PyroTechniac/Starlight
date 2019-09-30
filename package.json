@@ -8,7 +8,8 @@
         "build": "tsc -p .",
         "start": "node .",
         "lint": "npx eslint src --ext .ts --fix",
-        "clean": "rimraf dist/"
+        "clean": "rimraf dist/",
+        "graph": "madge dist -i ./deps-graph.png --include-npm"
     },
     "dependencies": {
         "@discordjs/collection": "^0.1.3",
@@ -37,6 +38,7 @@
         "@typescript-eslint/parser": "^1.13.0",
         "eslint": "^5.16.0",
         "eslint-config-bamboo": "^2.0.0",
+        "madge": "^3.4.4",
         "rimraf": "^3.0.0"
     },
     "optionalDependencies": {
