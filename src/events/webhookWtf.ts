@@ -1,10 +1,10 @@
-import { ApplyOptions } from '@utils/Decorators';
-import { MessageEmbed } from 'discord.js';
 import { Event, EventOptions } from 'klasa';
+import { MessageEmbed } from 'discord.js';
+import { ApplyOptions } from '@utils/Decorators';
 import { Events } from '@typings/Enums';
 
 @ApplyOptions<EventOptions>({
-	event: 'error'
+	event: 'wtf'
 })
 export default class extends Event {
 
@@ -13,7 +13,6 @@ export default class extends Event {
 		if (!errorWebhook || !errorWebhook.token) return;
 
 		if (!(err instanceof Error) || !err.stack) return;
-
 		let description = err.stack.split('\n').slice(1, 5)!.join('\n');
 
 		if (description.length > 2048) description = description.substring(0, 2045).padEnd(3, '.');

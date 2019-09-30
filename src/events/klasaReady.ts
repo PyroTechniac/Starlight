@@ -30,7 +30,6 @@ export default class extends Event {
 		for (const task of tasks) {
 			await this.ensureTask(task);
 		}
-
 		this.client.emit(Events.Log, `[READY] ${this.client.user!.username} initialization complete.`);
 	}
 

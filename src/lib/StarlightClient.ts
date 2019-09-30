@@ -1,16 +1,11 @@
 import { Collection, User, VoiceRegion } from 'discord.js';
 import { once } from 'events';
 import * as Klasa from 'klasa';
-import { Client as VezaClient } from 'veza';
 import { ClientSettings } from './settings/ClientSettings';
 import './StarlightPreload';
 import { MemberGateway } from './structures/MemberGateway';
-import { NodeMonitorStore } from './structures/NodeMonitorStore';
 import { StarlightIterator } from './structures/StarlightIterator';
 import { WebhookStore } from './structures/WebhookStore';
-import { Events } from './types/Enums';
-
-const [green, yellow, red] = ['green', 'yellow', 'red'].map((text) => new Klasa.Colors({ text }).format('[IPC   ]'));
 
 export class StarlightClient extends Klasa.Client {
 
@@ -27,16 +22,6 @@ export class StarlightClient extends Klasa.Client {
 			.register(new MemberGateway(this, 'members', members));
 
 		this.webhooks = new WebhookStore(this);
-
-		this.nodeMonitors = new NodeMonitorStore(this);
-
-		this.node = new VezaClient('starlight-master')
-			.on('disconnect', (client): void => { this.emit(Events.Warn, `${yellow} Disconnected: ${client.name}`) })
-			.on('ready', (client): void => { this.emit(Events.Verbose, `${green} Ready ${client.name}`) })
-			.on('error', (error, client) => { this.emit(Events.Error, `${red} Error from ${client.name}`, error) })
-			.on('message', this.nodeMonitors.run.bind(this.nodeMonitors));
-
-		this.registerStore(this.nodeMonitors);
 	}
 
 	public get owners(): Set<User> {
@@ -64,13 +49,6 @@ export class StarlightClient extends Klasa.Client {
 
 	public waitFor(event: string): Promise<any[]> {
 		return once(this, event);
-	}
-
-	public async login(token?: string): Promise<string> {
-		await this.node.connectTo(7827)
-			.then((): void => this.console.debug('Successfully connected to backend'))
-			.catch((e): void => this.console.debug(`Failed to connect to Starlight Backend: ${e}`));
-		return super.login(token);
 	}
 
 	public static defaultMemberSchema: Klasa.Schema = new Klasa.Schema();

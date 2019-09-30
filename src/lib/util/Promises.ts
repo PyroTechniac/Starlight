@@ -44,11 +44,7 @@ class PromiseUtil { // eslint-disable-line @typescript-eslint/no-extraneous-clas
 
 	public static async *iterate<V>(...promises: Promise<V>[]): AsyncGenerator<V, void> {
 		for (const prom of promises) {
-			try {
-				yield await prom;
-			} catch (error) {
-				throw error;
-			}
+			yield await prom;
 		}
 	}
 

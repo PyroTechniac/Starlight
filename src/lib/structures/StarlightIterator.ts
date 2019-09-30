@@ -306,12 +306,12 @@ export class StarlightIterator<V> implements IterableIterator<V> {
 
 	public static range(start = 0, end = Infinity, step = 1, inclusive = false): StarlightIterator<number> {
 		if (inclusive) {
-			function *range(): Generator<number> {
+			function *rangeInclusive(): Generator<number> {
 				for (let i = start; i <= end; i += step) {
 					yield i;
 				}
 			}
-			return new StarlightIterator(range());
+			return new StarlightIterator(rangeInclusive());
 		}
 
 		function *range(): Generator<number> {
