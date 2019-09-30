@@ -16,4 +16,5 @@ export default class extends Event {
 		if (!this.client.node.servers.size) this.disable();
 		return Promise.resolve();
 	}
+
 }
