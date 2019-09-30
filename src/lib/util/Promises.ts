@@ -2,6 +2,8 @@
 import { EventEmitter, once } from 'events';
 import { util } from 'klasa';
 import { StarlightTypeError } from './StarlightErrors';
+import { Client } from 'discord.js';
+import { Events } from '@typings/Enums';
 
 const { isFunction } = util;
 
@@ -28,6 +30,10 @@ class PromiseUtil { // eslint-disable-line @typescript-eslint/no-extraneous-clas
 		});
 
 		return { promise, resolve: resolve!, reject: reject! };
+	}
+
+	public static floatPromise<V = unknown>(ctx: { client: Client }, promise: Promise<V>): void {
+		if (PromiseUtil.isThenable<V>(promise)) promise.catch((error): boolean => ctx.client.emit(Events.Wtf, error));
 	}
 
 	public static isThenable<V = unknown>(input: unknown): input is Promise<V> {

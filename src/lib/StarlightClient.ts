@@ -5,7 +5,9 @@ import { MemberGateway } from './structures/MemberGateway';
 import { WebhookStore } from './structures/WebhookStore';
 import { StarlightIterator } from './structures/StarlightIterator';
 import { ClientSettings } from './settings/ClientSettings';
+import { Client as VezaClient } from 'veza';
 import { once } from 'events';
+import { NodeMonitorStore } from './structures/NodeMonitorStore';
 
 export class StarlightClient extends Klasa.Client {
 
@@ -22,6 +24,10 @@ export class StarlightClient extends Klasa.Client {
 			.register(new MemberGateway(this, 'members', members));
 
 		this.webhooks = new WebhookStore(this);
+
+		this.node = new VezaClient('starlight-master');
+
+		this.nodeMonitors = new NodeMonitorStore(this);
 
 	}
 
@@ -50,6 +56,12 @@ export class StarlightClient extends Klasa.Client {
 
 	public waitFor(event: string): Promise<any[]> {
 		return once(this, event);
+	}
+
+	public async login(token?: string): Promise<string> {
+		await this.node.connectTo(7827)
+			.catch((): void => this.console.debug(`Starlight Backend not running.`));
+		return super.login(token);
 	}
 
 	public static defaultMemberSchema: Klasa.Schema = new Klasa.Schema();

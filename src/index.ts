@@ -1,7 +1,7 @@
 import { SchemaFolder } from 'klasa';
 import { StarlightClient } from './lib/StarlightClient';
 import { addAliases } from 'module-alias';
-import { Client } from 'klasa-dashboard-hooks'
+import { Client } from 'klasa-dashboard-hooks';
 
 const { PREFIX: prefix, TOKEN: token } = process.env;
 
@@ -48,7 +48,7 @@ new StarlightClient({
 	},
 	gateways: {
 		clientStorage: {
-			provider: "json"
+			provider: 'json'
 		}
 	},
 	console: {
