@@ -286,7 +286,7 @@ delayed-stream@~1.0.0:
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   integrity sha1-3zrhmayt+31ECqrgsp4icrJOxhk=
 
-discord.js@discordjs/discord.js, "discord.js@github:discordjs/discord.js":
+discord.js@discordjs/discord.js:
   version "12.0.0-dev"
   resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/ea8b4e73559d118a826ac3b242c1a3626b4f6d29"
   dependencies:
