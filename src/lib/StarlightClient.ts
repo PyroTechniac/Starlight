@@ -61,7 +61,7 @@ export class StarlightClient extends Klasa.Client {
 
 	public async login(token?: string): Promise<string> {
 		await this.node.connectTo(7827)
-			.catch((): void => this.console.debug(`Starlight Backend not running.`));
+			.catch((e): void => this.console.debug(`Failed to connect to Starlight Backend: ${e}`));
 		return super.login(token);
 	}
 
