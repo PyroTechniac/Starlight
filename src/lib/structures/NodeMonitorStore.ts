@@ -1,18 +1,14 @@
 // Copyright (c) 2019 kyranet. All Rights Reserved. Apache-2.0
-import { Store, KlasaClient, Colors } from 'klasa';
+import { Constructor } from '@typings/Types';
+import { KlasaClient, Store } from 'klasa';
 import { NodeMessage } from 'veza';
 import { NodeMonitor } from './NodeMonitor';
-import { Constructor } from '@typings/Types';
-const colors: [string, string, string] = ['green', 'yellow', 'red'];
 
 export class NodeMonitorStore extends Store<string, NodeMonitor, Constructor<NodeMonitor>> {
 
-	public colors: [string, string, string];
 	public constructor(client: KlasaClient) {
 		// @ts-ignore 2345
 		super(client, 'nodeMonitors', NodeMonitor);
-		const formatted: [string, string, string] = colors.map((text): string => new Colors({ text }).format('[IPC   ]')) as [string, string, string];
-		this.colors = formatted;
 	}
 
 	public async run(message: NodeMessage): Promise<void> {
