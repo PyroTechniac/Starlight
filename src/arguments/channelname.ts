@@ -1,6 +1,6 @@
 import { makeArgRegex } from '@utils/Utils';
 import { Channel, GuildChannel, Message } from 'discord.js';
-import { Argument, KlasaGuild, KlasaMessage, Possible } from 'klasa';
+import { Argument, KlasaGuild, Possible } from 'klasa';
 
 const { channel: CHANNEL_REGEXP } = Argument.regex;
 
@@ -13,8 +13,8 @@ function resolveChannel(query: Channel | Message | string, guild: KlasaGuild): n
 
 export default class extends Argument {
 
-	public async run(arg: string, possible: Possible, msg: KlasaMessage): Promise<GuildChannel> {
-		if (!msg.guild) return this.client.arguments.get('channel')!.run(arg, possible, msg);
+	public async run(arg: string, possible: Possible, msg: Message): Promise<GuildChannel> {
+		if (!msg.guild) return this.store.get('channel').run(arg, possible, msg);
 		const resChannel = resolveChannel(arg, msg.guild);
 		if (resChannel) return resChannel;
 

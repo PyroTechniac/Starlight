@@ -1,16 +1,16 @@
 import { makeArgRegex, noop } from '@utils/Utils';
-import { GuildMember, User } from 'discord.js';
-import { Argument, KlasaGuild, KlasaMessage, Possible } from 'klasa';
+import { Guild, GuildMember, Message, User } from 'discord.js';
+import { Argument, Possible } from 'klasa';
 
 const { userOrMember: USER_REGEXP } = Argument.regex;
 
-function resolveUser(query: string | User | GuildMember, guild: KlasaGuild): Promise<User | null> {
+function resolveUser(query: string | User | GuildMember, guild: Guild): Promise<User | null> {
 	if (query instanceof GuildMember) return Promise.resolve(query.user);
 	if (query instanceof User) return Promise.resolve(query);
 	if (typeof query === 'string') {
 		if (USER_REGEXP.test(query)) return guild.client.users.fetch(USER_REGEXP.exec(query)![1]).catch(noop);
 		if (/\w{1,32}#\d{4}/.test(query)) {
-			const res = guild.members.find((member): boolean => member.user.tag === query);
+			const res = guild.members.find((member: GuildMember): boolean => member.user.tag === query);
 			return res ? Promise.resolve(res.user) : Promise.resolve(null);
 		}
 	}
@@ -19,8 +19,8 @@ function resolveUser(query: string | User | GuildMember, guild: KlasaGuild): Pro
 
 export default class extends Argument {
 
-	public async run(arg: string, possible: Possible, msg: KlasaMessage): Promise<User> {
-		if (!msg.guild) return this.client.arguments.get('user').run(arg, possible, msg)!;
+	public async run(arg: string, possible: Possible, msg: Message): Promise<User> {
+		if (!msg.guild) return this.store.get('user').run(arg, possible, msg)!;
 		const resUser = await resolveUser(arg, msg.guild);
 		if (resUser) return resUser;
 

@@ -1,10 +1,10 @@
 import { makeArgRegex } from '@utils/Utils';
-import { Role } from 'discord.js';
-import { Argument, KlasaGuild, KlasaMessage, Possible } from 'klasa';
+import { Guild, Message, Role } from 'discord.js';
+import { Argument, Possible } from 'klasa';
 
 const { role: ROLE_REGEXP } = Argument.regex;
 
-function resolveRole(query: Role | string, guild: KlasaGuild): Role | null {
+function resolveRole(query: Role | string, guild: Guild): Role | null {
 	if (query instanceof Role) return guild.roles.has(query.id) ? query : null;
 	if (typeof query === 'string' && ROLE_REGEXP.test(query)) return guild.roles.get(ROLE_REGEXP.exec(query)![1]) || null;
 	return null;
@@ -12,8 +12,8 @@ function resolveRole(query: Role | string, guild: KlasaGuild): Role | null {
 
 export default class extends Argument {
 
-	public async run(arg: string, possible: Possible, msg: KlasaMessage): Promise<Role> {
-		if (!msg.guild) return this.client.arguments.get('role')!.run(arg, possible, msg);
+	public async run(arg: string, possible: Possible, msg: Message): Promise<Role> {
+		if (!msg.guild) return this.store.get('role').run(arg, possible, msg);
 		const resRole = resolveRole(arg, msg.guild);
 		if (resRole) return resRole;
 

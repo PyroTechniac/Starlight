@@ -3,7 +3,7 @@ import { Argument, MultiArgument } from 'klasa';
 export default class extends MultiArgument {
 
 	public get base(): Argument {
-		return this.client.arguments.get('rolename')!;
+		return this.store.get('rolename');
 	}
 
 }
