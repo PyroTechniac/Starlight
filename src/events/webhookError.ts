@@ -1,7 +1,7 @@
+import { Events } from '@typings/Enums';
 import { ApplyOptions } from '@utils/Decorators';
 import { MessageEmbed } from 'discord.js';
 import { Event, EventOptions } from 'klasa';
-import { Events } from '@typings/Enums';
 
 @ApplyOptions<EventOptions>({
 	event: 'error'

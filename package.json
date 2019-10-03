@@ -21,11 +21,10 @@
         "klasa": "dirigeants/klasa#settings",
         "klasa-dashboard-hooks": "dirigeants/klasa-dashboard-hooks#settings",
         "kurasuta": "^1.1.0",
-        "lavalink": "^2.8.1",
         "module-alias": "^2.2.1",
         "node-fetch": "^2.6.0",
         "reflect-metadata": "^0.1.13",
-        "typescript": "^3.6.2",
+        "typescript": "^3.7.0-dev.20191002",
         "veza": "^1.1.0"
     },
     "devDependencies": {

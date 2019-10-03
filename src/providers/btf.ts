@@ -1,10 +1,10 @@
-import { Provider, util, ProviderStore } from 'klasa';
-import { serialize, deserialize } from 'binarytf';
-import { resolve } from 'path';
-import * as fsn from 'fs-nextra';
 import { Events } from '@typings/Enums';
-import { BTFProviderOptions } from 'src/lib/types/Interfaces';
+import { BTFProviderOptions } from '@typings/Interfaces';
 import { noop } from '@utils/Utils';
+import { deserialize, serialize } from 'binarytf';
+import * as fsn from 'fs-nextra';
+import { Provider, ProviderStore, util } from 'klasa';
+import { resolve } from 'path';
 
 export default class extends Provider {
 

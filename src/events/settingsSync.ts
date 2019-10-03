@@ -1,6 +1,6 @@
-import { Event, Settings, Type } from 'klasa';
-import { User, GuildMember, Guild } from 'discord.js';
 import { Events } from '@typings/Enums';
+import { Guild, GuildMember, User } from 'discord.js';
+import { Event, Settings, Type } from 'klasa';
 
 export default class extends Event {
 

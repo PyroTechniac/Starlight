@@ -1,7 +1,7 @@
-import { Extendable, ExtendableOptions } from 'klasa';
-import { Route } from 'klasa-dashboard-hooks';
 import { ApplyOptions } from '@utils/Decorators';
 import { ServerResponse } from 'http';
+import { Extendable, ExtendableOptions } from 'klasa';
+import { Route } from 'klasa-dashboard-hooks';
 
 const responses: [string, string] = ['[]', '{}'];
 

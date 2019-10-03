@@ -1,20 +1,40 @@
-import { Collection, User, VoiceRegion } from 'discord.js';
+import * as Discord from 'discord.js';
 import { once } from 'events';
 import * as Klasa from 'klasa';
 import { ClientSettings } from './settings/ClientSettings';
 import './StarlightPreload';
+import { IPCMonitorStore } from './structures/IPCMonitorStore';
 import { MemberGateway } from './structures/MemberGateway';
+import { StarlightIPCClient } from './structures/StarlightIPCClient';
 import { StarlightIterator } from './structures/StarlightIterator';
 import { WebhookStore } from './structures/WebhookStore';
+import { Events } from './types/Enums';
+
+const g = new Klasa.Colors({ text: 'green' }).format('[IPC   ]');
+const y = new Klasa.Colors({ text: 'yellow' }).format('[IPC   ]');
+const r = new Klasa.Colors({ text: 'red' }).format('[IPC   ]');
+
 
 export class StarlightClient extends Klasa.Client {
 
-	public regions: Collection<string, VoiceRegion> | null = null;
+	public regions: Discord.Collection<string, Discord.VoiceRegion> | null = null;
 
 	public constructor(options: Klasa.KlasaClientOptions = {}) {
 		super(options);
 
 		Reflect.defineMetadata('StarlightClient', true, this);
+
+		this.ipcMonitors = new IPCMonitorStore(this);
+		this.registerStore(this.ipcMonitors);
+
+		this.ipc = new StarlightIPCClient(this, 'starlight-master')
+			.on('disconnect', (client) => { this.emit(Events.Warn, `${y} Disconnected: ${client.name}`) })
+			.on('ready', (client): void => { this.emit(Events.Verbose, `${g} Ready: ${client.name}`) })
+			.on('error', (error, client) => { this.emit(Events.Error, `${r} Error from ${client.name}`, error) })
+			.on('message', this.ipcMonitors.run.bind(this.ipcMonitors));
+
+
+		this.connected = null;
 
 		const { members = {} } = this.options.gateways;
 		members.schema = 'schema' in members ? members.schema : StarlightClient.defaultMemberSchema;
@@ -24,7 +44,7 @@ export class StarlightClient extends Klasa.Client {
 		this.webhooks = new WebhookStore(this);
 	}
 
-	public get owners(): Set<User> {
+	public get owners(): Set<Discord.User> {
 		if (!this.settings) return super.owners;
 
 		const owners = super.owners;
@@ -38,13 +58,25 @@ export class StarlightClient extends Klasa.Client {
 		return owners;
 	}
 
-	public get ownersIter(): StarlightIterator<User> {
+	public get ownersIter(): StarlightIterator<Discord.User> {
 		return StarlightIterator.from(this.owners);
 	}
 
-	public async fetchVoiceRegions(): Promise<Collection<string, VoiceRegion>> {
+	public async fetchVoiceRegions(): Promise<Discord.Collection<string, Discord.VoiceRegion>> {
 		this.regions = await super.fetchVoiceRegions();
 		return this.regions;
+	}
+
+	public async login(token?: string) {
+		try {
+			await this.ipc.connectTo(7827);
+			this.connected = true;
+		}
+		catch (err) {
+			this.connected = false;
+		} finally {
+			return super.login(token);
+		}
 	}
 
 	public waitFor(event: string): Promise<any[]> {

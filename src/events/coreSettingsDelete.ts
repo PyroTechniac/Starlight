@@ -1,5 +1,5 @@
-import { Event, EventOptions, EventStore, Settings } from 'klasa';
 import { ApplyOptions } from '@utils/Decorators';
+import { Event, EventOptions, EventStore, Settings } from 'klasa';
 const gateways = ['clientStorage', 'users'];
 
 @ApplyOptions<EventOptions>({
@@ -9,8 +9,7 @@ export default class extends Event {
 
 	public constructor(store: EventStore, file: string[], directory: string, options: EventOptions) {
 		super(store, file, directory, options);
-
-		this.enabled = Boolean(this.client.shard);
+		if (!this.client.shard) this.disable();
 	}
 
 	public run(settings: Settings): void {

@@ -1,5 +1,5 @@
-import { KlasaMessage, PieceOptions, Piece, Store } from 'klasa';
-import { Constructor } from '../types/Types';
+import { Constructor } from '@typings/Types';
+import { KlasaMessage, Piece, PieceOptions, Store } from 'klasa';
 
 // Copyright (c) 2019 kyranet. All rights reserved. MIT License
 // This is a recreation of kyranet's klasa-decorators but with proper type annotation.

@@ -2,7 +2,7 @@
 // This is a recreation of work. The original work can be found here.
 // https://github.com/kyranet/Skyra/blob/master/src/lib/structures/MemberGateway.ts
 
-import { Gateway, Settings, KlasaGuild } from 'klasa';
+import { Gateway, KlasaGuild, Settings } from 'klasa';
 
 export class MemberGateway extends Gateway {
 
