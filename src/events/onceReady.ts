@@ -5,7 +5,7 @@ import { StarlightTypeError } from '@utils/StarlightErrors';
 import { filterArray } from '@utils/Utils';
 import { Team } from 'discord.js';
 import { Event, EventOptions, util } from 'klasa';
-import { APIWebhookData } from 'src/lib/types/Interfaces';
+import { APIWebhookData } from '@typings/Interfaces';
 let retries = 0;
 
 const webhooks: [string, APIWebhookData][] = [

@@ -1,8 +1,8 @@
 import { config } from 'dotenv';
-import 'reflect-metadata';
 import { addAliases } from 'module-alias';
-import './extensions';
 import { resolve } from 'path';
+import 'reflect-metadata';
+import './extensions';
 
 addAliases({
 	// '@settings': `${__dirname}/lib/settings`,
