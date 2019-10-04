@@ -2,7 +2,7 @@ import { StarlightIterator } from '@structures/StarlightIterator';
 import { WebhookStore } from '@structures/WebhookStore';
 import { ServerResponse } from 'http';
 import { Settings } from 'klasa';
-import { Client as VezaClient } from 'veza'
+import { Client as VezaClient } from 'veza';
 import { IPCMonitorStore } from '@structures/IPCMonitorStore';
 
 // This file is for augments to other modules, such as d.js or klasa.
@@ -14,7 +14,7 @@ declare module 'discord.js' {
 		webhooks: WebhookStore;
 		ipc: VezaClient;
 		connected: boolean | null;
-		ipcMonitors: IPCMonitorStore
+		ipcMonitors: IPCMonitorStore;
 		readonly ownersIter: StarlightIterator<User>;
 	}
 

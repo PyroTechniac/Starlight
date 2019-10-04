@@ -28,9 +28,9 @@ export class StarlightClient extends Klasa.Client {
 		this.registerStore(this.ipcMonitors);
 
 		this.ipc = new StarlightIPCClient(this, 'starlight-master')
-			.on('disconnect', (client) => { this.emit(Events.Warn, `${y} Disconnected: ${client.name}`) })
-			.on('ready', (client): void => { this.emit(Events.Verbose, `${g} Ready: ${client.name}`) })
-			.on('error', (error, client) => { this.emit(Events.Error, `${r} Error from ${client.name}`, error) })
+			.on('disconnect', (client): void => { this.emit(Events.Warn, `${y} Disconnected: ${client.name}`); })
+			.on('ready', (client): void => { this.emit(Events.Verbose, `${g} Ready: ${client.name}`); })
+			.on('error', (error, client): void => { this.emit(Events.Error, `${r} Error from ${client.name}`, error); })
 			.on('message', this.ipcMonitors.run.bind(this.ipcMonitors));
 
 
@@ -67,16 +67,14 @@ export class StarlightClient extends Klasa.Client {
 		return this.regions;
 	}
 
-	public async login(token?: string) {
+	public async login(token?: string): Promise<string> {
 		try {
 			await this.ipc.connectTo(7827);
 			this.connected = true;
-		}
-		catch (err) {
+		} catch (err) {
 			this.connected = false;
-		} finally {
-			return super.login(token);
 		}
+		return super.login(token);
 	}
 
 	public waitFor(event: string): Promise<any[]> {
