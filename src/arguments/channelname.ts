@@ -1,4 +1,4 @@
-import { makeArgRegex } from '@utils/Utils';
+import { makeArgRegex } from '../lib/util/Utils';
 import { Channel, GuildChannel, Message } from 'discord.js';
 import { Argument, KlasaGuild, Possible } from 'klasa';
 

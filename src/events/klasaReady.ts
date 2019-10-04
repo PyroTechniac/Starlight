@@ -1,7 +1,7 @@
-import { ClientSettings } from '@settings/ClientSettings';
-import { Events } from '@typings/Enums';
-import { ApplyOptions } from '@utils/Decorators';
-import { StarlightError } from '@utils/StarlightErrors';
+import { ClientSettings } from '../lib/settings/ClientSettings';
+import { Events } from '../lib/types/Enums';
+import { ApplyOptions } from '../lib/util/Decorators';
+import { StarlightError } from '../lib/util/StarlightErrors';
 import { GuildMember } from 'discord.js';
 import { Event, EventOptions, ScheduledTaskOptions, Settings } from 'klasa';
 

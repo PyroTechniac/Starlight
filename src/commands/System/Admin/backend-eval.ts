@@ -1,5 +1,5 @@
 import { Command, CommandOptions, Language, KlasaMessage, Stopwatch, util } from 'klasa';
-import { ApplyOptions } from '@utils/Decorators';
+import { ApplyOptions } from '../../../lib/util/Decorators';
 
 @ApplyOptions<CommandOptions>({
 	aliases: ['b-ev', 'b-eval'],

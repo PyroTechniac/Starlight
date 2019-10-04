@@ -1,4 +1,4 @@
-import { ApplyOptions } from '@utils/Decorators';
+import { ApplyOptions } from '../lib/util/Decorators';
 import { Event, EventOptions, EventStore, Settings } from 'klasa';
 const gateways = ['users', 'clientStorage'];
 

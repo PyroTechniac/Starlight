@@ -1,6 +1,6 @@
 // These are nice utilities for Promises
-import { Events } from '@typings/Enums';
-import { StarlightTypeError } from '@utils/StarlightErrors';
+import { Events } from '../types/Enums';
+import { StarlightTypeError } from '../util/StarlightErrors';
 import { Client } from 'discord.js';
 import { EventEmitter, once } from 'events';
 import { util } from 'klasa';

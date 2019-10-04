@@ -1,4 +1,4 @@
-import { Events } from '@typings/Enums';
+import { Events } from '../lib/types/Enums';
 import { Command, Event, KlasaMessage } from 'klasa';
 
 export default class extends Event {

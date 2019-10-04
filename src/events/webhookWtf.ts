@@ -1,5 +1,5 @@
-import { Events } from '@typings/Enums';
-import { ApplyOptions } from '@utils/Decorators';
+import { Events } from '../lib/types/Enums';
+import { ApplyOptions } from '../lib/util/Decorators';
 import { MessageEmbed } from 'discord.js';
 import { Event, EventOptions } from 'klasa';
 

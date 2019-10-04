@@ -1,4 +1,4 @@
-import { Events } from '@typings/Enums';
+import { Events } from '../lib/types/Enums';
 import { Guild, GuildMember, User } from 'discord.js';
 import { Event, Settings, Type } from 'klasa';
 

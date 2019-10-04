@@ -1,11 +1,11 @@
-import { Events } from '@typings/Enums';
-import { ERROR_WEBHOOK_DATA, STATS_WEBHOOK_DATA } from '@utils/Constants';
-import { ApplyOptions } from '@utils/Decorators';
-import { StarlightTypeError } from '@utils/StarlightErrors';
-import { filterArray } from '@utils/Utils';
+import { Events } from '../lib/types/Enums';
+import { ERROR_WEBHOOK_DATA, STATS_WEBHOOK_DATA } from '../lib/util/Constants';
+import { ApplyOptions } from '../lib/util/Decorators';
+import { StarlightTypeError } from '../lib/util/StarlightErrors';
+import { filterArray } from '../lib/util/Utils';
 import { Team } from 'discord.js';
 import { Event, EventOptions, util } from 'klasa';
-import { APIWebhookData } from '@typings/Interfaces';
+import { APIWebhookData } from '../lib/types/Interfaces';
 let retries = 0;
 
 const webhooks: [string, APIWebhookData][] = [

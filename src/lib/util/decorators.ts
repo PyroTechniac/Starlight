@@ -1,4 +1,4 @@
-import { Constructor } from '@typings/Types';
+import { Constructor } from '../types/Types';
 import { KlasaMessage, Piece, PieceOptions, Store } from 'klasa';
 
 // Copyright (c) 2019 kyranet. All rights reserved. MIT License

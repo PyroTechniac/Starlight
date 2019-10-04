@@ -1,6 +1,6 @@
-import { Events } from '@typings/Enums';
-import { BTFProviderOptions } from '@typings/Interfaces';
-import { noop } from '@utils/Utils';
+import { Events } from '../lib/types/Enums';
+import { BTFProviderOptions } from '../lib/types/Interfaces';
+import { noop } from '../lib/util/Utils';
 import { deserialize, serialize } from 'binarytf';
 import * as fsn from 'fs-nextra';
 import { Provider, ProviderStore, util } from 'klasa';

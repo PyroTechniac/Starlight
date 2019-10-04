@@ -1,6 +1,6 @@
 import { ServerResponse } from 'http';
 import { KlasaIncomingMessage, Route, RouteOptions } from 'klasa-dashboard-hooks';
-import { ApplyOptions } from '@utils/Decorators';
+import { ApplyOptions } from '../lib/util/Decorators';
 
 @ApplyOptions<RouteOptions>({
 	route: 'users/:userID'

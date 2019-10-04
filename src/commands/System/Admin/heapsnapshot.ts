@@ -1,4 +1,4 @@
-import { ApplyOptions, requiresDMContext } from '@utils/Decorators';
+import { ApplyOptions, requiresDMContext } from '../../../lib/util/Decorators';
 import { writeSnapshot as writeSnapshotSync } from 'heapdump';
 import { Command, CommandOptions, KlasaMessage, Language } from 'klasa';
 import { join } from 'path';

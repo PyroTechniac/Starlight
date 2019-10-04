@@ -1,8 +1,8 @@
 import { Store, KlasaClient } from 'klasa';
-import { Constructor } from '@typings/Types';
+import { Constructor } from '../types/Types';
 import { IPCMonitor } from './IPCMonitor';
 import { NodeMessage } from 'veza';
-import { Events } from '@typings/Enums';
+import { Events } from '../types/Enums';
 
 export class IPCMonitorStore extends Store<string, IPCMonitor, Constructor<IPCMonitor>> {
 
