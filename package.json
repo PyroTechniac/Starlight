@@ -22,7 +22,7 @@
         "heapdump": "^0.3.15",
         "klasa": "dirigeants/klasa#settings",
         "klasa-dashboard-hooks": "dirigeants/klasa-dashboard-hooks#settings",
-        "kurasuta": "^1.1.0",
+        "kurasuta": "^1.1.1",
         "node-fetch": "^2.6.0",
         "reflect-metadata": "^0.1.13",
         "typescript": "^3.7.0-dev.20191002",
