@@ -34,8 +34,8 @@ export class StarlightClient extends Klasa.Client {
 			.on('message', this.ipcMonitors.run.bind(this.ipcMonitors));
 
 
-		const { members = {} } = this.options.gateways;
-		members.schema = 'schema' in members ? members.schema : StarlightClient.defaultMemberSchema;
+		const members: Klasa.GatewayOptions = {};
+		members.schema = StarlightClient.defaultMemberSchema;
 		this.gateways
 			.register(new MemberGateway(this, 'members', members));
 

@@ -38,11 +38,6 @@ new StarlightClient({
 	providers: {
 		'default': 'toml'
 	},
-	gateways: {
-		clientStorage: {
-			provider: 'toml'
-		}
-	},
 	console: {
 		colors: {
 			verbose: {

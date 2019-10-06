@@ -67,9 +67,9 @@
     "@types/node" "*"
 
 "@types/node@*", "@types/node@^12.7.4":
-  version "12.7.9"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.9.tgz#da0210f91096aa67138cf5afd04c4d629f8a406a"
-  integrity sha512-P57oKTJ/vYivL2BCfxCC5tQjlS8qW31pbOL6qt99Yrjm95YdHgNZwjrTTjMBh+C2/y6PXIX4oz253+jUzxKKfQ==
+  version "12.7.11"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.11.tgz#be879b52031cfb5d295b047f5462d8ef1a716446"
+  integrity sha512-Otxmr2rrZLKRYIybtdG/sgeO+tHY20GxeDjcGmUnmmlCWyEnv2a2x1ZXBo3BTec4OiTXMQCiazB8NMBf0iRlFw==
 
 "@types/ws@^6.0.3":
   version "6.0.3"
@@ -423,7 +423,7 @@ detective-typescript@^5.1.1:
 
 discord.js@discordjs/discord.js:
   version "12.0.0-dev"
-  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/e936f071c04557e7349ea193de3a17e1dc963562"
+  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/a8f06f251f1af87650711d4c163ed32d909d4e18"
   dependencies:
     "@discordjs/collection" "^0.1.1"
     abort-controller "^3.0.0"
@@ -720,9 +720,9 @@ get-amd-module-type@^3.0.0:
     node-source-walk "^4.0.0"
 
 get-own-enumerable-property-symbols@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/get-own-enumerable-property-symbols/-/get-own-enumerable-property-symbols-3.0.0.tgz#b877b49a5c16aefac3655f2ed2ea5b684df8d203"
-  integrity sha512-CIJYJC4GGF06TakLg8z4GQKvDsx9EMspVxOYih7LerEL/WosUnFIww45CGfxfeKHqlg3twgUrYRT1O3WQqjGCg==
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/get-own-enumerable-property-symbols/-/get-own-enumerable-property-symbols-3.0.1.tgz#6f7764f88ea11e0b514bd9bd860a132259992ca4"
+  integrity sha512-09/VS4iek66Dh2bctjRkowueRJbY1JDGR1L/zRxO1Qk8Uxs6PnqaNSqalpizPT+CDjre3hnEsuzvhgomz9qYrA==
 
 glob@^7.1.2, glob@^7.1.3:
   version "7.1.4"
@@ -908,16 +908,16 @@ klasa-dashboard-hooks@dirigeants/klasa-dashboard-hooks#settings:
   dependencies:
     node-fetch "^2.6.0"
 
-klasa@dirigeants/klasa#settings:
+klasa@starlight-ts/klasa#settings:
   version "0.5.0-dev"
-  resolved "https://codeload.github.com/dirigeants/klasa/tar.gz/a7ef1a9d4fc2a1ca7bef85976795e65db2281009"
+  resolved "https://codeload.github.com/starlight-ts/klasa/tar.gz/0cff1a340ff3a175b441dbf086d23eb6721e6be4"
   dependencies:
     fs-nextra "^0.4.5"
 
 kurasuta@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/kurasuta/-/kurasuta-1.1.0.tgz#6fe76ce2b58b95ea894b33c8acc5832a654c68a4"
-  integrity sha512-K3SR7kkyFgjF4ZO5YrRndmhoaCakB5ofF8va3UUa2sVroC7kCoC1CcdYkrNkhynI7sp0mxdOh8YoGgRxAr04sg==
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/kurasuta/-/kurasuta-1.1.1.tgz#a8294a8d49df153898868036915a31fb1d7b7352"
+  integrity sha512-kX666w6LVjL9fSAxxXmbls4p1gg5qWD0R+HdYVoktoWTZHk/IONR5qx2Eljd8friVCexaXqjgsLF2ZZ7OTwqAQ==
   dependencies:
     discord.js discordjs/discord.js
     node-fetch "^2.6.0"
@@ -1563,9 +1563,9 @@ typescript@^3.0.3, typescript@^3.4.5:
   integrity sha512-N7bceJL1CtRQ2RiG0AQME13ksR7DiuQh/QehubYcghzv20tnh+MQnQIuJddTmsbqYj+dztchykemz0zFzlvdQw==
 
 typescript@^3.7.0-dev.20191002:
-  version "3.7.0-dev.20191003"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.0-dev.20191003.tgz#938b4c37ab8ec74d2618fa4019942ae1a9b06a76"
-  integrity sha512-t72YA4cJot0Ih8NCZLthoGUbGAQyg15gAeX1S9j8gASCZtj+rxEZIy/eOLqmHouVy7BvA1o/aXPiTfTpNImkPA==
+  version "3.7.0-dev.20191006"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.0-dev.20191006.tgz#b455c0bdbc29625b6f95886e17c85ded1271f588"
+  integrity sha512-0uxLQ41QwguSZdMlQ5GUXljS42Ti1+AFJ1EnTsQOSX4Z0eG2bwxHDJItIRDGV6yZGBMXJ6HGapxv2qxSeW5svA==
 
 uniq@^1.0.1:
   version "1.0.1"

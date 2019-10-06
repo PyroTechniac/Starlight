@@ -22,7 +22,7 @@
         "fast-levenshtein": "^2.0.6",
         "fs-nextra": "^0.4.5",
         "heapdump": "^0.3.15",
-        "klasa": "dirigeants/klasa#settings",
+        "klasa": "starlight-ts/klasa#settings",
         "klasa-dashboard-hooks": "dirigeants/klasa-dashboard-hooks#settings",
         "kurasuta": "^1.1.0",
         "node-fetch": "^2.6.0",
