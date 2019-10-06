@@ -45,3 +45,14 @@ export interface WebSocketStatistics {
 	ping: [number, number, number];
 	status: number;
 }
+
+export interface TomlOptions {
+	encoding?: string;
+	mode?: number;
+	flag?: string;
+}
+
+export interface ReadTOMLOptions {
+	encoding?: BufferEncoding;
+	flag?: string | number;
+}

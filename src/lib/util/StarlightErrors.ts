@@ -35,6 +35,12 @@ class StarlightError extends Error {
 	@enumerable(false)
 	public code!: string;
 
+	public constructor(key: string, ...args: any[]) {
+		super(key);
+		Error.captureStackTrace(this, this.constructor);
+		this.init(...args);
+	}
+
 }
 
 interface StarlightError extends Error {
@@ -47,6 +53,12 @@ class StarlightTypeError extends TypeError {
 	@enumerable(false)
 	public code!: string;
 
+	public constructor(key: string, ...args: any[]) {
+		super(key);
+		Error.captureStackTrace(this, this.constructor);
+		this.init(...args);
+	}
+
 }
 
 interface StarlightTypeError extends TypeError {
@@ -58,6 +70,12 @@ class StarlightRangeError extends RangeError {
 
 	@enumerable(false)
 	public code!: string;
+
+	public constructor(key: string, ...args: any[]) {
+		super(key);
+		Error.captureStackTrace(this, this.constructor);
+		this.init(...args);
+	}
 
 }
 

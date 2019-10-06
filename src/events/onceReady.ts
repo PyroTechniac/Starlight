@@ -70,7 +70,7 @@ export default class extends Event {
 		const owners: string[] = [];
 
 		const { owner } = this.client.application;
-		if (owner === null) throw new StarlightTypeError('EXPECTED_FOUND').init('a Team or User', owner);
+		if (owner === null) throw new StarlightTypeError('EXPECTED_FOUND', 'a Team or User', owner);
 		if (owner instanceof Team) {
 			owners.push(...owner.members.keys());
 		} else {

@@ -36,11 +36,11 @@ new StarlightClient({
 		'PRESENCE_UPDATE'
 	],
 	providers: {
-		'default': 'btf'
+		'default': 'toml'
 	},
 	gateways: {
 		clientStorage: {
-			provider: 'json'
+			provider: 'toml'
 		}
 	},
 	console: {

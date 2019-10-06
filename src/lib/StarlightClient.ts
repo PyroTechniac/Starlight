@@ -66,12 +66,9 @@ export class StarlightClient extends Klasa.Client {
 	}
 
 	public async login(token?: string): Promise<string> {
-		try {
-			await this.ipc.connectTo(7827);
-			this.ipc.connected = true;
-		} catch (err) {
-			this.ipc.connected = false;
-		}
+		this.ipc.connected = await this.ipc.connectTo(7827)
+			.then(() => true)
+			.catch(() => false);
 		return super.login(token);
 	}
 

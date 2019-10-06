@@ -1,12 +1,47 @@
+import * as TOML from '@iarna/toml';
+import { mkdirs, readFile, writeFile, writeFileAtomic } from 'fs-nextra';
 import { util } from 'klasa';
 import nodeFetch, { RequestInit, Response } from 'node-fetch';
+import { dirname } from 'path';
 import { Stream } from 'stream';
 import { URL } from 'url';
+import { ReadTOMLOptions, TomlOptions } from '../types/Interfaces';
 
-export function generateRegExp(str: string): string {
-	return str.replace(/\w(?=(\w)?)/g, (letter, nextWord): string => `${letter}-${nextWord ? '\\W*' : ''}`);
+const stripBom = (content: string | Buffer): string => {
+	if (Buffer.isBuffer(content)) content = content.toString('utf8');
+	return content.replace(/^\uFEFF/, '');
 }
 
+export async function readTOML(file: string, options: ReadTOMLOptions | BufferEncoding = { flag: 'r' }): Promise<any> {
+	if (typeof options === 'string') options = { encoding: options, flag: 'r' };
+	const content = await readFile(file, options);
+	return TOML.parse(stripBom(content));
+}
+
+export async function writeTOML(file: string, object: any, atomic?: boolean): Promise<void>;
+export async function writeTOML(file: string, object: any, options?: TomlOptions, atomic?: boolean): Promise<void>;
+export async function writeTOML(file: string, object: any, options: TomlOptions | boolean = {}, atomic: boolean = false): Promise<void> {
+	if (typeof options === 'boolean') [atomic, options] = [options, {}];
+
+	const writeMethod = atomic ? writeFileAtomic : writeFile;
+	await writeMethod(file, `${TOML.stringify(object)}`);
+}
+
+export async function writeTOMLAtomic(file: string, object: any, options: TomlOptions = {}): Promise<void> {
+	return writeTOML(file, object, options, true);
+}
+
+export async function outputTOML(file: string, data: any, atomic?: boolean): Promise<void>;
+export async function outputTOML(file: string, data: any, options?: TomlOptions, atomic?: boolean): Promise<void>;
+export async function outputTOML(file: string, data: any, options?: TomlOptions | boolean, atomic: boolean = false): Promise<void> {
+	if (typeof options === 'boolean') [atomic, options] = [options, {}];
+	await mkdirs(dirname(file));
+	return writeTOML(file, data, options, atomic);
+}
+
+export async function outputTOMLAtomic(file: string, data: any, options?: TomlOptions): Promise<void> {
+	return outputTOML(file, data, options, true);
+}
 
 export async function fetch(url: URL | string, type: 'json'): Promise<object>;
 export async function fetch(url: URL | string, options: RequestInit, type: 'json'): Promise<object>;

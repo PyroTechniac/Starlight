@@ -63,7 +63,7 @@ class PromiseEmitter<V> extends EventEmitter {
 	public promise: Promise<V>;
 	public constructor(promise: Promise<V>) {
 		super();
-		if (!PromiseUtil.isThenable(promise)) throw new StarlightTypeError('EXPECTED_FOUND').init('Promise', promise);
+		if (!PromiseUtil.isThenable(promise)) throw new StarlightTypeError('EXPECTED_FOUND', 'Promise', promise);
 		this.promise = promise;
 
 		this.init();
