@@ -10,7 +10,7 @@ import { ReadTOMLOptions, TomlOptions } from '../types/Interfaces';
 const stripBom = (content: string | Buffer): string => {
 	if (Buffer.isBuffer(content)) content = content.toString('utf8');
 	return content.replace(/^\uFEFF/, '');
-}
+};
 
 export async function readTOML(file: string, options: ReadTOMLOptions | BufferEncoding = { flag: 'r' }): Promise<any> {
 	if (typeof options === 'string') options = { encoding: options, flag: 'r' };
