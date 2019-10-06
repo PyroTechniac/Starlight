@@ -25,7 +25,7 @@
         "kurasuta": "^1.1.0",
         "node-fetch": "^2.6.0",
         "reflect-metadata": "^0.1.13",
-        "typescript": "^3.7.0-dev.20191002",
+        "typescript": "^3.7.0-dev.20191006",
         "veza": "^1.1.0"
     },
     "devDependencies": {
