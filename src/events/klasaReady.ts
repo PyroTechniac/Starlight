@@ -6,10 +6,11 @@ import { GuildMember } from 'discord.js';
 import { Event, EventOptions, ScheduledTaskOptions, Settings } from 'klasa';
 
 const tasks: [string, string, ScheduledTaskOptions?][] = [
-	['jsonBackup', '@daily', { catchUp: false }],
+	['jsonBackup', '@daily', { catchUp: true }],
 	['syncSettings', '*/10 * * * *', { catchUp: false }],
-	['btfBackup', '@daily', { catchUp: false }],
-	['statsPost', '@daily', { catchUp: true }]
+	['btfBackup', '@daily', { catchUp: true }],
+	['statsPost', '@daily', { catchUp: true }],
+	['tomlBackup', '@daily', { catchUp: true }]
 ];
 
 @ApplyOptions<EventOptions>({

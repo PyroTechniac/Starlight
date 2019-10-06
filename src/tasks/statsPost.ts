@@ -27,7 +27,7 @@ export default class extends Task {
 
 		const embed = new MessageEmbed()
 			.setDescription(util.codeBlock('asciidoc', this.getDescription(
-				memory.toFixed(2),
+				(memory / 1024 / 1024).toFixed(2),
 				Duration.toNow(Date.now() - (process.uptime() * 1000)),
 				users.toLocaleString(),
 				guilds.toLocaleString(),
