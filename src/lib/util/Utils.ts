@@ -3,6 +3,11 @@ import nodeFetch, { RequestInit, Response } from 'node-fetch';
 import { Stream } from 'stream';
 import { URL } from 'url';
 
+export function generateRegExp(str: string): string {
+	return str.replace(/\w(?=(\w)?)/g, (letter, nextWord): string => `${letter}-${nextWord ? '\\W*' : ''}`);
+}
+
+
 export async function fetch(url: URL | string, type: 'json'): Promise<object>;
 export async function fetch(url: URL | string, options: RequestInit, type: 'json'): Promise<object>;
 export async function fetch(url: URL | string, type: 'buffer'): Promise<Buffer>;

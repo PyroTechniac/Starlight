@@ -1,3 +1,5 @@
+import { PieceOptions } from 'klasa';
+
 export interface BTFProviderOptions {
 	baseDirectory?: string;
 }
@@ -33,4 +35,13 @@ export interface APIWebhookData {
 	name: string | null;
 	avatar: string | null;
 	token: string;
+}
+
+export interface IPCMonitorOptions extends PieceOptions {}
+
+export interface WebSocketStatistics {
+	heapTotal: number;
+	heapUsed: number;
+	ping: [number, number, number];
+	status: number;
 }

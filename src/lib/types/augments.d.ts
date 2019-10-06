@@ -1,9 +1,10 @@
-import { StarlightIterator } from '../structures/StarlightIterator';
-import { WebhookStore } from '../structures/WebhookStore';
 import { ServerResponse } from 'http';
 import { Settings } from 'klasa';
-import { Client as VezaClient } from 'veza';
 import { IPCMonitorStore } from '../structures/IPCMonitorStore';
+import { StarlightIPCClient } from '../structures/StarlightIPCClient';
+import { StarlightIterator } from '../structures/StarlightIterator';
+import { WebhookStore } from '../structures/WebhookStore';
+import { IPCMonitorOptions } from './Interfaces';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -12,8 +13,7 @@ declare module 'discord.js' {
 		regions: null | Collection<string, VoiceRegion>;
 		waitFor(event: string): Promise<any[]>;
 		webhooks: WebhookStore;
-		ipc: VezaClient;
-		connected: boolean | null;
+		ipc: StarlightIPCClient;
 		ipcMonitors: IPCMonitorStore;
 		readonly ownersIter: StarlightIterator<User>;
 	}
@@ -33,5 +33,11 @@ declare module 'discord.js' {
 declare module 'klasa-dashboard-hooks' {
 	interface Route {
 		notFound(response: ServerResponse): void;
+	}
+}
+
+declare module 'klasa' {
+	interface PieceDefaults {
+		ipcMonitors?: IPCMonitorOptions;
 	}
 }

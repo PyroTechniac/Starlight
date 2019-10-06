@@ -52,5 +52,10 @@ new StarlightClient({
 				}
 			}
 		}
+	},
+	pieceDefaults: {
+		ipcMonitors: {
+			enabled: true
+		}
 	}
 }).login(token);

@@ -31,6 +31,11 @@ export default class extends Event {
 			await this.ensureTask(task);
 		}
 		this.client.emit(Events.Log, `[READY] ${this.client.user!.username} initialization complete.`);
+
+		if (this.client.ipc.connected) {
+			this.client.emit(Events.Log, '[IPC   ] Sending user data to server');
+			await this.client.ipc.sendTo('moonlight-api', ['clientID', [this.client.user!.id, 'starlight']]);
+		}
 	}
 
 	private get members(): GuildMember[] {

@@ -34,8 +34,6 @@ export class StarlightClient extends Klasa.Client {
 			.on('message', this.ipcMonitors.run.bind(this.ipcMonitors));
 
 
-		this.connected = null;
-
 		const { members = {} } = this.options.gateways;
 		members.schema = 'schema' in members ? members.schema : StarlightClient.defaultMemberSchema;
 		this.gateways
@@ -70,9 +68,9 @@ export class StarlightClient extends Klasa.Client {
 	public async login(token?: string): Promise<string> {
 		try {
 			await this.ipc.connectTo(7827);
-			this.connected = true;
+			this.ipc.connected = true;
 		} catch (err) {
-			this.connected = false;
+			this.ipc.connected = false;
 		}
 		return super.login(token);
 	}
