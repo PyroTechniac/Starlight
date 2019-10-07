@@ -13,7 +13,7 @@ const { codeBlock, exec } = util;
 export default class extends Command {
 
 	public async run(msg: KlasaMessage, [input]: [string]): Promise<KlasaMessage> {
-		await msg.send('Executing your command...');
+		await msg.sendLocale('COMMAND_EXEC_AWAITING');
 
 		const result = await exec(input, { timeout: 'timeout' in msg.flagArgs ? Number(msg.flagArgs.timeout) || 60000 : 60000 })
 			.catch((err): { stdout: null; stderr: string } => ({ stdout: null, stderr: err }));
@@ -21,7 +21,7 @@ export default class extends Command {
 		const output = result.stdout ? `**\`OUTPUT\`**${codeBlock('prolog', result.stdout)}` : '';
 		const outerr = result.stderr ? `**\`ERROR\`**${codeBlock('prolog', result.stderr)}` : '';
 
-		return msg.sendMessage([output, outerr].join('\n') || 'Done. There was no output to stdout or stderr.');
+		return msg.sendMessage([output, outerr].join('\n') || msg.language.get('COMMAND_EXEC_NO_OUTPUT'));
 	}
 
 }

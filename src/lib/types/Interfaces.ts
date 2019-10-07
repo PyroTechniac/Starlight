@@ -1,4 +1,4 @@
-import { PieceOptions } from 'klasa';
+import { PieceOptions, PieceLanguageJSON } from 'klasa';
 
 export interface BTFProviderOptions {
 	baseDirectory?: string;
@@ -55,4 +55,14 @@ export interface TomlOptions {
 export interface ReadTOMLOptions {
 	encoding?: BufferEncoding;
 	flag?: string | number;
+}
+
+export interface TranslationHelperJSON {
+	language: string;
+	translations: Record<string, string>;
+	defaults: Record<string, string>;
+}
+
+export interface PieceExtendedLanguageJSON extends PieceLanguageJSON {
+	translations: TranslationHelperJSON;
 }

@@ -1,4 +1,6 @@
 import { Language } from 'klasa';
+import { TranslationHelper } from '../lib/structures/TranslationHelper';
+import { PieceExtendedLanguageJSON } from '../lib/types/Interfaces';
 
 export default class extends Language {
 
@@ -12,7 +14,29 @@ export default class extends Language {
 			'Finally, open the profile and you will be given a table of all objects in your process, have fun!\n\nP.S:',
 			'heapsnapshot files are as big as the amount of RAM you use, in big bots, the snapshots can freeze the bot',
 			'much longer and the files can be much heavier.'
-		].join(' ')
+		].join(' '),
+		COMMAND_EXEC_AWAITING: 'Executing your command...',
+		COMMAND_EXEC_NO_OUTPUT: 'Done. There was no output to stdout or stderr.',
+		COMMAND_HEAPSNAPSHOT_CAPTURING: (used: string): string => `Capturing HEAP Snapshot, this may take a while. RAM Usage: ${used} MB`,
+		COMMAND_HEAPSNAPSHOT_CAPTURED: (path: string): string => `Captured in \`${path}\`, check! Remember, do NOT share this with anybody, it may contain a lot of sensitive data.`,
+		RESOLVER_NO_RESULTS: (name: string, type: string): string => `${name} Must be a valid name, ID, or ${this.helper.get(type)} mention`,
+		RESOLVER_MULTIPLE_RESULTS: (mapped: string): string => `Found multiple matches: \`${mapped}\``
 	};
+
+	private helper: TranslationHelper = new TranslationHelper(this);
+
+	public init(): Promise<void> {
+		this.helper.setTranslations([
+			['channel', 'channel']
+		]);
+		this.helper.setDefaults([
+			['channel', 'channel']
+		]);
+		return super.init();
+	}
+
+	public toJSON(): PieceExtendedLanguageJSON {
+		return { ...super.toJSON(), translations: this.helper.toJSON() };
+	}
 
 }

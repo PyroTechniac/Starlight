@@ -14,14 +14,13 @@ const writeSnapshot = promisify(writeSnapshotSync) as (path: string) => Promise<
 })
 export default class extends Command {
 
-    @requiresDMContext()
+	@requiresDMContext()
 	public async run(msg: KlasaMessage): Promise<KlasaMessage> {
-		await msg.sendMessage(`Capturing HEAP Snapshot, this may take a while. RAM Usage: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`);
-
+		await msg.sendLocale('COMMAND_HEAPSNAPSHOT_CAPTURING', [(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)]);
 		const path = join(process.cwd(), `${Date.now()}.heapsnapshot`);
 		await writeSnapshot(path);
 
-		return msg.sendMessage(`Captured in \`${path}\`, check! Remember, do NOT share this with anybody, it may contain a lot of sensitive data.`);
+		return msg.sendLocale('COMMAND_HEAPSNAPSHOT_CAPTURED', [path]);
 	}
 
 }
