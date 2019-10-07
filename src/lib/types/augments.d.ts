@@ -1,5 +1,5 @@
 import { ServerResponse } from 'http';
-import { Settings, GatewayOptions } from 'klasa';
+import { Settings } from 'klasa';
 import { IPCMonitorStore } from '../structures/IPCMonitorStore';
 import { StarlightIPCClient } from '../structures/StarlightIPCClient';
 import { StarlightIterator } from '../structures/StarlightIterator';
