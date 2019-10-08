@@ -9,23 +9,25 @@ import { noop } from '../../lib/util/Utils';
 const { FLAGS: { MANAGE_GUILD } } = Permissions;
 
 @ApplyOptions<RouteOptions>({
-    route: 'guilds/:guild'
+	route: 'guilds/:guild'
 })
 export default class extends Route {
+
     @authenticated
     @rateLimit(2, 5000, true)
-    public async get(request: ApiRequest, response: ApiResponse) {
-        const guildID = request.params.guild;
+	public async get(request: ApiRequest, response: ApiResponse): Promise<void> {
+		const guildID = request.params.guild;
 
-        const guild = this.client.guilds.get(guildID);
-        if (!guild) return response.error(400);
+		const guild = this.client.guilds.get(guildID);
+		if (!guild) return response.error(400);
 
-        const member = await guild.members.fetch(request.auth!.user_id).catch(noop);
-        if (!member) return response.error(400);
+		const member = await guild.members.fetch(request.auth!.user_id).catch(noop);
+		if (!member) return response.error(400);
 
-        const canManage = member.permissions.has(MANAGE_GUILD);
-        if (!canManage) return response.error(401);
+		const canManage = member.permissions.has(MANAGE_GUILD);
+		if (!canManage) return response.error(401);
 
-        return response.json(flattenGuild(guild));
-    }
+		return response.json(flattenGuild(guild));
+	}
+
 }

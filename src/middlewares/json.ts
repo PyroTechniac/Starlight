@@ -3,7 +3,7 @@ import { createGunzip, createInflate } from 'zlib';
 import { ApplyOptions } from '../lib/util/Decorators';
 
 @ApplyOptions<MiddlewareOptions>({
-    priority: 20
+	priority: 20
 })
 export default class extends Middleware {
 
@@ -37,4 +37,5 @@ export default class extends Middleware {
 		}
 		return stream;
 	}
+
 }
