@@ -1,4 +1,4 @@
-import { GuildMember, Structures } from 'discord.js';
+import { Structures } from 'discord.js';
 
 class StarlightMember extends Structures.get('GuildMember') {
 
@@ -10,6 +10,5 @@ class StarlightMember extends Structures.get('GuildMember') {
 
 }
 
-Structures.extend('GuildMember', (): typeof GuildMember => StarlightMember);
 export { StarlightMember };
 

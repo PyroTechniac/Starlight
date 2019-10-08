@@ -4,7 +4,7 @@ import { StarlightClient } from './lib/StarlightClient';
 import { ApiRequest } from './lib/structures/api/ApiRequest';
 import { ApiResponse } from './lib/structures/api/ApiResponse';
 
-const { PREFIX: prefix, TOKEN: token } = process.env;
+const { PREFIX: prefix, TOKEN: token, CLIENT_SECRET: clientSecret, CLIENT_ID: clientID } = process.env;
 
 const serverOptions: ServerOptions = {
 	IncomingMessage: ApiRequest,
@@ -58,5 +58,7 @@ new StarlightClient({
 	dashboardHooks: {
 		apiPrefix: '/',
 		serverOptions
-	}
+	},
+	clientSecret,
+	clientID
 }).login(token);

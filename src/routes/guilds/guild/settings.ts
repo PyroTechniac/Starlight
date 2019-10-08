@@ -33,6 +33,8 @@ export default class extends Route {
 		return response.json(guild.settings.toJSON());
 	}
 
+	@authenticated
+	@rateLimit(2, 1000, true)
 	public async post(request: ApiRequest, response: ApiResponse): Promise<void> {
 		const requestBody = request.body as Record<string, string>;
 
