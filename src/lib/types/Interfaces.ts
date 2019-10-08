@@ -66,3 +66,8 @@ export interface TranslationHelperJSON {
 export interface PieceExtendedLanguageJSON extends PieceLanguageJSON {
 	translations: TranslationHelperJSON;
 }
+
+export interface UserAuthObject {
+	token: string;
+	user_id: string;
+}

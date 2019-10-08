@@ -1,5 +1,9 @@
 import { Constructor } from '../types/Types';
-import { KlasaMessage, Piece, PieceOptions, Store } from 'klasa';
+import { KlasaMessage, Piece, PieceOptions, Store, RateLimitManager } from 'klasa';
+import { ApiRequest } from '../structures/api/ApiRequest';
+import { ApiResponse } from '../structures/api/ApiResponse';
+import { Util } from 'klasa-dashboard-hooks';
+import { CLIENT_SECRET } from './Constants';
 
 // Copyright (c) 2019 kyranet. All rights reserved. MIT License
 // This is a recreation of kyranet's klasa-decorators but with proper type annotation.
@@ -47,6 +51,48 @@ export function requiresGuildContext(fallback: Fallback = (): undefined => undef
 export function requiresDMContext(fallback: Fallback = (): undefined => undefined): MethodDecorator {
 	return createFunctionInhibitor((message: KlasaMessage): boolean => message.guild === null, fallback);
 }
+
+export function rateLimit(bucket: number, cooldown: number, auth = false): MethodDecorator {
+	const manager = new RateLimitManager(bucket, cooldown);
+	const xRateLimitLimit = bucket;
+	return createFunctionInhibitor(
+		(request: ApiRequest, response: ApiResponse): boolean => {
+			const id = (auth ? request.auth!.user_id : request.headers['x-forwarded-for'] || request.connection.remoteAddress) as string;
+			const bucket = manager.acquire(id);
+
+			response.setHeader('Date', new Date().toUTCString());
+			if (bucket.limited) {
+				response.setHeader('Retry-After', bucket.remainingTime.toString());
+				return false;
+			}
+
+			try {
+				bucket.drip();
+			} catch { }
+
+			response.setHeader('X-RateLimit-Limit', xRateLimitLimit);
+			response.setHeader('X-RateLimit-Remaining', bucket.bucket.toString());
+			response.setHeader('X-RateLimit-Reset', bucket.remainingTime.toString());
+
+			return true;
+		},
+		(_request: ApiRequest, response: ApiResponse): void => {
+			response.error(429);
+		}
+	);
+}
+
+export const authenticated = createFunctionInhibitor(
+	(request: ApiRequest): boolean => {
+		if (!request.headers.authorization) return false;
+		request.auth = Util.decrypt(request.headers.authorization, CLIENT_SECRET);
+		if (!request.auth!.user_id || !request.auth!.token) return false;
+		return true;
+	},
+	(_request: ApiRequest, response: ApiResponse): void => {
+		response.error(403);
+	}
+);
 
 export interface Inhibitor {
 	(...args: any[]): boolean | Promise<boolean>;

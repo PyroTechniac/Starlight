@@ -1,4 +1,3 @@
-import { ServerResponse } from 'http';
 import { Settings } from 'klasa';
 import { IPCMonitorStore } from '../structures/IPCMonitorStore';
 import { StarlightIPCClient } from '../structures/StarlightIPCClient';
@@ -29,10 +28,9 @@ declare module 'discord.js' {
 	}
 }
 
-
 declare module 'klasa-dashboard-hooks' {
-	interface Route {
-		notFound(response: ServerResponse): void;
+	interface AuthData {
+		user_id: string;
 	}
 }
 

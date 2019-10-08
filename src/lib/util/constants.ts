@@ -20,3 +20,5 @@ export const STATS_WEBHOOK_DATA: APIWebhookData = {
 	token: process.env.STATS_WEBHOOK_TOKEN || '',
 	name: 'Starlight Stats'
 };
+
+export const CLIENT_SECRET = process.env.CLIENT_SECRET || '';

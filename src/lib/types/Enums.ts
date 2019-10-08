@@ -8,3 +8,9 @@ export enum Events {
 	KlasaReady = 'klasaReady',
 	Log = 'log'
 }
+
+export enum Databases {
+	Members = 'members',
+	Users = 'users',
+	Guilds = 'guilds'
+}

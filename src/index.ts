@@ -1,18 +1,20 @@
-import { SchemaFolder } from 'klasa';
+import { ServerOptions } from 'http';
 import { Client } from 'klasa-dashboard-hooks';
 import { StarlightClient } from './lib/StarlightClient';
+import { ApiRequest } from './lib/structures/api/ApiRequest';
+import { ApiResponse } from './lib/structures/api/ApiResponse';
 
 const { PREFIX: prefix, TOKEN: token } = process.env;
+
+const serverOptions: ServerOptions = {
+	IncomingMessage: ApiRequest,
+	ServerResponse: ApiResponse
+};
 
 StarlightClient
 	.use(Client)
 	.defaultClientSchema
 	.add('owners', 'User', { array: true });
-
-StarlightClient
-	.defaultGuildSchema
-	.add('channels', (folder: SchemaFolder): SchemaFolder => folder
-		.add('modlogs', 'TextChannel'));
 
 new StarlightClient({
 	prefix,
@@ -52,5 +54,9 @@ new StarlightClient({
 		ipcMonitors: {
 			enabled: true
 		}
+	},
+	dashboardHooks: {
+		apiPrefix: '/',
+		serverOptions
 	}
 }).login(token);

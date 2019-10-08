@@ -8,7 +8,7 @@ import { MemberGateway } from './structures/MemberGateway';
 import { StarlightIPCClient } from './structures/StarlightIPCClient';
 import { StarlightIterator } from './structures/StarlightIterator';
 import { WebhookStore } from './structures/WebhookStore';
-import { Events } from './types/Enums';
+import { Databases, Events } from './types/Enums';
 
 const g = new Klasa.Colors({ text: 'green' }).format('[IPC   ]');
 const y = new Klasa.Colors({ text: 'yellow' }).format('[IPC   ]');
@@ -37,7 +37,7 @@ export class StarlightClient extends Klasa.Client {
 		const members: Klasa.GatewayOptions = {};
 		members.schema = StarlightClient.defaultMemberSchema;
 		this.gateways
-			.register(new MemberGateway(this, 'members', members));
+			.register(new MemberGateway(this, Databases.Members, members));
 
 		this.webhooks = new WebhookStore(this);
 	}

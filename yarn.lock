@@ -902,15 +902,15 @@ json-stable-stringify-without-jsonify@^1.0.1:
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
   integrity sha1-nbe1lJatPzz+8wp1FC0tkwrXJlE=
 
-klasa-dashboard-hooks@dirigeants/klasa-dashboard-hooks#settings:
+klasa-dashboard-hooks@kyranet/klasa-dashboard-hooks#master:
   version "0.0.1-dev"
-  resolved "https://codeload.github.com/dirigeants/klasa-dashboard-hooks/tar.gz/39c5be557c75d3fdfe73d65db760ab0167bf425b"
+  resolved "https://codeload.github.com/kyranet/klasa-dashboard-hooks/tar.gz/74ac1a8503ba09a728948377ea92feeaebf30bd0"
   dependencies:
     node-fetch "^2.6.0"
 
-klasa@starlight-ts/klasa#settings:
+klasa@dirigeants/klasa#settings:
   version "0.5.0-dev"
-  resolved "https://codeload.github.com/starlight-ts/klasa/tar.gz/0cff1a340ff3a175b441dbf086d23eb6721e6be4"
+  resolved "https://codeload.github.com/dirigeants/klasa/tar.gz/805502d573689f316323a1923737ae4f54b7d713"
   dependencies:
     fs-nextra "^0.4.5"
 
