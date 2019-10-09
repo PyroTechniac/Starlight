@@ -51,7 +51,7 @@ export default class extends Route {
 		const canManage = member.permissions.has(MANAGE_GUILD);
 		if (!canManage) return response.error(401);
 
-		const { errors } = await botGuild.settings.update(requestBody.data, { action: 'overwrite' });
+		const { errors } = await botGuild.settings.update(requestBody.data, { arrayAction: 'overwrite' });
 		if (errors.length > 0) {
 			this.client.emit(Events.Error,
 				`${botGuild.name}[${botGuild.id}] failed guild settings update:\n${inspect(errors)}`);
