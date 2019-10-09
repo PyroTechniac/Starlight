@@ -39,18 +39,10 @@ export class TranslationHelper {
 	}
 
 	public toJSON(): TranslationHelperJSON {
-		// const translations: Record<string, string> = {};
-		// const defaults: Record<string, string> = {};
-		// for (const [key, val] of this.translations) translations[key] = val;
-		// for (const [key, val] of this.defaults) defaults[key] = val;
 		return {
 			language: this.lang,
-			translations: this.translations.reduce((prev, [key, val]) => {
-				return { [key]: val, ...prev };
-			}, {}),
-			defaults: this.defaults.reduce((prev, [key, val]) => {
-				return { [key]: val, ...prev };
-			}, {})
+			translations: this.translations.reduce((prev, [key, val]): Record<string, string> => ({ [key]: val, ...prev }), {}),
+			defaults: this.defaults.reduce((prev, [key, val]): Record<string, string> => ({ [key]: val, ...prev }), {})
 		};
 	}
 
