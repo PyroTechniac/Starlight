@@ -1,8 +1,5 @@
 import { PieceOptions, PieceLanguageJSON } from 'klasa';
 
-export interface BTFProviderOptions {
-	baseDirectory?: string;
-}
 export interface RawDiscordPacket {
 	t?: string;
 }

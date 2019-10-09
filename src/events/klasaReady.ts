@@ -8,7 +8,6 @@ import { Event, EventOptions, ScheduledTaskOptions, Settings } from 'klasa';
 const tasks: [string, string, ScheduledTaskOptions?][] = [
 	['jsonBackup', '@daily', { catchUp: true }],
 	['syncSettings', '*/10 * * * *', { catchUp: false }],
-	['btfBackup', '@daily', { catchUp: true }],
 	['statsPost', '@daily', { catchUp: true }],
 	['tomlBackup', '@daily', { catchUp: true }]
 ];
