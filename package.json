@@ -24,7 +24,7 @@
         "klasa-dashboard-hooks": "kyranet/klasa-dashboard-hooks#master",
         "node-fetch": "^2.6.0",
         "reflect-metadata": "^0.1.13",
-        "typescript": "^3.7.0-dev.20191002",
+        "typescript": "^3.7.0-dev.20191010",
         "veza": "^1.1.0"
     },
     "devDependencies": {
