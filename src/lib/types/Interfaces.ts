@@ -68,3 +68,8 @@ export interface UserAuthObject {
 	token: string;
 	user_id: string;
 }
+
+export interface BanInfo {
+	user: string;
+	reason?: string;
+}

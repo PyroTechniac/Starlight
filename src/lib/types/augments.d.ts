@@ -4,6 +4,8 @@ import { StarlightIPCClient } from '../structures/StarlightIPCClient';
 import { StarlightIterator } from '../structures/StarlightIterator';
 import { WebhookStore } from '../structures/WebhookStore';
 import { IPCMonitorOptions } from './Interfaces';
+import { ModerationManager } from '../structures/ModerationManager';
+import { BanStore } from '../structures/BanStore';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -25,6 +27,11 @@ declare module 'discord.js' {
 
 	interface GuildMember {
 		settings: Settings;
+	}
+
+	interface Guild {
+		moderation: ModerationManager;
+		readonly bans: BanStore;
 	}
 }
 
