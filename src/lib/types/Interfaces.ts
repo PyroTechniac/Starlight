@@ -1,4 +1,4 @@
-import { PieceOptions, PieceLanguageJSON } from 'klasa';
+import { PieceLanguageJSON, PieceOptions } from 'klasa';
 
 export interface RawDiscordPacket {
 	t?: string;
@@ -34,7 +34,7 @@ export interface APIWebhookData {
 	token: string;
 }
 
-export interface IPCMonitorOptions extends PieceOptions {}
+export interface IPCMonitorOptions extends PieceOptions { }
 
 export interface WebSocketStatistics {
 	heapTotal: number;

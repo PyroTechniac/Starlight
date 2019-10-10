@@ -5,11 +5,13 @@ import { StarlightError } from '../lib/util/StarlightErrors';
 import { GuildMember } from 'discord.js';
 import { Event, EventOptions, ScheduledTaskOptions, Settings } from 'klasa';
 
+const backupData = { folder: './backup/' };
+
 const tasks: [string, string, ScheduledTaskOptions?][] = [
-	['jsonBackup', '@daily', { catchUp: true }],
+	['jsonBackup', '@daily', { catchUp: true, data: backupData }],
 	['syncSettings', '*/10 * * * *', { catchUp: false }],
 	['statsPost', '@daily', { catchUp: true }],
-	['tomlBackup', '@daily', { catchUp: true }]
+	['tomlBackup', '@daily', { catchUp: true, data: backupData }]
 ];
 
 @ApplyOptions<EventOptions>({
