@@ -1536,10 +1536,10 @@ typescript@^3.0.3, typescript@^3.4.5:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.6.4.tgz#b18752bb3792bc1a0281335f7f6ebf1bbfc5b91d"
   integrity sha512-unoCll1+l+YK4i4F8f22TaNVPRHcD9PA3yCuZ8g5e0qGqlVlJ/8FSateOLLSagn+Yg5+ZwuPkL8LFUc0Jcvksg==
 
-typescript@^3.7.0-dev.20191002:
-  version "3.7.0-dev.20191010"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.0-dev.20191010.tgz#e2a8d42b0586f129597543b2694a304335c6cc94"
-  integrity sha512-mVo3R9cDL9OAts6dMPStwICr188gfojYgdUlzNZBj41/HCONtRdwoAe9FTNNHiTyQeCRJHg9O9udwn+dYWutJw==
+typescript@^3.7.0-dev.20191011:
+  version "3.7.0-dev.20191011"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.0-dev.20191011.tgz#cf75edcc5d3feab16fa312e62edb2ba8e821d412"
+  integrity sha512-p/dukMW4mAF0EUuYBDPvO8/uxWYIh4r5Gh4IFtBLsrKmneeVkhlzWB7M3/5kZ0ucWC0BmFxA/6g6We61o2+yfw==
 
 uniq@^1.0.1:
   version "1.0.1"
