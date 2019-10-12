@@ -5,7 +5,7 @@ export class ModerationManager {
 
 	public guild: Guild;
 
-	public bans: BanStore = new BanStore(this);
+	public bans: BanStore = new BanStore(this.guild);
 
 	public constructor(guild: Guild) {
 		this.guild = guild;

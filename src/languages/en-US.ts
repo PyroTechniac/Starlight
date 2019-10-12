@@ -17,7 +17,7 @@ export default class extends Language {
 		].join(' '),
 		COMMAND_EXEC_AWAITING: 'Executing your command...',
 		COMMAND_EXEC_NO_OUTPUT: 'Done. There was no output to stdout or stderr.',
-		COMMAND_STATS: (memUsage: string, uptime: string, users: string, guilds: string, channels: string, klasaVersion: string, discordVersion: string,processVersion: string, neonVersion: string, message: KlasaMessage): string[] => [
+		COMMAND_STATS: (memUsage: string, uptime: string, users: string, guilds: string, channels: string, klasaVersion: string, discordVersion: string, processVersion: string, neonVersion: string, message: KlasaMessage): string[] => [
 			'= STATISTICS =',
 			'',
 			`• Mem Usage  :: ${memUsage} MB`,
@@ -34,8 +34,8 @@ export default class extends Language {
 		COMMAND_HEAPSNAPSHOT_CAPTURING: (used: string): string => `Capturing HEAP Snapshot, this may take a while. RAM Usage: ${used} MB`,
 		COMMAND_HEAPSNAPSHOT_CAPTURED: (path: string): string => `Captured in \`${path}\`, check! Remember, do NOT share this with anybody, it may contain a lot of sensitive data.`,
 		RESOLVER_NO_RESULTS: (name: string, type: string): string => `${name} Must be a valid name, ID, or ${this.helper.get(type)} mention`,
-		RESOLVER_MULTIPLE_RESULTS: (mapped: string): string => `Found multiple matches: \`${mapped}\``,
-		
+		RESOLVER_MULTIPLE_RESULTS: (mapped: string): string => `Found multiple matches: \`${mapped}\``
+
 	};
 
 	private helper: TranslationHelper = new TranslationHelper(this);

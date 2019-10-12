@@ -1,23 +1,18 @@
-import { List } from './List';
+import { Client, Guild } from 'discord.js';
 import { BanInfo } from '../types/Interfaces';
-import { ModerationManager } from './ModerationManager';
-import { Guild, Client } from 'discord.js';
+import { List } from './List';
 
 export class BanStore extends List<BanInfo> {
 
-	public manager: ModerationManager;
-	public constructor(manager: ModerationManager) {
+	public guild: Guild;
+	public constructor(guild: Guild) {
 		super();
 
-		this.manager = manager;
-	}
-
-	public get guild(): Guild {
-		return this.manager.guild;
+		this.guild = guild;
 	}
 
 	public get client(): Client {
-		return this.manager.client;
+		return this.guild.client;
 	}
 
 	public async fetch(): Promise<this> {
