@@ -1,10 +1,9 @@
+import { GuildMember } from 'discord.js';
+import { Event, EventOptions, ScheduledTaskOptions, Settings } from 'klasa';
 import { ClientSettings } from '../lib/settings/ClientSettings';
 import { Events } from '../lib/types/Enums';
 import { ApplyOptions } from '../lib/util/Decorators';
 import { StarlightError } from '../lib/util/StarlightErrors';
-import { GuildMember } from 'discord.js';
-import { Event, EventOptions, ScheduledTaskOptions, Settings } from 'klasa';
-
 const backupData = { folder: './backup/' };
 
 const tasks: [string, string, ScheduledTaskOptions?][] = [

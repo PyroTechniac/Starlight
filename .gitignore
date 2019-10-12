@@ -4,8 +4,13 @@ dist/
 *.sqlite
 typings/
 .cache/
-*.tar.gz
+backup/**
 .vscode/**
 *.heapsnapshot
 test/*.js
 test/*.tsbuildinfo
+native/target
+native/index.node
+native/artifacts.json
+**/*~
+**/.DS_Store
