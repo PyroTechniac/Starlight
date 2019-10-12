@@ -1,7 +1,7 @@
 import { MessageEmbed, version as discordVersion } from 'discord.js';
 import { Duration, Task, util, version as klasaVersion } from 'klasa';
 import { Events } from '../lib/types/Enums';
-import { version } from '../../native';
+import { neonVersion } from '../lib/Rust';
 
 export default class extends Task {
 
@@ -56,7 +56,7 @@ export default class extends Task {
 			`• Klasa      :: v${klasaVersion}`,
 			`• Discord.js :: v${discordVersion}`,
 			`• Node.js    :: ${process.version}`,
-			`• Neon       :: v${version()}`,
+			`• Neon       :: v${neonVersion}`,
 			`• Shard      :: ${this.client.options.totalShardCount}`
 		].join('\n');
 	}

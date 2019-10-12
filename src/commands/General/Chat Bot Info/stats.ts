@@ -1,9 +1,8 @@
 import { Command, CommandOptions, version as klasaVersion, Duration, Language, KlasaMessage } from 'klasa';
 import { version as discordVersion } from 'discord.js';
-import { version } from '../../../../native';
 import { ApplyOptions } from '../../../lib/util/Decorators';
+import { neonVersion } from '../../../lib/Rust'
 
-const neonVersion = version();
 
 @ApplyOptions<CommandOptions>({
 	guarded: true,
