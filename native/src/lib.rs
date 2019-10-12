@@ -5,7 +5,7 @@ use neon::meta::{BUILD_PROFILE, VERSION};
 use neon::prelude::*;
 
 fn version(mut cx: FunctionContext) -> JsResult<JsString> {
-    let mut complete_version = VERSION.to_owned();
+    let mut complete_version = String::from(VERSION);
     complete_version.push_str("-");
     complete_version.push_str(BUILD_PROFILE);
     Ok(cx.string(complete_version))
