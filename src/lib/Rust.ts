@@ -2,4 +2,4 @@
 // This also allows us to modify some behavior before it's used externally.
 import * as native from '../../native';
 
-export const neonVersion = native.version()
+export const neonVersion = native.version();

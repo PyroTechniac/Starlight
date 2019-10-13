@@ -6,6 +6,7 @@ import { WebhookStore } from '../structures/WebhookStore';
 import { IPCMonitorOptions } from './Interfaces';
 import { ModerationManager } from '../structures/ModerationManager';
 import { BanStore } from '../structures/BanStore';
+import { CustomGet } from '../settings/Shared';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -44,5 +45,10 @@ declare module 'klasa-dashboard-hooks' {
 declare module 'klasa' {
 	interface PieceDefaults {
 		ipcMonitors?: IPCMonitorOptions;
+	}
+
+	interface SettingsFolder {
+		get<K extends string, S>(key: CustomGet<K, S>): S;
+		get(key: string): SettingsFolder | SettingsValue | readonly SettingsValue[];
 	}
 }

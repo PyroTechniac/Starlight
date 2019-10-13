@@ -46,7 +46,7 @@ export class StarlightClient extends Klasa.Client {
 		if (!this.settings) return super.owners;
 
 		const owners = super.owners;
-		const ids = this.settings.get(ClientSettings.Owners) as ClientSettings.Owners;
+		const ids = this.settings.get(ClientSettings.Owners);
 
 		for (const id of ids) {
 			const user = this.users.get(id);
