@@ -1,17 +1,17 @@
 [package]
 name = "starlight-neon"
 version = "0.1.0"
-authors = ["Gryffon Bellish <owenbellish@gmail.com>"]
-license = "MIT"
-build = "build.rs"
-exclude = ["artifacts.json", "index.node"]
+edition = "2018"
 
 [lib]
-name = "starlight_neon"
-crate-type = ["cdylib"]
-
-[build-dependencies]
-neon-build = "0.3.1"
+crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-neon = "0.3.1"
+wasm-bindgen = "0.2"
+js-sys = "0.3.28"
+
+[profile.release]
+opt-level = "s"
+
+[profile.dev]
+opt-level = "s"

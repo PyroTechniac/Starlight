@@ -1,15 +1,6 @@
-#[macro_use]
-extern crate neon;
+use wasm_bindgen::prelude::*;
 
-use neon::meta::{BUILD_PROFILE, VERSION};
-use neon::prelude::*;
-
-fn version(mut cx: FunctionContext) -> JsResult<JsString> {
-    let complete_version = String::from(VERSION) + "-" + BUILD_PROFILE;
-    Ok(cx.string(complete_version))
+#[wasm_bindgen]
+pub fn return_num() -> u8 {
+    8
 }
-
-register_module!(mut cx, {
-    cx.export_function("version", version)?;
-    Ok(())
-});
