@@ -11,3 +11,4 @@ test/*.js
 test/*.tsbuildinfo
 native/**
 !native/*.rs
+!native/Cargo.*
