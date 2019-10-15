@@ -1,6 +1,7 @@
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
-pub fn return_num() -> u8 {
+// This creates a JS function that returns `8` and is named returnEight
+#[wasm_bindgen(js_name = returnEight)]
+pub fn return_eight() -> u8 {
     8
 }
