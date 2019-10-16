@@ -7,12 +7,14 @@ import { IPCMonitorOptions } from './Interfaces';
 import { ModerationManager } from '../structures/ModerationManager';
 import { BanStore } from '../structures/BanStore';
 import { CustomGet } from '../settings/Shared';
+import { ContentDeliveryNetwork } from '../structures/ContentDeliveryNetwork';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
 declare module 'discord.js' {
 	interface Client {
 		regions: null | Collection<string, VoiceRegion>;
+		cdn: ContentDeliveryNetwork;
 		waitFor(event: string): Promise<any[]>;
 		webhooks: WebhookStore;
 		ipc: StarlightIPCClient;
@@ -33,6 +35,10 @@ declare module 'discord.js' {
 	interface Guild {
 		moderation: ModerationManager;
 		readonly bans: BanStore;
+	}
+
+	interface ClientOptions {
+		cdnSweepInterval?: number;
 	}
 }
 

@@ -9,6 +9,8 @@ import { StarlightIPCClient } from './structures/StarlightIPCClient';
 import { StarlightIterator } from './structures/StarlightIterator';
 import { WebhookStore } from './structures/WebhookStore';
 import { Databases, Events } from './types/Enums';
+import { STARLIGHT_OPTIONS } from './util/Constants';
+import { ContentDeliveryNetwork } from './structures/ContentDeliveryNetwork';
 
 const g = new Klasa.Colors({ text: 'green' }).format('[IPC   ]');
 const y = new Klasa.Colors({ text: 'yellow' }).format('[IPC   ]');
@@ -20,9 +22,11 @@ export class StarlightClient extends Klasa.Client {
 	public regions: Discord.Collection<string, Discord.VoiceRegion> | null = null;
 
 	public constructor(options: Klasa.KlasaClientOptions = {}) {
-		super(options);
+		super(Klasa.util.mergeDefault(STARLIGHT_OPTIONS, options));
 
 		Reflect.defineMetadata('StarlightClient', true, this);
+
+		this.cdn = new ContentDeliveryNetwork(this);
 
 		this.ipcMonitors = new IPCMonitorStore(this);
 		this.registerStore(this.ipcMonitors);

@@ -1,6 +1,7 @@
 import { APIWebhookData } from '../types/Interfaces';
 // This is just in case the process.env isn't filled yet.
 import { config } from 'dotenv';
+import { KlasaClientOptions } from 'klasa';
 config();
 
 export const ERROR_WEBHOOK_DATA: APIWebhookData = {
@@ -22,3 +23,7 @@ export const STATS_WEBHOOK_DATA: APIWebhookData = {
 };
 
 export const CLIENT_SECRET = process.env.CLIENT_SECRET || '';
+
+export const STARLIGHT_OPTIONS: KlasaClientOptions = {
+	cdnSweepInterval: 60
+};
