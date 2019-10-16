@@ -5,9 +5,7 @@
     "license": "MIT",
     "main": "./dist/index.js",
     "scripts": {
-        "build:tsc": "tsc -p .",
-        "build:wasm": "wasm-pack build ./native --out-dir . --out-name index --target nodejs --debug",
-        "build": "yarn build:tsc && yarn build:wasm",
+        "build": "tsc -p .",
         "start": "node .",
         "lint": "npx eslint src --ext .ts --fix",
         "clean": "rimraf dist/",
