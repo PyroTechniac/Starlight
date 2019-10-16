@@ -1,6 +1,7 @@
 import { ApplyOptions } from '../../lib/util/Decorators';
 import { Command, CommandOptions, KlasaMessage, util } from 'klasa';
-const { codeBlock, exec } = util;
+import { codeblock } from 'discord-md-tags';
+const { exec } = util;
 
 @ApplyOptions<CommandOptions>({
 	aliases: ['execute'],
@@ -18,8 +19,8 @@ export default class extends Command {
 		const result = await exec(input, { timeout: 'timeout' in msg.flagArgs ? Number(msg.flagArgs.timeout) || 60000 : 60000 })
 			.catch((err): { stdout: null; stderr: string } => ({ stdout: null, stderr: err }));
 
-		const output = result.stdout ? `**\`OUTPUT\`**${codeBlock('prolog', result.stdout)}` : '';
-		const outerr = result.stderr ? `**\`ERROR\`**${codeBlock('prolog', result.stderr)}` : '';
+		const output = result.stdout ? `**\`OUTPUT\`**${codeblock('prolog')`${result.stdout}`}` : '';
+		const outerr = result.stderr ? `**\`ERROR\`**${codeblock('prolog')`${result.stderr}`}` : '';
 
 		return msg.sendMessage([output, outerr].join('\n') || msg.language.get('COMMAND_EXEC_NO_OUTPUT'));
 	}
