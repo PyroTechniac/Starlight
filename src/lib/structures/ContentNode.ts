@@ -19,7 +19,7 @@ export class ContentNode {
 
 	private _data: unknown | null;
 
-	private cb: (data: unknown) => unknown
+	private cb: (data: unknown) => unknown;
 
 	public constructor(client: Client, url: string, type: FetchType = 'json') {
 		Object.defineProperty(this, 'client', { value: client });

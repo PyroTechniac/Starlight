@@ -16,6 +16,10 @@ export class ContentDeliveryNetwork extends Collection<string, ContentNode> {
 		this.fetchMap = new WeakMap();
 	}
 
+	public get urls(): string[] {
+		return this.map((_, url): string => url);
+	}
+
 	public fetch(force: boolean = false): Promise<ContentNode[]> {
 		const nodes: Promise<ContentNode>[] = [];
 		for (const node of this.values()) {
