@@ -6,10 +6,14 @@ export class ContentDeliveryNetwork extends Collection<string, ContentNode> {
 
 	public readonly client!: Client;
 
+	public fetchMap: WeakMap<ContentNode, Promise<ContentNode>>;
+
 	public constructor(client: Client) {
 		super();
 
 		Object.defineProperty(this, 'client', { value: client });
+
+		this.fetchMap = new WeakMap();
 	}
 
 	public acquire(url: string): ContentNode {

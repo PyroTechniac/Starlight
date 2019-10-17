@@ -18,6 +18,9 @@ export class ContentNode {
 	public createdTimestamp: number;
 
 	private _data: unknown | null;
+
+	private cb: (data: unknown) => unknown
+
 	public constructor(client: Client, url: string, type: FetchType = 'json') {
 		Object.defineProperty(this, 'client', { value: client });
 
@@ -29,6 +32,8 @@ export class ContentNode {
 		this.createdTimestamp = Date.now();
 
 		this.embed = null;
+
+		this.cb = (data): unknown => data;
 	}
 
 	public get store(): ContentDeliveryNetwork {
@@ -39,6 +44,11 @@ export class ContentNode {
 		return new Date(this.createdTimestamp);
 	}
 
+	public setup(callback: (data: unknown) => unknown): this {
+		this.cb = callback;
+		return this;
+	}
+
 	public data<V>(): V | null {
 		return this._data ? this._data as V : null;
 	}
@@ -47,11 +57,19 @@ export class ContentNode {
 		return this.store.delete(this.url);
 	}
 
-	public async fetch(options: RequestInit): Promise<this> {
-		const data = await fetch(this.url, options, this.fetchType);
+	public fetch(options: RequestInit = {}, force = this._data === null): Promise<ContentNode> {
+		const syncStatus = this.store.fetchMap.get(this);
+		if (!force || syncStatus) return syncStatus || Promise.resolve(this);
 
-		this._data = data;
-		return this;
+		const sync = fetch(this.url, options, this.fetchType).then((data): this => {
+			this._data = this.cb(data);
+
+			this.store.fetchMap.delete(this);
+			return this;
+		});
+
+		this.store.fetchMap.set(this, sync);
+		return sync;
 	}
 
 }
