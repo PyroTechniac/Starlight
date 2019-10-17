@@ -23,8 +23,10 @@ export class ContentDeliveryNetwork extends Collection<string, ContentNode> {
 	public fetch(force: boolean = false): Promise<ContentNode[]> {
 		const nodes: Promise<ContentNode>[] = [];
 		for (const node of this.values()) {
-			if (node.fetching) continue;
-			if (node.data() !== null && !force) continue;
+			if (node.data() !== null && !force) {
+				nodes.push(Promise.resolve(node));
+				continue;
+			}
 			nodes.push(node.fetch());
 		}
 
