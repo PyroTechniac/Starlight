@@ -44,6 +44,10 @@ export class ContentNode {
 		return new Date(this.createdTimestamp);
 	}
 
+	public get fetching(): boolean {
+		return this.store.fetchMap.has(this);
+	}
+
 	public setup(callback: (data: unknown) => unknown): this {
 		this.cb = callback;
 		return this;
