@@ -5,13 +5,13 @@ import { fetch } from '../util/Utils';
 
 type FetchType = 'result' | 'json' | 'buffer' | 'text';
 
+type EmbedTemplate = (data: unknown) => MessageEmbed;
+
 export class ContentNode {
 
 	public readonly client!: Client;
 
 	public url: string;
-
-	public embed: MessageEmbed | null;
 
 	public fetchType: FetchType;
 
@@ -19,20 +19,17 @@ export class ContentNode {
 
 	private _data: unknown | null;
 
+	private _embed: EmbedTemplate;
+
 	private cb: (data: unknown) => unknown;
 
 	public constructor(client: Client, url: string, type: FetchType = 'json') {
 		Object.defineProperty(this, 'client', { value: client });
-
 		this._data = null;
 		this.url = url;
-
 		this.fetchType = type;
-
 		this.createdTimestamp = Date.now();
-
-		this.embed = null;
-
+		this._embed = (): MessageEmbed => new MessageEmbed();
 		this.cb = (data): unknown => data;
 	}
 
@@ -44,12 +41,21 @@ export class ContentNode {
 		return new Date(this.createdTimestamp);
 	}
 
+	public get embed(): MessageEmbed {
+		return this._data ? this._embed(this.data()) : new MessageEmbed();
+	}
+
 	public get fetching(): boolean {
 		return this.store.fetchMap.has(this);
 	}
 
-	public setup(callback: (data: unknown) => unknown): this {
+	public setCallback(callback: (data: unknown) => unknown): this {
 		this.cb = callback;
+		return this;
+	}
+
+	public setTemplate(cb: EmbedTemplate): this {
+		this._embed = cb;
 		return this;
 	}
 
