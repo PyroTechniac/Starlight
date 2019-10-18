@@ -42,6 +42,10 @@ class PromiseUtil { // eslint-disable-line @typescript-eslint/no-extraneous-clas
 			|| (input !== Promise.prototype && PromiseUtil.hasThen(input as { then?: Function }) && PromiseUtil.hasCatch(input as { catch?: Function }));
 	}
 
+	public static intoPromise<V>(val: V): Promise<V> {
+		return new Promise((resolve): void => resolve(val));
+	}
+
 	public static async *iterate<V>(...promises: Promise<V>[]): AsyncGenerator<V, void> {
 		for (const prom of promises) {
 			yield await prom;

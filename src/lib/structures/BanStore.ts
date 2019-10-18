@@ -17,10 +17,10 @@ export class BanStore extends List<BanInfo> {
 
 	public async fetch(): Promise<this> {
 		const coll = await this.guild.fetchBans();
-		for (const info of coll.values()) {
+		for (const [user, { reason }] of coll) {
 			this.add({
-				user: info.user.id,
-				reason: info.reason
+				user,
+				reason
 			});
 		}
 
