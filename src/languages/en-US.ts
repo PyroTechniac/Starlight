@@ -1,4 +1,4 @@
-import { Language, KlasaMessage } from 'klasa';
+import { Language } from 'klasa';
 import { TranslationHelper } from '../lib/structures/TranslationHelper';
 import { PieceExtendedLanguageJSON } from '../lib/types/Interfaces';
 
@@ -17,20 +17,6 @@ export default class extends Language {
 		].join(' '),
 		COMMAND_EXEC_AWAITING: 'Executing your command...',
 		COMMAND_EXEC_NO_OUTPUT: 'Done. There was no output to stdout or stderr.',
-		COMMAND_STATS: (memUsage: string, uptime: string, users: string, guilds: string, channels: string, klasaVersion: string, discordVersion: string, processVersion: string, neonVersion: string, message: KlasaMessage): string[] => [
-			'= STATISTICS =',
-			'',
-			`• Mem Usage  :: ${memUsage} MB`,
-			`• Uptime     :: ${uptime}`,
-			`• Users      :: ${users}`,
-			`• Guilds     :: ${guilds}`,
-			`• Channels   :: ${channels}`,
-			`• Klasa      :: v${klasaVersion}`,
-			`• Discord.js :: v${discordVersion}`,
-			`• Node.js    :: ${processVersion}`,
-			`• Neon       :: v${neonVersion}`,
-			`• Shard      :: ${(message.guild ? message.guild.shardID : 0) + 1} / ${this.client.options.totalShardCount}`
-		],
 		COMMAND_HEAPSNAPSHOT_CAPTURING: (used: string): string => `Capturing HEAP Snapshot, this may take a while. RAM Usage: ${used} MB`,
 		COMMAND_HEAPSNAPSHOT_CAPTURED: (path: string): string => `Captured in \`${path}\`, check! Remember, do NOT share this with anybody, it may contain a lot of sensitive data.`,
 		RESOLVER_NO_RESULTS: (name: string, type: string): string => `${name} Must be a valid name, ID, or ${this.helper.get(type)} mention`,
