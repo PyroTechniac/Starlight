@@ -1,5 +1,6 @@
 import { Collection, Client } from 'discord.js';
 import { ContentNode } from './ContentNode';
+import { URL } from 'url';
 import { CollectionConstructor } from '@discordjs/collection';
 
 export class ContentDeliveryNetwork extends Collection<string, ContentNode> {
@@ -17,17 +18,13 @@ export class ContentDeliveryNetwork extends Collection<string, ContentNode> {
 	}
 
 	public get urls(): string[] {
-		return this.map((_, url): string => url);
+		return this.map((node): string => node.url);
 	}
 
 	public fetch(force: boolean = false): Promise<ContentNode[]> {
 		const nodes: Promise<ContentNode>[] = [];
 		for (const node of this.values()) {
-			if (node.data() !== null && !force) {
-				nodes.push(Promise.resolve(node));
-				continue;
-			}
-			nodes.push(node.fetch());
+			nodes.push(node.fetch(force));
 		}
 
 		return Promise.all(nodes);
@@ -38,6 +35,11 @@ export class ContentDeliveryNetwork extends Collection<string, ContentNode> {
 	}
 
 	public create(url: string): ContentNode {
+		try {
+			new URL(url);
+		} catch {
+			throw new Error('Invalid URL Provided.');
+		}
 		const node = new ContentNode(this.client, url);
 		this.set(node.url, node);
 

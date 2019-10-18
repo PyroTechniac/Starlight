@@ -1,9 +1,11 @@
 import { Event } from 'klasa';
 
+const kReg = /(Sending a heartbeat|Latency of|\[VOICE\])/i;
+
 export default class extends Event {
 
-	public run(warning: unknown): void {
-		this.client.console.debug(warning);
+	public run(warning: string): void {
+		if (!kReg.test(warning)) this.client.console.debug(warning);
 	}
 
 	public init(): Promise<void> {

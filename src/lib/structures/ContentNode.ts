@@ -2,6 +2,7 @@ import { Client, MessageEmbed } from 'discord.js';
 import { ContentDeliveryNetwork } from './ContentDeliveryNetwork';
 import { RequestInit } from 'node-fetch';
 import { fetch } from '../util/Utils';
+import { ContentNodeDefaults } from '../types/Interfaces';
 
 type FetchType = 'result' | 'json' | 'buffer' | 'text';
 
@@ -17,20 +18,31 @@ export class ContentNode {
 
 	public createdTimestamp: number;
 
+	public defaults: ContentNodeDefaults;
+
 	private _data: unknown | null;
 
 	private _embed: EmbedTemplate;
 
-	private cb: (data: unknown) => unknown;
+	private _cb: (data: unknown) => unknown;
 
-	public constructor(client: Client, url: string, type: FetchType = 'json') {
+	private _options: RequestInit;
+
+	public constructor(client: Client, url: string) {
 		Object.defineProperty(this, 'client', { value: client });
 		this._data = null;
 		this.url = url;
-		this.fetchType = type;
+		this.fetchType = 'json';
+		this.defaults = {
+			callback: true,
+			template: true,
+			options: true,
+			fetchType: true
+		};
 		this.createdTimestamp = Date.now();
 		this._embed = (): MessageEmbed => new MessageEmbed();
-		this.cb = (data): unknown => data;
+		this._cb = (data): unknown => data;
+		this._options = {};
 	}
 
 	public get store(): ContentDeliveryNetwork {
@@ -50,12 +62,26 @@ export class ContentNode {
 	}
 
 	public setCallback(callback: (data: unknown) => unknown): this {
-		this.cb = callback;
+		this._cb = callback;
+		this.defaults.callback = false;
 		return this;
 	}
 
 	public setTemplate(cb: EmbedTemplate): this {
 		this._embed = cb;
+		this.defaults.template = false;
+		return this;
+	}
+
+	public setOptions(options: RequestInit = {}): this {
+		this._options = options;
+		this.defaults.options = false;
+		return this;
+	}
+
+	public setType(type: FetchType): this {
+		this.fetchType = type;
+		this.defaults.fetchType = false;
 		return this;
 	}
 
@@ -67,12 +93,12 @@ export class ContentNode {
 		return this.store.delete(this.url);
 	}
 
-	public fetch(options: RequestInit = {}, force = this._data === null): Promise<ContentNode> {
+	public fetch(force = this._data === null): Promise<ContentNode> {
 		const fetchStatus = this.store.fetchMap.get(this);
 		if (!force || fetchStatus) return fetchStatus || Promise.resolve(this);
 
-		const sync = fetch(this.url, options, this.fetchType).then((data): this => {
-			this._data = this.cb(data);
+		const sync = fetch(this.url, this._options, this.fetchType).then((data): this => {
+			this._data = this._cb(data);
 
 			this.store.fetchMap.delete(this);
 			return this;

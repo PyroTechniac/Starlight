@@ -73,3 +73,10 @@ export interface BanInfo {
 	user: string;
 	reason?: string;
 }
+
+export interface ContentNodeDefaults {
+	callback: boolean;
+	template: boolean;
+	options: boolean;
+	fetchType: boolean;
+}
