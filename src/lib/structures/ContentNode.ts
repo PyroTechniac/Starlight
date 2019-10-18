@@ -68,8 +68,8 @@ export class ContentNode {
 	}
 
 	public fetch(options: RequestInit = {}, force = this._data === null): Promise<ContentNode> {
-		const syncStatus = this.store.fetchMap.get(this);
-		if (!force || syncStatus) return syncStatus || Promise.resolve(this);
+		const fetchStatus = this.store.fetchMap.get(this);
+		if (!force || fetchStatus) return fetchStatus || Promise.resolve(this);
 
 		const sync = fetch(this.url, options, this.fetchType).then((data): this => {
 			this._data = this.cb(data);
