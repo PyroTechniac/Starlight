@@ -1,6 +1,6 @@
 import { Client, Guild } from 'discord.js';
 import { BanInfo } from '../types/Interfaces';
-import { List } from './List';
+import { List, ListConstructor } from './List';
 
 export class BanStore extends List<BanInfo> {
 
@@ -25,6 +25,10 @@ export class BanStore extends List<BanInfo> {
 		}
 
 		return this;
+	}
+
+	public static get [Symbol.species](): ListConstructor {
+		return List as unknown as ListConstructor;
 	}
 
 }
