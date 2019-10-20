@@ -9,9 +9,7 @@
         "start": "node .",
         "lint": "npx eslint src --ext .ts --fix",
         "clean": "rimraf dist/",
-        "graph": "yarn graph:js && yarn graph:ts",
-        "graph:js": "madge dist -i ./deps-graph.js.png",
-        "graph:ts": "madge src --extensions ts -i ./deps-graph.ts.png"
+        "graph": "madge dist -i ./deps-graph.png"
     },
     "dependencies": {
         "@discordjs/collection": "^0.1.3",
