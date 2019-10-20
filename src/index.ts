@@ -1,5 +1,4 @@
 import { ServerOptions } from 'http';
-import { Client } from 'klasa-dashboard-hooks';
 import { StarlightClient } from './lib/StarlightClient';
 import { ApiRequest } from './lib/structures/api/ApiRequest';
 import { ApiResponse } from './lib/structures/api/ApiResponse';
@@ -11,10 +10,7 @@ const serverOptions: ServerOptions = {
 	ServerResponse: ApiResponse
 };
 
-StarlightClient
-	.use(Client)
-	.defaultClientSchema
-	.add('owners', 'User', { array: true });
+StarlightClient;
 
 new StarlightClient({
 	prefix,

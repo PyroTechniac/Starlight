@@ -1,20 +1,14 @@
 import * as Discord from 'discord.js';
 import { once } from 'events';
 import * as Klasa from 'klasa';
+import { Client } from 'klasa-dashboard-hooks';
 import { ClientSettings } from './settings/ClientSettings';
 import './StarlightPreload';
-import { IPCMonitorStore } from './structures/IPCMonitorStore';
-import { MemberGateway } from './structures/MemberGateway';
-import { StarlightIPCClient } from './structures/StarlightIPCClient';
-import { StarlightIterator } from './structures/StarlightIterator';
-import { WebhookStore } from './structures/WebhookStore';
-import { Databases, Events } from './types/Enums';
-import { STARLIGHT_OPTIONS } from './util/Constants';
 import { ContentDeliveryNetwork } from './structures/ContentDeliveryNetwork';
-
-const g = new Klasa.Colors({ text: 'green' }).format('[IPC   ]');
-const y = new Klasa.Colors({ text: 'yellow' }).format('[IPC   ]');
-const r = new Klasa.Colors({ text: 'red' }).format('[IPC   ]');
+import { MemberGateway } from './structures/MemberGateway';
+import { WebhookStore } from './structures/WebhookStore';
+import { Databases } from './types/Enums';
+import { STARLIGHT_OPTIONS } from './util/Constants';
 
 
 export class StarlightClient extends Klasa.Client {
@@ -27,17 +21,6 @@ export class StarlightClient extends Klasa.Client {
 		Reflect.defineMetadata('StarlightClient', true, this);
 
 		this.cdn = new ContentDeliveryNetwork(this);
-
-		this.ipcMonitors = new IPCMonitorStore(this);
-		this.registerStore(this.ipcMonitors);
-
-		this.ipc = new StarlightIPCClient(this, 'starlight-master')
-			.on('disconnect', (client): void => { this.emit(Events.Warn, `${y} Disconnected: ${client.name}`); })
-			.on('ready', (client): void => { this.emit(Events.Verbose, `${g} Ready: ${client.name}`); })
-			.on('error', (error, client): void => { this.emit(Events.Error, `${r} Error from ${client.name}`, error); })
-			.on('message', this.ipcMonitors.run.bind(this.ipcMonitors));
-
-
 		const members: Klasa.GatewayOptions = {};
 		members.schema = StarlightClient.defaultMemberSchema;
 		this.gateways
@@ -60,20 +43,9 @@ export class StarlightClient extends Klasa.Client {
 		return owners;
 	}
 
-	public get ownersIter(): StarlightIterator<Discord.User> {
-		return StarlightIterator.from(this.owners);
-	}
-
 	public async fetchVoiceRegions(): Promise<Discord.Collection<string, Discord.VoiceRegion>> {
 		this.regions = await super.fetchVoiceRegions();
 		return this.regions;
-	}
-
-	public async login(token?: string): Promise<string> {
-		this.ipc.connected = await this.ipc.connectTo(7827)
-			.then((): boolean => true)
-			.catch((): boolean => false);
-		return super.login(token);
 	}
 
 	public waitFor(event: string): Promise<any[]> {
@@ -81,11 +53,6 @@ export class StarlightClient extends Klasa.Client {
 	}
 
 	public static defaultMemberSchema: Klasa.Schema = new Klasa.Schema();
-
-	public static iter: typeof StarlightIterator = StarlightIterator;
-
-	public static from<V>(iterator: Iterable<V> | Iterator<V>): StarlightIterator<V> {
-		return StarlightIterator.from(iterator);
-	}
-
 }
+
+StarlightClient.use(Client);
