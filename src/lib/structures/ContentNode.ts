@@ -1,12 +1,10 @@
-import { Client, MessageEmbed } from 'discord.js';
-import { ContentDeliveryNetwork } from './ContentDeliveryNetwork';
+import { Client } from 'discord.js';
 import { RequestInit } from 'node-fetch';
-import { fetch } from '../util/Utils';
 import { ContentNodeDefaults } from '../types/Interfaces';
+import { fetch } from '../util/Utils';
+import { ContentDeliveryNetwork } from './ContentDeliveryNetwork';
 
 type FetchType = 'result' | 'json' | 'buffer' | 'text';
-
-type EmbedTemplate = (data: unknown) => MessageEmbed;
 
 export class ContentNode {
 
@@ -21,8 +19,6 @@ export class ContentNode {
 	public defaults: ContentNodeDefaults;
 
 	private _data: unknown | null;
-
-	private _embed: EmbedTemplate;
 
 	private _cb: (data: unknown) => unknown;
 
@@ -40,7 +36,6 @@ export class ContentNode {
 			fetchType: true
 		};
 		this.createdTimestamp = Date.now();
-		this._embed = (): MessageEmbed => new MessageEmbed();
 		this._cb = (data): unknown => data;
 		this._options = {};
 	}
@@ -53,23 +48,13 @@ export class ContentNode {
 		return new Date(this.createdTimestamp);
 	}
 
-	public get embed(): MessageEmbed {
-		return this._data ? this._embed(this.data()) : new MessageEmbed();
-	}
-
 	public get fetching(): boolean {
 		return this.store.fetchMap.has(this);
 	}
 
-	public setCallback(callback: (data: unknown) => unknown): this {
+	public setCallback(callback: (data: any) => unknown): this {
 		this._cb = callback;
 		this.defaults.callback = false;
-		return this;
-	}
-
-	public setTemplate(cb: EmbedTemplate): this {
-		this._embed = cb;
-		this.defaults.template = false;
 		return this;
 	}
 

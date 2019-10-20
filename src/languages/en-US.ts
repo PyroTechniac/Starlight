@@ -20,8 +20,10 @@ export default class extends Language {
 		COMMAND_HEAPSNAPSHOT_CAPTURING: (used: string): string => `Capturing HEAP Snapshot, this may take a while. RAM Usage: ${used} MB`,
 		COMMAND_HEAPSNAPSHOT_CAPTURED: (path: string): string => `Captured in \`${path}\`, check! Remember, do NOT share this with anybody, it may contain a lot of sensitive data.`,
 		RESOLVER_NO_RESULTS: (name: string, type: string): string => `${name} Must be a valid name, ID, or ${this.helper.get(type)} mention`,
-		RESOLVER_MULTIPLE_RESULTS: (mapped: string): string => `Found multiple matches: \`${mapped}\``
-
+		RESOLVER_MULTIPLE_RESULTS: (mapped: string): string => `Found multiple matches: \`${mapped}\``,
+		COMMAND_SUBREDDIT_DESCRIPTION: 'Returns information on a subreddit.',
+		COMMAND_SUBREDDIT_ERROR: 'There was an error. Reddit may be down, or the subreddit doesn\'t exist.',
+		COMMAND_SUBREDDIT_NOEXIST: 'That subreddit doesn\'t exist.'
 	};
 
 	private helper: TranslationHelper = new TranslationHelper(this);
