@@ -25,6 +25,10 @@ declare module 'discord.js' {
 		readonly bans: BanStore;
 	}
 
+	interface Message {
+		nuke(time?: number): Promise<Message>;
+	}
+
 	interface ClientOptions {
 		cdnSweepInterval?: number;
 	}

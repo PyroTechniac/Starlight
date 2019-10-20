@@ -4,6 +4,7 @@ import { ClientSettings } from '../lib/settings/ClientSettings';
 import { Events } from '../lib/types/Enums';
 import { ApplyOptions } from '../lib/util/Decorators';
 import { StarlightError } from '../lib/util/StarlightErrors';
+import { GuildSettings } from '../lib/settings/GuildSettings';
 const backupData = { folder: './backup/' };
 
 const tasks: [string, string, ScheduledTaskOptions?][] = [
@@ -31,6 +32,11 @@ export default class extends Event {
 		for (const task of tasks) {
 			await this.ensureTask(task);
 		}
+
+		for (const guild of this.client.guilds.values()) {
+			await guild.settings.update(GuildSettings.Owner, guild.ownerID, { throwOnError: true });
+		}
+
 		this.client.emit(Events.Log, `[READY] ${this.client.user!.username} initialization complete.`);
 	}
 

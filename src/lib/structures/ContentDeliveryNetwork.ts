@@ -31,6 +31,7 @@ export class ContentDeliveryNetwork extends Collection<string, ContentNode> {
 	}
 
 	public acquire(url: string): ContentNode {
+		url = url.toLowerCase();
 		return this.get(url) || this.create(url);
 	}
 

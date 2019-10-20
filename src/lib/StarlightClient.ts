@@ -53,6 +53,7 @@ export class StarlightClient extends Klasa.Client {
 	}
 
 	public static defaultMemberSchema: Klasa.Schema = new Klasa.Schema();
+
 }
 
 StarlightClient.use(Client);

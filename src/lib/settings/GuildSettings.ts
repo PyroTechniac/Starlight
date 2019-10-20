@@ -4,4 +4,5 @@ import { T } from './Shared';
 
 export namespace GuildSettings {
 	export const Prefix = T<string>('prefix');
+	export const Owner = T<string>('owner');
 }
