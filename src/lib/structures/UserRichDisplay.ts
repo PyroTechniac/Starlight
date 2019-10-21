@@ -3,25 +3,27 @@
 // https://github.com/kyranet/Skyra/blob/master/src/lib/structures/UserRichDisplay.ts
 
 import { RichDisplay, ReactionHandler, KlasaMessage, RichDisplayRunOptions, util, KlasaUser } from 'klasa';
-import { MessageReaction } from 'discord.js'
+import { MessageReaction } from 'discord.js';
 
 export class UserRichDisplay extends RichDisplay {
-    public async start(message: KlasaMessage, target: string = message.author.id, options: RichDisplayRunOptions = {}): Promise<ReactionHandler> {
-        util.mergeDefault<RichDisplayRunOptions>({
-            filter: (_: MessageReaction, user: KlasaUser): boolean => user.id === target,
-            time: 60000 * 5
-        }, options);
-        if (target) {
-            const display = UserRichDisplay.handlers.get(target);
-            if (display) display.stop();
-        }
 
-        const handler = (await this.run(message, options))
-            .once('end', (): boolean => UserRichDisplay.handlers.delete(target));
-        UserRichDisplay.handlers.set(target, handler);
+	public async start(message: KlasaMessage, target: string = message.author.id, options: RichDisplayRunOptions = {}): Promise<ReactionHandler> {
+		util.mergeDefault<RichDisplayRunOptions>({
+			filter: (_: MessageReaction, user: KlasaUser): boolean => user.id === target,
+			time: 60000 * 5
+		}, options);
+		if (target) {
+			const display = UserRichDisplay.handlers.get(target);
+			if (display) display.stop();
+		}
 
-        return handler;
-    }
+		const handler = (await this.run(message, options))
+			.once('end', (): boolean => UserRichDisplay.handlers.delete(target));
+		UserRichDisplay.handlers.set(target, handler);
 
-    public static readonly handlers: Map<string, ReactionHandler> = new Map();
+		return handler;
+	}
+
+	public static readonly handlers: Map<string, ReactionHandler> = new Map();
+
 }
