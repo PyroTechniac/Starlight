@@ -1,4 +1,5 @@
 import { Client } from 'klasa';
+import { ClientSettings } from '../settings/ClientSettings';
 
 export default Client.defaultClientSchema
-	.add('owners', 'User', { array: true });
+	.add(ClientSettings.Owners, 'User', { array: true });

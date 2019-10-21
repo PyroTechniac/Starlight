@@ -1,6 +1,6 @@
 import { Client } from 'klasa';
+import { GuildSettings } from '../settings/GuildSettings';
 
 export default Client.defaultGuildSchema
-	.add('prefix', 'string', { filter: (_, value: string): boolean => value.length > 10 })
-	.add('owner', 'User', { configurable: false })
-	.add('commandUses', 'Integer', { 'default': 0, 'configurable': false });
+	.add(GuildSettings.Prefix, 'string', { filter: (_, value: string): boolean => value.length > 10 })
+	.add(GuildSettings.Owner, 'User', { configurable: false });

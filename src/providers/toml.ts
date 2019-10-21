@@ -1,8 +1,9 @@
 import * as fs from 'fs-nextra';
-import { Provider, ProviderStore, util } from 'klasa';
+import { ProviderStore, util } from 'klasa';
 import { resolve } from 'path';
-import * as tomlUtils from '../lib/util/Utils';
 import { Events } from '../lib/types/Enums';
+import { Provider } from '../lib/util/BaseProvider';
+import * as tomlUtils from '../lib/util/Utils';
 
 export default class extends Provider {
 
@@ -17,7 +18,7 @@ export default class extends Provider {
 	}
 
 	public async init(): Promise<void> {
-		if (this.client.options.providers.default !== 'toml') return this.unload();
+		await super.init();
 		await fs.ensureDir(this.baseDirectory).catch((err): boolean => this.client.emit(Events.Error, err));
 	}
 

@@ -1,5 +1,6 @@
-import { Provider, util } from 'klasa';
-import { r, MasterPool, TableChangeResult, WriteResult } from 'rethinkdb-ts';
+import { util } from 'klasa';
+import { MasterPool, r, TableChangeResult, WriteResult } from 'rethinkdb-ts';
+import { Provider } from '../lib/util/BaseProvider';
 
 export default class extends Provider {
 
@@ -7,7 +8,7 @@ export default class extends Provider {
 	public pool: MasterPool | null = null;
 
 	public async init(): Promise<void> {
-		if (this.client.options.providers.default !== 'rethinkdb') return this.unload();
+		await super.init();
 		const options = util.mergeDefault({
 			db: 'starlight',
 			silent: false
@@ -39,7 +40,7 @@ export default class extends Provider {
 		return this.db.tableDrop(table).run();
 	}
 
-	public sync(table: string): Promise<{synced: number}> {
+	public sync(table: string): Promise<{ synced: number }> {
 		return this.db.table(table).sync().run();
 	}
 
