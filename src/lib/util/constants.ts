@@ -73,5 +73,6 @@ export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 		serverOptions
 	},
 	clientSecret,
-	clientID
+	clientID,
+	regexPrefix: /^((Hey |Ok )?Star(light)?(?:,|!| ))/i
 };

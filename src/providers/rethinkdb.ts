@@ -23,7 +23,8 @@ export default class extends Provider {
 	}
 
 	public async shutdown(): Promise<void> {
-		return this.pool!.drain();
+		if (!this.pool) return;
+		return this.pool.drain();
 	}
 
 	public hasTable(table: string): Promise<boolean> {

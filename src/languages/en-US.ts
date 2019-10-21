@@ -24,7 +24,11 @@ export default class extends Language {
 		COMMAND_SUBREDDIT_DESCRIPTION: 'Returns information on a subreddit.',
 		COMMAND_SUBREDDIT_ERROR: 'There was an error. Reddit may be down, or the subreddit doesn\'t exist.',
 		COMMAND_SUBREDDIT_NOEXIST: 'That subreddit doesn\'t exist.',
-		SYSTEM_LOADING: 'Loading data...'
+		SYSTEM_LOADING: 'Loading data...',
+		COMMAND_PREFIX_DESCRIPTION: 'Change the command prefix the bot uses in your server.',
+		COMMAND_PREFIX_REMINDER: (prefix: string): string => `The prefix for this guild is \`${prefix}\``,
+		COMMAND_PREFIX_RESET: `Switched the guild's prefix back to \`${this.client.options.prefix}\``,
+		COMMAND_PREFIX_CHANGED: (prefix: string): string => `The prefix for this guild has been set to \`${prefix}\``
 	};
 
 	private helper: TranslationHelper = new TranslationHelper(this);
