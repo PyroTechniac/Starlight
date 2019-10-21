@@ -1,13 +1,9 @@
-import { Message } from 'discord.js';
-import { Extendable, ExtendableOptions, util } from 'klasa';
-import { ApplyOptions } from '../lib/util/Decorators';
+import { Message, Structures } from 'discord.js';
+import { util } from 'klasa';
 
-@ApplyOptions<ExtendableOptions>({
-	appliesTo: [Message]
-})
-export default class extends Extendable {
+export class StarlightMessage extends Structures.get('Message') {
 
-	public async nuke(this: Message, time = 0): Promise<Message> {
+	public async nuke(time = 0): Promise<StarlightMessage> {
 		if (time === 0) return nuke(this);
 
 		const count = this.edits.length;
