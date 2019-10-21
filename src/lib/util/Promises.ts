@@ -78,7 +78,7 @@ class PromiseEmitter<V> extends EventEmitter {
 	}
 
 	private init(): void {
-		this.promise
+		this.promise // eslint-disable-line @typescript-eslint/no-floating-promises
 			.then((value): void => {
 				this.emit(PromiseEvents.Resolve, value);
 			})

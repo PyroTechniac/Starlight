@@ -3,9 +3,10 @@
     "rules": {
         "no-throw-literal": "off",
         "@typescript-eslint/explicit-function-return-type": 2,
-        "quotes": [
+        "@typescript-eslint/quotes": [
             "error",
             "single"
-        ]
+        ],
+        "@typescript-eslint/no-floating-promises": 0
     }
 }

@@ -28,7 +28,7 @@ export default class extends Event {
 		} catch (err) {
 			if (++retries === 3) return process.exit();
 			this.client.emit(Events.Warning, `Unable to fetchVoiceRegions/fetchApplication at this time, waiting 5 seconds and retrying. Retries left: ${retries - 3}`);
-			return util.sleep(5000).then(this.run);
+			return util.sleep(5000).then(this.run.bind(this));
 		}
 
 		webhooks.forEach(this.client.webhooks.add.bind(this.client.webhooks));
@@ -38,6 +38,7 @@ export default class extends Event {
 		this.client.mentionPrefix = new RegExp(`^<@!?${this.client.user!.id}>`);
 
 		const clientStorage = this.client.gateways.get('clientStorage')!;
+		// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 		// @ts-ignore
 		clientStorage.cache.set(this.client.user!.id, this.client);
 		this.client.settings = clientStorage.create(this.client, this.client.user!.id);
@@ -53,6 +54,7 @@ export default class extends Event {
 
 		await Promise.all(initializing);
 
+		// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 		// @ts-ignore
 		util.initClean(this.client);
 		this.client.ready = true;

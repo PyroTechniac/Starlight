@@ -13,14 +13,14 @@ function resolveChannel(query: string | Channel | Message, guild: Guild): GuildC
 
 export default class extends Argument {
 
-	private get channel(): (arg: string, possible: Possible, msg: KlasaMessage) => Promise<GuildChannel> {
-		return this.store.get('channel').run;
+	private get channel(): Argument {
+		return this.store.get('channel');
 	}
 
-	public async run(arg: string, possible: Possible, msg: KlasaMessage): Promise<GuildChannel> {
-		if (!msg.guild) return this.channel(arg, possible, msg);
+	public run(arg: string, possible: Possible, msg: KlasaMessage): Promise<GuildChannel> {
+		if (!msg.guild) return this.channel.run(arg, possible, msg);
 		const resChannel = resolveChannel(arg, msg.guild);
-		if (resChannel) return resChannel;
+		if (resChannel) return Promise.resolve(resChannel);
 
 		const results: GuildChannel[] = [];
 		const reg = makeArgRegex(arg);
@@ -40,7 +40,7 @@ export default class extends Argument {
 
 		switch (querySearch.length) {
 			case 0: throw msg.language.get('RESOLVER_NO_RESULTS', possible.name, 'channel');
-			case 1: return querySearch[0];
+			case 1: return Promise.resolve(querySearch[0]);
 			default: throw msg.language.get('RESOLVER_MULTIPLE_RESULTS', querySearch.map((chan): string => chan.name).join('`, `'));
 		}
 	}

@@ -15,7 +15,7 @@ export default class extends Route {
 
     @authenticated
     @rateLimit(2, 5000, true)
-	public async get(request: ApiRequest, response: ApiResponse) {
+	public async get(request: ApiRequest, response: ApiResponse): Promise<void> {
 		const guildID = request.params.guild;
 
 		const guild = this.client.guilds.get(guildID);

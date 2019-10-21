@@ -4,10 +4,10 @@ import { Language, SchemaEntry, Serializer } from 'klasa';
 
 export default class extends Serializer {
 
-	public async deserialize(data: unknown, piece: SchemaEntry, language: Language): Promise<BigInt> {
-		if (data instanceof BigInt) return data;
+	public deserialize(data: unknown, piece: SchemaEntry, language: Language): Promise<BigInt> {
+		if (data instanceof BigInt) return Promise.resolve(data);
 		try {
-			return BigInt(data);
+			return Promise.resolve(BigInt(data));
 		} catch (err) {
 			throw language.get('RESOLVER_INVALID_INT', piece.key);
 		}

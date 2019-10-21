@@ -23,6 +23,7 @@ export class MemberGateway extends Gateway {
 		const result = await super.sync(input);
 		if (result === this) {
 			for (const guild of this.client.guilds.values() as IterableIterator<KlasaGuild>) {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 				// @ts-ignore
 				for (const member of guild.members.values()) if (member.settings.existenceStatus === null) member.settings.existenceStatus = false;
 			}
