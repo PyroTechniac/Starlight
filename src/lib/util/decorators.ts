@@ -1,5 +1,5 @@
 import { Constructor } from '../types/Types';
-import { KlasaMessage, Piece, PieceOptions, Store, RateLimitManager } from 'klasa';
+import { KlasaMessage, Piece, PieceOptions, Store, RateLimitManager, ArgResolverCustomMethod, Command, CommandStore, CommandOptions, Possible } from 'klasa';
 import { ApiRequest } from '../structures/api/ApiRequest';
 import { ApiResponse } from '../structures/api/ApiResponse';
 import { Util } from 'klasa-dashboard-hooks';
@@ -22,6 +22,30 @@ export function ApplyOptions<T extends PieceOptions>(options: T): Function {
 
 		public constructor(store: Store<string, Piece, typeof Piece>, file: string[], directory: string) {
 			super(store, file, directory, options);
+		}
+
+	});
+}
+
+export function CreateResolver(name: string, fn: ArgResolverCustomMethod): Function {
+	return createClassDecorator((target: Constructor<Command>): Constructor<Command> => class extends target {
+
+		public constructor(store: CommandStore, file: string[], directory: string, options: CommandOptions) {
+			super(store, file, directory, options);
+
+			this.createCustomResolver(name, fn);
+		}
+
+	});
+}
+
+export function CustomizeResponse(name: string, response: string | ((message: KlasaMessage, possible: Possible) => string)): Function {
+	return createClassDecorator((target: Constructor<Command>): Constructor<Command> => class extends target {
+
+		public constructor(store: CommandStore, file: string[], directory: string, options: CommandOptions) {
+			super(store, file, directory, options);
+
+			this.customizeResponse(name, response);
 		}
 
 	});
