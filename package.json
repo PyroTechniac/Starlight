@@ -24,7 +24,6 @@
         "node-fetch": "^2.6.0",
         "reflect-metadata": "^0.1.13",
         "rethinkdb-ts": "^2.4.0-rc.16",
-        "typescript": "^3.6.4",
         "veza": "^1.1.0"
     },
     "devDependencies": {
@@ -32,12 +31,13 @@
         "@types/node": "^12.11.1",
         "@types/node-fetch": "^2.5.0",
         "@types/ws": "^6.0.3",
-        "@typescript-eslint/eslint-plugin": "^1.13.0",
-        "@typescript-eslint/parser": "^1.13.0",
-        "eslint": "^5.16.0",
-        "eslint-config-bamboo": "^2.0.0",
+        "@typescript-eslint/eslint-plugin": "^2.4.0",
+        "@typescript-eslint/parser": "^2.4.0",
+        "eslint": "^6.5.1",
+        "eslint-config-bamboo": "^3.0.0",
         "madge": "^3.4.4",
-        "rimraf": "^3.0.0"
+        "rimraf": "^3.0.0",
+        "typescript": "^3.7.0-dev.20191018"
     },
     "optionalDependencies": {
         "zlib-sync": "^0.1.5"

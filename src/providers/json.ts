@@ -1,8 +1,8 @@
-import * as fs from 'fs-nextra';
-import { Provider, ProviderStore, util } from 'klasa';
+import { Provider, util, ProviderStore } from 'klasa';
 import { resolve } from 'path';
-import * as tomlUtils from '../lib/util/Utils';
+import * as fs from 'fs-nextra';
 import { Events } from '../lib/types/Enums';
+import { noop } from '../lib/util/Utils';
 
 export default class extends Provider {
 
@@ -10,14 +10,14 @@ export default class extends Provider {
 	public constructor(store: ProviderStore, file: string[], directory: string) {
 		super(store, file, directory);
 
-		const baseDirectory = resolve(this.client.userBaseDirectory, 'bwd', 'provider', 'toml');
-		const defaults = util.mergeDefault<{ baseDirectory: string }>({ baseDirectory }, this.client.options.providers.toml);
-		this.baseDirectory = defaults.baseDirectory;
+		const baseDirectory = resolve(this.client.userBaseDirectory, 'bwd', 'provider', 'json');
+		const defaults = util.mergeDefault<{ baseDirectory: string }>({ baseDirectory }, this.client.options.providers.json);
 
+		this.baseDirectory = defaults.baseDirectory;
 	}
 
 	public async init(): Promise<void> {
-		if (this.client.options.providers.default !== 'toml') return this.unload();
+		if (this.client.options.providers.default !== 'json') return this.unload();
 		await fs.ensureDir(this.baseDirectory).catch((err): boolean => this.client.emit(Events.Error, err));
 	}
 
@@ -49,16 +49,16 @@ export default class extends Provider {
 	public async getKeys(table: string): Promise<string[]> {
 		const dir = resolve(this.baseDirectory, table);
 		return (await fs.readdir(dir))
-			.filter((filename): boolean => filename.endsWith('.toml'))
+			.filter((filename): boolean => filename.endsWith('.json'))
 			.map((file): string => file.slice(0, file.length - 5));
 	}
 
 	public get(table: string, id: string): Promise<any> {
-		return tomlUtils.readTOML(resolve(this.baseDirectory, table, `${id}.toml`)).catch(tomlUtils.noop);
+		return fs.readJSON(resolve(this.baseDirectory, table, `${id}.json`)).catch(noop);
 	}
 
 	public has(table: string, id: string): Promise<boolean> {
-		return fs.pathExists(resolve(this.baseDirectory, table, `${id}.toml`));
+		return fs.pathExists(resolve(this.baseDirectory, table, `${id}.json`));
 	}
 
 	public getRandom(table: string): Promise<any> {
@@ -66,20 +66,20 @@ export default class extends Provider {
 	}
 
 	public create(table: string, id: string, data: object = {}): Promise<void> {
-		return tomlUtils.outputTOMLAtomic(resolve(this.baseDirectory, table, `${id}.toml`), { id, ...this.parseUpdateInput(data) });
+		return fs.outputJSONAtomic(resolve(this.baseDirectory, table, `${id}.json`), { id, ...this.parseUpdateInput(data) });
 	}
 
 	public async update(table: string, id: string, data: object): Promise<void> {
 		const existent = await this.get(table, id);
-		return tomlUtils.outputTOMLAtomic(resolve(this.baseDirectory, table, `${id}.toml`), util.mergeObjects(existent || { id }, this.parseUpdateInput(data)));
+		return fs.outputJSONAtomic(resolve(this.baseDirectory, table, `${id}.json`), util.mergeObjects(existent || { id }, this.parseUpdateInput(data)));
 	}
 
 	public replace(table: string, id: string, data: object): Promise<void> {
-		return tomlUtils.outputTOMLAtomic(resolve(this.baseDirectory, table, `${id}.toml`), { id, ...this.parseUpdateInput(data) });
+		return fs.outputJSONAtomic(resolve(this.baseDirectory, table, `${id}.json`), { id, ...this.parseUpdateInput(data) });
 	}
 
 	public delete(table: string, id: string): Promise<void> {
-		return fs.unlink(resolve(this.baseDirectory, table, `${id}.toml`));
+		return fs.unlink(resolve(this.baseDirectory, table, `${id}.json`));
 	}
 
 }

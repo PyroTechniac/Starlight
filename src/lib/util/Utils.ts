@@ -20,7 +20,7 @@ export async function readTOML(file: string, options: ReadTOMLOptions | BufferEn
 
 export async function writeTOML(file: string, object: any, atomic?: boolean): Promise<void>;
 export async function writeTOML(file: string, object: any, options?: TomlOptions, atomic?: boolean): Promise<void>;
-export async function writeTOML(file: string, object: any, options: TomlOptions | boolean = {}, atomic: boolean = false): Promise<void> {
+export async function writeTOML(file: string, object: any, options: TomlOptions | boolean = {}, atomic = false): Promise<void> {
 	if (typeof options === 'boolean') [atomic, options] = [options, {}];
 
 	const writeMethod = atomic ? writeFileAtomic : writeFile;
@@ -33,7 +33,7 @@ export async function writeTOMLAtomic(file: string, object: any, options: TomlOp
 
 export async function outputTOML(file: string, data: any, atomic?: boolean): Promise<void>;
 export async function outputTOML(file: string, data: any, options?: TomlOptions, atomic?: boolean): Promise<void>;
-export async function outputTOML(file: string, data: any, options?: TomlOptions | boolean, atomic: boolean = false): Promise<void> {
+export async function outputTOML(file: string, data: any, options?: TomlOptions | boolean, atomic = false): Promise<void> {
 	if (typeof options === 'boolean') [atomic, options] = [options, {}];
 	await mkdirs(dirname(file));
 	return writeTOML(file, data, options, atomic);
@@ -119,6 +119,6 @@ export function filterArray<T>(...entries: T[]): T[] {
 	return Array.from(new Set([...entries]));
 }
 
-export function makeArgRegex(arg: string, boundary: boolean = false): RegExp {
+export function makeArgRegex(arg: string, boundary = false): RegExp {
 	return new RegExp(boundary ? `\\b${util.regExpEsc(arg)}\\b` : util.regExpEsc(arg), 'i');
 }

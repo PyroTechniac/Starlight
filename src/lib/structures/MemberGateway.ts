@@ -6,7 +6,7 @@ import { Gateway, KlasaGuild, Settings } from 'klasa';
 
 export class MemberGateway extends Gateway {
 
-	protected _synced: boolean = false;
+	protected _synced = false;
 
 	public get(id: string): Settings | null {
 		const [guildID, memberID] = id.split('.');

@@ -21,7 +21,7 @@ export class ContentDeliveryNetwork extends Collection<string, ContentNode> {
 		return this.map((node): string => node.url);
 	}
 
-	public fetch(force: boolean = false): Promise<ContentNode[]> {
+	public fetch(force = false): Promise<ContentNode[]> {
 		const nodes: Promise<ContentNode>[] = [];
 		for (const node of this.values()) {
 			nodes.push(node.fetch(force));
