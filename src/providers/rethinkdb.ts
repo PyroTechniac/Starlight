@@ -8,7 +8,7 @@ export default class extends Provider {
 	public pool: MasterPool | null = null;
 
 	public async init(): Promise<void> {
-		await super.init();
+		if (this.shouldUnload) return this.unload();
 		const options = util.mergeDefault({
 			db: 'starlight',
 			silent: false

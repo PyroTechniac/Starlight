@@ -18,7 +18,7 @@ export default class extends Provider {
 	}
 
 	public async init(): Promise<void> {
-		await super.init();
+		if (this.shouldUnload) return this.unload();
 		await fs.ensureDir(this.baseDirectory).catch((err): boolean => this.client.emit(Events.Error, err));
 	}
 
