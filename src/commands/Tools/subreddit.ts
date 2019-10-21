@@ -10,6 +10,7 @@ import { MessageEmbed } from 'discord.js';
 export default class extends Command {
 
 	public async run(msg: KlasaMessage, [subredditName]: [string]): Promise<KlasaMessage> {
+		await msg.sendLocale('SYSTEM_LOADING');
 		const node = this.client.cdn.acquire(`https://www.reddit.com/r/${subredditName}/about.json`)
 			.setCallback((data: InitialBody): RawRedditData => {
 				if (data.kind === 't5') return data.data;

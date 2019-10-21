@@ -16,6 +16,7 @@ export default class extends Provider {
 	}
 
 	public async init(): Promise<void> {
+		if (this.client.options.providers.default !== 'toml') return this.unload();
 		await fs.ensureDir(this.baseDirectory).catch((err): boolean => this.client.emit('error', err));
 	}
 

@@ -76,7 +76,11 @@ export interface BanInfo {
 
 export interface ContentNodeDefaults {
 	callback: boolean;
-	template: boolean;
 	options: boolean;
 	fetchType: boolean;
+}
+
+export interface ReminderTaskData {
+	user: string;
+	content: string;
 }

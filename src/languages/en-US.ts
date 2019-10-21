@@ -23,7 +23,8 @@ export default class extends Language {
 		RESOLVER_MULTIPLE_RESULTS: (mapped: string): string => `Found multiple matches: \`${mapped}\``,
 		COMMAND_SUBREDDIT_DESCRIPTION: 'Returns information on a subreddit.',
 		COMMAND_SUBREDDIT_ERROR: 'There was an error. Reddit may be down, or the subreddit doesn\'t exist.',
-		COMMAND_SUBREDDIT_NOEXIST: 'That subreddit doesn\'t exist.'
+		COMMAND_SUBREDDIT_NOEXIST: 'That subreddit doesn\'t exist.',
+		SYSTEM_LOADING: 'Loading data...'
 	};
 
 	private helper: TranslationHelper = new TranslationHelper(this);

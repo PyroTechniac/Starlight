@@ -23,6 +23,7 @@
         "klasa-dashboard-hooks": "kyranet/klasa-dashboard-hooks#master",
         "node-fetch": "^2.6.0",
         "reflect-metadata": "^0.1.13",
+        "rethinkdb-ts": "^2.4.0-rc.16",
         "typescript": "^3.6.4",
         "veza": "^1.1.0"
     },

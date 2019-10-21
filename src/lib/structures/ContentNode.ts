@@ -31,7 +31,6 @@ export class ContentNode {
 		this.fetchType = 'json';
 		this.defaults = {
 			callback: true,
-			template: true,
 			options: true,
 			fetchType: true
 		};
