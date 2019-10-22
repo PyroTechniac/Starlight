@@ -5,9 +5,7 @@ import { Client } from 'klasa-dashboard-hooks';
 import { ClientSettings } from './settings/ClientSettings';
 import './StarlightPreload';
 import { ContentDeliveryNetwork } from './structures/ContentDeliveryNetwork';
-import { MemberGateway } from './structures/MemberGateway';
 import { WebhookStore } from './structures/WebhookStore';
-import { Databases } from './types/Enums';
 import { STARLIGHT_OPTIONS } from './util/Constants';
 
 
@@ -21,10 +19,6 @@ export class StarlightClient extends Klasa.Client {
 		Reflect.defineMetadata('StarlightClient', true, this);
 
 		this.cdn = new ContentDeliveryNetwork(this);
-		const members: Klasa.GatewayOptions = {};
-		members.schema = StarlightClient.defaultMemberSchema;
-		this.gateways
-			.register(new MemberGateway(this, Databases.Members, members));
 
 		this.webhooks = new WebhookStore(this);
 	}
@@ -51,8 +45,6 @@ export class StarlightClient extends Klasa.Client {
 	public waitFor(event: string): Promise<any[]> {
 		return once(this, event);
 	}
-
-	public static defaultMemberSchema: Klasa.Schema = new Klasa.Schema();
 
 }
 

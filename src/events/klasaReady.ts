@@ -1,10 +1,9 @@
-import { GuildMember } from 'discord.js';
 import { Event, EventOptions, ScheduledTaskOptions, Settings } from 'klasa';
 import { ClientSettings } from '../lib/settings/ClientSettings';
+import { GuildSettings } from '../lib/settings/GuildSettings';
 import { Events } from '../lib/types/Enums';
 import { ApplyOptions } from '../lib/util/Decorators';
 import { StarlightError } from '../lib/util/StarlightErrors';
-import { GuildSettings } from '../lib/settings/GuildSettings';
 const backupData = { folder: './backup/' };
 
 const tasks: [string, string, ScheduledTaskOptions?][] = [
@@ -23,7 +22,6 @@ export default class extends Event {
 		await Promise.all([
 			this.client.settings!.sync(true),
 			Promise.all(this.client.guilds.map((guild): Promise<Settings> => guild.settings.sync(true))),
-			Promise.all(this.members.map((member): Promise<Settings> => member.settings.sync(true))),
 			Promise.all(this.client.users.map((user): Promise<Settings> => user.settings.sync(true)))
 		]);
 
@@ -38,11 +36,6 @@ export default class extends Event {
 		}
 
 		this.client.emit(Events.Log, `[READY] ${this.client.user!.username} initialization complete.`);
-	}
-
-	private get members(): GuildMember[] {
-		const members: GuildMember[] = [];
-		return members.concat(...this.client.guilds.map((guild): GuildMember[] => Array.from(guild.members.values())));
 	}
 
 	private async ensureTask([task, time, data]: [string, string | number | Date, ScheduledTaskOptions?]): Promise<void> {

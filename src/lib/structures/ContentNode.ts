@@ -34,7 +34,7 @@ export class ContentNode {
 			options: true,
 			fetchType: true
 		};
-		this.createdTimestamp = Date.now();
+		this.createdTimestamp = new Date().getTime();
 		this._cb = (data): unknown => data;
 		this._options = {};
 	}

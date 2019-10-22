@@ -16,10 +16,6 @@ declare module 'discord.js' {
 		webhooks: WebhookStore;
 	}
 
-	interface GuildMember {
-		settings: Settings;
-	}
-
 	interface Guild {
 		moderation: ModerationManager;
 		readonly bans: BanStore;
