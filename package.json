@@ -22,6 +22,7 @@
         "klasa": "dirigeants/klasa#settings",
         "klasa-dashboard-hooks": "kyranet/klasa-dashboard-hooks#master",
         "node-fetch": "^2.6.0",
+        "pg": "^7.12.1",
         "reflect-metadata": "^0.1.13",
         "rethinkdb-ts": "^2.4.0-rc.16",
         "veza": "^1.1.0"
@@ -30,6 +31,7 @@
         "@types/dotenv": "^6.1.1",
         "@types/node": "^12.11.1",
         "@types/node-fetch": "^2.5.0",
+        "@types/pg": "^7.11.2",
         "@types/ws": "^6.0.3",
         "@typescript-eslint/eslint-plugin": "^2.4.0",
         "@typescript-eslint/parser": "^2.4.0",
