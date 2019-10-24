@@ -8,4 +8,5 @@ export namespace UserSettings {
 		export const Username = T<string>('bank_account.username');
 		export const Password = T<string>('bank_account.password');
 	}
+	export const Notes = T<readonly [string, string][]>('notes');
 }

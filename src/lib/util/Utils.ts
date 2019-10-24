@@ -43,6 +43,19 @@ export async function outputTOMLAtomic(file: string, data: any, options?: TomlOp
 	return outputTOML(file, data, options, true);
 }
 
+export function splitText(str: string, length: number, char = ' '): string {
+	const x = str.substring(0, length).lastIndexOf(char);
+	const pos = x === -1 ? length : x;
+	return str.substring(0, pos);
+}
+
+export function cutText(str: string, length: number): string {
+	if (str.length < length) return str;
+	const cut = splitText(str, length - 3);
+	if (cut.length < length - 3) return `${cut}...`;
+	return `${cut.slice(0, length - 3)}...`;
+}
+
 export async function fetch(url: URL | string, type: 'json'): Promise<object>;
 export async function fetch(url: URL | string, options: RequestInit, type: 'json'): Promise<object>;
 export async function fetch(url: URL | string, type: 'buffer'): Promise<Buffer>;

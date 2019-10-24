@@ -29,10 +29,10 @@ export default class extends Language {
 		COMMAND_PREFIX_REMINDER: (prefix: string): string => `The prefix for this guild is \`${prefix}\``,
 		COMMAND_PREFIX_RESET: `Switched the guild's prefix back to \`${this.client.options.prefix}\``,
 		COMMAND_PREFIX_CHANGED: (prefix: string): string => `The prefix for this guild has been set to \`${prefix}\``,
-		COMMAND_BALANCE_BOT: "Bot's don't have bank accounts.",
+		COMMAND_BALANCE_BOT: 'Bot\'s don\'t have bank accounts.',
 		COMMAND_BALANCE_SELF: (amount: number): string => `You have a balance of $${amount}`,
 		COMMAND_BALANCE: (user: string, amount: number): string => `The user ${user} has a balance of $${amount}`,
-		INHIBITOR_AUTHENTICATED_NOT: "This command requires you to be authenticated.",
+		INHIBITOR_AUTHENTICATED_NOT: 'This command requires you to be authenticated.'
 	};
 
 	private helper: TranslationHelper = new TranslationHelper(this);
