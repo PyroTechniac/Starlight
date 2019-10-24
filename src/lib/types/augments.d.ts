@@ -5,6 +5,7 @@ import { ContentDeliveryNetwork } from '../structures/ContentDeliveryNetwork';
 import { ModerationManager } from '../structures/ModerationManager';
 import { WebhookStore } from '../structures/WebhookStore';
 import { IPCMonitorOptions } from './Interfaces';
+import { BankAccount } from '../structures/BankAccount';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -26,7 +27,7 @@ declare module 'discord.js' {
 	}
 
 	interface User {
-		authenticated: boolean;
+		account: BankAccount;
 	}
 
 	interface ClientOptions {

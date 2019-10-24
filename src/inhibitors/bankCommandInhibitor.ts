@@ -9,6 +9,6 @@ export default class extends Inhibitor {
     public async run(message: KlasaMessage, command: BankCommand) {
         if (!(command instanceof BankCommand) || !command.authenticated) return;
 
-        if (!message.author.authenticated) throw message.language.get('INHIBITOR_AUTHENTICATED_NOT');
+        if (!message.author.account.authenticated) throw message.language.get('INHIBITOR_AUTHENTICATED_NOT');
     }
 }

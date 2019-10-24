@@ -1,6 +1,5 @@
 import { User } from 'discord.js';
 import { KlasaMessage } from 'klasa';
-import { UserSettings } from '../../lib/settings/UserSettings';
 import { BankCommand } from '../../lib/structures/BankCommand';
 import { BankCommandOptions } from '../../lib/types/Interfaces';
 import { ApplyOptions } from '../../lib/util/Decorators';
@@ -16,7 +15,7 @@ export default class extends BankCommand {
         await user.settings.sync();
 
         return user === message.author
-            ? message.sendLocale('COMMAND_BALANCE_SELF', [message.author.settings.get(UserSettings.Money).toLocaleString()])
-            : message.sendLocale('COMMAND_BALANCE', [user.username, user.settings.get(UserSettings.Money).toLocaleString()]);
+            ? message.sendLocale('COMMAND_BALANCE_SELF', [user.account.balance.toLocaleString()])
+            : message.sendLocale('COMMAND_BALANCE', [user.username, user.account.balance.toLocaleString()]);
     }
 }

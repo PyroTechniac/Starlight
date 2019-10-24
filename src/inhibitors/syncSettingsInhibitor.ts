@@ -1,4 +1,4 @@
-import {InhibitorOptions, Inhibitor, KlasaMessage} from 'klasa'
+import { InhibitorOptions, Inhibitor, KlasaMessage } from 'klasa'
 import { ApplyOptions } from '../lib/util/Decorators';
 
 @ApplyOptions<InhibitorOptions>({
