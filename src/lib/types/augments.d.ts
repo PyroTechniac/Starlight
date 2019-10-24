@@ -25,6 +25,10 @@ declare module 'discord.js' {
 		nuke(time?: number): Promise<Message>;
 	}
 
+	interface User {
+		authenticated: boolean;
+	}
+
 	interface ClientOptions {
 		cdnSweepInterval?: number;
 	}

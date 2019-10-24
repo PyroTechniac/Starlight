@@ -1,4 +1,4 @@
-import { PieceLanguageJSON, PieceOptions } from 'klasa';
+import { PieceLanguageJSON, PieceOptions, CommandOptions } from 'klasa';
 
 export interface RawDiscordPacket {
 	t?: string;
@@ -83,4 +83,8 @@ export interface ContentNodeDefaults {
 export interface ReminderTaskData {
 	user: string;
 	content: string;
+}
+
+export interface BankCommandOptions extends CommandOptions {
+	authenticated?: boolean;
 }
