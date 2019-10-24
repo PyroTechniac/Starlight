@@ -31,6 +31,8 @@ export default class extends Event {
 			await this.ensureTask(task);
 		}
 
+		await Promise.all(this.client.users.map((user): Promise<void> => user.account.init()));
+
 		for (const guild of this.client.guilds.values()) {
 			await guild.settings.update(GuildSettings.Owner, guild.ownerID, { throwOnError: true });
 		}

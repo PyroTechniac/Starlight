@@ -40,8 +40,21 @@ export class BankAccount {
         await settings.update([[UserSettings.BankAccount.Username, encrypted[0]], [UserSettings.BankAccount.Password, encrypted[1]]]);
     }
 
+    public async verify(username: string, password: string) {
+        const {settings} = this;
+        const secret = `${this.user.id}-${this.user.createdTimestamp}`;
+        await settings.sync()
+        const encryptedUsername = settings.get(UserSettings.BankAccount.Username);
+        const encryptedPassword = settings.get(UserSettings.BankAccount.Password);
+
+        const decryptedUsername = BankAccount.decrypt(encryptedUsername, secret);
+        const decryptedPassword = BankAccount.decrypt(encryptedPassword, secret);
+
+        return (decryptedUsername === username && decryptedPassword === password);
+    }
+
     public static encrypt(data: any, secret: string) {
-        const iv = randomBytes(16);
+        const iv = randomBytes(1024);
         const cipher = createCipheriv('aes-256-cbc', secret, iv);
         return `${cipher.update(JSON.stringify(data), 'utf8', 'base64') + cipher.final('base64')}.${iv.toString('base64')}`;
     }
