@@ -81,12 +81,13 @@ export class ContentNode {
 		const fetchStatus = this.store.fetchMap.get(this);
 		if (!force || fetchStatus) return fetchStatus || Promise.resolve(this);
 
-		const sync = fetch(this.url, this._options, this.fetchType).then((data): this => {
+		const sync = fetch(this.url, this._options, this.fetchType)
+		.then((data): this => {
 			this._data = this._cb(data);
-
-			this.store.fetchMap.delete(this);
 			return this;
-		});
+		})
+		.finally((): boolean => this.store.fetchMap.delete(this));
+		
 
 		this.store.fetchMap.set(this, sync);
 		return sync;
