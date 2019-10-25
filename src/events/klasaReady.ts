@@ -4,7 +4,6 @@ import { GuildSettings } from '../lib/settings/GuildSettings';
 import { Events } from '../lib/types/Enums';
 import { ApplyOptions } from '../lib/util/Decorators';
 import { StarlightError } from '../lib/util/StarlightErrors';
-import { BankAccount } from '../lib/structures/BankAccount';
 const backupData = { folder: './backup/' };
 
 const tasks: [string, string, ScheduledTaskOptions?][] = [
@@ -31,8 +30,6 @@ export default class extends Event {
 		for (const task of tasks) {
 			await this.ensureTask(task);
 		}
-
-		await Promise.all(this.client.users.map((user): Promise<BankAccount> => user.account.init()));
 
 		for (const guild of this.client.guilds.values()) {
 			await guild.settings.update(GuildSettings.Owner, guild.ownerID, { throwOnError: true });

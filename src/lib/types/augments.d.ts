@@ -5,7 +5,6 @@ import { ContentDeliveryNetwork } from '../structures/ContentDeliveryNetwork';
 import { ModerationManager } from '../structures/ModerationManager';
 import { WebhookStore } from '../structures/WebhookStore';
 import { IPCMonitorOptions } from './Interfaces';
-import { BankAccount } from '../structures/BankAccount';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -24,10 +23,6 @@ declare module 'discord.js' {
 
 	interface Message {
 		nuke(time?: number): Promise<Message>;
-	}
-
-	interface User {
-		account: BankAccount;
 	}
 
 	interface ClientOptions {
