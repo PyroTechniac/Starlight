@@ -23,6 +23,7 @@ declare module 'discord.js' {
 
 	interface Message {
 		nuke(time?: number): Promise<Message>;
+		prompt(content: string, time?: number): Promise<Message>;
 	}
 
 	interface ClientOptions {
