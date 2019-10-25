@@ -2,5 +2,5 @@
 import { T } from './Shared';
 
 export namespace UserSettings {
-	export const Notes = T<readonly [string, string][]>('notes');
+	export const Color = T<number>('color');
 }
