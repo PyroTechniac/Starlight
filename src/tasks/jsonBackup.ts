@@ -10,6 +10,11 @@ export default class extends Task {
 		return this.client.providers.get('json')! as Provider & { baseDirectory: string };
 	}
 
+	public init(): Promise<void> {
+		if (this.client.options.providers.default !== 'json') this.disable();
+		return Promise.resolve();
+	}
+
 	public async run(data = { folder: './' }): Promise<void> {
 		if (this.client.options.providers.default !== 'json') return;
 		if (!('folder' in data)) data = { folder: './' };
