@@ -6,9 +6,11 @@ import { ClientSettings } from './settings/ClientSettings';
 import './StarlightPreload';
 import { ContentDeliveryNetwork } from './structures/ContentDeliveryNetwork';
 import { WebhookStore } from './structures/WebhookStore';
+import { CachedClass } from './types/Interfaces';
 import { STARLIGHT_OPTIONS } from './util/Constants';
+import { Cacheable } from './util/Decorators';
 
-
+@Cacheable
 export class StarlightClient extends Klasa.Client {
 
 	public regions: Discord.Collection<string, Discord.VoiceRegion> | null = null;
@@ -47,5 +49,7 @@ export class StarlightClient extends Klasa.Client {
 	}
 
 }
+
+export interface StarlightClient extends CachedClass {}
 
 StarlightClient.use(Client);
