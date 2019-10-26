@@ -127,7 +127,8 @@ export function Cached<C = unknown>(timeInSeconds = Infinity, cacheFailures = fa
 export function CachedGetter<C = unknown>(timeInSeconds = Infinity) {
 	return function(target: CacheableClass<C>, propName: string, descriptor: PropertyDescriptor): PropertyDescriptor {
 		if (descriptor.get) {
-			const originFn = descriptor.get.bind(descriptor);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
+			const originFn = descriptor.get;
 			// eslint-disable-next-line @typescript-eslint/unbound-method
 			descriptor.get = function(this: CacheableClass<C>, ...params: any[]): any {
 				const cacheKey = createCacheKey(propName, params);
@@ -137,7 +138,8 @@ export function CachedGetter<C = unknown>(timeInSeconds = Infinity) {
 					return cachedValue;
 				}
 
-				const result = originFn.apply(this);
+				// @ts-ignore
+				const result = originFn.apply(this, params);
 				this.setCache(cacheKey, result, timeInSeconds);
 				return result;
 			};

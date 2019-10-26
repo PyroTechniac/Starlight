@@ -27,7 +27,13 @@ export const STATS_WEBHOOK_DATA: APIWebhookData = {
 
 export const CLIENT_SECRET = process.env.CLIENT_SECRET || '';
 
-const { PREFIX: prefix, CLIENT_SECRET: clientSecret, CLIENT_ID: clientID, PROVIDER: defaultProvider } = process.env;
+const { PREFIX: prefix,
+	CLIENT_SECRET: clientSecret,
+	CLIENT_ID: clientID,
+	PROVIDER: defaultProvider,
+	TWITCH_CLIENT_ID: twitchClientID,
+	TWITCH_CLIENT_SECRET: twitchClientSecret
+} = process.env;
 
 const serverOptions: ServerOptions = {
 	IncomingMessage: ApiRequest,
@@ -74,5 +80,9 @@ export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 	},
 	clientSecret,
 	clientID,
-	regexPrefix: /^((Hey |Ok )?Star(light)?(?:,|!| ))/i
+	regexPrefix: /^((Hey |Ok )?Star(light)?(?:,|!| ))/i,
+	twitch: {
+		clientID: twitchClientID,
+		clientSecret: twitchClientSecret
+	}
 };

@@ -1,10 +1,11 @@
-import 'klasa';
 import { CustomGet } from '../settings/Shared';
 import { BanStore } from '../structures/BanStore';
 import { ContentDeliveryNetwork } from '../structures/ContentDeliveryNetwork';
 import { ModerationManager } from '../structures/ModerationManager';
 import { WebhookStore } from '../structures/WebhookStore';
 import { IPCMonitorOptions } from './Interfaces';
+import TwitchClient from 'twitch';
+import PubSubClient from 'twitch-pubsub-client';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -14,6 +15,8 @@ declare module 'discord.js' {
 		cdn: ContentDeliveryNetwork;
 		waitFor(event: string): Promise<any[]>;
 		webhooks: WebhookStore;
+		readonly twitch: TwitchClient;
+		pubsub: PubSubClient
 	}
 
 	interface Guild {
@@ -28,6 +31,10 @@ declare module 'discord.js' {
 
 	interface ClientOptions {
 		cdnSweepInterval?: number;
+		twitch?: {
+			clientID?: string;
+			clientSecret?: string;
+		}
 	}
 }
 

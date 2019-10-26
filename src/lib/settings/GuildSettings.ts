@@ -5,4 +5,7 @@ import { T } from './Shared';
 export namespace GuildSettings {
 	export const Prefix = T<string>('prefix');
 	export const Owner = T<string>('owner');
+
+	export const StreamChannel = T<string>('stream_channel');
+	export const Streams = T<readonly string[]>('streams');
 }

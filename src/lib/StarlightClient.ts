@@ -8,7 +8,9 @@ import { ContentDeliveryNetwork } from './structures/ContentDeliveryNetwork';
 import { WebhookStore } from './structures/WebhookStore';
 import { CachedClass } from './types/Interfaces';
 import { STARLIGHT_OPTIONS } from './util/Constants';
-import { Cacheable } from './util/Decorators';
+import { Cacheable, CachedGetter } from './util/Decorators';
+import TwitchClient, { UserIdResolvable } from 'twitch';
+import PubSubClient from 'twitch-pubsub-client';
 
 @Cacheable
 export class StarlightClient extends Klasa.Client {
@@ -39,6 +41,21 @@ export class StarlightClient extends Klasa.Client {
 		return owners;
 	}
 
+	@CachedGetter<StarlightClient>()
+	public get twitch() {
+		const { clientID, clientSecret } = this.options.twitch;
+		return TwitchClient.withClientCredentials(clientID!, clientSecret!);
+	}
+
+	@CachedGetter()
+	public get pubsub() {
+		return new PubSubClient();
+	}
+
+	public registerUser(id: UserIdResolvable): Promise<void> {
+		return this.pubsub.registerUserListener(this.twitch, id);
+	}
+
 	public async fetchVoiceRegions(): Promise<Discord.Collection<string, Discord.VoiceRegion>> {
 		this.regions = await super.fetchVoiceRegions();
 		return this.regions;
@@ -50,6 +67,6 @@ export class StarlightClient extends Klasa.Client {
 
 }
 
-export interface StarlightClient extends CachedClass {}
+export interface StarlightClient extends CachedClass { }
 
 StarlightClient.use(Client);
