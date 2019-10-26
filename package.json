@@ -16,11 +16,11 @@
         "pm2:start": "pm2 start dist/index.js --name=\"Starlight\"",
         "pm2:stop": "pm2 stop Starlight",
         "pm2:dash": "pm2 plus",
-        "db:start": "pm2 start rethinkdb --name=\"rethink\"",
-        "db:stop": "pm2 stop rethink",
-        "db:delete": "pm2 delete rethink",
-        "db:logs": "pm2 logs rethink --lines=200",
-        "db:restart": "pm2 restart rethink"
+        "db:start": "pm2 start rethinkdb --name=\"Rethink\"",
+        "db:stop": "pm2 stop Rethink",
+        "db:delete": "pm2 delete Rethink",
+        "db:logs": "pm2 logs Rethink --lines=200",
+        "db:restart": "pm2 restart Rethink"
     },
     "dependencies": {
         "@discordjs/collection": "^0.1.3",
@@ -38,6 +38,7 @@
         "pg": "^7.12.1",
         "reflect-metadata": "^0.1.13",
         "rethinkdb-ts": "^2.4.0-rc.16",
+        "twitch": "^3.5.6",
         "veza": "^1.1.0"
     },
     "devDependencies": {
