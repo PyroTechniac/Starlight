@@ -1,13 +1,14 @@
 import { ensureDir, targz } from 'fs-nextra';
-import { Provider, Task, Timestamp } from 'klasa';
+import { Task, Timestamp } from 'klasa';
 import { dirname, resolve } from 'path';
+import JsonProvider from '../providers/json';
 
 export default class extends Task {
 
 	private timestamp: Timestamp = new Timestamp('YYYY-MM-DD[T]HHmmss');
 
-	private get provider(): Provider & { baseDirectory: string } {
-		return this.client.providers.get('json')! as Provider & { baseDirectory: string };
+	private get provider(): JsonProvider {
+		return this.client.providers.get('json')! as JsonProvider;
 	}
 
 	public init(): Promise<void> {
