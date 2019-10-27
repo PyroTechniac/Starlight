@@ -10,7 +10,8 @@ const tasks: [string, string, ScheduledTaskOptions?][] = [
 	['jsonBackup', '@daily', { catchUp: true, data: backupData }],
 	['syncSettings', '*/10 * * * *', { catchUp: false }],
 	['statsPost', '@daily', { catchUp: true }],
-	['tomlBackup', '@daily', { catchUp: true, data: backupData }]
+	['tomlBackup', '@daily', { catchUp: true, data: backupData }],
+	['rethinkSync', '*/10 * * * *', { catchUp: false }]
 ];
 
 @ApplyOptions<EventOptions>({
