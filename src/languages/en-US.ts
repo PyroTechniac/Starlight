@@ -32,7 +32,21 @@ export default class extends Language {
 		COMMAND_BALANCE_BOT: 'Bot\'s don\'t have bank accounts.',
 		COMMAND_BALANCE_SELF: (amount: number): string => `You have a balance of $${amount}`,
 		COMMAND_BALANCE: (user: string, amount: number): string => `The user ${user} has a balance of $${amount}`,
-		INHIBITOR_AUTHENTICATED_NOT: 'This command requires you to be authenticated.'
+		INHIBITOR_AUTHENTICATED_NOT: 'This command requires you to be authenticated.',
+		COMMAND_EVAL_TIMEOUT: (seconds): string => `TIMEOUT: Took longer than ${seconds} seconds`,
+		COMMAND_EVAL_OUTPUT_FILE: (time, type): string => `Sent the result as a file.\n**Type**:${type}\n${time}`,
+		COMMAND_EVAL_OUTPUT_HASTEBIN: (time, url, type): string => `Sent the result to hastebin: ${url}\n**Type**:${type}\n${time}\n`,
+		COMMAND_EVAL_OUTPUT_CONSOLE: (time, type): string => `Sent the result to console.\n**Type**:${type}\n${time}`,
+		FUZZYSEARCH_MATCHES: (matches, codeblock): string => `I found multiple matches! **Please select a number within 0 and ${matches}**:\n${codeblock}\nWrite **ABORT** if you want to exit the prompt.`,
+		FUZZYSEARCH_INVALID_NUMBER: 'I expected you to give me a (single digit) number, got a potato.',
+		FUZZYSEARCH_INVALID_INDEX: 'That number was out of range, aborting prompt.',
+		COMMAND_HELP_COMMAND_COUNT: (n): string => `${n} command${n === 1 ? '' : 's'}`,
+		COMMAND_HELP_TITLE: (name, description): string => `📃 | ***Help Message*** | __**${name}**__\n${description}\n`,
+		COMMAND_HELP_USAGE: (usage): string => `📝 | ***Command Usage***\n\`${usage}\`\n`,
+		COMMAND_HELP_EXTENDED: (extendedHelp): string => `🔍 | ***Extended Help***\n${extendedHelp}`,
+		COMMAND_HELP_ALL_FLAG: (prefix): string => `Displaying one category per page. Have issues with the embed? Run \`${prefix}help --all\` for a full list in DMs.`,
+		COMMAND_HELP_DM: '📥 | The list of commands you have access to has been sent to your DMs.',
+		COMMAND_HELP_NODM: `❌ | You have DMs disabled, I couldn't send you the commands in DMs.`,
 	};
 
 	private helper: TranslationHelper = new TranslationHelper(this);

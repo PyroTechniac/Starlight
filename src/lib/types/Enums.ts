@@ -14,3 +14,8 @@ export enum Databases {
 	Users = 'users',
 	Guilds = 'guilds'
 }
+
+export enum BaseColors {
+	Primary = 0x843DA4,
+	Secondary = 0xDA004E
+}

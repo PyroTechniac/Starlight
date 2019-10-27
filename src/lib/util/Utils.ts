@@ -6,7 +6,9 @@ import { dirname } from 'path';
 import { Stream } from 'stream';
 import { URL } from 'url';
 import { ReadTOMLOptions, TomlOptions } from '../types/Interfaces';
-import { Events } from '../types/Enums';
+import { Events, BaseColors } from '../types/Enums';
+import { Message } from 'discord.js';
+import { UserSettings } from '../settings/UserSettings';
 
 const stripBom = (content: string | Buffer): string => {
 	if (Buffer.isBuffer(content)) content = content.toString('utf8');
@@ -48,6 +50,10 @@ export function splitText(str: string, length: number, char = ' '): string {
 	const x = str.substring(0, length).lastIndexOf(char);
 	const pos = x === -1 ? length : x;
 	return str.substring(0, pos);
+}
+
+export function getColor(message: Message): number {
+	return message.author.settings.get(UserSettings.Color) || (message.member && message.member.displayColor) || BaseColors.Primary;
 }
 
 export function cutText(str: string, length: number): string {
