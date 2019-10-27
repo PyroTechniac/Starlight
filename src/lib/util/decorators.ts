@@ -138,6 +138,7 @@ export function CachedGetter<C = unknown>(timeInSeconds = Infinity) {
 					return cachedValue;
 				}
 
+				// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 				// @ts-ignore
 				const result = originFn.apply(this, params);
 				this.setCache(cacheKey, result, timeInSeconds);

@@ -5,7 +5,7 @@ import { ModerationManager } from '../structures/ModerationManager';
 import { WebhookStore } from '../structures/WebhookStore';
 import { IPCMonitorOptions } from './Interfaces';
 import TwitchClient from 'twitch';
-import PubSubClient from 'twitch-pubsub-client';
+import WebhookListener from 'twitch-webhooks';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -16,7 +16,7 @@ declare module 'discord.js' {
 		waitFor(event: string): Promise<any[]>;
 		webhooks: WebhookStore;
 		readonly twitch: TwitchClient;
-		pubsub: PubSubClient
+		twitchWebhooks: WebhookListener | null;
 	}
 
 	interface Guild {
@@ -34,7 +34,7 @@ declare module 'discord.js' {
 		twitch?: {
 			clientID?: string;
 			clientSecret?: string;
-		}
+		};
 	}
 }
 

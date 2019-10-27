@@ -27,7 +27,8 @@ export const STATS_WEBHOOK_DATA: APIWebhookData = {
 
 export const CLIENT_SECRET = process.env.CLIENT_SECRET || '';
 
-const { PREFIX: prefix,
+const {
+	PREFIX: prefix,
 	CLIENT_SECRET: clientSecret,
 	CLIENT_ID: clientID,
 	PROVIDER: defaultProvider,
