@@ -22,7 +22,7 @@ export default class extends Argument {
 		throw message.language.get('RESOLVER_NO_RESULTS', possible.name, 'channel');
 	}
 
-	public resolveChannel(query: string, guild: KlasaGuild): GuildChannel | null {
+	private resolveChannel(query: string, guild: KlasaGuild): GuildChannel | null {
 		if (CHANNEL_REGEX.test(query)) return guild.channels.get(CHANNEL_REGEX.exec(query)![1]) || null;
 		return null;
 	}

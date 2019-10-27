@@ -53,10 +53,12 @@ export default class extends Language {
 
 	public init(): Promise<void> {
 		this.helper.setTranslations([
-			['channel', 'channel']
+			['channel', 'channel'],
+			['role', 'role']
 		]);
 		this.helper.setDefaults([
-			['channel', 'channel']
+			['channel', 'channel'],
+			['role', 'role']
 		]);
 		return super.init();
 	}
