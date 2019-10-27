@@ -1,11 +1,12 @@
 import * as TOML from '@iarna/toml';
 import { mkdirs, readFile, writeFile, writeFileAtomic } from 'fs-nextra';
-import { util } from 'klasa';
+import { util, Client } from 'klasa';
 import nodeFetch, { RequestInit, Response } from 'node-fetch';
 import { dirname } from 'path';
 import { Stream } from 'stream';
 import { URL } from 'url';
 import { ReadTOMLOptions, TomlOptions } from '../types/Interfaces';
+import { Events } from '../types/Enums';
 
 const stripBom = (content: string | Buffer): string => {
 	if (Buffer.isBuffer(content)) content = content.toString('utf8');
@@ -54,6 +55,16 @@ export function cutText(str: string, length: number): string {
 	const cut = splitText(str, length - 3);
 	if (cut.length < length - 3) return `${cut}...`;
 	return `${cut.slice(0, length - 3)}...`;
+}
+
+export function floatPromise<T>(ctx: {client: Client}, prom: Promise<T>): Promise<T> {
+	if (util.isThenable(prom)) {
+		prom.catch((err): any => {
+			ctx.client.emit(Events.Wtf, err);
+			return err;
+		});
+	}
+	return prom;
 }
 
 export async function fetch(url: URL | string, type: 'json'): Promise<object>;

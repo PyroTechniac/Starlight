@@ -6,7 +6,6 @@
         "@typescript-eslint/quotes": [
             "error",
             "single"
-        ],
-        "@typescript-eslint/no-floating-promises": 0
+        ]
     }
 }
