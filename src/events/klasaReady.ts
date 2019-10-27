@@ -22,8 +22,8 @@ export default class extends Event {
 	public async run(): Promise<void> {
 		await Promise.all([
 			this.client.settings!.sync(true),
-			Promise.all(this.client.guilds.map((guild): Promise<Settings> => guild.settings.sync(true))),
-			Promise.all(this.client.users.map((user): Promise<Settings> => user.settings.sync(true)))
+			...this.client.guilds.map((guild): Promise<Settings> => guild.settings.sync(true)),
+			...this.client.users.map((user): Promise<Settings> => user.settings.sync(true))
 		]);
 
 		await this.client.settings!.update(ClientSettings.Owners, [...this.client.owners.values()], { arrayAction: 'overwrite' });
