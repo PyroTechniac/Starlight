@@ -1,4 +1,4 @@
-export enum Events {
+export const enum Events {
 	Error = 'error',
 	Warn = 'warn',
 	Debug = 'debug',
@@ -9,13 +9,13 @@ export enum Events {
 	Log = 'log'
 }
 
-export enum Databases {
+export const enum Databases {
 	Members = 'members',
 	Users = 'users',
 	Guilds = 'guilds'
 }
 
-export enum BaseColors {
+export const enum BaseColors {
 	Primary = 0x843DA4,
 	Secondary = 0xDA004E
 }
