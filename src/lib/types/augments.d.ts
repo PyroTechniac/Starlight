@@ -2,7 +2,6 @@ import { CustomGet } from '../settings/Shared';
 import { BanStore } from '../structures/BanStore';
 import { ContentDeliveryNetwork } from '../structures/ContentDeliveryNetwork';
 import { ModerationManager } from '../structures/ModerationManager';
-import { IPCMonitorOptions } from './Interfaces';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -44,10 +43,6 @@ declare module 'klasa-dashboard-hooks' {
 }
 
 declare module 'klasa' {
-	interface PieceDefaults {
-		ipcMonitors?: IPCMonitorOptions;
-	}
-
 	interface SettingsFolder {
 		get<K extends string, S>(key: CustomGet<K, S>): S;
 		get(key: string): SettingsFolder | SettingsValue | readonly SettingsValue[];

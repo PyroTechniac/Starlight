@@ -1,4 +1,4 @@
-import { PieceLanguageJSON, PieceOptions } from 'klasa';
+import { PieceLanguageJSON } from 'klasa';
 
 export interface RawDiscordPacket {
 	t?: string;
@@ -34,13 +34,32 @@ export interface APIWebhookData {
 	token: string;
 }
 
-export interface IPCMonitorOptions extends PieceOptions { }
+export interface APIGuildMemberPartial {
+	nick?: string;
+	roles: string[];
+	joined_at: string;
+	deaf: boolean;
+	mute: boolean;
+}
 
-export interface WebSocketStatistics {
-	heapTotal: number;
-	heapUsed: number;
-	ping: [number, number, number];
-	status: number;
+export interface APIGuildMemberData extends APIGuildMemberPartial {
+	user: APIUserData;
+}
+
+export interface WSGuildMemberAdd extends APIGuildMemberData {
+	guild_id: string;
+}
+
+export interface WSGuildMemberRemove {
+	user: APIUserData;
+	guild_id: string;
+}
+
+export interface WSGuildMemberUpdate {
+	user: APIUserData;
+	roles: string[];
+	nick: string | null;
+	guild_id: string;
 }
 
 export interface TomlOptions {
