@@ -16,6 +16,5 @@ export namespace ClientSettings {
 	export const GuildBlacklist = T<readonly string[]>('guildBlacklist');
 	export const Schedules = T<readonly RawScheduledTask[]>('schedules');
 
-	export const Owners = T<readonly string[]>('owners');
 	export const CommandUses = T<number>('command_uses');
 }

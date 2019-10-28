@@ -1,5 +1,4 @@
 import { PieceLanguageJSON, PieceOptions } from 'klasa';
-import Collection from '@discordjs/collection';
 
 export interface RawDiscordPacket {
 	t?: string;
@@ -86,17 +85,3 @@ export interface ReminderTaskData {
 	content: string;
 }
 
-export interface CacheEntry<T = any> {
-	value: T;
-	expires: number;
-}
-
-export interface CachedClass {
-	readonly cache: Collection<string, CacheEntry>;
-
-	getFromCache(cacheKey: string): any | undefined;
-	setCache(cacheKey: string, value: any, timeInSeconds: number): void;
-	removeFromCache(cacheKey: string | string[], prefix?: boolean): void;
-
-	_cleanCache(): void;
-}

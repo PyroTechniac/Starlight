@@ -1,19 +1,15 @@
 import * as Discord from 'discord.js';
-import { once } from 'events';
 import * as Klasa from 'klasa';
 import { Client } from 'klasa-dashboard-hooks';
-import { ClientSettings } from './settings/ClientSettings';
 import './StarlightPreload';
 import { ContentDeliveryNetwork } from './structures/ContentDeliveryNetwork';
-import { WebhookStore } from './structures/WebhookStore';
-import { CachedClass } from './types/Interfaces';
 import { STARLIGHT_OPTIONS } from './util/Constants';
-import { Cacheable } from './util/Decorators';
 
-@Cacheable
 export class StarlightClient extends Klasa.Client {
 
 	public regions: Discord.Collection<string, Discord.VoiceRegion> | null = null;
+
+	public usertags: Discord.Collection<string, string> = new Discord.Collection();
 
 	public constructor(options: Klasa.KlasaClientOptions = {}) {
 		super(Klasa.util.mergeDefault(STARLIGHT_OPTIONS, options));
@@ -21,30 +17,22 @@ export class StarlightClient extends Klasa.Client {
 		Reflect.defineMetadata('StarlightClient', true, this);
 
 		this.cdn = new ContentDeliveryNetwork(this);
-
-		this.webhooks = new WebhookStore(this);
 	}
 
-	public get owners(): Set<Discord.User> {
-		if (!this.settings) return super.owners;
+	public async fetchTag(id: string): Promise<string> {
+		const cache = this.usertags.get(id);
+		if (cache) return cache;
 
-		const owners = super.owners;
-		const ids = this.settings.get(ClientSettings.Owners);
-
-		for (const id of ids) {
-			const user = this.users.get(id);
-			if (user) owners.add(user);
-		}
-
-		return owners;
+		const user = await this.users.fetch(id);
+		this.usertags.set(user.id, user.tag);
+		return user.tag;
 	}
 
-	public waitFor(event: string): Promise<any[]> {
-		return once(this, event);
+	public async fetchUsername(id: string): Promise<string> {
+		const tag = await this.fetchTag(id);
+		return tag.slice(0, tag.indexOf('#'));
 	}
 
 }
-
-export interface StarlightClient extends CachedClass { }
 
 StarlightClient.use(Client);
