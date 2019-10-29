@@ -1,9 +1,11 @@
 import * as Discord from 'discord.js';
 import * as Klasa from 'klasa';
+import { mergeDefault } from '@klasa/utils';
 import { Client } from 'klasa-dashboard-hooks';
 import './StarlightPreload';
 import { ContentDeliveryNetwork } from './structures/ContentDeliveryNetwork';
 import { STARLIGHT_OPTIONS } from './util/Constants';
+import { Locker } from './util/Locker';
 
 export class StarlightClient extends Klasa.Client {
 
@@ -12,9 +14,11 @@ export class StarlightClient extends Klasa.Client {
 	public usertags: Discord.Collection<string, string> = new Discord.Collection();
 
 	public constructor(options: Klasa.KlasaClientOptions = {}) {
-		super(Klasa.util.mergeDefault(STARLIGHT_OPTIONS, options));
+		super(mergeDefault(STARLIGHT_OPTIONS, options));
 
 		Reflect.defineMetadata('StarlightClient', true, this);
+
+		this.locker = new Locker(this);
 
 		this.cdn = new ContentDeliveryNetwork(this);
 	}

@@ -4,6 +4,7 @@ import { ApiRequest } from '../../../lib/structures/api/ApiRequest';
 import { ApiResponse } from '../../../lib/structures/api/ApiResponse';
 import { inspect } from 'util';
 import { Events } from '../../../lib/types/Enums';
+import { noop } from '../../../lib/util/Utils';
 
 @ApplyOptions<RouteOptions>({
 	name: 'userSettings',
@@ -26,7 +27,7 @@ export default class extends Route {
 	public async post(request: ApiRequest, response: ApiResponse): Promise<void> {
 		const requestBody = request.body as Record<string, string>;
 
-		const user = await this.client.users.fetch(request.auth!.user_id);
+		const user = await this.client.users.fetch(request.auth!.user_id).catch(noop);
 		if (!user) return response.error(500);
 
 		await user.settings.sync();

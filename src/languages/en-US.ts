@@ -46,7 +46,8 @@ export default class extends Language {
 		COMMAND_HELP_EXTENDED: (extendedHelp): string => `🔍 | ***Extended Help***\n${extendedHelp}`,
 		COMMAND_HELP_ALL_FLAG: (prefix): string => `Displaying one category per page. Have issues with the embed? Run \`${prefix}help --all\` for a full list in DMs.`,
 		COMMAND_HELP_DM: '📥 | The list of commands you have access to has been sent to your DMs.',
-		COMMAND_HELP_NODM: '❌ | You have DMs disabled, I couldn\'t send you the commands in DMs.'
+		COMMAND_HELP_NODM: '❌ | You have DMs disabled, I couldn\'t send you the commands in DMs.',
+		USER_NOT_EXISTENT: 'This user does not exist. Are you sure you used a valid user ID?'
 	};
 
 	private helper: TranslationHelper = new TranslationHelper(this);
@@ -54,11 +55,13 @@ export default class extends Language {
 	public init(): Promise<void> {
 		this.helper.setTranslations([
 			['channel', 'channel'],
-			['role', 'role']
+			['role', 'role'],
+			['user', 'user']
 		]);
 		this.helper.setDefaults([
 			['channel', 'channel'],
-			['role', 'role']
+			['role', 'role'],
+			['user', 'user']
 		]);
 		return super.init();
 	}

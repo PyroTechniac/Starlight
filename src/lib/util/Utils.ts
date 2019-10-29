@@ -5,7 +5,7 @@ import nodeFetch, { RequestInit, Response } from 'node-fetch';
 import { dirname } from 'path';
 import { Stream } from 'stream';
 import { URL } from 'url';
-import { ReadTOMLOptions, TomlOptions } from '../types/Interfaces';
+import { ReadTOMLOptions, TomlOptions, ReferredPromise } from '../types/Interfaces';
 import { Events, BaseColors } from '../types/Enums';
 import { Message } from 'discord.js';
 import { UserSettings } from '../settings/UserSettings';
@@ -63,7 +63,18 @@ export function cutText(str: string, length: number): string {
 	return `${cut.slice(0, length - 3)}...`;
 }
 
-export function floatPromise<T>(ctx: {client: Client}, prom: Promise<T>): Promise<T> {
+export function createReferPromise<T>(): ReferredPromise<T> {
+	let resolve: (value?: T) => void;
+	let reject: (error?: Error) => void;
+	const promise: Promise<T> = new Promise((res, rej): void => {
+		resolve = res;
+		reject = rej;
+	});
+
+	return { promise, resolve: resolve!, reject: reject! };
+}
+
+export function floatPromise<T>(ctx: { client: Client }, prom: Promise<T>): Promise<T> {
 	if (util.isThenable(prom)) {
 		prom.catch((err): any => {
 			ctx.client.emit(Events.Wtf, err);

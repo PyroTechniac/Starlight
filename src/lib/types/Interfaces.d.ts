@@ -104,3 +104,8 @@ export interface ReminderTaskData {
 	content: string;
 }
 
+export interface ReferredPromise<T> {
+	promise: Promise<T>;
+	resolve(value?: T): void;
+	reject(error?: Error): void;
+}

@@ -2,6 +2,7 @@ import { CustomGet } from '../settings/Shared';
 import { BanStore } from '../structures/BanStore';
 import { ContentDeliveryNetwork } from '../structures/ContentDeliveryNetwork';
 import { ModerationManager } from '../structures/ModerationManager';
+import { Locker } from '../util/Locker';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -10,6 +11,7 @@ declare module 'discord.js' {
 		regions: null | Collection<string, VoiceRegion>;
 		usertags: Collection<string, string>;
 		cdn: ContentDeliveryNetwork;
+		locker: Locker;
 		fetchTag(id: string): Promise<string>;
 		fetchUsername(id: string): Promise<string>;
 	}
