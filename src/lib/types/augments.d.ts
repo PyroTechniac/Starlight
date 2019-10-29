@@ -27,10 +27,6 @@ declare module 'discord.js' {
 
 	interface ClientOptions {
 		cdnSweepInterval?: number;
-		twitch?: {
-			clientID?: string;
-			clientSecret?: string;
-		};
 	}
 }
 

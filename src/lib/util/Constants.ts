@@ -12,9 +12,7 @@ const {
 	PREFIX: prefix,
 	CLIENT_SECRET: clientSecret,
 	CLIENT_ID: clientID,
-	PROVIDER: defaultProvider,
-	TWITCH_CLIENT_ID: twitchClientID,
-	TWITCH_CLIENT_SECRET: twitchClientSecret
+	PROVIDER: defaultProvider
 } = process.env;
 
 const serverOptions: ServerOptions = {
@@ -63,8 +61,5 @@ export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 	clientSecret,
 	clientID,
 	regexPrefix: /^((Hey |Ok )?Star(light)?(?:,|!| ))/i,
-	twitch: {
-		clientID: twitchClientID,
-		clientSecret: twitchClientSecret
-	}
+	cdnSweepInterval: 60
 };

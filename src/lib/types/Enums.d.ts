@@ -10,7 +10,6 @@ export const enum Events {
 }
 
 export const enum Databases {
-	Members = 'members',
 	Users = 'users',
 	Guilds = 'guilds'
 }
