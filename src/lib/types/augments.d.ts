@@ -1,6 +1,7 @@
 import { CustomGet } from '../settings/Shared';
 import { ContentDeliveryNetwork } from '../structures/ContentDeliveryNetwork';
 import { Locker } from '../util/Locker';
+import { Settings } from 'klasa';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -18,6 +19,10 @@ declare module 'discord.js' {
 		memberSnowflakes: Set<string>;
 		readonly memberTags: Collection<string, string>;
 		readonly memberUsernames: Collection<string, string>;
+	}
+
+	interface GuildMember {
+		settings: Settings;
 	}
 
 	interface Message {

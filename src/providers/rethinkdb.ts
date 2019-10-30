@@ -1,15 +1,16 @@
-import { util } from 'klasa';
+import { chunk, mergeDefault } from '@klasa/utils';
 import { MasterPool, r, TableChangeResult, WriteResult } from 'rethinkdb-ts';
-import { Provider } from '../lib/util/BaseProvider';
+import { GetQueue, Provider } from '../lib/util/BaseProvider';
 
 export default class extends Provider {
 
 	public db = r;
 	public pool: MasterPool | null = null;
+	private tableQueues = new Map<string, GetQueue>();
 
 	public async init(): Promise<void> {
 		if (this.shouldUnload) return this.unload();
-		const options = util.mergeDefault({
+		const options = mergeDefault({
 			db: 'starlight',
 			silent: false
 		}, this.client.options.providers.rethinkdb);
@@ -44,9 +45,9 @@ export default class extends Provider {
 		return this.db.table(table).sync().run();
 	}
 
-	public async getAll(table: string, entries: any[] = []): Promise<any[]> {
+	public async getAll(table: string, entries: readonly string[] = []): Promise<any[]> {
 		if (entries.length) {
-			const chunks = util.chunk(entries, 50000);
+			const chunks = chunk(entries, 50000);
 			const output: any[] = [];
 			for (const myChunk of chunks) output.push(...await this.db.table(table).getAll(...myChunk).run());
 			return output;
@@ -56,7 +57,7 @@ export default class extends Provider {
 
 	public async getKeys(table: string, entries: any[] = []): Promise<string[]> {
 		if (entries.length) {
-			const chunks = util.chunk(entries, 50000);
+			const chunks = chunk(entries, 50000);
 			const output: string[] = [];
 			for (const myChunk of chunks) output.push(...await this.db.table(table).getAll(...myChunk)('id').run());
 			return output;
@@ -66,7 +67,8 @@ export default class extends Provider {
 	}
 
 	public get(table: string, id: string): Promise<any> {
-		return this.db.table(table).get(id).run();
+		return this.ensureQueue(table).run(id, (): Promise<any> =>
+			this.db.table(table).get(id).run());
 	}
 
 	public has(table: string, id: string): Promise<boolean> {
@@ -95,6 +97,15 @@ export default class extends Provider {
 	public delete(table: string, id: string): Promise<WriteResult> {
 		return this.db.table(table).get(id).delete()
 			.run();
+	}
+
+	protected ensureQueue(table: string): GetQueue {
+		const queue = this.tableQueues.get(table);
+		if (queue) return queue;
+
+		const newQueue = new GetQueue((ids: readonly string[]): Promise<any[]> => this.getAll(table, ids), 10);
+		this.tableQueues.set(table, newQueue);
+		return newQueue;
 	}
 
 }

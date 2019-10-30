@@ -11,7 +11,8 @@ export const enum Events {
 
 export const enum Databases {
 	Users = 'users',
-	Guilds = 'guilds'
+	Guilds = 'guilds',
+	Members = 'members'
 }
 
 export const enum BaseColors {

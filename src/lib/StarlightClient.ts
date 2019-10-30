@@ -6,6 +6,8 @@ import './StarlightPreload';
 import { ContentDeliveryNetwork } from './structures/ContentDeliveryNetwork';
 import { STARLIGHT_OPTIONS } from './util/Constants';
 import { Locker } from './util/Locker';
+import { MemberGateway } from './structures/MemberGateway';
+import { Databases } from './types/Enums';
 
 export class StarlightClient extends Klasa.Client {
 
@@ -21,6 +23,11 @@ export class StarlightClient extends Klasa.Client {
 		this.locker = new Locker(this);
 
 		this.cdn = new ContentDeliveryNetwork(this);
+
+		const members: Klasa.GatewayOptions = { schema: StarlightClient.defaultMemberSchema };
+
+		this.gateways
+			.register(new MemberGateway(this, Databases.Members, members));
 	}
 
 	public async fetchTag(id: string): Promise<string> {
@@ -36,6 +43,9 @@ export class StarlightClient extends Klasa.Client {
 		const tag = await this.fetchTag(id);
 		return tag.slice(0, tag.indexOf('#'));
 	}
+
+	public static defaultMemberSchema: Klasa.Schema = new Klasa.Schema()
+		.add('points', 'Number', { configurable: false });
 
 }
 

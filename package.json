@@ -7,7 +7,7 @@
     "scripts": {
         "build": "tsc -p .",
         "start": "node .",
-        "lint": "npx eslint src --ext .ts --fix",
+        "lint": "eslint src --ext .ts --fix",
         "clean": "rimraf dist/",
         "graph": "madge dist -i ./deps-graph.png",
         "pm2:delete": "pm2 delete Starlight",
@@ -35,6 +35,7 @@
         "klasa": "dirigeants/klasa#settings",
         "klasa-dashboard-hooks": "kyranet/klasa-dashboard-hooks#master",
         "node-fetch": "^2.6.0",
+        "paket-queue": "^0.1.0",
         "pg": "^7.12.1",
         "reflect-metadata": "^0.1.13",
         "rethinkdb-ts": "^2.4.0-rc.16",
