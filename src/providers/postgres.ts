@@ -1,7 +1,7 @@
 // Copyright (c) 2019 kyranet. All rights reserved. Apache-2.0 license.
 
 import { QueryBuilder } from '@klasa/querybuilder';
-import { SchemaEntry, SchemaFolder, SettingsFolderUpdateResult, Type } from 'klasa';
+import { SchemaEntry, SchemaFolder, SettingsFolderUpdateResult, Type, Schema } from 'klasa';
 import { Pool, Submittable, QueryResultRow, QueryArrayConfig, QueryConfig, QueryArrayResult, QueryResult, PoolConfig } from 'pg';
 import { mergeDefault } from '@klasa/utils';
 import { AnyObject } from '../lib/types/Types';
@@ -241,14 +241,14 @@ export default class extends SQLProvider {
 		const gateway = this.client.gateways.get(table);
 		if (typeof gateway === 'undefined') return this.cUnknown(value);
 
-		const entry = gateway.schema.get(key) as SchemaEntry;
-		if (!entry || entry.type === 'Folder') return this.cUnknown(value);
+		const entry = gateway.schema.get(key);
+		if (!entry || isSchemaFolder(entry)) return this.cUnknown(value);
 
 		const qbEntry = this.qb.get(entry.type);
 		return qbEntry
-			? entry.array
-				? qbEntry.arraySerializer(value as unknown[], entry, qbEntry.serializer)
-				: qbEntry.serializer(value, entry)
+			? (entry as SchemaEntry).array
+				? qbEntry.arraySerializer(value as unknown[], entry as SchemaEntry, qbEntry.serializer)
+				: qbEntry.serializer(value, entry as SchemaEntry)
 			: this.cUnknown(value);
 	}
 
@@ -261,17 +261,17 @@ export default class extends SQLProvider {
 		for (let i = 0; i < keys.length; ++i) {
 			const key = keys[i];
 			const value = values[i];
-			const entry = schema.get(key) as SchemaEntry;
-			if (!entry || entry.type === 'Folder') {
+			const entry = schema.get(key);
+			if (!entry || isSchemaFolder(entry)) {
 				parsedValues.push(this.cUnknown(value));
 				continue;
 			}
 
 			const qbEntry = this.qb.get(entry.type);
 			parsedValues.push(qbEntry
-				? entry.array
-					? qbEntry.arraySerializer(value as unknown[], entry, qbEntry.serializer)
-					: qbEntry.serializer(value, entry)
+				? (entry as SchemaEntry).array
+					? qbEntry.arraySerializer(value as unknown[], entry as SchemaEntry, qbEntry.serializer)
+					: qbEntry.serializer(value, entry as SchemaEntry)
 				: this.cUnknown(value));
 		}
 		return parsedValues;
@@ -336,3 +336,7 @@ export default class extends SQLProvider {
 }
 
 type CreateOrUpdateValue = SettingsFolderUpdateResult[] | [string, unknown][] | Record<string, unknown>;
+
+function isSchemaFolder(input: Schema | SchemaFolder | SchemaEntry): input is SchemaFolder {
+	return input.type === 'Folder';
+}

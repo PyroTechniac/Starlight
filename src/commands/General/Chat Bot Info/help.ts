@@ -52,9 +52,9 @@ export default class extends Command {
 		const command = typeof commandOrPage === 'object' ? commandOrPage : null;
 		if (command) {
 			return message.sendMessage([
-				message.language.get('COMMAND_HELP_TITLE', command.name, isFunction(command.description) ? (command.description as Function)(message.language) : command.description),
+				message.language.get('COMMAND_HELP_TITLE', command.name, isFunction(command.description) ? command.description(message.language) : command.description),
 				message.language.get('COMMAND_HELP_USAGE', command.usage.fullUsage(message)),
-				message.language.get('COMMAND_HELP_EXTENDED', isFunction(command.extendedHelp) ? (command.extendedHelp as Function)(message.language) : command.extendedHelp)
+				message.language.get('COMMAND_HELP_EXTENDED', isFunction(command.extendedHelp) ? command.extendedHelp(message.language) : command.extendedHelp)
 			].join('\n'));
 		}
 
@@ -65,7 +65,7 @@ export default class extends Command {
 			);
 			const display = await this.buildDisplay(message);
 
-			const page = isNumber(commandOrPage) ? (commandOrPage as number) - 1 : null;
+			const page = isNumber(commandOrPage) ? commandOrPage - 1 : null;
 			const startPage = page === null || page < 0 || page >= display.pages.length
 				? null
 				: page;
@@ -110,7 +110,7 @@ export default class extends Command {
 	}
 
 	private formatCommand(message: KlasaMessage, prefix: string, richDisplay: boolean, command: Command): string {
-		const description = isFunction(command.description) ? (command.description as Function)(message.language) : command.description;
+		const description = isFunction(command.description) ? command.description(message.language) : command.description;
 		return richDisplay ? `• ${prefix}${command.name} → ${description}` : `• **${prefix}${command.name}** → ${description}`;
 	}
 
@@ -118,7 +118,7 @@ export default class extends Command {
 		const run = this.client.inhibitors.run.bind(this.client.inhibitors, message);
 		const commands = new Collection<string, Command[]>();
 		await Promise.all(this.client.commands.map(command => run(command, true)
-			.then(() => {
+			.then((): null => {
 				const category = commands.get(command.category);
 				if (category) category.push(command);
 				else commands.set(command.category, [command]);
