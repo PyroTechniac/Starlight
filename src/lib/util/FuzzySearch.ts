@@ -2,8 +2,8 @@
 // This is a recreation of work. The original work can be found here.
 // https://github.com/kyranet/Skyra/blob/master/src/lib/util/FuzzySearch.ts
 import { Collection, Message } from 'discord.js';
-import { util } from 'klasa';
 import { levenshtein } from './External/levenshtein';
+import { codeBlock } from '@klasa/utils';
 
 type FuzzySearchAccess<V> = (value: V) => string;
 type FuzzySearchFilter<V> = (value: V) => boolean;
@@ -73,7 +73,7 @@ export class FuzzySearch<K extends string, V> {
 
 
 		const { content: n } = await message.prompt(message.language.get('FUZZYSEARCH_MATCHES', results.length - 1,
-			util.codeBlock('http', results.map(([id, result], i) => `${i} : [ ${id.padEnd(18, ' ')} ] ${this.access(result)}`).join('\n'))));
+			codeBlock('http', results.map(([id, result], i) => `${i} : [ ${id.padEnd(18, ' ')} ] ${this.access(result)}`).join('\n'))));
 		if (n.toLowerCase() === 'abort') return null;
 		const parsed = Number(n);
 		if (!Number.isSafeInteger(parsed)) throw message.language.get('FUZZYSEARCH_INVALID_NUMBER');

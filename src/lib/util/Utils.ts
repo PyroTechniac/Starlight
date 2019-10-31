@@ -1,6 +1,6 @@
 import * as TOML from '@iarna/toml';
 import { mkdirs, readFile, writeFile, writeFileAtomic } from 'fs-nextra';
-import { util, Client } from 'klasa';
+import { Client } from 'klasa';
 import nodeFetch, { RequestInit, Response } from 'node-fetch';
 import { dirname } from 'path';
 import { Stream } from 'stream';
@@ -9,6 +9,7 @@ import { ReadTOMLOptions, TomlOptions, ReferredPromise } from '../types/Interfac
 import { Events, BaseColors } from '../types/Enums';
 import { Message } from 'discord.js';
 import { UserSettings } from '../settings/UserSettings';
+import { isThenable, regExpEsc } from '@klasa/utils';
 
 const stripBom = (content: string | Buffer): string => {
 	if (Buffer.isBuffer(content)) content = content.toString('utf8');
@@ -75,7 +76,7 @@ export function createReferPromise<T>(): ReferredPromise<T> {
 }
 
 export function floatPromise<T>(ctx: { client: Client }, prom: Promise<T>): Promise<T> {
-	if (util.isThenable(prom)) {
+	if (isThenable(prom)) {
 		prom.catch((err): any => {
 			ctx.client.emit(Events.Wtf, err);
 			return err;
@@ -161,5 +162,5 @@ export function filterArray<T>(...entries: T[]): T[] {
 }
 
 export function makeArgRegex(arg: string, boundary = false): RegExp {
-	return new RegExp(boundary ? `\\b${util.regExpEsc(arg)}\\b` : util.regExpEsc(arg), 'i');
+	return new RegExp(boundary ? `\\b${regExpEsc(arg)}\\b` : regExpEsc(arg), 'i');
 }

@@ -1,5 +1,6 @@
+import { chunk, mergeDefault, mergeObjects } from '@klasa/utils';
 import * as fs from 'fs-nextra';
-import { ProviderStore, util } from 'klasa';
+import { ProviderStore } from 'klasa';
 import { resolve } from 'path';
 import { Events } from '../lib/types/Enums';
 import { Provider } from '../lib/util/BaseProvider';
@@ -12,7 +13,7 @@ export default class extends Provider {
 		super(store, file, directory);
 
 		const baseDirectory = resolve(this.client.userBaseDirectory, 'bwd', 'provider', 'toml');
-		const defaults = util.mergeDefault<{ baseDirectory: string }>({ baseDirectory }, this.client.options.providers.toml);
+		const defaults = mergeDefault<{ baseDirectory: string }, { baseDirectory: string }>({ baseDirectory }, this.client.options.providers.toml);
 		this.baseDirectory = defaults.baseDirectory;
 
 	}
@@ -35,13 +36,13 @@ export default class extends Provider {
 			.then((exists): Promise<void> => exists ? fs.emptyDir(resolve(this.baseDirectory, table)).then((): Promise<void> => fs.remove(resolve(this.baseDirectory, table))) : Promise.resolve());
 	}
 
-	public async getAll(table: string, entries: string[] = []): Promise<any[]> {
+	public async getAll(table: string, entries: readonly string[] = []): Promise<any[]> {
 		if (!Array.isArray(entries) || !entries.length) entries = await this.getKeys(table);
 		if (entries.length < 5000) {
 			return Promise.all(entries.map(this.get.bind(this, table)));
 		}
 
-		const chunks = util.chunk(entries, 5000);
+		const chunks = chunk(entries, 5000);
 		const output: any[] = [];
 		for (const chunk of chunks) output.push(...await Promise.all(chunk.map(this.get.bind(this, table))));
 		return output;
@@ -70,12 +71,12 @@ export default class extends Provider {
 		return tomlUtils.outputTOMLAtomic(resolve(this.baseDirectory, table, `${id}.toml`), { id, ...this.parseUpdateInput(data) });
 	}
 
-	public async update(table: string, id: string, data: object): Promise<void> {
+	public async update(table: string, id: string, data: Record<string | number | symbol, unknown>): Promise<void> {
 		const existent = await this.get(table, id);
-		return tomlUtils.outputTOMLAtomic(resolve(this.baseDirectory, table, `${id}.toml`), util.mergeObjects(existent || { id }, this.parseUpdateInput(data)));
+		return tomlUtils.outputTOMLAtomic(resolve(this.baseDirectory, table, `${id}.toml`), mergeObjects(existent || { id }, this.parseUpdateInput(data)));
 	}
 
-	public replace(table: string, id: string, data: object): Promise<void> {
+	public replace(table: string, id: string, data: Record<string | number | symbol, unknown>): Promise<void> {
 		return tomlUtils.outputTOMLAtomic(resolve(this.baseDirectory, table, `${id}.toml`), { id, ...this.parseUpdateInput(data) });
 	}
 

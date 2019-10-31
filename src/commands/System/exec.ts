@@ -1,7 +1,7 @@
 import { ApplyOptions } from '../../lib/util/Decorators';
-import { Command, CommandOptions, KlasaMessage, util } from 'klasa';
+import { Command, CommandOptions, KlasaMessage } from 'klasa';
 import { codeblock } from 'discord-md-tags';
-const { exec } = util;
+import { exec } from '@klasa/utils';
 
 @ApplyOptions<CommandOptions>({
 	aliases: ['execute'],

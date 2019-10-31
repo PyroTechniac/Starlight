@@ -13,3 +13,4 @@ native/**
 !native/*.rs
 !native/Cargo.*
 rethinkdb_data
+yarn-error.log

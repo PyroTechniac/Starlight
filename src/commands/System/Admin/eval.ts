@@ -1,9 +1,10 @@
-import { Command, CommandOptions, KlasaMessage, Stopwatch, Type, util } from 'klasa';
+import { clean, codeBlock, isThenable, sleep } from '@klasa/utils';
+import { codeblock } from 'discord-md-tags';
+import { Command, CommandOptions, KlasaMessage, Stopwatch, Type } from 'klasa';
 import { inspect } from 'util';
+import { Events } from '../../../lib/types/Enums';
 import { ApplyOptions } from '../../../lib/util/Decorators';
 import { noop } from '../../../lib/util/Utils';
-import { Events } from '../../../lib/types/Enums';
-import { codeblock } from 'discord-md-tags';
 
 
 @ApplyOptions<CommandOptions>({
@@ -47,7 +48,7 @@ export default class extends Command {
 	}> {
 		if (flagTime === Infinity || flagTime === 0) return this.eval(message, code);
 		return Promise.race([
-			util.sleep(flagTime).then(() => ({
+			sleep(flagTime).then(() => ({
 				result: message.language.get('COMMAND_EVAL_TIMEOUT', flagTime / 1000),
 				success: false,
 				time: '⏱ ...',
@@ -80,7 +81,7 @@ export default class extends Command {
 			result = eval(code);
 			syncTime = stopwatch.toString();
 			type = new Type(result);
-			if (util.isThenable(result)) {
+			if (isThenable(result)) {
 				thenable = true;
 				stopwatch.restart();
 				result = await result;
@@ -106,7 +107,7 @@ export default class extends Command {
 						showHidden: Boolean(message.flagArgs.showHidden)
 					});
 		}
-		return { success, type: type!, time: this.formatTime(syncTime!, asyncTime!), result: util.clean(result as string) };
+		return { success, type: type!, time: this.formatTime(syncTime!, asyncTime!), result: clean(result as string) };
 	}
 
 	private formatTime(syncTime: string, asyncTime: string): string {
@@ -155,7 +156,7 @@ export default class extends Command {
 				}
 
 				return message.sendMessage(message.language.get(success ? 'COMMAND_EVAL_OUTPUT' : 'COMMAND_EVAL_ERROR',
-					time, util.codeBlock(language, result), footer));
+					time, codeBlock(language, result), footer));
 			}
 		}
 	}

@@ -1,8 +1,8 @@
+import { isFunction } from '@klasa/utils';
 import { Route, RouteOptions } from 'klasa-dashboard-hooks';
-import { ApplyOptions, rateLimit } from '../lib/util/Decorators';
 import { ApiRequest } from '../lib/structures/api/ApiRequest';
 import { ApiResponse } from '../lib/structures/api/ApiResponse';
-import { util } from 'klasa';
+import { ApplyOptions, rateLimit } from '../lib/util/Decorators';
 
 @ApplyOptions<RouteOptions>({
 	route: 'commands'
@@ -23,7 +23,7 @@ export default class extends Route {
 			bucket: cmd.bucket,
 			category: cmd.category,
 			cooldown: cmd.cooldown,
-			description: util.isFunction(cmd.description) ? cmd.description(language) : cmd.description,
+			description: isFunction(cmd.description) ? (cmd.description as Function)(language) : cmd.description,
 			guarded: cmd.guarded,
 			guildOnly: !cmd.runIn.includes('dm'),
 			name: cmd.name,

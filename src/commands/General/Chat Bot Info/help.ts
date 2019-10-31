@@ -1,10 +1,11 @@
-import { Command, CommandOptions, KlasaMessage, util } from 'klasa';
-import { ApplyOptions } from '../../../lib/util/Decorators';
+import { isFunction, isNumber } from '@klasa/utils';
 import { Collection, MessageEmbed, Permissions, TextChannel } from 'discord.js';
-import { noop, getColor } from '../../../lib/util/Utils';
+import { Command, CommandOptions, KlasaMessage } from 'klasa';
 import { GuildSettings } from '../../../lib/settings/GuildSettings';
 import { UserRichDisplay } from '../../../lib/structures/UserRichDisplay';
 import { BaseColors } from '../../../lib/types/Enums';
+import { ApplyOptions } from '../../../lib/util/Decorators';
+import { getColor, noop } from '../../../lib/util/Utils';
 
 const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.ADD_REACTIONS]).freeze();
 
@@ -51,9 +52,9 @@ export default class extends Command {
 		const command = typeof commandOrPage === 'object' ? commandOrPage : null;
 		if (command) {
 			return message.sendMessage([
-				message.language.get('COMMAND_HELP_TITLE', command.name, util.isFunction(command.description) ? command.description(message.language) : command.description),
+				message.language.get('COMMAND_HELP_TITLE', command.name, isFunction(command.description) ? (command.description as Function)(message.language) : command.description),
 				message.language.get('COMMAND_HELP_USAGE', command.usage.fullUsage(message)),
-				message.language.get('COMMAND_HELP_EXTENDED', util.isFunction(command.extendedHelp) ? command.extendedHelp(message.language) : command.extendedHelp)
+				message.language.get('COMMAND_HELP_EXTENDED', isFunction(command.extendedHelp) ? (command.extendedHelp as Function)(message.language) : command.extendedHelp)
 			].join('\n'));
 		}
 
@@ -64,7 +65,7 @@ export default class extends Command {
 			);
 			const display = await this.buildDisplay(message);
 
-			const page = util.isNumber(commandOrPage) ? commandOrPage - 1 : null;
+			const page = isNumber(commandOrPage) ? (commandOrPage as number) - 1 : null;
 			const startPage = page === null || page < 0 || page >= display.pages.length
 				? null
 				: page;
@@ -109,7 +110,7 @@ export default class extends Command {
 	}
 
 	private formatCommand(message: KlasaMessage, prefix: string, richDisplay: boolean, command: Command): string {
-		const description = util.isFunction(command.description) ? command.description(message.language) : command.description;
+		const description = isFunction(command.description) ? (command.description as Function)(message.language) : command.description;
 		return richDisplay ? `• ${prefix}${command.name} → ${description}` : `• **${prefix}${command.name}** → ${description}`;
 	}
 

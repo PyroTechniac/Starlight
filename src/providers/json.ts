@@ -1,5 +1,6 @@
+import { chunk, mergeDefault, mergeObjects } from '@klasa/utils';
 import * as fs from 'fs-nextra';
-import { ProviderStore, util } from 'klasa';
+import { ProviderStore } from 'klasa';
 import { resolve } from 'path';
 import { Events } from '../lib/types/Enums';
 import { Provider } from '../lib/util/BaseProvider';
@@ -12,7 +13,7 @@ export default class extends Provider {
 		super(store, file, directory);
 
 		const baseDirectory = resolve(this.client.userBaseDirectory, 'bwd', 'provider', 'json');
-		const defaults = util.mergeDefault<{ baseDirectory: string }>({ baseDirectory }, this.client.options.providers.json);
+		const defaults = mergeDefault<{ baseDirectory: string }, { baseDirectory: string }>({ baseDirectory }, this.client.options.providers.json);
 
 		this.baseDirectory = defaults.baseDirectory;
 	}
@@ -41,7 +42,7 @@ export default class extends Provider {
 			return Promise.all(entries.map(this.get.bind(this, table)));
 		}
 
-		const chunks = util.chunk(entries, 5000);
+		const chunks = chunk(entries, 5000);
 		const output: any[] = [];
 		for (const chunk of chunks) output.push(...await Promise.all(chunk.map(this.get.bind(this, table))));
 		return output;
@@ -70,9 +71,9 @@ export default class extends Provider {
 		return fs.outputJSONAtomic(resolve(this.baseDirectory, table, `${id}.json`), { id, ...this.parseUpdateInput(data) });
 	}
 
-	public async update(table: string, id: string, data: object): Promise<void> {
+	public async update(table: string, id: string, data: Record<string | number | symbol, unknown>): Promise<void> {
 		const existent = await this.get(table, id);
-		return fs.outputJSONAtomic(resolve(this.baseDirectory, table, `${id}.json`), util.mergeObjects(existent || { id }, this.parseUpdateInput(data)));
+		return fs.outputJSONAtomic(resolve(this.baseDirectory, table, `${id}.json`), mergeObjects(existent || { id }, this.parseUpdateInput(data)));
 	}
 
 	public replace(table: string, id: string, data: object): Promise<void> {

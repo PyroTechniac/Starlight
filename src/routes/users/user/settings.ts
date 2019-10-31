@@ -15,7 +15,7 @@ export default class extends Route {
 	@authenticated
 	@rateLimit(5, 1000, true)
 	public async get(request: ApiRequest, response: ApiResponse): Promise<void> {
-		const user = await this.client.users.fetch(request.auth!.user_id);
+		const user = await this.client.users.fetch(request.auth!.user_id).catch(noop);
 		if (!user) return response.error(500);
 
 		await user.settings.sync();
