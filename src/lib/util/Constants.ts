@@ -4,6 +4,7 @@ import { ServerOptions } from 'https';
 import { KlasaClient, KlasaClientOptions } from 'klasa';
 import { ApiRequest } from '../structures/api/ApiRequest';
 import { ApiResponse } from '../structures/api/ApiResponse';
+import { join } from 'path';
 config();
 
 export const CLIENT_SECRET = process.env.CLIENT_SECRET || '';
@@ -19,6 +20,8 @@ const serverOptions: ServerOptions = {
 	IncomingMessage: ApiRequest,
 	ServerResponse: ApiResponse
 };
+
+export const rootFolder = join(__dirname, '..', '..', '..');
 
 export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 	prefix,

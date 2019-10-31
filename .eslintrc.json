@@ -2,7 +2,9 @@
     "extends": "bamboo",
     "rules": {
         "no-throw-literal": "off",
-        "@typescript-eslint/explicit-function-return-type": 2,
+        "@typescript-eslint/explicit-function-return-type": [
+            "error"
+        ],
         "@typescript-eslint/quotes": [
             "error",
             "single"

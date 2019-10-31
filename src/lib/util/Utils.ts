@@ -1,15 +1,15 @@
 import * as TOML from '@iarna/toml';
+import { isThenable } from '@klasa/utils';
+import { Message } from 'discord.js';
 import { mkdirs, readFile, writeFile, writeFileAtomic } from 'fs-nextra';
 import { Client } from 'klasa';
 import nodeFetch, { RequestInit, Response } from 'node-fetch';
-import { dirname } from 'path';
-import { Stream } from 'stream';
+import { dirname, join } from 'path';
 import { URL } from 'url';
-import { ReadTOMLOptions, TomlOptions, ReferredPromise } from '../types/Interfaces';
-import { Events, BaseColors } from '../types/Enums';
-import { Message } from 'discord.js';
 import { UserSettings } from '../settings/UserSettings';
-import { isThenable, regExpEsc } from '@klasa/utils';
+import { BaseColors, Events } from '../types/Enums';
+import { ReadTOMLOptions, ReferredPromise, TomlOptions } from '../types/Interfaces';
+import { rootFolder } from './Constants';
 
 const stripBom = (content: string | Buffer): string => {
 	if (Buffer.isBuffer(content)) content = content.toString('utf8');
@@ -121,46 +121,10 @@ export function noop(): null {
 	return null;
 }
 
-export function enumerable(value: boolean): (target: unknown, key: string) => void {
-	return (target: unknown, key: string): void => {
-		Object.defineProperty(target, key, {
-			enumerable: value,
-			set(this: unknown, val: unknown): void {
-				Object.defineProperty(this, key, {
-					configurable: true,
-					enumerable: value,
-					value: val,
-					writable: true
-				});
-			}
-		});
-	};
-}
-
-export function configurable(value: boolean): (target: unknown, key: string) => void {
-	return (target: unknown, key: string): void => {
-		Object.defineProperty(target, key, {
-			configurable: value,
-			set(this: unknown, val: unknown): void {
-				Object.defineProperty(this, key, {
-					configurable: value,
-					enumerable: true,
-					value: val,
-					writable: true
-				});
-			}
-		});
-	};
-}
-
-export function isStream(input: unknown): input is Stream {
-	return input && typeof (input as Stream).pipe === 'function';
-}
-
 export function filterArray<T>(...entries: T[]): T[] {
 	return Array.from(new Set([...entries]));
 }
 
-export function makeArgRegex(arg: string, boundary = false): RegExp {
-	return new RegExp(boundary ? `\\b${regExpEsc(arg)}\\b` : regExpEsc(arg), 'i');
+export function assetsFolder(...paths: string[]): string {
+	return join(rootFolder, 'assets', ...paths);
 }
