@@ -21,10 +21,6 @@ declare module 'discord.js' {
 		readonly memberUsernames: Collection<string, string>;
 	}
 
-	interface GuildMember {
-		settings: Settings;
-	}
-
 	interface Message {
 		nuke(time?: number): Promise<Message>;
 		prompt(content: string, time?: number): Promise<Message>;
