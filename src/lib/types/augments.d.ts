@@ -1,7 +1,6 @@
 import { CustomGet } from '../settings/Shared';
 import { ContentDeliveryNetwork } from '../structures/ContentDeliveryNetwork';
 import { Locker } from '../util/Locker';
-import { Settings } from 'klasa';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
