@@ -5,12 +5,6 @@ dist/
 typings/
 .cache/
 backup/**
-.vscode/**
 *.heapsnapshot
-test/*.js
-test/*.tsbuildinfo
-native/**
-!native/*.rs
-!native/Cargo.*
 rethinkdb_data
 yarn-error.log

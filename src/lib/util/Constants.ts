@@ -34,7 +34,6 @@ export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 	},
 	commandEditing: true,
 	commandLogging: true,
-	fetchAllMembers: true,
 	schedule: {
 		interval: 'INTERVAL' in process.env ? Number(process.env.INTERVAL) || 5000 : 5000
 	},
