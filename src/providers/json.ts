@@ -3,12 +3,15 @@ import * as fs from 'fs-nextra';
 import { ProviderStore } from 'klasa';
 import { resolve } from 'path';
 import { Events } from '../lib/types/Enums';
+import { FSProvider } from '../lib/types/Interfaces';
 import { Provider } from '../lib/util/BaseProvider';
 import { noop } from '../lib/util/Utils';
 
-export default class extends Provider {
+export default class extends Provider implements FSProvider {
 
 	public baseDirectory: string;
+	public resolve: (...args: string[]) => string;
+
 	public constructor(store: ProviderStore, file: string[], directory: string) {
 		super(store, file, directory);
 
@@ -16,6 +19,7 @@ export default class extends Provider {
 		const defaults = mergeDefault<{ baseDirectory: string }, { baseDirectory: string }>({ baseDirectory }, this.client.options.providers.json);
 
 		this.baseDirectory = defaults.baseDirectory;
+		this.resolve = resolve.bind(null, this.baseDirectory);
 	}
 
 	public async init(): Promise<void> {
@@ -24,16 +28,20 @@ export default class extends Provider {
 	}
 
 	public hasTable(table: string): Promise<boolean> {
-		return fs.pathExists(resolve(this.baseDirectory, table));
+		return fs.pathExists(this.resolve(table));
 	}
 
 	public createTable(table: string): Promise<void> {
-		return fs.mkdir(resolve(this.baseDirectory, table));
+		return fs.mkdir(this.resolve(table));
 	}
 
-	public deleteTable(table: string): Promise<void> {
-		return this.hasTable(table)
-			.then((exists): Promise<void> => exists ? fs.emptyDir(resolve(this.baseDirectory, table)).then((): Promise<void> => fs.remove(resolve(this.baseDirectory, table))) : Promise.resolve());
+	public async deleteTable(table: string): Promise<void> {
+		// return this.hasTable(table)
+		// 	.then((exists): Promise<void> => exists ? fs.emptyDir(this.resolve(table)).then((): Promise<void> => fs.remove(this.resolve(table))) : Promise.resolve());
+		if (!await this.hasTable(table)) return;
+		const resolved = this.resolve(table);
+		await fs.emptyDir(resolved);
+		await fs.remove(resolved);
 	}
 
 	public async getAll(table: string, entries: string[] = []): Promise<any[]> {
@@ -49,18 +57,18 @@ export default class extends Provider {
 	}
 
 	public async getKeys(table: string): Promise<string[]> {
-		const dir = resolve(this.baseDirectory, table);
+		const dir = this.resolve(table);
 		return (await fs.readdir(dir))
 			.filter((filename): boolean => filename.endsWith('.json'))
 			.map((file): string => file.slice(0, file.length - 5));
 	}
 
 	public get(table: string, id: string): Promise<any> {
-		return fs.readJSON(resolve(this.baseDirectory, table, `${id}.json`)).catch(noop);
+		return fs.readJSON(this.resolve(table, `${id}.json`)).catch(noop);
 	}
 
 	public has(table: string, id: string): Promise<boolean> {
-		return fs.pathExists(resolve(this.baseDirectory, table, `${id}.json`));
+		return fs.pathExists(this.resolve(table, `${id}.json`));
 	}
 
 	public getRandom(table: string): Promise<any> {
@@ -68,20 +76,20 @@ export default class extends Provider {
 	}
 
 	public create(table: string, id: string, data: object = {}): Promise<void> {
-		return fs.outputJSONAtomic(resolve(this.baseDirectory, table, `${id}.json`), { id, ...this.parseUpdateInput(data) });
+		return fs.outputJSONAtomic(this.resolve(table, `${id}.json`), { id, ...this.parseUpdateInput(data) });
 	}
 
 	public async update(table: string, id: string, data: Record<string | number | symbol, unknown>): Promise<void> {
 		const existent = await this.get(table, id);
-		return fs.outputJSONAtomic(resolve(this.baseDirectory, table, `${id}.json`), mergeObjects(existent || { id }, this.parseUpdateInput(data)));
+		return fs.outputJSONAtomic(this.resolve(table, `${id}.json`), mergeObjects(existent || { id }, this.parseUpdateInput(data)));
 	}
 
 	public replace(table: string, id: string, data: object): Promise<void> {
-		return fs.outputJSONAtomic(resolve(this.baseDirectory, table, `${id}.json`), { id, ...this.parseUpdateInput(data) });
+		return fs.outputJSONAtomic(this.resolve(table, `${id}.json`), { id, ...this.parseUpdateInput(data) });
 	}
 
 	public delete(table: string, id: string): Promise<void> {
-		return fs.unlink(resolve(this.baseDirectory, table, `${id}.json`));
+		return fs.unlink(this.resolve(table, `${id}.json`));
 	}
 
 }

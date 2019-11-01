@@ -109,3 +109,20 @@ export interface ReferredPromise<T> {
 	resolve(value?: T): void;
 	reject(error?: Error): void;
 }
+
+export interface IdKeyed<K> {
+	id: K;
+}
+
+export interface GetFn<K, V> {
+	(key: K): Promise<V>;
+}
+
+export interface GetAllFn<K, V> {
+	(keys: K[]): Promise<V[]>;
+}
+
+export interface FSProvider {
+	baseDirectory: string;
+	resolve: (...args: string[]) => string;
+}
