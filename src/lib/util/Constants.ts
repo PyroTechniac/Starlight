@@ -62,6 +62,5 @@ export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 	},
 	clientSecret,
 	clientID,
-	regexPrefix: /^((Hey |Ok )?Star(light)?(?:,|!| ))/i,
 	cdnSweepInterval: 60
 };

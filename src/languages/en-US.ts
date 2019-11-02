@@ -95,7 +95,6 @@ export default class extends Language {
 		SETTINGS_PREFIX: 'A prefix is an affix that is added in front of the word, in this case, the message. It allows bots to distinguish between a regular message and a command.',
 		SETTINGS_LANGUAGE: 'The language I will use for your server. It may not be available in the language you want.',
 		SETTINGS_DISABLEDCOMMANDS: 'The disabled commands, core commands may not be disabled, and moderators will override this. All commands must be in lower case.'
-
 	};
 
 	private helper: TranslationHelper = new TranslationHelper(this);

@@ -1,6 +1,7 @@
 import { CustomGet } from '../settings/Shared';
 import { ContentDeliveryNetwork } from '../structures/ContentDeliveryNetwork';
 import { Locker } from '../util/Locker';
+import { LongLivingReactionCollector } from '../util/LongLivingReactionCollector';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -10,6 +11,7 @@ declare module 'discord.js' {
 		usertags: Collection<string, string>;
 		cdn: ContentDeliveryNetwork;
 		locker: Locker;
+		llrcs: Set<LongLivingReactionCollector>;
 		fetchTag(id: string): Promise<string>;
 		fetchUsername(id: string): Promise<string>;
 	}

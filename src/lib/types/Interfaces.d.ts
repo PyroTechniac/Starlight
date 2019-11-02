@@ -34,12 +34,33 @@ export interface APIWebhookData {
 	token: string;
 }
 
+export interface APIEmojiPartial {
+	id: string | null;
+	name: string;
+	animated: boolean;
+}
+
+export interface APIEmojiData extends APIEmojiPartial {
+	roles?: string[];
+	user?: APIUserData;
+	require_colons?: boolean;
+	managed?: boolean;
+}
+
 export interface APIGuildMemberPartial {
 	nick?: string;
 	roles: string[];
 	joined_at: string;
 	deaf: boolean;
 	mute: boolean;
+}
+
+export interface WSMessageReactionAdd {
+	user_id: string;
+	message_id: string;
+	emoji: APIEmojiData;
+	channel_id: string;
+	guild_id: string;
 }
 
 export interface APIGuildMemberData extends APIGuildMemberPartial {

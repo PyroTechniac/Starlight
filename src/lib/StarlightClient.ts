@@ -5,6 +5,7 @@ import { Client } from 'klasa-dashboard-hooks';
 import './StarlightPreload';
 import { ContentDeliveryNetwork } from './structures/ContentDeliveryNetwork';
 import { STARLIGHT_OPTIONS } from './util/Constants';
+import { LongLivingReactionCollector } from './util/LongLivingReactionCollector';
 import { Locker } from './util/Locker';
 
 export class StarlightClient extends Klasa.Client {
@@ -12,6 +13,8 @@ export class StarlightClient extends Klasa.Client {
 	public regions: Discord.Collection<string, Discord.VoiceRegion> | null = null;
 
 	public usertags: Discord.Collection<string, string> = new Discord.Collection();
+
+	public llrcs: Set<LongLivingReactionCollector> = new Set();
 
 	public constructor(options: Klasa.KlasaClientOptions = {}) {
 		super(mergeDefault(STARLIGHT_OPTIONS, options));
