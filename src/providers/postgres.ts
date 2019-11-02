@@ -1,12 +1,13 @@
 // Copyright (c) 2019 kyranet. All rights reserved. Apache-2.0 license.
 
 import { QueryBuilder } from '@klasa/querybuilder';
-import { SchemaEntry, SchemaFolder, SettingsFolderUpdateResult, Type, Schema } from 'klasa';
+import { SchemaEntry, SchemaFolder, SettingsFolderUpdateResult, Type } from 'klasa';
 import { Pool, Submittable, QueryResultRow, QueryArrayConfig, QueryConfig, QueryArrayResult, QueryResult, PoolConfig } from 'pg';
 import { mergeDefault } from '@klasa/utils';
 import { AnyObject } from '../lib/types/Types';
 import { SQLProvider } from '../lib/util/BaseProvider';
 import { Events } from '../lib/types/Enums';
+import { isSchemaFolder } from '../lib/util/Utils';
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
@@ -246,9 +247,9 @@ export default class extends SQLProvider {
 
 		const qbEntry = this.qb.get(entry.type);
 		return qbEntry
-			? (entry as SchemaEntry).array
-				? qbEntry.arraySerializer(value as unknown[], entry as SchemaEntry, qbEntry.serializer)
-				: qbEntry.serializer(value, entry as SchemaEntry)
+			? (entry).array
+				? qbEntry.arraySerializer(value as unknown[], entry, qbEntry.serializer)
+				: qbEntry.serializer(value, entry)
 			: this.cUnknown(value);
 	}
 
@@ -269,9 +270,9 @@ export default class extends SQLProvider {
 
 			const qbEntry = this.qb.get(entry.type);
 			parsedValues.push(qbEntry
-				? (entry as SchemaEntry).array
-					? qbEntry.arraySerializer(value as unknown[], entry as SchemaEntry, qbEntry.serializer)
-					: qbEntry.serializer(value, entry as SchemaEntry)
+				? (entry).array
+					? qbEntry.arraySerializer(value as unknown[], entry, qbEntry.serializer)
+					: qbEntry.serializer(value, entry)
 				: this.cUnknown(value));
 		}
 		return parsedValues;
@@ -336,7 +337,3 @@ export default class extends SQLProvider {
 }
 
 type CreateOrUpdateValue = SettingsFolderUpdateResult[] | [string, unknown][] | Record<string, unknown>;
-
-function isSchemaFolder(input: Schema | SchemaFolder | SchemaEntry): input is SchemaFolder {
-	return input.type === 'Folder';
-}

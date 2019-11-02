@@ -2,6 +2,39 @@ import { Language } from 'klasa';
 import { TranslationHelper } from '../lib/structures/TranslationHelper';
 import { PieceExtendedLanguageJSON } from '../lib/types/Interfaces';
 
+const PERMS = {
+	ADMINISTRATOR: 'Administrator',
+	VIEW_AUDIT_LOG: 'View Audit Log',
+	MANAGE_GUILD: 'Manage Server',
+	MANAGE_ROLES: 'Manage Roles',
+	MANAGE_CHANNELS: 'Manage Channels',
+	KICK_MEMBERS: 'Kick Members',
+	BAN_MEMBERS: 'Ban Members',
+	CREATE_INSTANT_INVITE: 'Create Instant Invite',
+	CHANGE_NICKNAME: 'Change Nickname',
+	MANAGE_NICKNAMES: 'Manage Nicknames',
+	MANAGE_EMOJIS: 'Manage Emojis',
+	MANAGE_WEBHOOKS: 'Manage Webhooks',
+	VIEW_CHANNEL: 'Read Messages',
+	SEND_MESSAGES: 'Send Messages',
+	SEND_TTS_MESSAGES: 'Send TTS Messages',
+	MANAGE_MESSAGES: 'Manage Messages',
+	EMBED_LINKS: 'Embed Links',
+	ATTACH_FILES: 'Attach Files',
+	READ_MESSAGE_HISTORY: 'Read Message History',
+	MENTION_EVERYONE: 'Mention Everyone',
+	USE_EXTERNAL_EMOJIS: 'Use External Emojis',
+	ADD_REACTIONS: 'Add Reactions',
+	CONNECT: 'Connect',
+	SPEAK: 'Speak',
+	STREAM: 'Stream',
+	MUTE_MEMBERS: 'Mute Members',
+	DEAFEN_MEMBERS: 'Deafen Members',
+	MOVE_MEMBERS: 'Move Members',
+	USE_VAD: 'Use Voice Activity',
+	PRIORITY_SPEAKER: 'Priority Speaker'
+};
+
 export default class extends Language {
 
 	public language: Record<string, string | string[] | ((...args: any[]) => string | string[])> = {
@@ -29,10 +62,6 @@ export default class extends Language {
 		COMMAND_PREFIX_REMINDER: (prefix: string): string => `The prefix for this guild is \`${prefix}\``,
 		COMMAND_PREFIX_RESET: `Switched the guild's prefix back to \`${this.client.options.prefix}\``,
 		COMMAND_PREFIX_CHANGED: (prefix: string): string => `The prefix for this guild has been set to \`${prefix}\``,
-		COMMAND_BALANCE_BOT: 'Bot\'s don\'t have bank accounts.',
-		COMMAND_BALANCE_SELF: (amount: number): string => `You have a balance of $${amount}`,
-		COMMAND_BALANCE: (user: string, amount: number): string => `The user ${user} has a balance of $${amount}`,
-		INHIBITOR_AUTHENTICATED_NOT: 'This command requires you to be authenticated.',
 		COMMAND_EVAL_TIMEOUT: (seconds): string => `TIMEOUT: Took longer than ${seconds} seconds`,
 		COMMAND_EVAL_OUTPUT_FILE: (time, type): string => `Sent the result as a file.\n**Type**:${type}\n${time}`,
 		COMMAND_EVAL_OUTPUT_HASTEBIN: (time, url, type): string => `Sent the result to hastebin: ${url}\n**Type**:${type}\n${time}\n`,
@@ -47,7 +76,26 @@ export default class extends Language {
 		COMMAND_HELP_ALL_FLAG: (prefix): string => `Displaying one category per page. Have issues with the embed? Run \`${prefix}help --all\` for a full list in DMs.`,
 		COMMAND_HELP_DM: '📥 | The list of commands you have access to has been sent to your DMs.',
 		COMMAND_HELP_NODM: '❌ | You have DMs disabled, I couldn\'t send you the commands in DMs.',
-		USER_NOT_EXISTENT: 'This user does not exist. Are you sure you used a valid user ID?'
+		USER_NOT_EXISTENT: 'This user does not exist. Are you sure you used a valid user ID?',
+		COMMAND_CONF_MENU_NOPERMISSIONS: `I need the permissions ${PERMS.ADD_REACTIONS} and ${PERMS.MANAGE_MESSAGES} to be able to run the menu.`,
+		COMMAND_CONF_MENU_RENDER_AT_FOLDER: (path): string => `Currently at: \\📁 ${path}`,
+		COMMAND_CONF_MENU_RENDER_AT_PIECE: (path): string => `Currently at: ${path}`,
+		COMMAND_CONF_MENU_RENDER_NOKEYS: 'There are no configurable keys for this folder',
+		COMMAND_CONF_MENU_RENDER_SELECT: 'Please type in any of the following entries\' names',
+		COMMAND_CONF_MENU_RENDER_TCTITLE: 'Text Commands:',
+		COMMAND_CONF_MENU_RENDER_UPDATE: '• Update Value → `set <value>`',
+		COMMAND_CONF_MENU_RENDER_REMOVE: '• Remove Value → `remove <value>`',
+		COMMAND_CONF_MENU_RENDER_RESET: '• Reset Value → `reset`',
+		COMMAND_CONF_MENU_RENDER_UNDO: '• Undo Update → `undo`',
+		COMMAND_CONF_MENU_RENDER_CVALUE: (value): string => `Current Value: **\`\`${value}\`\`**`,
+		COMMAND_CONF_MENU_RENDER_BACK: 'Press ◀ to go back',
+		COMMAND_CONF_MENU_INVALID_KEY: 'Invalid Key, please try again with any of the following options.',
+		COMMAND_CONF_MENU_INVALID_ACTION: 'Invalid Action, please try again with any of the following options.',
+		COMMAND_CONF_MENU_SAVED: 'Successfully saved all changes.',
+		SETTINGS_PREFIX: 'A prefix is an affix that is added in front of the word, in this case, the message. It allows bots to distinguish between a regular message and a command.',
+		SETTINGS_LANGUAGE: 'The language I will use for your server. It may not be available in the language you want.',
+		SETTINGS_DISABLEDCOMMANDS: 'The disabled commands, core commands may not be disabled, and moderators will override this. All commands must be in lower case.'
+
 	};
 
 	private helper: TranslationHelper = new TranslationHelper(this);

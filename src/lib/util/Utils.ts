@@ -1,8 +1,8 @@
 import * as TOML from '@iarna/toml';
 import { isThenable } from '@klasa/utils';
-import { Message } from 'discord.js';
+import { Message, Client as DJSClient } from 'discord.js';
 import { mkdirs, readFile, writeFile, writeFileAtomic } from 'fs-nextra';
-import { Client } from 'klasa';
+import { Schema, SchemaFolder, SchemaEntry } from 'klasa';
 import nodeFetch, { RequestInit, Response } from 'node-fetch';
 import { dirname, join } from 'path';
 import { URL } from 'url';
@@ -15,6 +15,11 @@ const stripBom = (content: string | Buffer): string => {
 	if (Buffer.isBuffer(content)) content = content.toString('utf8');
 	return content.replace(/^\uFEFF/, '');
 };
+
+export function isSchemaFolder(input: Schema | SchemaFolder | SchemaEntry): input is SchemaFolder | Schema {
+	return input.type === 'Folder';
+}
+
 
 export async function readTOML(file: string, options: ReadTOMLOptions | BufferEncoding = { flag: 'r' }): Promise<any> {
 	if (typeof options === 'string') options = { encoding: options, flag: 'r' };
@@ -75,7 +80,7 @@ export function createReferPromise<T>(): ReferredPromise<T> {
 	return { promise, resolve: resolve!, reject: reject! };
 }
 
-export function floatPromise<T>(ctx: { client: Client }, prom: Promise<T>): Promise<T> {
+export function floatPromise<T>(ctx: { client: DJSClient }, prom: Promise<T>): Promise<T> {
 	if (isThenable(prom)) {
 		prom.catch((err): any => {
 			ctx.client.emit(Events.Wtf, err);
