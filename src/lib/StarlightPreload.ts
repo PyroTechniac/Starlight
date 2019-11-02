@@ -7,6 +7,7 @@ import { StarlightMessage } from './extensions/StarlightMessage';
 import './schemas/Clients';
 import './schemas/Guilds';
 import './schemas/Users';
+import './setup/PermissionLevels';
 // Extend the structures.
 Structures.extend('Guild', (): typeof StarlightGuild => StarlightGuild);
 Structures.extend('Message', (): typeof StarlightMessage => StarlightMessage);

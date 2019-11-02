@@ -28,3 +28,12 @@ export const enum Time {
 	Week = 1000 * 60 * 60 * 24 * 7,
 	Year = 1000 * 60 * 60 * 24 * 365
 }
+
+export const enum PermissionLevels {
+	Everyone = 0,
+	Staff = 4,
+	Moderator = 5,
+	Administrator = 6,
+	ServerOwner = 7,
+	BotOwner = 10
+}
