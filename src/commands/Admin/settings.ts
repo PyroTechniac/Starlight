@@ -5,6 +5,7 @@ import { SettingsMenu } from '../../lib/structures/SettingsMenu';
 import { CommandOptions, KlasaMessage, Schema, SchemaEntry, SettingsFolderUpdateResult } from 'klasa';
 import { Permissions, TextChannel } from 'discord.js';
 import { toTitleCase, codeBlock } from '@klasa/utils';
+import {isSchemaFolder} from "../../lib/util/Utils";
 
 const MENU_REQUIREMENTS = Permissions.resolve([Permissions.FLAGS.ADD_REACTIONS, Permissions.FLAGS.MANAGE_MESSAGES]);
 
@@ -30,9 +31,9 @@ export default class extends StarlightCommand {
 
 	public show(message: KlasaMessage, [key]: [string]): Promise<KlasaMessage> {
 		const piece = this.getPath(key);
-		if (!piece || (piece.type === 'Folder'
-			? !(piece as Schema).configurableKeys.length
-			: !(piece as SchemaEntry).configurable)) return message.sendLocale('COMMAND_CONF_GET_NOEXT', [key]);
+		if (!piece || (isSchemaFolder(piece)
+			? !piece.configurableKeys.length
+			: !piece.configurable)) return message.sendLocale('COMMAND_CONF_GET_NOEXT', [key]);
 		if (piece.type === 'Folder') {
 			return message.sendLocale('COMMAND_CONF_SERVER', [
 				key ? `: ${key.split('.').map(toTitleCase).join('/')}` : '',
