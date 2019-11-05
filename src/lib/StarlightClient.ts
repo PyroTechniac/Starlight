@@ -10,8 +10,6 @@ import { Locker } from './util/Locker';
 
 export class StarlightClient extends Klasa.Client {
 
-	public regions: Discord.Collection<string, Discord.VoiceRegion> | null = null;
-
 	public usertags: Discord.Collection<string, string> = new Discord.Collection();
 
 	public llrcs: Set<LongLivingReactionCollector> = new Set();
