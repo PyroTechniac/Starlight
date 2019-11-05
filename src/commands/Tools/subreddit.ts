@@ -1,5 +1,6 @@
 import { Command, CommandOptions, Language, KlasaMessage } from 'klasa';
 import { ApplyOptions } from '../../lib/util/Decorators';
+import { toss } from '../../lib/util/Utils';
 import { MessageEmbed } from 'discord.js';
 
 @ApplyOptions<CommandOptions>({
@@ -11,13 +12,11 @@ export default class extends Command {
 
 	public async run(msg: KlasaMessage, [subredditName]: [string]): Promise<KlasaMessage> {
 		await msg.sendLocale('SYSTEM_LOADING');
-		const node = this.client.cdn.acquire(`https://www.reddit.com/r/${subredditName}/about.json`)
-			.setCallback((data: InitialBody): RawRedditData => {
-				if (data.kind === 't5') return data.data;
-				throw msg.language.get('COMMAND_SUBREDDIT_NOEXIST');
-			});
+		const node = await this.client.cdn.acquire(`https://www.reddit.com/r/${subredditName}/about.json`)
+			.setCallback((data: InitialBody): RawRedditData => data.kind === 't5' ? data.data : toss(msg.language.get('COMMAND_SUBREDDIT_NOEXIST')))
+			.fetch();
 
-		const subreddit = (await node.fetch()).data<RawRedditData>()!;
+		const subreddit = node.data<RawRedditData>()!;
 
 		return msg.sendEmbed(new MessageEmbed()
 			.setTitle(subreddit.title)

@@ -19,7 +19,10 @@ const stripBom = (content: string | Buffer): string => {
 export function isSchemaFolder(input: Schema | SchemaFolder | SchemaEntry): input is SchemaFolder | Schema {
 	return input.type === 'Folder';
 }
-
+// Synonymous for `throw`
+export function toss(exception: any): never {
+	throw exception;
+}
 
 export async function readTOML(file: string, options: ReadTOMLOptions | BufferEncoding = { flag: 'r' }): Promise<any> {
 	if (typeof options === 'string') options = { encoding: options, flag: 'r' };

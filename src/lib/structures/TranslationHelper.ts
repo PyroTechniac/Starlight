@@ -28,9 +28,7 @@ export class TranslationHelper {
 	}
 
 	public get(key: string): string {
-		const translation = this.translations.has(key) ? this.translations.get(key)! : this.defaults.has(key) ? this.defaults.get(key)! : null;
-
-		if (!translation) throw `The key '${key}' has not been translated for ${this.lang}`;
+		const translation = this.translations.has(key) ? this.translations.get(key)! : this.defaults.has(key) ? this.defaults.get(key)! : key;
 		return translation;
 	}
 

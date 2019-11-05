@@ -6,7 +6,6 @@ import './StarlightPreload';
 import { ContentDeliveryNetwork } from './structures/ContentDeliveryNetwork';
 import { STARLIGHT_OPTIONS } from './util/Constants';
 import { LongLivingReactionCollector } from './util/LongLivingReactionCollector';
-import { Locker } from './util/Locker';
 
 export class StarlightClient extends Klasa.Client {
 
@@ -18,8 +17,6 @@ export class StarlightClient extends Klasa.Client {
 		super(mergeDefault(STARLIGHT_OPTIONS, options));
 
 		Reflect.defineMetadata('StarlightClient', true, this);
-
-		this.locker = new Locker(this);
 
 		this.cdn = new ContentDeliveryNetwork(this);
 	}

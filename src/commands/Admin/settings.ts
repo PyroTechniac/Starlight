@@ -5,7 +5,7 @@ import { SettingsMenu } from '../../lib/structures/SettingsMenu';
 import { CommandOptions, KlasaMessage, Schema, SchemaEntry, SettingsFolderUpdateResult } from 'klasa';
 import { Permissions, TextChannel } from 'discord.js';
 import { toTitleCase, codeBlock } from '@klasa/utils';
-import {isSchemaFolder} from "../../lib/util/Utils";
+import { isSchemaFolder } from '../../lib/util/Utils';
 
 const MENU_REQUIREMENTS = Permissions.resolve([Permissions.FLAGS.ADD_REACTIONS, Permissions.FLAGS.MANAGE_MESSAGES]);
 

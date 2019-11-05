@@ -15,16 +15,6 @@ export class ContentDeliveryNetwork extends Collection<string, ContentNode> {
 		Object.defineProperty(this, 'client', { value: client });
 
 		this.fetchMap = new WeakMap();
-
-		if (this.client.options.cdnSweepInterval > 0) {
-			this.client.setInterval((): void => {
-				const lifetimeMs = 5 * 60 * 1000;
-				const now = Date.now();
-				this.sweep(
-					(val: ContentNode): boolean => (now - val.createdTimestamp) > lifetimeMs
-				);
-			}, this.client.options.cdnSweepInterval * 1000);
-		}
 	}
 
 	public get urls(): string[] {
