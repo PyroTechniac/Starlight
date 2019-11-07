@@ -6,7 +6,10 @@ export const enum Events {
 	Wtf = 'wtf',
 	Warning = 'warning',
 	KlasaReady = 'klasaReady',
-	Log = 'log'
+	Log = 'log',
+	CommandSuccess = 'commandSuccess',
+	CommandInhibited = 'commandInhibited',
+	CommandError = 'commandError'
 }
 
 export const enum Databases {

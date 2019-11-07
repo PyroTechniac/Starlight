@@ -5,11 +5,11 @@ import { exec } from '@klasa/utils';
 
 @ApplyOptions<CommandOptions>({
 	aliases: ['execute'],
-	description: 'Execute commands in the terminal, use with EXTREME CAUTION', // TODO: Move this to the lang file
+	description: (lang): string => lang.get('COMMAND_EXEC_DESCRIPTION'),
 	guarded: true,
 	permissionLevel: 10,
 	usage: '<expression:string>',
-	extendedHelp: 'Times out in 60 seconds by default. This can be changed with --timeout=TIME_IN_MILLISECONDS' // TODO: Also move this
+	extendedHelp: (lang): string => lang.get('COMMAND_EXEC_EXTENDED')
 })
 export default class extends Command {
 

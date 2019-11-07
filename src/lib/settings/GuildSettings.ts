@@ -5,4 +5,5 @@ import { T } from './Shared';
 export namespace GuildSettings {
 	export const Prefix = T<string>('prefix');
 	export const CommandUses = T<number>('command_uses');
+	export const Tags = T<readonly [string, string][]>('tags');
 }
