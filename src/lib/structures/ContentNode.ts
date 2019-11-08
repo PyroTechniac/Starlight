@@ -3,8 +3,11 @@ import { RequestInit } from 'node-fetch';
 import { ContentNodeDefaults } from '../types/Interfaces';
 import { fetch } from '../util/Utils';
 import { ContentDeliveryNetwork } from './ContentDeliveryNetwork';
+import {Time} from "../types/Enums";
 
 type FetchType = 'result' | 'json' | 'buffer' | 'text';
+
+const kTimeout = Symbol('ContentNodeTimeout');
 
 export class ContentNode {
 
@@ -23,6 +26,8 @@ export class ContentNode {
 	private _cb: (data: unknown) => unknown;
 
 	private _options: RequestInit;
+
+	private [kTimeout] = Date.now() + (Time.Minute * 15);
 
 	public constructor(client: Client, url: string) {
 		Object.defineProperty(this, 'client', { value: client });
@@ -49,6 +54,14 @@ export class ContentNode {
 
 	public get fetching(): boolean {
 		return this.store.fetchMap.has(this);
+	}
+
+	public get cacheExpired(): boolean {
+		return Date.now() > this[kTimeout];
+	}
+
+	public get cacheRemaining(): number {
+		return Math.max(Date.now() - this[kTimeout], 0);
 	}
 
 	public setCallback(callback: (data: any) => unknown): this {

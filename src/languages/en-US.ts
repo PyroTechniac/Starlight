@@ -124,7 +124,10 @@ export default class extends Language {
 		}),
 		RESOLVER_INVALID_CHANNELNAME: (name): string => `${name} must be a valid channel name, ID, or tag.`,
 		RESOLVER_INVALID_USERNAME: (name): string => `${name} must be a valid user name, ID, or mention.`,
-		RESOLVER_INVALID_ROLENAME: (name): string => `${name} must be a valid role name, ID, or mention.`
+		RESOLVER_INVALID_ROLENAME: (name): string => `${name} must be a valid role name, ID, or mention.`,
+		COMMAND_CODE_CLEANUP_DESCRIPTION: "Clean's up running docker containers.",
+		COMMAND_CODE_CLEANUP_STARTING: 'Cleaning up...',
+		COMMAND_CODE_CLEANUP_COMPLETE: 'Cleaned up!'
 	};
 
 }

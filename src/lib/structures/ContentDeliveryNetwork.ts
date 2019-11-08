@@ -9,6 +9,8 @@ export class ContentDeliveryNetwork extends Collection<string, ContentNode> {
 
 	public fetchMap: WeakMap<ContentNode, Promise<ContentNode>>;
 
+	private _timer: NodeJS.Timeout | null = null;
+
 	public constructor(client: Client) {
 		super();
 
@@ -43,6 +45,16 @@ export class ContentDeliveryNetwork extends Collection<string, ContentNode> {
 		}
 		const node = new ContentNode(this.client, url);
 		this.set(node.url, node);
+
+		if (!this._timer) {
+			this._timer = this.client.setInterval(() => {
+				super.sweep((value): boolean => value.cacheExpired);
+				if (!super.size) {
+					this.client.clearInterval(this._timer!);
+					this._timer = null;
+				};
+			}, 1000);
+		}
 
 		return node;
 	}

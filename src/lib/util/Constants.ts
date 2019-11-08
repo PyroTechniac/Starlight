@@ -95,5 +95,8 @@ export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 	},
 	clientSecret,
 	clientID,
-	cdnSweepInterval: 60
+	myriad: {
+		port: 8081,
+		enabled: true
+	}
 };
