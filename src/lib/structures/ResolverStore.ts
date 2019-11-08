@@ -7,7 +7,7 @@ export class ResolverStore extends AliasStore<string, Resolver, typeof Resolver>
 		super(client, 'resolvers', Resolver);
 	}
 
-	public async run<T>(name: string, arg: string, language: Language, coll: Map<unknown, unknown> | unknown[]): Promise<T | null> {
+	public async run<T>(name: string, arg: string, language: Language, coll: Map<unknown, T> | T[]): Promise<T | null> {
 		const resolver = this.get(name.toLowerCase());
 		if (!resolver) return null;
 
