@@ -12,7 +12,7 @@ export default class extends Serializer {
 		if (!guild) throw language.get('RESOLVER_INVALID_GUILD', entry.key);
 		if (data instanceof GuildMember) return data;
 		const member = await this.client.resolvers.run<GuildMember>('member', data, language, guild.members).catch(noop);
-		return member || toss(language.get('RESOVLER_INVALID_MEMBER', entry.key));
+		return member || toss(language.get('RESOLVER_INVALID_MEMBER', entry.key));
 	}
 
 	public serialize(data: GuildMember): string {
