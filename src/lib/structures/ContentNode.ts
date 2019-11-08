@@ -27,7 +27,7 @@ export class ContentNode {
 
 	private _options: RequestInit;
 
-	private [kTimeout] = Date.now() + (Time.Minute * 15);
+	private [kTimeout] = Date.now() + (Time.Minute * 2);
 
 	public constructor(client: Client, url: string) {
 		Object.defineProperty(this, 'client', { value: client });
