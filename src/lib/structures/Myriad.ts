@@ -1,12 +1,33 @@
 import { Client } from 'discord.js';
 import fetch from 'node-fetch';
+import {ParsedMyriadContent} from "../types/Interfaces";
 
 const entries: [string, string[]][] = [
 	['apl', ['apl']],
 	['bash', ['bash', 'sh']],
 	['brainfuck', ['brainfuck', 'bf']],
 	['c', ['c']],
-	['clojure', ['clojure', 'clj']]
+	['clojure', ['clojure', 'clj']],
+	['cpp', ['cpp']],
+	['csharp', ['csharp', 'cs']],
+	['elixir', ['elixir']],
+	['fsharp', ['fsharp', 'fs']],
+	['go', ['golang', 'go']],
+	['haskell', ['haskell', 'hs']],
+	['idris', ['idris', 'idr']],
+	['java', ['java']],
+	['javascript', ['javascript', 'js']],
+	['julia', ['julia']],
+	['lua', ['lua']],
+	['ocaml', ['ocaml', 'ml']],
+	['pascal', ['pascal', 'pas', 'freepascal']],
+	['perl', ['perl', 'pl']],
+	['php', ['php']],
+	['prolog', ['prolog']],
+	['python', ['python', 'py']],
+	['racket', ['lisp']],
+	['ruby', ['ruby', 'rb']],
+	['rust', ['rust', 'rs']]
 ];
 
 export class Myriad {
@@ -14,6 +35,7 @@ export class Myriad {
 	public readonly client!: Client;
 	public enabled: boolean;
 	public port: number;
+	private readonly regex: RegExp = /^\s*(`{1,3})(.+?)[ \n]([^]+)\1\s*$/;
 
 	public constructor(client: Client) {
 		if (!Myriad.initialized) Myriad.init();
@@ -23,8 +45,20 @@ export class Myriad {
 
 		this.port = this.client.options.myriad.port!;
 	}
+	
+	public parse(content: string): null | ParsedMyriadContent {
+		const match = content.match(this.regex);
+		if (!match) return null;
+		const language = Myriad.Aliases.get(match[2].toLowerCase());
+		if (!language) return null;
+		const code = match[3].trim();
+		return {language, code}
+	}
 
-	public async eval(language: string, code: string): Promise<[boolean, string]> {
+	public async eval(content: string): Promise<[boolean, string]> {
+		const parsed = this.parse(content);
+		if (!parsed) return [false, 'Parsing failed'];
+		const {language, code} = parsed;
 		const response = await fetch(this.url('eval'), {
 			method: 'POST',
 			body: JSON.stringify({ language, code }),
@@ -75,8 +109,8 @@ export class Myriad {
 		return `http://localhost:${this.port}/${k}`;
 	}
 
-	public static Languages = new Map(entries);
-	public static Aliases = new Map();
+	public static Languages = new Map<string, string[]>(entries);
+	public static Aliases = new Map<string, string>();
 	private static initialized = false;
 
 	public static init(): void {
