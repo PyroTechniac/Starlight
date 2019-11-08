@@ -121,7 +121,10 @@ export default class extends Language {
 		COMMAND_EXEC_DESCRIPTION: 'Execute commands in the terminal, use with EXTREME CAUTION',
 		COMMAND_EXEC_EXTENDED: builder.display('exec', {
 			extendedHelp: 'Times out in 60 seconds by default. This can be changed with --timeout=TIME_IN_MILLISECONDS'
-		})
+		}),
+		RESOLVER_INVALID_CHANNELNAME: (name): string => `${name} must be a valid channel name, ID, or tag.`,
+		RESOLVER_INVALID_USERNAME: (name): string => `${name} must be a valid user name, ID, or mention.`,
+		RESOLVER_INVALID_ROLENAME: (name): string => `${name} must be a valid role name, ID, or mention.`
 	};
 
 }
