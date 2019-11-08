@@ -1,7 +1,7 @@
-import {Serializer, KlasaGuild, SchemaEntry, Language, SerializerOptions} from 'klasa';
+import { Serializer, KlasaGuild, SchemaEntry, Language, SerializerOptions } from 'klasa';
 import { GuildMember } from 'discord.js';
 import { noop, toss } from '../lib/util/Utils';
-import {ApplyOptions} from "../lib/util/Decorators";
+import { ApplyOptions } from '../lib/util/Decorators';
 
 @ApplyOptions<SerializerOptions>({
 	aliases: ['guildmember']
