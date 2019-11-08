@@ -1,9 +1,3 @@
-import { PieceLanguageJSON } from 'klasa';
-
-export interface RawDiscordPacket {
-	t?: string;
-}
-
 export interface RateLimitInfo {
 	timeout: number;
 	limit: number;
@@ -22,16 +16,6 @@ export interface APIUserData {
 	locale?: string;
 	verified?: boolean;
 	email?: string;
-}
-
-export interface APIWebhookData {
-	id: string;
-	guild_id?: string;
-	channel_id: string;
-	user?: APIUserData;
-	name: string | null;
-	avatar: string | null;
-	token: string;
 }
 
 export interface APIEmojiPartial {
@@ -100,18 +84,9 @@ export interface TranslationHelperJSON {
 	defaults: Record<string, string>;
 }
 
-export interface PieceExtendedLanguageJSON extends PieceLanguageJSON {
-	translations: TranslationHelperJSON;
-}
-
 export interface UserAuthObject {
 	token: string;
 	user_id: string;
-}
-
-export interface BanInfo {
-	user: string;
-	reason?: string;
 }
 
 export interface ContentNodeDefaults {
@@ -120,27 +95,10 @@ export interface ContentNodeDefaults {
 	fetchType: boolean;
 }
 
-export interface ReminderTaskData {
-	user: string;
-	content: string;
-}
-
 export interface ReferredPromise<T> {
 	promise: Promise<T>;
 	resolve(value?: T): void;
 	reject(error?: Error): void;
-}
-
-export interface IdKeyed<K> {
-	id: K;
-}
-
-export interface GetFn<K, V> {
-	(key: K): Promise<V>;
-}
-
-export interface GetAllFn<K, V> {
-	(keys: K[]): Promise<V[]>;
 }
 
 export interface FSProvider {

@@ -6,6 +6,7 @@ import './StarlightPreload';
 import { ContentDeliveryNetwork } from './structures/ContentDeliveryNetwork';
 import { STARLIGHT_OPTIONS } from './util/Constants';
 import { LongLivingReactionCollector } from './util/LongLivingReactionCollector';
+import { ResolverStore } from './structures/ResolverStore';
 
 export class StarlightClient extends Klasa.Client {
 
@@ -17,6 +18,9 @@ export class StarlightClient extends Klasa.Client {
 		super(mergeDefault(STARLIGHT_OPTIONS, options));
 
 		Reflect.defineMetadata('StarlightClient', true, this);
+
+		this.resolvers = new ResolverStore(this);
+		this.registerStore(this.resolvers);
 
 		this.cdn = new ContentDeliveryNetwork(this);
 	}
