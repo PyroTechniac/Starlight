@@ -52,7 +52,7 @@ export class ContentDeliveryNetwork extends Collection<string, ContentNode> {
 				if (!super.size) {
 					this.client.clearInterval(this._timer!);
 					this._timer = null;
-				};
+				}
 			}, 1000);
 		}
 

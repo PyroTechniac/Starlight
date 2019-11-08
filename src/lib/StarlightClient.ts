@@ -1,46 +1,46 @@
-import {mergeDefault} from '@klasa/utils';
+import { mergeDefault } from '@klasa/utils';
 import * as Discord from 'discord.js';
 import * as Klasa from 'klasa';
-import {Client} from 'klasa-dashboard-hooks';
+import { Client } from 'klasa-dashboard-hooks';
 import './StarlightPreload';
-import {ContentDeliveryNetwork} from './structures/ContentDeliveryNetwork';
-import {STARLIGHT_OPTIONS} from './util/Constants';
-import {LongLivingReactionCollector} from './util/LongLivingReactionCollector';
-import {ResolverStore} from './structures/ResolverStore';
-import {Myriad} from "./structures/Myriad";
+import { ContentDeliveryNetwork } from './structures/ContentDeliveryNetwork';
+import { STARLIGHT_OPTIONS } from './util/Constants';
+import { LongLivingReactionCollector } from './util/LongLivingReactionCollector';
+import { ResolverStore } from './structures/ResolverStore';
+import { Myriad } from './structures/Myriad';
 
 export class StarlightClient extends Klasa.Client {
 
-    public usertags: Discord.Collection<string, string> = new Discord.Collection();
+	public usertags: Discord.Collection<string, string> = new Discord.Collection();
 
-    public llrcs: Set<LongLivingReactionCollector> = new Set();
+	public llrcs: Set<LongLivingReactionCollector> = new Set();
 
-    public constructor(options: Klasa.KlasaClientOptions = {}) {
-        super(mergeDefault(STARLIGHT_OPTIONS, options));
+	public constructor(options: Klasa.KlasaClientOptions = {}) {
+		super(mergeDefault(STARLIGHT_OPTIONS, options));
 
-        Reflect.defineMetadata('StarlightClient', true, this);
+		Reflect.defineMetadata('StarlightClient', true, this);
 
-        this.resolvers = new ResolverStore(this);
-        this.registerStore(this.resolvers);
+		this.resolvers = new ResolverStore(this);
+		this.registerStore(this.resolvers);
 
-        this.myriad = new Myriad(this);
+		this.myriad = new Myriad(this);
 
-        this.cdn = new ContentDeliveryNetwork(this);
-    }
+		this.cdn = new ContentDeliveryNetwork(this);
+	}
 
-    public async fetchTag(id: string): Promise<string> {
-        const cache = this.usertags.get(id);
-        if (cache) return cache;
+	public async fetchTag(id: string): Promise<string> {
+		const cache = this.usertags.get(id);
+		if (cache) return cache;
 
-        const user = await this.users.fetch(id);
-        this.usertags.set(user.id, user.tag);
-        return user.tag;
-    }
+		const user = await this.users.fetch(id);
+		this.usertags.set(user.id, user.tag);
+		return user.tag;
+	}
 
-    public async fetchUsername(id: string): Promise<string> {
-        const tag = await this.fetchTag(id);
-        return tag.slice(0, tag.indexOf('#'));
-    }
+	public async fetchUsername(id: string): Promise<string> {
+		const tag = await this.fetchTag(id);
+		return tag.slice(0, tag.indexOf('#'));
+	}
 
 }
 

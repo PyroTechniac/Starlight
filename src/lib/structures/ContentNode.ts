@@ -3,7 +3,7 @@ import { RequestInit } from 'node-fetch';
 import { ContentNodeDefaults } from '../types/Interfaces';
 import { fetch } from '../util/Utils';
 import { ContentDeliveryNetwork } from './ContentDeliveryNetwork';
-import {Time} from "../types/Enums";
+import { Time } from '../types/Enums';
 
 type FetchType = 'result' | 'json' | 'buffer' | 'text';
 
