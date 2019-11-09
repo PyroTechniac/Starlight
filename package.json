@@ -33,7 +33,7 @@
         "discord.js": "discordjs/discord.js",
         "dotenv": "^8.2.0",
         "fs-nextra": "^0.4.5",
-        "klasa": "dirigeants/klasa#settings",
+        "klasa": "dirigeants/klasa#97c2fe726b02f70ebf4bbd6c146ef9a1a537e9c6",
         "klasa-dashboard-hooks": "kyranet/klasa-dashboard-hooks#master",
         "node-fetch": "^2.6.0",
         "reflect-metadata": "^0.1.13",

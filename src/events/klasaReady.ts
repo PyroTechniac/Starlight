@@ -2,13 +2,9 @@ import { Event, EventOptions, ScheduledTaskOptions } from 'klasa';
 import { ClientSettings } from '../lib/settings/ClientSettings';
 import { Events } from '../lib/types/Enums';
 import { ApplyOptions } from '../lib/util/Decorators';
-import {initClean} from '@klasa/utils'
-const backupData = { folder: './backup/' };
+import { initClean } from '@klasa/utils';
 
 const tasks: [string, string, ScheduledTaskOptions?][] = [
-	['jsonBackup', '@daily', { catchUp: true, data: backupData }],
-	['tomlBackup', '@daily', { catchUp: true, data: backupData }],
-	['rethinkSync', '*/10 * * * *', { catchUp: false }],
 	['cleanup', '*/10 * * * *', { catchUp: false }]
 ];
 

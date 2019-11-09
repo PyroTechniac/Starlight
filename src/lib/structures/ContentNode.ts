@@ -26,7 +26,7 @@ export class ContentNode {
 
 	private _options: RequestInit;
 
-	private [kTimeout]: number
+	private [kTimeout]: number;
 
 	private [kValid]: boolean;
 
