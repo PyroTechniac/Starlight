@@ -7,7 +7,6 @@ import { ContentDeliveryNetwork } from './structures/ContentDeliveryNetwork';
 import { STARLIGHT_OPTIONS } from './util/Constants';
 import { LongLivingReactionCollector } from './util/LongLivingReactionCollector';
 import { ResolverStore } from './structures/ResolverStore';
-import { Myriad } from './structures/Myriad';
 
 export class StarlightClient extends Klasa.Client {
 
@@ -22,8 +21,6 @@ export class StarlightClient extends Klasa.Client {
 
 		this.resolvers = new ResolverStore(this);
 		this.registerStore(this.resolvers);
-
-		this.myriad = new Myriad(this);
 
 		this.cdn = new ContentDeliveryNetwork(this);
 	}

@@ -1,13 +1,14 @@
 import { Client } from 'discord.js';
 import { RequestInit } from 'node-fetch';
-import { ContentNodeDefaults } from '../types/Interfaces';
 import { fetch } from '../util/Utils';
 import { ContentDeliveryNetwork } from './ContentDeliveryNetwork';
 import { Time } from '../types/Enums';
+import { URL } from 'url';
 
 type FetchType = 'result' | 'json' | 'buffer' | 'text';
 
 const kTimeout = Symbol('ContentNodeTimeout');
+const kValid = Symbol('ContentNodeValidity');
 
 export class ContentNode {
 
@@ -19,26 +20,21 @@ export class ContentNode {
 
 	public createdTimestamp: number;
 
-	public defaults: ContentNodeDefaults;
-
 	private _data: unknown | null;
 
 	private _cb: (data: unknown) => unknown;
 
 	private _options: RequestInit;
 
-	private [kTimeout] = Date.now() + (Time.Minute * 2);
+	private [kValid]: boolean = this._validate();
+
+	private [kTimeout]: number = Date.now() + (Time.Minute * 2);
 
 	public constructor(client: Client, url: string) {
 		Object.defineProperty(this, 'client', { value: client });
 		this._data = null;
 		this.url = url;
 		this.fetchType = 'json';
-		this.defaults = {
-			callback: true,
-			options: true,
-			fetchType: true
-		};
 		this.createdTimestamp = new Date().getTime();
 		this._cb = (data): unknown => data;
 		this._options = {};
@@ -65,24 +61,25 @@ export class ContentNode {
 	}
 
 	public setCallback(callback: (data: any) => unknown): this {
+		this.refresh();
 		this._cb = callback;
-		this.defaults.callback = false;
 		return this;
 	}
 
 	public setOptions(options: RequestInit = {}): this {
+		this.refresh();
 		this._options = options;
-		this.defaults.options = false;
 		return this;
 	}
 
 	public setType(type: FetchType): this {
+		this.refresh();
 		this.fetchType = type;
-		this.defaults.fetchType = false;
 		return this;
 	}
 
 	public data<V>(): V | null {
+		this.refresh();
 		return this._data ? this._data as V : null;
 	}
 
@@ -91,6 +88,8 @@ export class ContentNode {
 	}
 
 	public fetch(force = this._data === null): Promise<ContentNode> {
+		this.refresh();
+		if (!this[kValid]) throw new Error('Cannot fetch invalid Content Node.');
 		const fetchStatus = this.store.fetchMap.get(this);
 		if (!force || fetchStatus) return fetchStatus || Promise.resolve(this);
 
@@ -104,6 +103,21 @@ export class ContentNode {
 
 		this.store.fetchMap.set(this, sync);
 		return sync;
+	}
+
+	public refresh(): this {
+		this[kTimeout] = Date.now() + (Time.Minute * 2);
+		this[kValid] = this._validate();
+		return this;
+	}
+
+	private _validate(): boolean {
+		try {
+			new URL(this.url);
+			return true;
+		} catch {
+			return false;
+		}
 	}
 
 }

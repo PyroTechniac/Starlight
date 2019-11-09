@@ -105,8 +105,3 @@ export interface FSProvider {
 	baseDirectory: string;
 	resolve: (...args: string[]) => string;
 }
-
-export interface ParsedMyriadContent {
-	language: string;
-	code: string;
-}

@@ -94,9 +94,5 @@ export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 		serverOptions
 	},
 	clientSecret,
-	clientID,
-	myriad: {
-		port: 8081,
-		enabled: true
-	}
+	clientID
 };
