@@ -1,5 +1,4 @@
 import { Event, EventOptions, ScheduledTaskOptions } from 'klasa';
-import { ClientSettings } from '../lib/settings/ClientSettings';
 import { Events } from '../lib/types/Enums';
 import { ApplyOptions } from '../lib/util/Decorators';
 import { initClean } from '@klasa/utils';
@@ -21,7 +20,7 @@ export default class extends Event {
 	}
 
 	private async ensureTask([task, time, data]: [string, string | number | Date, ScheduledTaskOptions?]): Promise<void> {
-		const tasks = this.client.settings!.get(ClientSettings.Schedules);
+		const {tasks} = this.client.schedule;
 		const found = tasks.find((s): boolean => s.taskName === task);
 		if (found) {
 			this.client.emit(Events.Log, `[SCHEDULE] Found task ${found.taskName} (${found.id})`);

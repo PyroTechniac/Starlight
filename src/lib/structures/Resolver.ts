@@ -5,7 +5,7 @@ import { mergeDefault } from '@klasa/utils';
 export abstract class Resolver extends AliasPiece {
 
 	public constructor(store: ResolverStore, file: string[], directory: string, options: ResolverOptions = {}) {
-		super(store, file, directory, mergeDefault({ aliases: [] as string[] }, options));
+		super(store, file, directory, mergeDefault({ aliases: [] as string[], enabled: true }, options));
 	}
 
 	public static regex = constants.MENTION_REGEX;
