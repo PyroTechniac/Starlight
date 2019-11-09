@@ -2,6 +2,7 @@ import { Event, EventOptions, ScheduledTaskOptions } from 'klasa';
 import { ClientSettings } from '../lib/settings/ClientSettings';
 import { Events } from '../lib/types/Enums';
 import { ApplyOptions } from '../lib/util/Decorators';
+import {initClean} from '@klasa/utils'
 const backupData = { folder: './backup/' };
 
 const tasks: [string, string, ScheduledTaskOptions?][] = [
@@ -17,6 +18,7 @@ const tasks: [string, string, ScheduledTaskOptions?][] = [
 export default class extends Event {
 
 	public async run(): Promise<void> {
+		initClean(this.client.token!);
 		for (const task of tasks) {
 			await this.ensureTask(task);
 		}

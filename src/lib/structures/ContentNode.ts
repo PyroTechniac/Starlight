@@ -26,9 +26,9 @@ export class ContentNode {
 
 	private _options: RequestInit;
 
-	private [kValid]: boolean = this._validate();
+	private [kTimeout]: number
 
-	private [kTimeout]: number = Date.now() + (Time.Minute * 2);
+	private [kValid]: boolean;
 
 	public constructor(client: Client, url: string) {
 		Object.defineProperty(this, 'client', { value: client });
@@ -38,6 +38,8 @@ export class ContentNode {
 		this.createdTimestamp = new Date().getTime();
 		this._cb = (data): unknown => data;
 		this._options = {};
+
+		this._validate();
 	}
 
 	public get store(): ContentDeliveryNetwork {
@@ -106,18 +108,19 @@ export class ContentNode {
 	}
 
 	public refresh(): this {
-		this[kTimeout] = Date.now() + (Time.Minute * 2);
-		this[kValid] = this._validate();
+		this._validate();
 		return this;
 	}
 
-	private _validate(): boolean {
+	private _validate(): void {
 		try {
 			new URL(this.url);
-			return true;
+			this[kValid] = true;
 		} catch {
-			return false;
+			this[kValid] = false;
 		}
+
+		this[kTimeout] = Date.now() + (Time.Minute * 3);
 	}
 
 }
