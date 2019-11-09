@@ -20,7 +20,7 @@ export default class extends Event {
 	}
 
 	private async ensureTask([task, time, data]: [string, string | number | Date, ScheduledTaskOptions?]): Promise<void> {
-		const {tasks} = this.client.schedule;
+		const { tasks } = this.client.schedule;
 		const found = tasks.find((s): boolean => s.taskName === task);
 		if (found) {
 			this.client.emit(Events.Log, `[SCHEDULE] Found task ${found.taskName} (${found.id})`);
