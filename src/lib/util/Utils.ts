@@ -1,20 +1,15 @@
-import * as TOML from '@iarna/toml';
 import { isThenable } from '@klasa/utils';
 import { Message, Client as DJSClient } from 'discord.js';
-import { mkdirs, readFile, writeFile, writeFileAtomic } from 'fs-nextra';
 import { Schema, SchemaFolder, SchemaEntry } from 'klasa';
 import nodeFetch, { RequestInit, Response } from 'node-fetch';
-import { dirname, join } from 'path';
+import { join } from 'path';
 import { URL } from 'url';
 import { UserSettings } from '../settings/UserSettings';
 import { BaseColors, Events } from '../types/Enums';
-import { ReadTOMLOptions, ReferredPromise, TomlOptions } from '../types/Interfaces';
+import { ReferredPromise } from '../types/Interfaces';
 import { rootFolder } from './Constants';
 
-const stripBom = (content: string | Buffer): string => {
-	if (Buffer.isBuffer(content)) content = content.toString('utf8');
-	return content.replace(/^\uFEFF/, '');
-};
+export * from './FS';
 
 export function isSchemaFolder(input: Schema | SchemaFolder | SchemaEntry): input is SchemaFolder | Schema {
 	return input.type === 'Folder';
@@ -22,37 +17,6 @@ export function isSchemaFolder(input: Schema | SchemaFolder | SchemaEntry): inpu
 // Synonymous for `throw`
 export function toss(exception: any): never {
 	throw exception;
-}
-
-export async function readTOML(file: string, options: ReadTOMLOptions | BufferEncoding = { flag: 'r' }): Promise<any> {
-	if (typeof options === 'string') options = { encoding: options, flag: 'r' };
-	const content = await readFile(file, options);
-	return TOML.parse(stripBom(content));
-}
-
-export async function writeTOML(file: string, object: any, atomic?: boolean): Promise<void>;
-export async function writeTOML(file: string, object: any, options?: TomlOptions, atomic?: boolean): Promise<void>;
-export async function writeTOML(file: string, object: any, options: TomlOptions | boolean = {}, atomic = false): Promise<void> {
-	if (typeof options === 'boolean') [atomic, options] = [options, {}];
-
-	const writeMethod = atomic ? writeFileAtomic : writeFile;
-	await writeMethod(file, `${TOML.stringify(object)}`);
-}
-
-export async function writeTOMLAtomic(file: string, object: any, options: TomlOptions = {}): Promise<void> {
-	return writeTOML(file, object, options, true);
-}
-
-export async function outputTOML(file: string, data: any, atomic?: boolean): Promise<void>;
-export async function outputTOML(file: string, data: any, options?: TomlOptions, atomic?: boolean): Promise<void>;
-export async function outputTOML(file: string, data: any, options?: TomlOptions | boolean, atomic = false): Promise<void> {
-	if (typeof options === 'boolean') [atomic, options] = [options, {}];
-	await mkdirs(dirname(file));
-	return writeTOML(file, data, options, atomic);
-}
-
-export async function outputTOMLAtomic(file: string, data: any, options?: TomlOptions): Promise<void> {
-	return outputTOML(file, data, options, true);
 }
 
 export function splitText(str: string, length: number, char = ' '): string {
