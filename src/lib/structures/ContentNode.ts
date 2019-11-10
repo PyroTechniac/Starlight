@@ -77,7 +77,7 @@ export class ContentNode {
 
 	public data<V>(): V | null {
 		this.refresh();
-		return this._data ? this._data as V : null;
+		return this._data as V | null;
 	}
 
 	public delete(): boolean {
