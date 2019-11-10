@@ -14,7 +14,21 @@ export * from './FS';
 export function isSchemaFolder(input: Schema | SchemaFolder | SchemaEntry): input is SchemaFolder | Schema {
 	return input.type === 'Folder';
 }
-// Synonymous for `throw`
+
+export async function iterate<T>(promises: Promise<T>[]): Promise<T[]> {
+	const values: T[] = [];
+	for (const prom of promises) {
+		try {
+			values.push(await prom);
+		} catch (err) {
+			values.push(err);
+		}
+	}
+
+	return values;
+}
+
+// Synonymous for `throw` but allows throwing in one-line arrow functions
 export function toss(exception: any): never {
 	throw exception;
 }
