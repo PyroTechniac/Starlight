@@ -36,8 +36,6 @@ export default class extends Provider implements FSProvider {
 	}
 
 	public async deleteTable(table: string): Promise<void> {
-		// return this.hasTable(table)
-		// 	.then((exists): Promise<void> => exists ? fs.emptyDir(this.resolve(table)).then((): Promise<void> => fs.remove(this.resolve(table))) : Promise.resolve());
 		if (!await this.hasTable(table)) return;
 		const resolved = this.resolve(table);
 		await fs.emptyDir(resolved);

@@ -16,6 +16,7 @@ export default class extends Command {
 			.setDescription(msg.language.get('SYSTEM_LOADING')));
 		const subreddit = (await this.client.cdn.acquire(`https://www.reddit.com/r/${subredditName}/about.json`)
 			.setCallback((data: InitialBody): RawRedditData => data.kind === 't5'
+				// Set each piece of data individually instead of the whole packet as to reduce memory usage.
 				? {
 					title: data.data.title,
 					public_description: data.data.public_description,
