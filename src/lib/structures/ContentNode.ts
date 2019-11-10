@@ -4,11 +4,13 @@ import { fetch } from '../util/Utils';
 import { ContentDeliveryNetwork } from './ContentDeliveryNetwork';
 import { Time } from '../types/Enums';
 import { URL } from 'url';
+import AbortController from 'abort-controller';
 
 type FetchType = 'result' | 'json' | 'buffer' | 'text';
 
 const kTimeout = Symbol('ContentNodeTimeout');
 const kValid = Symbol('ContentNodeValidity');
+
 
 export class ContentNode {
 
@@ -17,8 +19,6 @@ export class ContentNode {
 	public url: string;
 
 	public fetchType: FetchType;
-
-	public createdTimestamp: number;
 
 	private _data: unknown | null;
 
@@ -35,7 +35,6 @@ export class ContentNode {
 		this._data = null;
 		this.url = url;
 		this.fetchType = 'json';
-		this.createdTimestamp = new Date().getTime();
 		this._cb = (data): unknown => data;
 		this._options = {};
 
@@ -44,10 +43,6 @@ export class ContentNode {
 
 	public get store(): ContentDeliveryNetwork {
 		return this.client.cdn;
-	}
-
-	public get createdAt(): Date {
-		return new Date(this.createdTimestamp);
 	}
 
 	public get fetching(): boolean {
@@ -95,12 +90,18 @@ export class ContentNode {
 		const fetchStatus = this.store.fetchMap.get(this);
 		if (!force || fetchStatus) return fetchStatus || Promise.resolve(this);
 
-		const sync = fetch(this.url, this._options, this.fetchType)
+		const controller = new AbortController();
+		const timeout = this.client.setTimeout(() => controller.abort(), this.client.options.cdnRequestTimeout);
+
+		const sync = fetch(this.url, { signal: controller.signal, ...this._options }, this.fetchType)
 			.then((data): this => {
 				this._data = this._cb(data);
 				return this;
 			})
-			.finally((): boolean => this.store.fetchMap.delete(this));
+			.finally((): void => {
+				this.store.fetchMap.delete(this);
+				this.client.clearTimeout(timeout);
+			});
 
 
 		this.store.fetchMap.set(this, sync);

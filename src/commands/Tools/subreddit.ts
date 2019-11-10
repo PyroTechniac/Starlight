@@ -1,4 +1,4 @@
-import { Command, CommandOptions, Language, KlasaMessage } from 'klasa';
+import { Command, CommandOptions, KlasaMessage, Language } from 'klasa';
 import { ApplyOptions } from '../../lib/util/Decorators';
 import { toss } from '../../lib/util/Utils';
 import { MessageEmbed } from 'discord.js';
@@ -11,12 +11,23 @@ import { MessageEmbed } from 'discord.js';
 export default class extends Command {
 
 	public async run(msg: KlasaMessage, [subredditName]: [string]): Promise<KlasaMessage> {
-		await msg.sendLocale('SYSTEM_LOADING');
-		const node = await this.client.cdn.acquire(`https://www.reddit.com/r/${subredditName}/about.json`)
-			.setCallback((data: InitialBody): RawRedditData => data.kind === 't5' ? data.data : toss(msg.language.get('COMMAND_SUBREDDIT_NOEXIST')))
-			.fetch();
-
-		const subreddit = node.data<RawRedditData>()!;
+		await msg.sendEmbed(new MessageEmbed()
+			.setColor(6570404)
+			.setDescription(msg.language.get('SYSTEM_LOADING')));
+		const subreddit = (await this.client.cdn.acquire(`https://www.reddit.com/r/${subredditName}/about.json`)
+			.setCallback((data: InitialBody): RawRedditData => data.kind === 't5'
+				? {
+					title: data.data.title,
+					public_description: data.data.public_description,
+					icon_img: data.data.icon_img,
+					banner_img: data.data.banner_img,
+					subscribers: data.data.subscribers,
+					accounts_active: data.data.accounts_active
+				}
+				: toss(msg.language.get('COMMAND_SUBREDDIT_NOEXIST')))
+			.fetch()
+			.catch((): never => toss(msg.language.get('COMMAND_SUBREDDIT_ERROR'))))
+			.data<RawRedditData>()!;
 
 		return msg.sendEmbed(new MessageEmbed()
 			.setTitle(subreddit.title)

@@ -94,5 +94,6 @@ export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 		serverOptions
 	},
 	clientSecret,
-	clientID
+	clientID,
+	cdnRequestTimeout: 15000
 };

@@ -27,6 +27,7 @@
         "@iarna/toml": "iarna/iarna-toml",
         "@klasa/querybuilder": "^0.0.1",
         "@klasa/utils": "^0.0.2",
+        "abort-controller": "^3.0.0",
         "canvas": "^2.6.0",
         "canvas-constructor": "^3.1.0",
         "discord-md-tags": "^0.0.6",
