@@ -24,8 +24,8 @@ export default class extends Provider {
 	}
 
 	public async shutdown(): Promise<void> {
-		if (!this.pool) return;
-		return this.pool.drain();
+		// eslint-disable-next-line no-undef
+		return this.pool?.drain();
 	}
 
 	public hasTable(table: string): Promise<boolean> {
@@ -54,7 +54,7 @@ export default class extends Provider {
 		return this.db.table(table).run();
 	}
 
-	public async getKeys(table: string, entries: any[] = []): Promise<string[]> {
+	public async getKeys(table: string, entries: readonly any[] = []): Promise<string[]> {
 		if (entries.length) {
 			const chunks = chunk(entries, 50000);
 			const output: string[] = [];
