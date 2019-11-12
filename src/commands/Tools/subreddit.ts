@@ -43,6 +43,8 @@ export default class extends Command {
 
 }
 
+// TODO: Shift this to use the Reddit definitions.
+
 interface InitialBody {
 	kind: string;
 	data: RawRedditData;
