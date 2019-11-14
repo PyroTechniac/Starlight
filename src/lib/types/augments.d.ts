@@ -3,7 +3,7 @@ import { ContentDeliveryNetwork } from '../structures/ContentDeliveryNetwork';
 import { LongLivingReactionCollector } from '../util/LongLivingReactionCollector';
 import { ResolverStore } from '../structures/ResolverStore';
 import { CacheManager } from '../util/cache/CacheManager';
-import {UserCache} from "../util/cache/UserCache";
+import { UserCache } from '../util/cache/UserCache';
 
 
 // This file is for augments to other modules, such as d.js or klasa.
@@ -15,7 +15,7 @@ declare module 'discord.js' {
 		llrcs: Set<LongLivingReactionCollector>;
 		resolvers: ResolverStore;
 		cache: CacheManager;
-		readonly userCache: UserCache
+		readonly userCache: UserCache;
 	}
 
 	interface Guild {

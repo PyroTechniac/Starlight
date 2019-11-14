@@ -12,7 +12,7 @@ export default class extends Resolver {
 		const id = USER_REGEXP.test(arg)
 			? USER_REGEXP.exec(arg)![1]
 			: USER_TAG.test(arg)
-				? this.client.usertags.findKey((tag): boolean => tag === arg) || null
+				? this.client.userCache.resolveID(arg)
 				: null;
 
 		return id

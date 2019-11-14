@@ -7,7 +7,7 @@ import { STARLIGHT_OPTIONS } from './util/Constants';
 import { LongLivingReactionCollector } from './util/LongLivingReactionCollector';
 import { ResolverStore } from './structures/ResolverStore';
 import { CacheManager } from './util/cache/CacheManager';
-import {UserCache} from "./util/cache/UserCache";
+import { UserCache } from './util/cache/UserCache';
 
 export class StarlightClient extends Klasa.Client {
 

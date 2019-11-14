@@ -1,16 +1,15 @@
 import { Channel, Client, TextChannel, Util } from 'discord.js';
 import { Colors } from 'klasa';
 import { Events } from '../../types/Enums';
-import {UserCache} from "./UserCache";
+import { UserCache } from './UserCache';
 
 export class CacheManager {
 
 	public readonly client!: Client;
-
+	public users: UserCache = new UserCache(this);
 	private readonly header = new Colors({ text: 'lightblue' }).format('[MEMORY CLEANUP]');
 	private ready = false;
 
-	public users: UserCache = new UserCache(this);
 
 	public constructor(client: Client) {
 		Object.defineProperty(this, 'client', { value: client });
