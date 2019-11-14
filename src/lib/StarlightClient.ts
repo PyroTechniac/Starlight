@@ -7,6 +7,7 @@ import { ContentDeliveryNetwork } from './structures/ContentDeliveryNetwork';
 import { STARLIGHT_OPTIONS } from './util/Constants';
 import { LongLivingReactionCollector } from './util/LongLivingReactionCollector';
 import { ResolverStore } from './structures/ResolverStore';
+import { CacheManager } from './util/cache/CacheManager';
 
 export class StarlightClient extends Klasa.Client {
 
@@ -21,6 +22,8 @@ export class StarlightClient extends Klasa.Client {
 
 		this.resolvers = new ResolverStore(this);
 		this.registerStore(this.resolvers);
+
+		this.cache = new CacheManager(this);
 
 		this.cdn = new ContentDeliveryNetwork(this);
 

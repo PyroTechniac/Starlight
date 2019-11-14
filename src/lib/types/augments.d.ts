@@ -2,6 +2,7 @@ import { CustomGet } from '../settings/Shared';
 import { ContentDeliveryNetwork } from '../structures/ContentDeliveryNetwork';
 import { LongLivingReactionCollector } from '../util/LongLivingReactionCollector';
 import { ResolverStore } from '../structures/ResolverStore';
+import { CacheManager } from '../util/cache/CacheManager';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -14,9 +15,8 @@ declare module 'discord.js' {
 		cdn: ContentDeliveryNetwork;
 		llrcs: Set<LongLivingReactionCollector>;
 		resolvers: ResolverStore;
-
+		cache: CacheManager;
 		fetchTag(id: string): Promise<string>;
-
 		fetchUsername(id: string): Promise<string>;
 	}
 
