@@ -13,7 +13,7 @@ export default class extends Event {
 		if (!guild || !guild.available) return;
 
 		guild.memberSnowflakes.delete(data.user.id);
-		if (!this.client.guilds.some((g): boolean => g.memberSnowflakes.has(data.user.id))) this.client.usertags.delete(data.user.id);
+		if (!this.client.guilds.some((g): boolean => g.memberSnowflakes.has(data.user.id))) this.client.userCache.delete(data.user.id);
 		if (guild.members.has(data.user.id)) guild.members.delete(data.user.id);
 	}
 

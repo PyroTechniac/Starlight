@@ -13,7 +13,7 @@ export default class extends Event {
 		if (!guild || !guild.available) return;
 
 		guild.memberSnowflakes.add(data.user.id);
-		guild.client.usertags.set(data.user.id, `${data.user.username}#${data.user.discriminator}`);
+		guild.client.userCache.create(data.user);
 	}
 
 }

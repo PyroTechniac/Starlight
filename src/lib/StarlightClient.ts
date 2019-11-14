@@ -1,5 +1,4 @@
 import { mergeDefault } from '@klasa/utils';
-import * as Discord from 'discord.js';
 import * as Klasa from 'klasa';
 import { Client } from 'klasa-dashboard-hooks';
 import './StarlightPreload';
@@ -8,10 +7,9 @@ import { STARLIGHT_OPTIONS } from './util/Constants';
 import { LongLivingReactionCollector } from './util/LongLivingReactionCollector';
 import { ResolverStore } from './structures/ResolverStore';
 import { CacheManager } from './util/cache/CacheManager';
+import {UserCache} from "./util/cache/UserCache";
 
 export class StarlightClient extends Klasa.Client {
-
-	public usertags: Discord.Collection<string, string> = new Discord.Collection();
 
 	public llrcs: Set<LongLivingReactionCollector> = new Set();
 
@@ -29,18 +27,8 @@ export class StarlightClient extends Klasa.Client {
 
 	}
 
-	public async fetchTag(id: string): Promise<string> {
-		const cache = this.usertags.get(id);
-		if (cache) return cache;
-
-		const user = await this.users.fetch(id);
-		this.usertags.set(user.id, user.tag);
-		return user.tag;
-	}
-
-	public async fetchUsername(id: string): Promise<string> {
-		const tag = await this.fetchTag(id);
-		return tag.slice(0, tag.indexOf('#'));
+	public get userCache(): UserCache {
+		return this.cache.users;
 	}
 
 }

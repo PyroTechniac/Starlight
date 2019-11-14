@@ -3,21 +3,19 @@ import { ContentDeliveryNetwork } from '../structures/ContentDeliveryNetwork';
 import { LongLivingReactionCollector } from '../util/LongLivingReactionCollector';
 import { ResolverStore } from '../structures/ResolverStore';
 import { CacheManager } from '../util/cache/CacheManager';
+import {UserCache} from "../util/cache/UserCache";
+
 
 // This file is for augments to other modules, such as d.js or klasa.
 
 declare module 'discord.js' {
-
-
 	interface Client {
 		regions: null | Collection<string, VoiceRegion>;
-		usertags: Collection<string, string>;
 		cdn: ContentDeliveryNetwork;
 		llrcs: Set<LongLivingReactionCollector>;
 		resolvers: ResolverStore;
 		cache: CacheManager;
-		fetchTag(id: string): Promise<string>;
-		fetchUsername(id: string): Promise<string>;
+		readonly userCache: UserCache
 	}
 
 	interface Guild {

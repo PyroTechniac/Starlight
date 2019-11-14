@@ -14,7 +14,7 @@ export default class extends Event {
 		if (!guild) return;
 
 		guild.memberSnowflakes.add(data.user.id);
-		this.client.usertags.set(data.user.id, `${data.user.username}#${data.user.discriminator}`);
+		this.client.userCache.create(data.user);
 		const member = await guild.members.fetch(data.user.id).catch(noop);
 		if (!member) return;
 		// eslint-disable-next-line @typescript-eslint/ban-ts-ignore

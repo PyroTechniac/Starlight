@@ -1,13 +1,18 @@
 import Collection from "@discordjs/collection";
 import {Client, User} from "discord.js";
 import {APIUserData} from "../../types/Interfaces";
+import {CacheManager} from "./CacheManager";
 
 export class UserCache extends Collection<string, UserCacheData> {
-    public readonly client!: Client;
+    public readonly manager!: CacheManager
 
-    public constructor(client: Client) {
+    public constructor(manager: CacheManager) {
         super();
-        Object.defineProperty(this, 'client', {value: client});
+        Object.defineProperty(this, 'manager', {value: manager});
+    }
+
+    public get client(): Client {
+        return this.manager.client;
     }
 
     public resolve(usernameOrTag: string) {

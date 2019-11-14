@@ -1,6 +1,7 @@
 import { Channel, Client, TextChannel, Util } from 'discord.js';
 import { Colors } from 'klasa';
 import { Events } from '../../types/Enums';
+import {UserCache} from "./UserCache";
 
 export class CacheManager {
 
@@ -8,6 +9,8 @@ export class CacheManager {
 
 	private readonly header = new Colors({ text: 'lightblue' }).format('[MEMORY CLEANUP]');
 	private ready = false;
+
+	public users: UserCache = new UserCache(this);
 
 	public constructor(client: Client) {
 		Object.defineProperty(this, 'client', { value: client });
@@ -81,7 +84,7 @@ export class CacheManager {
 		let emojis = 0;
 
 		for (const user of this.client.users.values()) {
-			this.client.usertags.set(user.id, user.tag);
+		    this.users.create(user);
 		}
 
 		this.client.users.clear();
