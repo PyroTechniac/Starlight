@@ -1,6 +1,7 @@
-import { Collection, Client } from 'discord.js';
+import { Client } from 'discord.js';
 import { ContentNode } from './ContentNode';
-import { CollectionConstructor } from '@discordjs/collection';
+import Collection, { CollectionConstructor } from '@discordjs/collection';
+import { ContentNodeJSON } from '../types/Interfaces';
 
 export class ContentDeliveryNetwork extends Collection<string, ContentNode> {
 
@@ -31,6 +32,12 @@ export class ContentDeliveryNetwork extends Collection<string, ContentNode> {
 		return Promise.all(nodes);
 	}
 
+	public async *iterateFetch(force = false): AsyncGenerator<ContentNode> {
+		const nodes = await this.fetch(force);
+
+		for (const node of nodes) yield node;
+	}
+
 	public acquire(url: string): ContentNode {
 		url = url.toLowerCase();
 		return (this.get(url) || this.create(url)).refresh();
@@ -51,6 +58,10 @@ export class ContentDeliveryNetwork extends Collection<string, ContentNode> {
 		}
 
 		return node;
+	}
+
+	public toJSON(): ContentNodeJSON[] {
+		return this.map((node): ContentNodeJSON => node.toJSON());
 	}
 
 	public static get [Symbol.species](): CollectionConstructor {

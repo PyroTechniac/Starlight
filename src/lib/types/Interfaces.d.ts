@@ -1,3 +1,6 @@
+import { FetchType } from './Types';
+import { RequestInit } from 'node-fetch';
+
 export interface RateLimitInfo {
 	timeout: number;
 	limit: number;
@@ -89,12 +92,6 @@ export interface UserAuthObject {
 	user_id: string;
 }
 
-export interface ContentNodeDefaults {
-	callback: boolean;
-	options: boolean;
-	fetchType: boolean;
-}
-
 export interface ReferredPromise<T> {
 	promise: Promise<T>;
 	resolve(value?: T): void;
@@ -104,4 +101,13 @@ export interface ReferredPromise<T> {
 export interface FSProvider {
 	baseDirectory: string;
 	resolve: (...args: string[]) => string;
+}
+
+export interface ContentNodeJSON {
+	url: string;
+	type: FetchType;
+	data: unknown | null;
+	options: RequestInit;
+	timeout: number;
+	valid: boolean;
 }

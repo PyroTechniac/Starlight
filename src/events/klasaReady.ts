@@ -26,11 +26,11 @@ export default class extends Event {
 		if (found) {
 			this.client.emit(Events.Log, `[SCHEDULE] Found task ${found.taskName} (${found.id})`);
 			return false;
-		} else {
-			const created = await this.client.schedule.create(task, time, data);
-			this.client.emit(Events.Log, `[SCHEDULE] Created task ${created.taskName} (${created.id})`);
-			return true;
 		}
+		const created = await this.client.schedule.create(task, time, data);
+		this.client.emit(Events.Log, `[SCHEDULE] Created task ${created.taskName} (${created.id})`);
+		return true;
+
 	}
 
 }

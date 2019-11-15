@@ -48,11 +48,11 @@ export function createReferPromise<T>(): ReferredPromise<T> {
 	return { promise, resolve: resolve!, reject: reject! };
 }
 
-const kFloatedPromises = new WeakSet<Promise<unknown>>()
+const kFloatedPromises = new WeakSet<Promise<unknown>>();
 
 export function floatPromise<T>(ctx: { client: DJSClient }, prom: Promise<T>): Promise<T> {
 	if (isThenable(prom)) {
-		prom.catch((err): any => {
+		prom.catch((err): any => { // eslint-disable-line @typescript-eslint/no-floating-promises
 			ctx.client.emit(Events.Wtf, err);
 			return err;
 		})

@@ -3,10 +3,10 @@ import { RequestInit } from 'node-fetch';
 import { fetch } from '../util/Utils';
 import { ContentDeliveryNetwork } from './ContentDeliveryNetwork';
 import { Time } from '../types/Enums';
+import { FetchType } from '../types/Types';
 import { URL } from 'url';
 import AbortController from 'abort-controller';
-
-type FetchType = 'result' | 'json' | 'buffer' | 'text';
+import { ContentNodeJSON } from '../types/Interfaces';
 
 const kTimeout = Symbol('ContentNodeTimeout');
 const kValid = Symbol('ContentNodeValidity');
@@ -111,6 +111,17 @@ export class ContentNode {
 	public refresh(): this {
 		this._validate();
 		return this;
+	}
+
+	public toJSON(): ContentNodeJSON {
+		return {
+			url: this.url,
+			type: this.fetchType,
+			data: this.data(),
+			options: this._options,
+			timeout: this[kTimeout],
+			valid: this[kValid]
+		};
 	}
 
 	private _validate(): void {
