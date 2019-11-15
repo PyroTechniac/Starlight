@@ -27,6 +27,7 @@ export default class extends Task {
 		switch (provider) {
 			case 'toml':
 			case 'json':
+			case 'btf':
 				await this.backupFSProvider();
 				break;
 			case 'rethinkdb':
