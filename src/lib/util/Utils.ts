@@ -15,19 +15,6 @@ export function isSchemaFolder(input: Schema | SchemaFolder | SchemaEntry): inpu
 	return input.type === 'Folder';
 }
 
-export async function iterate<T>(promises: Promise<T>[]): Promise<T[]> {
-	const values: T[] = [];
-	for (const prom of promises) {
-		try {
-			values.push(await prom);
-		} catch (err) {
-			values.push(err);
-		}
-	}
-
-	return values;
-}
-
 // Synonymous for `throw` but allows throwing in one-line arrow functions
 export function toss(exception: any): never {
 	throw exception;
@@ -61,12 +48,16 @@ export function createReferPromise<T>(): ReferredPromise<T> {
 	return { promise, resolve: resolve!, reject: reject! };
 }
 
+const kFloatedPromises = new WeakSet<Promise<unknown>>()
+
 export function floatPromise<T>(ctx: { client: DJSClient }, prom: Promise<T>): Promise<T> {
 	if (isThenable(prom)) {
 		prom.catch((err): any => {
 			ctx.client.emit(Events.Wtf, err);
 			return err;
-		});
+		})
+			.finally((): boolean => kFloatedPromises.delete(prom));
+		kFloatedPromises.add(prom);
 	}
 	return prom;
 }
