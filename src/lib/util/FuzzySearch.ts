@@ -1,9 +1,10 @@
 // Copyright (c) 2019 kyranet. All rights reserved. Apache license.
 // This is a recreation of work. The original work can be found here.
 // https://github.com/kyranet/Skyra/blob/master/src/lib/util/FuzzySearch.ts
-import { Collection, Message } from 'discord.js';
+import { Message } from 'discord.js';
 import { levenshtein } from './External/levenshtein';
 import { codeBlock } from '@klasa/utils';
+import Collection from '@discordjs/collection';
 
 type FuzzySearchAccess<V> = (value: V) => string;
 type FuzzySearchFilter<V> = (value: V) => boolean;

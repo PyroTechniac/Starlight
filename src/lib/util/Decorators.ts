@@ -4,6 +4,7 @@ import { ApiResponse } from '../structures/api/ApiResponse';
 import { Util } from 'klasa-dashboard-hooks';
 import { CLIENT_SECRET } from './Constants';
 import { Constructor } from '../types/Types';
+import { isFunction } from '@klasa/utils';
 // Copyright (c) 2019 kyranet. All rights reserved. MIT License
 // This is a recreation of kyranet's klasa-decorators but with proper type annotation.
 // The original work can be found at https://github.com/kyranet/klasa-decorators.
@@ -31,7 +32,7 @@ export function createFunctionInhibitor(inhibitor: Inhibitor, fallback: Fallback
 	return createMethodDecorator((_target, _propertyKey, descriptor): void => {
 		const method = descriptor.value;
 		if (!method) throw new Error('Function inhibitors require a [[value]].');
-		if (typeof method !== 'function') throw new Error('Function inhibitors can only be applied to functions.');
+		if (!isFunction(method)) throw new Error('Function inhibitors can only be applied to functions.');
 
 		descriptor.value = (async function descriptorValue(this: Function, ...args: any[]): Promise<any> {
 			const canRun = await inhibitor(...args);
