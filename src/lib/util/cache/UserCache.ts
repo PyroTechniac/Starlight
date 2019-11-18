@@ -19,9 +19,20 @@ export class UserCache extends Collection<string, UserCacheData> {
 	public resolve(usernameOrTag: string, id: true): string | null;
 	public resolve(usernameOrTag: string, id?: false): UserCacheData | null
 	public resolve(usernameOrTag: string, id = false): UserCacheData | string | null {
+		const pieces = usernameOrTag.split('#', 2) as [string, string];
+		if (pieces.length !== 2 || pieces[1].length !== 4) {
+			return id
+				? this._resolveFromUsername(usernameOrTag, true)
+				: this._resolveFromUsername(usernameOrTag, false);
+		}
 		return id
-			? this._resolveFromTag(usernameOrTag, id as true) ?? this._resolveFromUsername(usernameOrTag, id as true)
-			: this._resolveFromTag(usernameOrTag) ?? this._resolveFromUsername(usernameOrTag);
+			? this._resolveFromTag(pieces, true)
+			: this._resolveFromTag(pieces, false);
+
+		// return id
+		// 	? this._resolveFromTag(usernameOrTag, id) ?? this._resolveFromUsername(usernameOrTag, id)
+		// 	: this._resolveFromTag(usernameOrTag) ?? this._resolveFromUsername(usernameOrTag);
+
 	}
 
 	public async fetch(id: string): Promise<UserCacheData> {
@@ -54,13 +65,9 @@ export class UserCache extends Collection<string, UserCacheData> {
 		return cache;
 	}
 
-	private _resolveFromTag(tag: string, returnID: true): string | null;
-	private _resolveFromTag(tag: string, returnID?: false): UserCacheData | null;
-	private _resolveFromTag(tag: string, returnID = false): UserCacheData | string | null {
-		const pieces = tag.split('#', 2);
-		if (pieces.length !== 2 || pieces[1].length !== 4) return null;
-
-		const [username, discriminator] = pieces;
+	private _resolveFromTag([username, discriminator]: [string, string], returnID: true): string | null;
+	private _resolveFromTag([username, discriminator]: [string, string], returnID?: false): UserCacheData | null;
+	private _resolveFromTag([username, discriminator]: [string, string], returnID = false): UserCacheData | string | null {
 		for (const [key, value] of this.entries()) {
 			if (username === value.username && discriminator === value.discriminator) return returnID ? key : value;
 		}
