@@ -81,12 +81,6 @@ export interface ReadTOMLOptions {
 	flag?: string | number;
 }
 
-export interface TranslationHelperJSON {
-	language: string;
-	translations: Record<string, string>;
-	defaults: Record<string, string>;
-}
-
 export interface UserAuthObject {
 	token: string;
 	user_id: string;

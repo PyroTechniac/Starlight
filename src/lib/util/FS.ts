@@ -3,6 +3,7 @@ import * as TOML from '@iarna/toml';
 import { dirname } from 'path';
 import { readFile, writeFile, writeFileAtomic, mkdirs } from 'fs-nextra';
 
+
 const stripBom = (content: string | Buffer): string => {
 	if (Buffer.isBuffer(content)) content = content.toString('utf8');
 	return content.replace(/^\uFEFF/, '');
@@ -38,4 +39,3 @@ export async function outputTOML(file: string, data: any, options?: TomlOptions 
 export async function outputTOMLAtomic(file: string, data: any, options?: TomlOptions): Promise<void> {
 	return outputTOML(file, data, options, true);
 }
-
