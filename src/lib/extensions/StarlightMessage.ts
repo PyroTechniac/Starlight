@@ -22,6 +22,8 @@ export class StarlightMessage extends Structures.get('Message') {
 
 }
 
+Structures.extend('Message', (): typeof Message => StarlightMessage);
+
 async function nuke(message: Message): Promise<Message> {
 	try {
 		return await message.delete();

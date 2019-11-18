@@ -1,13 +1,22 @@
 import { mergeDefault } from '@klasa/utils';
 import * as Klasa from 'klasa';
 import { Client } from 'klasa-dashboard-hooks';
-import './StarlightPreload';
+import { config } from 'dotenv';
+import './extensions/StarlightGuild';
+import './extensions/StarlightMessage';
+import 'reflect-metadata';
+import './setup/PermissionLevels';
+import './schemas/Clients';
+import './schemas/Guilds';
+import './schemas/Users';
 import { ContentDeliveryNetwork } from './structures/ContentDeliveryNetwork';
 import { STARLIGHT_OPTIONS } from './util/Constants';
 import { LongLivingReactionCollector } from './util/LongLivingReactionCollector';
 import { ResolverStore } from './structures/ResolverStore';
 import { CacheManager } from './util/cache/CacheManager';
 import { UserCache } from './util/cache/UserCache';
+
+config();
 
 export class StarlightClient extends Klasa.Client {
 
