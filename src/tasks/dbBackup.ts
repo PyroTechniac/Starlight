@@ -39,7 +39,7 @@ export default class extends Task {
 	private async backupFSProvider(): Promise<void> {
 		const provider = this.provider as JsonProvider | TomlProvider;
 
-		const file = resolve('./backup', `${provider.name}-backup-${this.timestamp}.tar.gz`);
+		const file = resolve('./', 'backup', `${provider.name}-backup-${this.timestamp}.tar.gz`);
 		await ensureDir(dirname(file)).then((): Promise<void> => targz(file, provider.baseDirectory));
 	}
 
