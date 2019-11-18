@@ -12,7 +12,7 @@ export default class extends Event {
 		const guild = this.client.guilds.get(data.guild_id);
 		if (!guild || !guild.available) return;
 
-		guild.memberSnowflakes.add(data.user.id);
+		guild.nicknames.set(data.user.id, data.nick ?? null);
 		guild.client.userCache.create(data.user);
 	}
 

@@ -12,8 +12,8 @@ export default class extends Event {
 		const guild = this.client.guilds.get(data.guild_id);
 		if (!guild || !guild.available) return;
 
-		guild.memberSnowflakes.delete(data.user.id);
-		if (!this.client.guilds.some((g): boolean => g.memberSnowflakes.has(data.user.id))) this.client.userCache.delete(data.user.id);
+		guild.nicknames.delete(data.user.id);
+		if (!this.client.guilds.some((g): boolean => g.nicknames.has(data.user.id))) this.client.userCache.delete(data.user.id);
 		if (guild.members.has(data.user.id)) guild.members.delete(data.user.id);
 	}
 

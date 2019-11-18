@@ -4,11 +4,13 @@ import { LongLivingReactionCollector } from '../util/LongLivingReactionCollector
 import { ResolverStore } from '../structures/ResolverStore';
 import { CacheManager } from '../util/cache/CacheManager';
 import { UserCache } from '../util/cache/UserCache';
+import { MemberNicknames } from '../util/cache/MemberNicknames';
 
 
 // This file is for augments to other modules, such as d.js or klasa.
 
 declare module 'discord.js' {
+
 	interface Client {
 		regions: null | Collection<string, VoiceRegion>;
 		cdn: ContentDeliveryNetwork;
@@ -19,9 +21,7 @@ declare module 'discord.js' {
 	}
 
 	interface Guild {
-		memberSnowflakes: Set<string>;
-		readonly memberTags: Collection<string, string>;
-		readonly memberUsernames: Collection<string, string>;
+		readonly nicknames: MemberNicknames;
 	}
 
 	interface Message {

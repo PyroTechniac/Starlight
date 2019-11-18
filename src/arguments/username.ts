@@ -16,7 +16,7 @@ export default class extends Argument {
 		const resUser = await this.client.resolvers.run('user', arg, message.language, this.client.users);
 		if (resUser) return resUser;
 
-		const result = await new FuzzySearch(message.guild.memberUsernames, (entry): string => entry, filter).run(message, arg, possible.min || undefined);
+		const result = await new FuzzySearch(message.guild.nicknames.mapUsernames(), (entry): string => entry, filter).run(message, arg, possible.min || undefined);
 		if (result) {
 			return this.client.users.fetch(result[0]).catch(() => toss(message.language.get('USER_NOT_EXISTENT')));
 		}

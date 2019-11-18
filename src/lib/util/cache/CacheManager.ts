@@ -91,7 +91,7 @@ export class CacheManager {
 			const { me } = guild;
 
 			for (const member of guild.members.values()) {
-				guild.memberSnowflakes.add(member.id);
+				guild.nicknames.create(member);
 			}
 
 			guildMembers += guild.members.size - 1;
