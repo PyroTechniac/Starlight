@@ -53,7 +53,7 @@ export class UserCache extends Collection<string, UserCacheData> {
 		super.set(data.id, cache);
 		return cache;
 	}
-
+        // TODO: Fix the logic of the public interface to make this more efficient
 	private _resolveFromTag(tag: string, returnID: true): string | null;
 	private _resolveFromTag(tag: string, returnID?: false): UserCacheData | null;
 	private _resolveFromTag(tag: string, returnID = false): UserCacheData | string | null {
