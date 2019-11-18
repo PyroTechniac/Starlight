@@ -28,11 +28,6 @@ export class UserCache extends Collection<string, UserCacheData> {
 		return id
 			? this._resolveFromTag(pieces, true)
 			: this._resolveFromTag(pieces, false);
-
-		// return id
-		// 	? this._resolveFromTag(usernameOrTag, id) ?? this._resolveFromUsername(usernameOrTag, id)
-		// 	: this._resolveFromTag(usernameOrTag) ?? this._resolveFromUsername(usernameOrTag);
-
 	}
 
 	public async fetch(id: string): Promise<UserCacheData> {
