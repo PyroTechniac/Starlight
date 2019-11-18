@@ -28,11 +28,9 @@ export default class extends Task {
 			case 'toml':
 			case 'json':
 			case 'btf':
-				await this.backupFSProvider();
-				break;
+				return this.backupFSProvider();
 			case 'rethinkdb':
-				await this.backupRethinkProvider();
-				break;
+				return this.backupRethinkProvider();
 			default:
 				this.client.emit(Events.Warn, `Backup not setup for provider ${provider}`);
 		}
@@ -41,7 +39,7 @@ export default class extends Task {
 	private async backupFSProvider(): Promise<void> {
 		const provider = this.provider as JsonProvider | TomlProvider;
 
-		const file = resolve('./', `${provider.name}-backup-${this.timestamp}.tar.gz`);
+		const file = resolve('./backup', `${provider.name}-backup-${this.timestamp}.tar.gz`);
 		await ensureDir(dirname(file)).then((): Promise<void> => targz(file, provider.baseDirectory));
 	}
 
