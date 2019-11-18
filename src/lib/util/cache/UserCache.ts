@@ -16,12 +16,12 @@ export class UserCache extends Collection<string, UserCacheData> {
 		return this.manager.client;
 	}
 
-	public resolve(usernameOrTag: string): UserCacheData | null {
-		return this._resolveFromTag(usernameOrTag) ?? this._resolveFromUsername(usernameOrTag);
-	}
-
-	public resolveID(usernameOrTag: string): string | null {
-		return this._resolveFromTag(usernameOrTag, true) ?? this._resolveFromUsername(usernameOrTag, true);
+	public resolve(usernameOrTag: string, id: true): string | null;
+	public resolve(usernameOrTag: string, id?: false): UserCacheData | null
+	public resolve(usernameOrTag: string, id = false): UserCacheData | string | null {
+		return id
+			? this._resolveFromTag(usernameOrTag, id as true) ?? this._resolveFromUsername(usernameOrTag, id as true)
+			: this._resolveFromTag(usernameOrTag) ?? this._resolveFromUsername(usernameOrTag);
 	}
 
 	public async fetch(id: string): Promise<UserCacheData> {

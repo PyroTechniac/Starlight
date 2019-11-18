@@ -18,7 +18,7 @@ export class MemberNicknames extends Collection<string, string | null> {
 	}
 
 	public resolve(tagOrID: string): string | null {
-		const ID = this.client.userCache.resolveID(tagOrID);
+		const ID = this.client.userCache.resolve(tagOrID, true);
 
 		return ID ? this.get(ID) ?? null : null;
 	}
