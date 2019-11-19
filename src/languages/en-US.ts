@@ -1,4 +1,4 @@
-import { Language } from 'klasa';
+import { Language, version as klasaVersion } from 'klasa';
 import { PERMS } from '../lib/util/Constants';
 import { LanguageHelp } from '../lib/util/LanguageHelp';
 
@@ -125,9 +125,29 @@ export default class extends Language {
 		RESOLVER_INVALID_CHANNELNAME: (name): string => `${name} must be a valid channel name, ID, or tag.`,
 		RESOLVER_INVALID_USERNAME: (name): string => `${name} must be a valid user name, ID, or mention.`,
 		RESOLVER_INVALID_ROLENAME: (name): string => `${name} must be a valid role name, ID, or mention.`,
-		COMMAND_CODE_CLEANUP_DESCRIPTION: 'Clean\'s up running docker containers.',
-		COMMAND_CODE_CLEANUP_STARTING: 'Cleaning up...',
-		COMMAND_CODE_CLEANUP_COMPLETE: 'Cleaned up!'
+		COMMAND_STATS_DESCRIPTION: 'Provides some details about the bot and stats.',
+		COMMAND_STATS_EXTENDED: builder.display('stats', {
+			extendedHelp: 'This should be very obvious...'
+		}),
+		COMMAND_STATS: (STATS, UPTIME, USAGE): string => [
+			'= STATISTICS =',
+			`• Users      :: ${STATS.USERS}`,
+			`• Guilds     :: ${STATS.GUILDS}`,
+			`• Channels   :: ${STATS.CHANNELS}`,
+			`• Discord.js :: ${STATS.VERSION}`,
+			`• Node.js    :: ${STATS.NODE_JS}`,
+			`• Klasa      :: ${klasaVersion}`,
+			'',
+			'= UPTIME =',
+			`• Host       :: ${UPTIME.HOST}`,
+			`• Total      :: ${UPTIME.TOTAL}`,
+			`• Client     :: ${UPTIME.CLIENT}`,
+			'',
+			'= HOST USAGE =',
+			`• CPU Load   :: ${USAGE.CPU_LOAD}`,
+			`• RAM +Node  :: ${USAGE.RAM_TOTAL}`,
+			`• RAM Usage  :: ${USAGE.RAM_USED}`
+		].join('\n')
 	};
 
 }

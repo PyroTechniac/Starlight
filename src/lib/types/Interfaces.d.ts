@@ -105,3 +105,23 @@ export interface ContentNodeJSON {
 	timeout: number;
 	valid: boolean;
 }
+
+export interface StatsGeneral {
+	CHANNELS: string;
+	GUILDS: string;
+	NODE_JS: string;
+	USERS: string;
+	VERSION: string;
+}
+
+export interface StatsUptime {
+	CLIENT: string;
+	HOST: string;
+	TOTAL: string;
+}
+
+export interface StatsUsage {
+	CPU_LOAD: string;
+	RAM_TOTAL: string;
+	RAM_USED: string;
+}

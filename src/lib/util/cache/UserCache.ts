@@ -39,7 +39,7 @@ export class UserCache extends Collection<string, UserCacheData> {
 	}
 
 	public fetchUsername(id: string): Promise<string> {
-		return this.fetch(id).then(cache => cache.username);
+		return this.fetch(id).then((cache): string => cache.username);
 	}
 
 	public async fetchEntry(id: string): Promise<readonly [string, UserCacheData]> {
