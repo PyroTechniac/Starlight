@@ -1,4 +1,4 @@
-import { FetchType } from './Types';
+import { FetchType } from '../util/Utils';
 import { RequestInit } from 'node-fetch';
 
 export interface RateLimitInfo {

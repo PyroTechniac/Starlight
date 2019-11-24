@@ -1,10 +1,10 @@
-import { clean, codeBlock, isThenable, sleep } from '@klasa/utils';
-import { codeblock } from 'discord-md-tags';
-import { Command, CommandOptions, KlasaMessage, Stopwatch, Type } from 'klasa';
-import { inspect } from 'util';
-import { Events } from '../../../lib/types/Enums';
-import { ApplyOptions } from '../../../lib/util/Decorators';
-import { noop } from '../../../lib/util/Utils';
+import {clean, codeBlock, isThenable, sleep} from '@klasa/utils';
+import {codeblock} from 'discord-md-tags';
+import {Command, CommandOptions, KlasaMessage, Stopwatch, Type} from 'klasa';
+import {inspect} from 'util';
+import {Events} from '../../../lib/types/Enums';
+import {ApplyOptions} from '../../../lib/util/Decorators';
+import {FetchType, noop} from '../../../lib/util/Utils';
 
 
 @ApplyOptions<CommandOptions>({
@@ -117,7 +117,7 @@ export default class extends Command {
 	private async getHaste(evalResult: string, language = 'js'): Promise<string> {
 		const node = await this.client.cdn.acquire('https://hasteb.in/documents')
 			.setOptions({ method: 'POST', body: evalResult })
-			.setType('json')
+			.setType(FetchType.JSON)
 		// This should always fetch as the data changes on each eval.
 			.fetch(true);
 

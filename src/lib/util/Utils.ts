@@ -62,34 +62,41 @@ export function floatPromise<T>(ctx: { client: DJSClient }, prom: Promise<T>): P
 	return prom;
 }
 
-export async function fetch(url: URL | string, type: 'json'): Promise<object>;
-export async function fetch(url: URL | string, options: RequestInit, type: 'json'): Promise<object>;
-export async function fetch(url: URL | string, type: 'buffer'): Promise<Buffer>;
-export async function fetch(url: URL | string, options: RequestInit, type: 'buffer'): Promise<Buffer>;
-export async function fetch(url: URL | string, type: 'text'): Promise<string>;
-export async function fetch(url: URL | string, options: RequestInit, type: 'text'): Promise<string>;
-export async function fetch(url: URL | string, type: 'result'): Promise<Response>;
-export async function fetch(url: URL | string, options: RequestInit, type: 'result'): Promise<Response>;
-export async function fetch(url: URL | string, options: RequestInit, type: 'result' | 'json' | 'buffer' | 'text'): Promise<Response | Buffer | string | object>;
-export async function fetch(url: URL | string, options: RequestInit | 'result' | 'json' | 'buffer' | 'text', type?: 'result' | 'json' | 'buffer' | 'text'): Promise<Response | Buffer | string | object> {
+export const enum FetchType {
+	Result,
+	JSON,
+	Buffer,
+	Text
+}
+
+export async function fetch(url: URL | string, type: FetchType.JSON): Promise<object>;
+export async function fetch(url: URL | string, options: RequestInit, type: FetchType.JSON): Promise<object>;
+export async function fetch(url: URL | string, type: FetchType.Buffer): Promise<Buffer>;
+export async function fetch(url: URL | string, options: RequestInit, type: FetchType.Buffer): Promise<Buffer>;
+export async function fetch(url: URL | string, type: FetchType.Text): Promise<string>;
+export async function fetch(url: URL | string, options: RequestInit, type: FetchType.Text): Promise<string>;
+export async function fetch(url: URL | string, type: FetchType.Result): Promise<Response>;
+export async function fetch(url: URL | string, options: RequestInit, type: FetchType.Result): Promise<Response>;
+export async function fetch(url: URL | string, options: RequestInit, type: FetchType): Promise<Response | Buffer | string | object>;
+export async function fetch(url: URL | string, options: RequestInit | FetchType, type?: FetchType): Promise<Response | Buffer | string | object> {
 	if (typeof options === 'undefined') {
 		options = {};
-		type = 'json';
-	} else if (typeof options === 'string') {
+		type = FetchType.JSON;
+	} else if (typeof options === 'number') {
 		type = options;
 		options = {};
 	} else if (typeof type === 'undefined') {
-		type = 'json';
+		type = FetchType.JSON;
 	}
 
 	const result: Response = await nodeFetch(url, options);
 	if (!result.ok) throw new Error(await result.text());
 
 	switch (type) {
-		case 'result': return result;
-		case 'buffer': return result.buffer();
-		case 'json': return result.json();
-		case 'text': return result.text();
+		case FetchType.Result: return result;
+		case FetchType.Buffer: return result.buffer();
+		case FetchType.JSON: return result.json();
+		case FetchType.Text: return result.text();
 		default: throw new Error(`Unknown type ${type}`);
 	}
 }

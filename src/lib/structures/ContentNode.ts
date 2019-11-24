@@ -1,9 +1,8 @@
 import { Client } from 'discord.js';
 import { RequestInit } from 'node-fetch';
-import { fetch } from '../util/Utils';
+import { fetch, FetchType } from '../util/Utils';
 import { ContentDeliveryNetwork } from './ContentDeliveryNetwork';
 import { Time } from '../types/Enums';
-import { FetchType } from '../types/Types';
 import { URL } from 'url';
 import AbortController from 'abort-controller';
 import { ContentNodeJSON } from '../types/Interfaces';
@@ -34,7 +33,7 @@ export class ContentNode {
 		Object.defineProperty(this, 'client', { value: client });
 		this._data = null;
 		this.url = url;
-		this.fetchType = 'json';
+		this.fetchType = FetchType.JSON;
 		this._cb = (data): unknown => data;
 		this._options = {};
 
