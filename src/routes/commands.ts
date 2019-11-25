@@ -9,7 +9,7 @@ import { ApplyOptions, rateLimit } from '../lib/util/Decorators';
 })
 export default class extends Route {
 
-    @rateLimit(2, 2500)
+	@rateLimit(2, 2500)
 	public get(request: ApiRequest, response: ApiResponse): void {
 		const { lang, category } = request.query;
 		const language = (lang && this.client.languages.get(lang as string)) || this.client.languages.default;

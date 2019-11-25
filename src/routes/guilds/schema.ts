@@ -9,7 +9,7 @@ import { Databases } from '../../lib/types/Enums';
 })
 export default class extends Route {
 
-    @rateLimit(2, 5000)
+	@rateLimit(2, 5000)
 	public get(_request: ApiRequest, response: ApiResponse): void {
 		const gateway = this.client.gateways.get(Databases.Guilds)!;
 		return response.json(gateway.schema.toJSON());

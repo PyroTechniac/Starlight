@@ -15,7 +15,7 @@ import { LongLivingReactionCollector } from './util/LongLivingReactionCollector'
 import { ResolverStore } from './structures/ResolverStore';
 import { CacheManager } from './util/cache/CacheManager';
 import { UserCache } from './util/cache/UserCache';
-import {Api, api} from "./util/Api";
+import { Api, api } from './util/Api';
 
 config();
 

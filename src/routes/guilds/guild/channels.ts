@@ -13,8 +13,8 @@ const { FLAGS: { MANAGE_GUILD } } = Permissions;
 })
 export default class extends Route {
 
-    @authenticated
-    @rateLimit(2, 5000, true)
+	@authenticated
+	@rateLimit(2, 5000, true)
 	public async get(request: ApiRequest, response: ApiResponse): Promise<void> {
 		const guildID = request.params.guild;
 

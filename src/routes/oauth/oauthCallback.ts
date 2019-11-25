@@ -11,7 +11,7 @@ import OauthUser from './oauthUser';
 })
 export default class extends Route {
 
-    @rateLimit(2, 60000)
+	@rateLimit(2, 60000)
 	public async post(request: ApiRequest, response: ApiResponse): Promise<void> {
 		const requestBody = request.body as Record<string, string>;
 		if (!requestBody.code) {

@@ -1,10 +1,10 @@
-import {clean, codeBlock, isThenable, sleep} from '@klasa/utils';
-import {codeblock} from 'discord-md-tags';
-import {Command, CommandOptions, KlasaMessage, Stopwatch, Type} from 'klasa';
-import {inspect} from 'util';
-import {Events} from '../../../lib/types/Enums';
-import {ApplyOptions} from '../../../lib/util/Decorators';
-import {FetchType, noop} from '../../../lib/util/Utils';
+import { clean, codeBlock, isThenable, sleep } from '@klasa/utils';
+import { codeblock } from 'discord-md-tags';
+import { Command, CommandOptions, KlasaMessage, Stopwatch, Type } from 'klasa';
+import { inspect } from 'util';
+import { Events } from '../../../lib/types/Enums';
+import { ApplyOptions } from '../../../lib/util/Decorators';
+import { FetchType, noop } from '../../../lib/util/Utils';
 
 
 @ApplyOptions<CommandOptions>({
