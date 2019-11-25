@@ -6,7 +6,7 @@ import { FuzzySearch } from '../lib/util/FuzzySearch';
 export default class extends Argument {
 
 	private get user(): Argument {
-		return this.store.get('user');
+		return this.store.get('user')!;
 	}
 
 	public async run(arg: string, possible: Possible, message: KlasaMessage, filter?: (entry: string) => boolean): Promise<User> {

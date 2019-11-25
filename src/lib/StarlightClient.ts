@@ -15,6 +15,7 @@ import { LongLivingReactionCollector } from './util/LongLivingReactionCollector'
 import { ResolverStore } from './structures/ResolverStore';
 import { CacheManager } from './util/cache/CacheManager';
 import { UserCache } from './util/cache/UserCache';
+import {Api, api} from "./util/Api";
 
 config();
 
@@ -34,6 +35,10 @@ export class StarlightClient extends Klasa.Client {
 
 		this.cdn = new ContentDeliveryNetwork(this);
 
+	}
+
+	public get discord(): Api {
+		return api(this);
 	}
 
 	public get userCache(): UserCache {

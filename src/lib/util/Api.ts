@@ -5,7 +5,7 @@ export function api(client: Client): Api {
 	return (client as unknown as { api: Api }).api;
 }
 
-interface Api {
+export interface Api {
 	channels: ApiChannels;
 	guilds: ApiGuilds;
 	invites: ApiInvites;

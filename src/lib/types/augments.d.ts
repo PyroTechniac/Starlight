@@ -5,6 +5,7 @@ import { ResolverStore } from '../structures/ResolverStore';
 import { CacheManager } from '../util/cache/CacheManager';
 import { UserCache } from '../util/cache/UserCache';
 import { MemberNicknames } from '../util/cache/MemberNicknames';
+import { Api } from '../util/Api'
 
 
 // This file is for augments to other modules, such as d.js or klasa.
@@ -17,6 +18,7 @@ declare module 'discord.js' {
 		llrcs: Set<LongLivingReactionCollector>;
 		resolvers: ResolverStore;
 		cache: CacheManager;
+		readonly discord: Api
 		readonly userCache: UserCache;
 	}
 
