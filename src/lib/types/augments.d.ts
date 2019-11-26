@@ -34,6 +34,10 @@ declare module 'discord.js' {
 	interface ClientOptions {
 		cdnRequestTimeout?: number;
 	}
+
+	interface Collector<K, V> {
+		[Symbol.iterator](): IterableIterator<V>;
+	}
 }
 
 declare module 'klasa-dashboard-hooks' {
