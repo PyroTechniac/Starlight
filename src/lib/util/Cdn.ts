@@ -1,34 +1,54 @@
 import { RequestInit } from 'node-fetch';
 import { FetchType, fetch } from './Utils';
 import { URL } from 'url';
+import { inspect } from 'util';
 
 const noop = (): void => { };
 const methods = ['get', 'post', 'put', 'patch', 'delete'];
+const reflectors = [
+	'toString', 'valueOf', 'inspect', 'constructor',
+	Symbol.toPrimitive, Symbol.for('nodejs.util.inspect.custom')
+];
+const standards = ['url', 'options', 'type'];
+
+const aborts = ['then', 'catch'];
 
 interface ApiMethods {
-	get<T extends unknown = unknown>(): Promise<T>;
-	post<T extends unknown = unknown>(): Promise<T>;
-	patch<T extends unknown = unknown>(): Promise<T>;
-	put<T extends unknown = unknown>(): Promise<T>;
-	delete<T extends unknown = unknown>(): Promise<T>;
+	get<T = unknown>(): Promise<T>;
+	post<T = unknown>(): Promise<T>;
+	patch<T = unknown>(): Promise<T>;
+	put<T = unknown>(): Promise<T>;
+	delete<T = unknown>(): Promise<T>;
+	toString(): undefined;
+	valueOf(): undefined;
+	inspect(): undefined;
+	['constructor'](): undefined;
+	[Symbol.toPrimitive](): undefined;
+	[inspect.custom](): undefined;
 }
 
-interface Fetch extends ApiMethods {
+export interface Fetch extends ApiMethods {
 	url(url: string): ApiURL;
 	options(options: Omit<RequestInit, 'method'>): ApiOptions;
 	type(type: FetchType): ApiType;
 }
 
-interface ApiURL extends Omit<Fetch, 'url'> { }
+export interface ApiURL extends Omit<Fetch, 'url'> { }
 
-interface ApiOptions extends Omit<Fetch, 'options'> { }
+export interface ApiOptions extends Omit<Fetch, 'options'> { }
 
-interface ApiType extends Omit<Fetch, 'type'> { }
+export interface ApiType extends Omit<Fetch, 'type'> { }
 
 export function cdn(): Fetch {
 	const route: any[] = [];
 	const handler: ProxyHandler<any> = {
-		get(_, name: string) {
+		get(_, name: string | symbol) {
+			if (reflectors.includes(name)) return noop;
+			assertString(name);
+			// This is commented out until klasa's isThenable util is fixed.
+			// if (aborts.includes(name)) {
+			// 	throw new Error('Cannot `await` a non-fetching cdn request.');
+			// }
 			if (methods.includes(name)) {
 				let url: URL;
 				let options: RequestInit = { method: name.toUpperCase() };
@@ -54,8 +74,15 @@ export function cdn(): Fetch {
 		apply(_, __, args) {
 			route.push(...args.filter((x): boolean => x != null)); // eslint-disable-line no-eq-null
 			return new Proxy(noop, handler);
+		},
+		has(_, name: string) {
+			return (!aborts.includes(name) && (standards.includes(name) || methods.includes(name)));
 		}
 	};
 
 	return new Proxy(noop, handler);
+}
+
+function assertString(input: unknown): asserts input is string {
+	if (typeof input !== 'string') throw new TypeError('Invalid input.');
 }

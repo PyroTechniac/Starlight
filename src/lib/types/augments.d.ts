@@ -1,11 +1,10 @@
 import { CustomGet } from '../settings/Shared';
-import { ContentDeliveryNetwork } from '../structures/ContentDeliveryNetwork';
 import { LongLivingReactionCollector } from '../util/LongLivingReactionCollector';
 import { ResolverStore } from '../structures/ResolverStore';
 import { CacheManager } from '../util/cache/CacheManager';
 import { UserCache } from '../util/cache/UserCache';
 import { MemberNicknames } from '../util/cache/MemberNicknames';
-import { Api } from '../util/Api';
+import { Fetch } from '../util/Cdn';
 
 
 // This file is for augments to other modules, such as d.js or klasa.
@@ -13,13 +12,11 @@ import { Api } from '../util/Api';
 declare module 'discord.js' {
 
 	interface Client {
-		regions: null | Collection<string, VoiceRegion>;
-		cdn: ContentDeliveryNetwork;
 		llrcs: Set<LongLivingReactionCollector>;
 		resolvers: ResolverStore;
 		cache: CacheManager;
-		readonly discord: Api;
 		readonly userCache: UserCache;
+		readonly cdn: Fetch;
 	}
 
 	interface Guild {

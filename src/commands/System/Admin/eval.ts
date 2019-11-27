@@ -115,13 +115,13 @@ export default class extends Command {
 	}
 
 	private async getHaste(evalResult: string, language = 'js'): Promise<string> {
-		const node = await this.client.cdn.acquire('https://hasteb.in/documents')
-			.setOptions({ method: 'POST', body: evalResult })
-			.setType(FetchType.JSON)
-		// This should always fetch as the data changes on each eval.
-			.fetch(true);
-
-		const { key } = node.data<{ key: string }>()!;
+		const { key } = await this.client.cdn
+			.url('https://hasteb.in/documents')
+			.options({
+				body: evalResult
+			})
+			.type(FetchType.JSON)
+			.post<{key: string}>();
 		return `https://hasteb.in/${key}.${language}`;
 	}
 

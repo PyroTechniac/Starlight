@@ -9,13 +9,12 @@ import './setup/PermissionLevels';
 import './schemas/Clients';
 import './schemas/Guilds';
 import './schemas/Users';
-import { ContentDeliveryNetwork } from './structures/ContentDeliveryNetwork';
 import { STARLIGHT_OPTIONS } from './util/Constants';
 import { LongLivingReactionCollector } from './util/LongLivingReactionCollector';
 import { ResolverStore } from './structures/ResolverStore';
 import { CacheManager } from './util/cache/CacheManager';
 import { UserCache } from './util/cache/UserCache';
-import { Api, api } from './util/Api';
+import { cdn, Fetch } from './util/Cdn';
 
 config();
 
@@ -33,12 +32,10 @@ export class StarlightClient extends Klasa.Client {
 
 		this.cache = new CacheManager(this);
 
-		this.cdn = new ContentDeliveryNetwork(this);
-
 	}
 
-	public get discord(): Api {
-		return api(this);
+	public get cdn(): Fetch {
+		return cdn();
 	}
 
 	public get userCache(): UserCache {

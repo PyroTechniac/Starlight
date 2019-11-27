@@ -8,6 +8,7 @@ import { UserSettings } from '../settings/UserSettings';
 import { BaseColors, Events } from '../types/Enums';
 import { ReferredPromise } from '../types/Interfaces';
 import { rootFolder } from './Constants';
+import { FetchError } from './FetchError';
 
 export * from './FS';
 
@@ -90,7 +91,7 @@ export async function fetch(url: URL | string, options: RequestInit | FetchType,
 	}
 
 	const result: Response = await nodeFetch(url, options);
-	if (!result.ok) throw new Error(await result.text());
+	if (!result.ok) throw new FetchError(await result.text(), result.status, result.url);
 
 	switch (type) {
 		case FetchType.Result: return result;
