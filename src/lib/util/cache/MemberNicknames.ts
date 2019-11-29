@@ -1,16 +1,21 @@
 import Collection, { CollectionConstructor } from '@discordjs/collection';
 import { Client, Guild, GuildMember } from 'discord.js';
 import { APIErrors } from '../../types/Enums';
+import { CacheManager } from './CacheManager';
 
 export class MemberNicknames extends Collection<string, string | null> {
 
-	public readonly client!: Client;
+	public readonly manager!: CacheManager;
 	public readonly guildID: string;
 
-	public constructor(ctx: { client: Client; id: string }) {
+	public constructor(manager: CacheManager, id: string) {
 		super();
-		Object.defineProperty(this, 'client', { value: ctx.client });
-		this.guildID = ctx.id;
+		Object.defineProperty(this, 'manager', { value: manager });
+		this.guildID = id;
+	}
+
+	public get client(): Client {
+		return this.manager.client;
 	}
 
 	public get guild(): Guild {

@@ -3,7 +3,9 @@ import { MemberNicknames } from '../util/cache/MemberNicknames';
 
 export class StarlightGuild extends Structures.get('Guild') {
 
-	public readonly nicknames = new MemberNicknames(this);
+	public get nicknames(): MemberNicknames {
+		return this.client.cache.acquireNicknames(this);
+	}
 
 }
 

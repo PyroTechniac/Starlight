@@ -2,6 +2,7 @@ import Collection from '@discordjs/collection';
 import { Client, User } from 'discord.js';
 import { APIUserData } from '../../types/Interfaces';
 import { CacheManager } from './CacheManager';
+import { api } from '../Api';
 
 export class UserCache extends Collection<string, UserCacheData> {
 
@@ -19,72 +20,96 @@ export class UserCache extends Collection<string, UserCacheData> {
 	public resolve(usernameOrTag: string, id: true): string | null;
 	public resolve(usernameOrTag: string, id?: false): UserCacheData | null
 	public resolve(usernameOrTag: string, id = false): UserCacheData | string | null {
-		const pieces = usernameOrTag.split('#', 2) as [string, string];
-		if (pieces.length !== 2 || pieces[1].length !== 4) {
-			return id
-				? this._resolveFromUsername(usernameOrTag, true)
-				: this._resolveFromUsername(usernameOrTag, false);
+		for (const [key, value] of this.entries()) {
+			if (usernameOrTag === value.username || usernameOrTag === value.tag) return id ? key : value;
 		}
-		return id
-			? this._resolveFromTag(pieces, true)
-			: this._resolveFromTag(pieces, false);
+
+		return null;
 	}
 
-	public async fetch(id: string): Promise<UserCacheData> {
+	public fetch(id: string): Promise<UserCacheData> {
 		const existing = super.get(id);
-		if (existing) return existing;
+		if (existing) return Promise.resolve(existing);
 
-		const user = await this.client.users.fetch(id);
-		return this.create(user);
+		return (api(this.client)
+			.users(id)
+			.get() as Promise<APIUserData>)
+			.then(this.create.bind(this));
 	}
 
 	public fetchUsername(id: string): Promise<string> {
 		return this.fetch(id).then((cache): string => cache.username);
 	}
 
-	public async fetchEntry(id: string): Promise<readonly [string, UserCacheData]> {
+	public fetchEntry(id: string): Promise<readonly [string, UserCacheData]> {
 		const existent = super.get(id);
-		if (existent) return [id, existent] as const;
-
-		const user = await this.client.users.fetch(id);
-		return [id, this.create(user)] as const;
+		if (existent) return Promise.resolve([id, existent] as const);
+		return this.fetch(id)
+			.then((data): readonly [string, UserCacheData] => [id, data] as const);
 	}
 
 	public create(data: APIUserData | User): UserCacheData {
-		const cache: UserCacheData = {
-			avatar: data.avatar,
-			username: data.username,
-			discriminator: data.discriminator
-		} as const;
+		if (this.has(data.id)) return this.get(data.id)!.patch(data);
+		const cache = new UserCacheData(this.manager, data); // eslint-disable-line @typescript-eslint/no-use-before-define
 		super.set(data.id, cache);
 		return cache;
 	}
 
-	private _resolveFromTag([username, discriminator]: [string, string], returnID: true): string | null;
-	private _resolveFromTag([username, discriminator]: [string, string], returnID?: false): UserCacheData | null;
-	private _resolveFromTag([username, discriminator]: [string, string], returnID = false): UserCacheData | string | null {
-		for (const [key, value] of this.entries()) {
-			if (username === value.username && discriminator === value.discriminator) return returnID ? key : value;
-		}
-
-		return null;
-	}
-
-	private _resolveFromUsername(username: string, returnID: true): string | null;
-	private _resolveFromUsername(username: string, returnID?: false): UserCacheData | null
-	private _resolveFromUsername(username: string, returnID = false): UserCacheData | string | null {
-		for (const [key, value] of this.entries()) {
-			if (value.username === username) return returnID ? key : value;
-		}
-
-		return null;
+	public toJSON(): UserCacheDataJSON[] {
+		return this.map((cache): UserCacheDataJSON => cache.toJSON());
 	}
 
 }
 
+export class UserCacheData {
 
-export interface UserCacheData {
-	readonly avatar: string | null;
-	readonly username: string;
-	readonly discriminator: string;
+	public readonly manager!: CacheManager;
+	public readonly id: string;
+	public avatar: string | null;
+	public username: string;
+	public discriminator: string;
+	public constructor(manager: CacheManager, data: User | APIUserData) {
+		Object.defineProperty(this, 'manager', { value: manager });
+		this.id = data.id;
+		this.avatar = data.avatar;
+		this.username = data.username;
+		this.discriminator = data.discriminator;
+	}
+
+	public get cache(): UserCache {
+		return this.manager.users;
+	}
+
+	public get tag(): string {
+		return `${this.username}#${this.discriminator}`;
+	}
+
+	public get client(): Client {
+		return this.manager.client;
+	}
+
+	public patch(data: Partial<APIUserData | User>): this {
+		this.avatar = data.avatar ?? this.avatar ?? null;
+		this.username = data.username ?? this.username;
+		this.discriminator = data.discriminator ?? this.discriminator;
+
+		return this;
+	}
+
+	public toJSON(): UserCacheDataJSON {
+		return {
+			id: this.id,
+			avatar: this.avatar,
+			username: this.username,
+			discriminator: this.discriminator
+		};
+	}
+
+}
+
+interface UserCacheDataJSON {
+	id: string;
+	avatar: string | null;
+	username: string;
+	discriminator: string;
 }
