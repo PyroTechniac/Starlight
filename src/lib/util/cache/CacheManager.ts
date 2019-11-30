@@ -1,29 +1,18 @@
-import { Channel, Client, Guild, TextChannel, Util } from 'discord.js';
+import { Channel, Client, TextChannel, Util } from 'discord.js';
 import { Colors } from 'klasa';
 import { Events } from '../../types/Enums';
 import { UserCache } from './UserCache';
-import { MemberNicknames } from './MemberNicknames';
 
 export class CacheManager {
 
 	public readonly client!: Client;
 	public users: UserCache = new UserCache(this);
-	private guildNicknames: WeakMap<Guild, MemberNicknames> = new WeakMap<Guild, MemberNicknames>();
 	private readonly header = new Colors({ text: 'lightblue' }).format('[MEMORY CLEANUP]');
 	private ready = false;
 
 
 	public constructor(client: Client) {
 		Object.defineProperty(this, 'client', { value: client });
-	}
-
-	public acquireNicknames(guild: Guild): MemberNicknames {
-		const existing = this.guildNicknames.get(guild);
-		if (existing) return existing;
-
-		const nicknames = new MemberNicknames(this, guild.id);
-		this.guildNicknames.set(guild, nicknames);
-		return nicknames;
 	}
 
 	public clean(init = false): void {
@@ -48,8 +37,6 @@ export class CacheManager {
 		let users = 0;
 
 		for (const guild of this.client.guilds.values()) {
-			// Acquire each guild for the first time to cache everything.
-			this.acquireNicknames(guild);
 			presences += guild.presences.size;
 			guild.presences.clear();
 

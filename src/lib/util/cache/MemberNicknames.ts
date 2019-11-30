@@ -1,21 +1,16 @@
 import Collection, { CollectionConstructor } from '@discordjs/collection';
 import { Client, Guild, GuildMember } from 'discord.js';
 import { APIErrors } from '../../types/Enums';
-import { CacheManager } from './CacheManager';
 
 export class MemberNicknames extends Collection<string, string | null> {
 
-	public readonly manager!: CacheManager;
+	public readonly client!: Client;
 	public readonly guildID: string;
 
-	public constructor(manager: CacheManager, id: string) {
+	public constructor(ctx: {id: string; client: Client}) {
 		super();
-		Object.defineProperty(this, 'manager', { value: manager });
-		this.guildID = id;
-	}
-
-	public get client(): Client {
-		return this.manager.client;
+		Object.defineProperty(this, 'client', { value: ctx.client });
+		this.guildID = ctx.id;
 	}
 
 	public get guild(): Guild {
@@ -58,7 +53,7 @@ export class MemberNicknames extends Collection<string, string | null> {
 		const { userCache } = this.client;
 		for (const key of this.keys()) {
 			const userTag = userCache.get(key);
-			if (typeof userTag !== 'undefined') yield [key, userTag.username];
+			if (typeof userTag !== 'undefined') yield [key, userTag[0]];
 		}
 	}
 

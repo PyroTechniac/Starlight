@@ -2,7 +2,13 @@ import { Message, Structures } from 'discord.js';
 import { util } from 'klasa';
 import { Events } from '../types/Enums';
 
+const replies: WeakMap<StarlightMessage, StarlightMessage[]> = new WeakMap<StarlightMessage, StarlightMessage[]>();
+
 export class StarlightMessage extends Structures.get('Message') {
+
+	public get replies(): StarlightMessage[] {
+		return StarlightMessage.replies(this);
+	}
 
 	public async nuke(time = 0): Promise<Message> {
 		if (time === 0) return nuke(this);
@@ -18,6 +24,16 @@ export class StarlightMessage extends Structures.get('Message') {
 		message.nuke().catch((err): boolean => this.client.emit(Events.Error, err));
 		if (responses.size === 0) throw this.language.get('MESSAGE_PROMPT_TIMEOUT');
 		return responses.first()!;
+	}
+
+	private static replies(message: StarlightMessage): StarlightMessage[] {
+		const existing = replies.get(message);
+		if (typeof existing !== 'undefined') return existing;
+
+		const rep = [];
+		replies.set(message, rep);
+		return rep;
+
 	}
 
 }
