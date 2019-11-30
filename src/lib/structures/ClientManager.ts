@@ -3,6 +3,11 @@ import { createReferPromise, floatPromise } from '../util/Utils';
 import { ReferredPromise } from '../types/Interfaces';
 import { enumerable } from '../util/Decorators';
 
+const enum ClientManagerEvents {
+	Busy = 'busy',
+	Free = 'free'
+}
+
 export class ClientManager {
 
 	public readonly client!: Client;
@@ -19,7 +24,7 @@ export class ClientManager {
 	}
 
 	public create(): (value?: undefined) => void {
-		this.client.emit('busy');
+		this.client.emit(ClientManagerEvents.Busy);
 		const referred = createReferPromise<undefined>();
 		this._locks.add(referred);
 		floatPromise(this, referred.promise) // eslint-disable-line @typescript-eslint/no-floating-promises
@@ -33,12 +38,12 @@ export class ClientManager {
 	public release(): void {
 		const amount = this._locks.size;
 		for (const lock of this._locks) lock.resolve();
-		this.client.emit('free', amount);
+		this.client.emit(ClientManagerEvents.Free, amount);
 	}
 
 	public async wait(): Promise<void> {
 		const amount = (await Promise.all(this)).length;
-		this.client.emit('free', amount);
+		this.client.emit(ClientManagerEvents.Free, amount);
 	}
 
 	public *[Symbol.iterator](): IterableIterator<Promise<undefined>> {
@@ -46,3 +51,4 @@ export class ClientManager {
 	}
 
 }
+

@@ -4,6 +4,7 @@ import { Client } from 'klasa-dashboard-hooks';
 import { config } from 'dotenv';
 import './extensions/StarlightGuild';
 import './extensions/StarlightMessage';
+import './extensions/StarlightUser';
 import 'reflect-metadata';
 import './setup/PermissionLevels';
 import './schemas/Clients';

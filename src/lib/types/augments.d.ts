@@ -6,11 +6,13 @@ import { UserCache } from '../util/cache/UserCache';
 import { MemberNicknames } from '../util/cache/MemberNicknames';
 import { Fetch } from '../util/Cdn';
 import { ClientManager } from '../structures/ClientManager';
+import { UserFlags } from '../util/UserFlags';
 
 
 // This file is for augments to other modules, such as d.js or klasa.
 
 declare module 'discord.js' {
+
 
 	interface Client {
 		llrcs: Set<LongLivingReactionCollector>;
@@ -32,6 +34,10 @@ declare module 'discord.js' {
 
 	interface ClientOptions {
 		cdnRequestTimeout?: number;
+	}
+
+	interface User {
+		flags: UserFlags;
 	}
 
 	interface Collector<K, V> {
