@@ -19,6 +19,7 @@ export class ClientManager {
 	}
 
 	public create(): (value?: undefined) => void {
+		this.client.emit('busy');
 		const referred = createReferPromise<undefined>();
 		this._locks.add(referred);
 		floatPromise(this, referred.promise) // eslint-disable-line @typescript-eslint/no-floating-promises
