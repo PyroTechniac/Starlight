@@ -5,6 +5,7 @@ import { CacheManager } from '../util/cache/CacheManager';
 import { UserCache } from '../util/cache/UserCache';
 import { MemberNicknames } from '../util/cache/MemberNicknames';
 import { Fetch } from '../util/Cdn';
+import { ClientManager } from '../structures/ClientManager';
 
 
 // This file is for augments to other modules, such as d.js or klasa.
@@ -15,6 +16,7 @@ declare module 'discord.js' {
 		llrcs: Set<LongLivingReactionCollector>;
 		resolvers: ResolverStore;
 		cache: CacheManager;
+		manager: ClientManager;
 		readonly userCache: UserCache;
 		readonly cdn: Fetch;
 	}

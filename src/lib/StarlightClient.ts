@@ -15,12 +15,15 @@ import { ResolverStore } from './structures/ResolverStore';
 import { CacheManager } from './util/cache/CacheManager';
 import { UserCache } from './util/cache/UserCache';
 import { cdn, Fetch } from './util/Cdn';
+import { ClientManager } from './structures/ClientManager';
 
 config();
 
 export class StarlightClient extends Klasa.Client {
 
 	public llrcs: Set<LongLivingReactionCollector> = new Set();
+
+	public manager: ClientManager = new ClientManager(this);
 
 	public constructor(options: Klasa.KlasaClientOptions = {}) {
 		super(mergeDefault(STARLIGHT_OPTIONS, options));

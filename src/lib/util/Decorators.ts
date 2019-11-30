@@ -96,6 +96,22 @@ export const authenticated = createFunctionInhibitor(
 	}
 );
 
+export function enumerable(value: boolean): PropertyDecorator {
+	return (target: unknown, key: string | symbol): void => {
+		Object.defineProperty(target, key, {
+			enumerable: value,
+			set(this: unknown, val: unknown) {
+				Object.defineProperty(this, key, {
+					configurable: true,
+					enumerable: value,
+					value: val,
+					writable: true
+				});
+			}
+		});
+	};
+}
+
 export interface Inhibitor {
 	(...args: any[]): boolean | Promise<boolean>;
 }

@@ -14,6 +14,7 @@ export default class extends Command {
 
 		try {
 			await Promise.all(this.client.providers.map((provider): Promise<unknown> => provider.shutdown()));
+			this.client.manager.release();
 			this.client.destroy();
 		} catch { }
 
