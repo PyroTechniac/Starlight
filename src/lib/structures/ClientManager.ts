@@ -36,7 +36,7 @@ export class ClientManager {
 		return this.fetch.cdn;
 	}
 
-	public create(): (value?: undefined) => void {
+	public createLock(): (value?: undefined) => void {
 		this.client.emit(ClientManagerEvents.Busy);
 		const referred = createReferPromise<undefined>();
 		this._locks.add(referred);
@@ -48,13 +48,13 @@ export class ClientManager {
 		return referred.resolve; // eslint-disable-line @typescript-eslint/unbound-method
 	}
 
-	public release(): void {
+	public releaseLocks(): void {
 		const amount = this._locks.size;
 		for (const lock of this._locks) lock.resolve();
 		this.client.emit(ClientManagerEvents.Free, amount);
 	}
 
-	public async wait(): Promise<void> {
+	public async waitLocks(): Promise<void> {
 		const amount = (await Promise.all(this)).length;
 		this.client.emit(ClientManagerEvents.Free, amount);
 	}
