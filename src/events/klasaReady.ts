@@ -4,7 +4,6 @@ import { ApplyOptions } from '../lib/util/Decorators';
 import { initClean } from '@klasa/utils';
 
 const tasks: [string, string, ScheduledTaskOptions?][] = [
-	['cleanup', '*/10 * * * *', { catchUp: false }],
 	['dbBackup', '@daily', { catchUp: true }]
 ];
 

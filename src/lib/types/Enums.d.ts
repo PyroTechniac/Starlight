@@ -96,3 +96,4 @@ export const enum PermissionLevels {
 	ServerOwner = 7,
 	BotOwner = 10
 }
+

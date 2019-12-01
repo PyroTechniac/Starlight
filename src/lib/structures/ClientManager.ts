@@ -2,6 +2,9 @@ import { Client } from 'discord.js';
 import { createReferPromise, floatPromise } from '../util/Utils';
 import { ReferredPromise } from '../types/Interfaces';
 import { enumerable } from '../util/Decorators';
+import { ContentFetchManager } from './ContentFetchManager';
+import { ClientCache } from '../util/cache/ClientCache';
+import { Fetch } from '../util/Cdn';
 
 const enum ClientManagerEvents {
 	Busy = 'busy',
@@ -12,6 +15,10 @@ export class ClientManager {
 
 	public readonly client!: Client;
 
+	public fetch: ContentFetchManager = new ContentFetchManager(this);
+
+	public cache: ClientCache = new ClientCache(this);
+
 	@enumerable(false)
 	private readonly _locks: Set<ReferredPromise<undefined>> = new Set<ReferredPromise<undefined>>();
 
@@ -21,6 +28,10 @@ export class ClientManager {
 
 	public get busy(): boolean {
 		return Boolean(this._locks.size);
+	}
+
+	public get cdn(): Fetch {
+		return this.fetch.cdn;
 	}
 
 	public create(): (value?: undefined) => void {

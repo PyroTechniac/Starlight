@@ -12,10 +12,10 @@ import './schemas/Users';
 import { STARLIGHT_OPTIONS } from './util/Constants';
 import { LongLivingReactionCollector } from './util/LongLivingReactionCollector';
 import { ResolverStore } from './structures/ResolverStore';
-import { CacheManager } from './util/cache/CacheManager';
+import { ClientCache } from './util/cache/ClientCache';
 import { UserCache } from './util/cache/UserCache';
-import { cdn, Fetch } from './util/Cdn';
 import { ClientManager } from './structures/ClientManager';
+import { Fetch } from './util/Cdn';
 
 config();
 
@@ -33,12 +33,14 @@ export class StarlightClient extends Klasa.Client {
 		this.resolvers = new ResolverStore(this);
 		this.registerStore(this.resolvers);
 
-		this.cache = new CacheManager(this);
+	}
 
+	public get cache(): ClientCache {
+		return this.manager.cache;
 	}
 
 	public get cdn(): Fetch {
-		return cdn();
+		return this.manager.cdn;
 	}
 
 	public get userCache(): UserCache {

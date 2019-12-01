@@ -1,7 +1,7 @@
 import { CustomGet } from '../settings/Shared';
 import { LongLivingReactionCollector } from '../util/LongLivingReactionCollector';
 import { ResolverStore } from '../structures/ResolverStore';
-import { CacheManager } from '../util/cache/CacheManager';
+import { ClientCache } from '../util/cache/ClientCache';
 import { UserCache } from '../util/cache/UserCache';
 import { MemberNicknames } from '../util/cache/MemberNicknames';
 import { Fetch } from '../util/Cdn';
@@ -16,14 +16,18 @@ declare module 'discord.js' {
 	interface Client {
 		llrcs: Set<LongLivingReactionCollector>;
 		resolvers: ResolverStore;
-		cache: CacheManager;
 		manager: ClientManager;
+		readonly cache: ClientCache;
 		readonly userCache: UserCache;
 		readonly cdn: Fetch;
 	}
 
 	interface Guild {
 		readonly nicknames: MemberNicknames;
+	}
+
+	interface GuildEmojiStore {
+		guild: Guild;
 	}
 
 	interface Message {
