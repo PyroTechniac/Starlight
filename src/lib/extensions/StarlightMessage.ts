@@ -2,6 +2,8 @@ import { Message, Structures } from 'discord.js';
 import { util } from 'klasa';
 import { Events } from '../types/Enums';
 
+// TODO: Modify command handling behavior with special Error to allow users to grab debug information.
+
 export class StarlightMessage extends Structures.get('Message') {
 
 	public async nuke(time = 0): Promise<Message> {

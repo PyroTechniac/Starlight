@@ -6,6 +6,8 @@ import { ContentFetchManager } from './ContentFetchManager';
 import { ClientCache } from '../util/cache/ClientCache';
 import { Fetch } from '../util/Cdn';
 
+// TODO: Make this have special metadata and reject if something is taking too long.
+
 const enum ClientManagerEvents {
 	Busy = 'busy',
 	Free = 'free'
