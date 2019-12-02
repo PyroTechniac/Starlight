@@ -12,6 +12,19 @@ export interface Api {
 	users: ApiUsers;
 	voice: ApiVoice;
 	webhooks: ApiWebhooks;
+	gateway: ApiGateway;
+}
+
+/**
+ * @endpoint /gateway
+ */
+interface ApiGateway {
+	get: ApiMethods['get'];
+	bot: ApiGatewayBot;
+}
+
+interface ApiGatewayBot {
+	get: ApiMethods['get'];
 }
 
 interface ApiChannels {
