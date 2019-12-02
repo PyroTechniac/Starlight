@@ -125,3 +125,10 @@ export interface StatsUsage {
 	RAM_TOTAL: string;
 	RAM_USED: string;
 }
+
+export interface LockMetadata {
+	caller: string;
+	unique: symbol;
+	timeout: number;
+	referred: ReferredPromise<undefined>;
+}
