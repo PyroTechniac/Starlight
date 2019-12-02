@@ -14,7 +14,11 @@ import { exec } from '@klasa/utils';
 export default class extends Command {
 
 	public async run(msg: KlasaMessage, [input]: [string]): Promise<KlasaMessage> {
-		const lock = this.client.manager.createLock();
+		const lock = this.client.manager.createLock({
+			caller: 'exec',
+			unique: this.client.manager.createMetadataSymbol(`Exec(${msg.author.id}`),
+			timeout: 60000
+		});
 		await msg.sendLocale('COMMAND_EXEC_AWAITING');
 
 		const result = await exec(input, { timeout: 'timeout' in msg.flagArgs ? Number(msg.flagArgs.timeout) || 60000 : 60000 })

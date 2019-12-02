@@ -1,7 +1,6 @@
 import { RequestInit } from 'node-fetch';
 import { FetchType, fetch } from './Utils';
 import { URL } from 'url';
-import { inspect } from 'util';
 
 const noop = (): void => { };
 const methods = ['get', 'post', 'put', 'patch', 'delete'];
@@ -13,24 +12,18 @@ const standards = ['url', 'options', 'type'];
 
 const aborts = ['then', 'catch'];
 
-interface ApiMethods {
+export interface Fetch extends ApiMethods {
+	url(url: string): ApiURL;
+	options(options: Omit<RequestInit, 'method'>): ApiOptions;
+	type(type: FetchType): ApiType;
+}
+
+export interface ApiMethods {
 	get<T = unknown>(): Promise<T>;
 	post<T = unknown>(): Promise<T>;
 	patch<T = unknown>(): Promise<T>;
 	put<T = unknown>(): Promise<T>;
 	delete<T = unknown>(): Promise<T>;
-	toString(): undefined;
-	valueOf(): undefined;
-	inspect(): undefined;
-	['constructor'](): undefined;
-	[Symbol.toPrimitive](): undefined;
-	[inspect.custom](): undefined;
-}
-
-export interface Fetch extends ApiMethods {
-	url(url: string): ApiURL;
-	options(options: Omit<RequestInit, 'method'>): ApiOptions;
-	type(type: FetchType): ApiType;
 }
 
 export interface ApiURL extends Omit<Fetch, 'url'> { }

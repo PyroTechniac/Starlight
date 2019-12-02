@@ -130,5 +130,8 @@ export interface LockMetadata {
 	caller: string;
 	unique: symbol;
 	timeout: number;
+}
+
+export interface Lock extends LockMetadata{
 	referred: ReferredPromise<undefined>;
 }
