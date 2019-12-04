@@ -3,7 +3,7 @@ import { codeblock } from 'discord-md-tags';
 import { Command, CommandOptions, KlasaMessage, Stopwatch, Type } from 'klasa';
 import { inspect } from 'util';
 import { Events } from '../../../lib/types/Enums';
-import { ApplyOptions } from '../../../lib/util/Decorators';
+import { ApplyOptions, botOwner } from '../../../lib/util/Decorators';
 import { FetchType, noop } from '../../../lib/util/Utils';
 
 
@@ -12,7 +12,6 @@ import { FetchType, noop } from '../../../lib/util/Utils';
 	description: (lang): string => lang.get('COMMAND_EVAL_DESCRIPTION'),
 	extendedHelp: (lang): string => lang.get('COMMAND_EVAL_EXTENDED'),
 	guarded: true,
-	permissionLevel: 10,
 	usage: '<expression:string>',
 	flagSupport: true
 })
@@ -20,6 +19,7 @@ export default class extends Command {
 
 	private readonly timeout = 60000;
 
+	@botOwner()
 	public async run(message: KlasaMessage, [code]: [string]): Promise<KlasaMessage | null> {
 		const flagTime = 'no-timeout' in message.flagArgs ? 'wait' in message.flagArgs ? Number(message.flagArgs.wait) : this.timeout : Infinity;
 		const language = message.flagArgs.lang || message.flagArgs.language || (message.flagArgs.json ? 'json' : 'js');

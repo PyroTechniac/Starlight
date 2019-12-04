@@ -1,10 +1,12 @@
-import { KlasaMessage, Piece, PieceOptions, RateLimitManager, Store } from 'klasa';
+import { KlasaMessage, Piece, PieceOptions, RateLimitManager, ScheduledTaskOptions, Store, Task } from 'klasa';
 import { ApiRequest } from '../structures/api/ApiRequest';
 import { ApiResponse } from '../structures/api/ApiResponse';
 import { Util } from 'klasa-dashboard-hooks';
 import { CLIENT_SECRET } from './Constants';
 import { Constructor } from '../types/Types';
 import { isFunction } from '@klasa/utils';
+import { PermissionLevels } from '../types/Enums';
+import { toss } from './Utils';
 // Copyright (c) 2019 kyranet. All rights reserved. MIT License
 // This is a recreation of kyranet's klasa-decorators but with proper type annotation.
 // The original work can be found at https://github.com/kyranet/klasa-decorators.
@@ -23,6 +25,27 @@ export function ApplyOptions<T extends PieceOptions>(options: T): Function {
 
 		public constructor(store: Store<string, Piece, typeof Piece>, file: string[], directory: string) {
 			super(store, file, directory, options);
+		}
+
+	});
+}
+
+function ensureTask(task: Task): boolean {
+	const { tasks } = task.client.schedule;
+	return tasks.some((s): boolean => s.taskName === task.name && s.task === task);
+}
+
+interface NonAbstractTask extends Task {
+	run(data?: any): unknown;
+}
+
+export function SetupTask(time: string | number | Date, data?: ScheduledTaskOptions): Function {
+	return createClassDecorator((target: Constructor<NonAbstractTask>): Constructor<NonAbstractTask> => class extends target {
+
+		public async init(): Promise<void> {
+			await super.init();
+			if (ensureTask(this)) return;
+			await this.client.schedule.create(this.name, time, data);
 		}
 
 	});
@@ -51,6 +74,50 @@ export function requiresGuildContext(fallback: Fallback = (): undefined => undef
 
 export function requiresDMContext(fallback: Fallback = (): undefined => undefined): MethodDecorator {
 	return createFunctionInhibitor((message: KlasaMessage): boolean => message.guild === null, fallback);
+}
+
+function inhibit(level: PermissionLevels): (message: KlasaMessage) => never {
+	let toThrow;
+	switch (level) {
+		case PermissionLevels.Staff: {
+			toThrow = 'INHIBITOR_STAFF_LEVEL';
+			break;
+		}
+		case PermissionLevels.Moderator: {
+			toThrow = 'INHIBITOR_MOD_LEVEL';
+			break;
+		}
+		case PermissionLevels.Administrator: {
+			toThrow = 'INHIBITOR_ADMIN_LEVEL';
+			break;
+		}
+		default: {
+			toThrow = 'INHIBITOR_PERMISSIONS';
+			break;
+		}
+	}
+
+	return (message: KlasaMessage): never => toss(message.language.get(toThrow));
+}
+
+export function staff(): MethodDecorator {
+	return requiresPermission(PermissionLevels.Staff, inhibit(PermissionLevels.Staff));
+}
+
+export function mod(): MethodDecorator {
+	return requiresPermission(PermissionLevels.Moderator, inhibit(PermissionLevels.Moderator));
+}
+
+export function admin(): MethodDecorator {
+	return requiresPermission(PermissionLevels.Administrator, inhibit(PermissionLevels.Administrator));
+}
+
+export function owner(): MethodDecorator {
+	return requiresPermission(PermissionLevels.ServerOwner, inhibit(PermissionLevels.ServerOwner));
+}
+
+export function botOwner(): MethodDecorator {
+	return requiresPermission(PermissionLevels.BotOwner, inhibit(PermissionLevels.BotOwner));
 }
 
 export function rateLimit(bucket: number, cooldown: number, auth = false): MethodDecorator {
@@ -88,8 +155,7 @@ export const authenticated = createFunctionInhibitor(
 	(request: ApiRequest): boolean => {
 		if (!request.headers.authorization) return false;
 		request.auth = Util.decrypt(request.headers.authorization, CLIENT_SECRET);
-		if (!request.auth!.user_id || !request.auth!.token) return false;
-		return true;
+		return !(!request.auth!.user_id || !request.auth!.token);
 	},
 	(_request: ApiRequest, response: ApiResponse): void => {
 		response.error(403);

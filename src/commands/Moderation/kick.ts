@@ -1,12 +1,10 @@
 import { StarlightCommandOptions, StarlightCommand } from '../../lib/structures/StarlightCommand';
-import { ApplyOptions } from '../../lib/util/Decorators';
-import { PermissionLevels } from '../../lib/types/Enums';
+import { ApplyOptions, staff } from '../../lib/util/Decorators';
 import { KlasaMessage } from 'klasa';
 import { GuildMember } from 'discord.js';
 // TODO: Localization.
 
 @ApplyOptions<StarlightCommandOptions>({
-	permissionLevel: PermissionLevels.Moderator,
 	runIn: ['text'],
 	requiredPermissions: ['KICK_MEMBERS'],
 	description: 'Kicks a member. Currently does not require reason (no mod-log).',
@@ -15,6 +13,7 @@ import { GuildMember } from 'discord.js';
 })
 export default class extends StarlightCommand {
 
+	@staff()
 	public async run(message: KlasaMessage, [member, reason]: [GuildMember, string?]): Promise<KlasaMessage> {
 		if (member.id === message.author.id) throw 'Why would you kick yourself?';
 		if (member.id === this.client.user!.id) throw 'Have I done something wrong?';

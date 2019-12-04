@@ -4,8 +4,10 @@ import TomlProvider from '../providers/toml';
 import RethinkProvider from '../providers/rethinkdb';
 import { dirname, resolve } from 'path';
 import { ensureDir, targz } from 'fs-nextra';
-import { Events } from '../lib/types/Enums';
+import { CronTimes, Events } from '../lib/types/Enums';
+import { SetupTask } from '../lib/util/Decorators';
 
+@SetupTask(CronTimes.Daily, { catchUp: true })
 export default class extends Task {
 
 	private timestamp: Timestamp = new Timestamp('YYYY-MM-DD[T]HHmmss');

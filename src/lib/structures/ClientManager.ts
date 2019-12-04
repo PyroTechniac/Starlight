@@ -114,8 +114,8 @@ export class ClientManager {
 		this._baseTimeout = null;
 	}
 
-	private static _generateID(client: Client): string {
-		return `${Date.now().toString(36)}${client.options.shards[0]!.toString(36)}`;
+	private static _generateID(client: Client | undefined): string {
+		return `${Date.now().toString(36)}${(client?.options.shards[0] ?? 0).toString(36)}`;
 	}
 
 }

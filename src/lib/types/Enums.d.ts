@@ -97,3 +97,10 @@ export const enum PermissionLevels {
 	BotOwner = 10
 }
 
+export const enum CronTimes {
+	Hourly = '0 * * * *',
+	Daily = '0 0 * * *',
+	Weekly = '0 0 * * 0',
+	Monthly = '0 0 1 * *',
+	Yearly = '0 0 1 1 *'
+}

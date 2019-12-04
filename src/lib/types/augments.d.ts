@@ -12,7 +12,6 @@ import { ClientManager } from '../structures/ClientManager';
 
 declare module 'discord.js' {
 
-
 	interface Client {
 		llrcs: Set<LongLivingReactionCollector>;
 		resolvers: ResolverStore;

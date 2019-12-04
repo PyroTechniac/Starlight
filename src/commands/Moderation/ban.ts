@@ -1,13 +1,11 @@
 import { StarlightCommandOptions, StarlightCommand } from '../../lib/structures/StarlightCommand';
-import { ApplyOptions } from '../../lib/util/Decorators';
-import { PermissionLevels } from '../../lib/types/Enums';
+import { ApplyOptions, mod } from '../../lib/util/Decorators';
 import { KlasaMessage } from 'klasa';
 import { BanOptions, User } from 'discord.js';
 import { noop } from '../../lib/util/Utils';
 // TODO: Localization.
 
 @ApplyOptions<StarlightCommandOptions>({
-	permissionLevel: PermissionLevels.Moderator,
 	requiredPermissions: ['BAN_MEMBERS'],
 	runIn: ['text'],
 	description: 'Bans a user. Currently does not require reason (no mod-log).',
@@ -16,6 +14,7 @@ import { noop } from '../../lib/util/Utils';
 })
 export default class extends StarlightCommand {
 
+	@mod()
 	public async run(message: KlasaMessage, [user, reason]: [User, string?]): Promise<KlasaMessage> {
 		if (user.id === message.author.id) throw 'Why would you ban yourself?';
 		if (user.id === this.client.user!.id) throw 'Have I done something wrong?';
