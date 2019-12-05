@@ -1,15 +1,16 @@
 import { Event, EventOptions } from 'klasa';
 import { ApplyOptions } from '../lib/util/Decorators';
+import {initClean} from '@klasa/utils'
 
 
 @ApplyOptions<EventOptions>({
-	once: true,
-	event: 'ready'
+	once: true
 })
 export default class extends Event {
 
 	public run(): void {
-		return this.client.cache.clean(true);
+		initClean(this.client.token!);
+		this.client.cache.clean(true);
 	}
 
 }

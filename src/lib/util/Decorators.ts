@@ -1,4 +1,12 @@
-import { KlasaMessage, Piece, PieceOptions, RateLimitManager, ScheduledTaskOptions, Store, Task } from 'klasa';
+import {
+	KlasaMessage,
+	Piece,
+	PieceOptions,
+	RateLimitManager,
+	ScheduledTaskOptions,
+	Store,
+	Task
+} from 'klasa';
 import { ApiRequest } from '../structures/api/ApiRequest';
 import { ApiResponse } from '../structures/api/ApiResponse';
 import { Util } from 'klasa-dashboard-hooks';
