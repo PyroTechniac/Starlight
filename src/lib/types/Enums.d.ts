@@ -9,7 +9,9 @@ export const enum Events {
 	Log = 'log',
 	CommandSuccess = 'commandSuccess',
 	CommandInhibited = 'commandInhibited',
-	CommandError = 'commandError'
+	CommandError = 'commandError',
+	TaskScheduled = 'taskScheduled',
+	TaskFound = 'taskFound'
 }
 
 export const enum Databases {

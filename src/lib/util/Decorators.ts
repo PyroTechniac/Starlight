@@ -2,7 +2,7 @@ import {
 	KlasaMessage,
 	Piece,
 	PieceOptions,
-	RateLimitManager,
+	RateLimitManager, ScheduledTask,
 	ScheduledTaskOptions,
 	Store,
 	Task
@@ -13,7 +13,7 @@ import { Util } from 'klasa-dashboard-hooks';
 import { CLIENT_SECRET } from './Constants';
 import { Constructor } from '../types/Types';
 import { isFunction } from '@klasa/utils';
-import { PermissionLevels } from '../types/Enums';
+import { Events, PermissionLevels } from '../types/Enums';
 import { toss } from './Utils';
 // Copyright (c) 2019 kyranet. All rights reserved. MIT License
 // This is a recreation of kyranet's klasa-decorators but with proper type annotation.
@@ -38,9 +38,9 @@ export function ApplyOptions<T extends PieceOptions>(options: T): Function {
 	});
 }
 
-function ensureTask(task: Task): boolean {
+function ensureTask(task: Task): ScheduledTask | undefined {
 	const { tasks } = task.client.schedule;
-	return tasks.some((s): boolean => s.taskName === task.name && s.task === task);
+	return tasks.find((s): boolean => s.taskName === task.name && s.task === task);
 }
 
 interface NonAbstractTask extends Task {
@@ -52,8 +52,13 @@ export function SetupTask(time: string | number | Date, data?: ScheduledTaskOpti
 
 		public async init(): Promise<void> {
 			await super.init();
-			if (ensureTask(this)) return;
-			await this.client.schedule.create(this.name, time, data);
+			const found = ensureTask(this);
+			if (found) {
+				this.client.emit(Events.TaskFound, found);
+			} else {
+				const created = await this.client.schedule.create(this.name, time, data);
+				this.client.emit(Events.TaskScheduled, created);
+			}
 		}
 
 	});
