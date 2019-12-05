@@ -2,10 +2,12 @@ import { Guild, Snowflake, Structures, User } from 'discord.js';
 import { MemberNicknames } from '../util/cache/MemberNicknames';
 import { api } from '../util/Api';
 import { APIUserData } from '../types/Interfaces';
+import { StarlightGuildMemberStore } from '../structures/StarlightGuildMemberStore';
 
 export class StarlightGuild extends Structures.get('Guild') {
 
 	public readonly nicknames = new MemberNicknames(this);
+	public members = new StarlightGuildMemberStore(this);
 
 	public fetchBan(id: Snowflake): Promise<{ user: User; reason: string }> {
 		return (api(this.client)

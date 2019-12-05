@@ -20,6 +20,12 @@ export const enum Databases {
 	ClientStorage = 'clientStorage'
 }
 
+export const enum ChannelGatewaysTypes {
+	Text = 'textChannels',
+	Voice = 'voiceChannels',
+	Category = 'categoryChannels'
+}
+
 export const enum APIErrors {
 	UnknownAccount = 10001,
 	UnknownApplication = 10002,

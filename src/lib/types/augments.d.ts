@@ -6,6 +6,7 @@ import { UserCache } from '../util/cache/UserCache';
 import { MemberNicknames } from '../util/cache/MemberNicknames';
 import { Fetch } from '../util/Cdn';
 import { ClientManager } from '../structures/ClientManager';
+import { Settings } from 'klasa';
 
 
 // This file is for augments to other modules, such as d.js or klasa.
@@ -25,8 +26,21 @@ declare module 'discord.js' {
 		readonly nicknames: MemberNicknames;
 	}
 
+	interface GuildChannel {
+		settings: Settings;
+	}
+
 	interface GuildEmojiStore {
 		guild: Guild;
+	}
+
+	interface GuildMember {
+		settings: Settings;
+	}
+
+	interface GuildMemberStore {
+		_fetchSingle(options: FetchMemberOptions): Promise<GuildMember>;
+		_fetchMany(options: FetchMembersOptions): Promise<Collection<Snowflake, GuildMember>>;
 	}
 
 	interface Message {
