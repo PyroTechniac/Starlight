@@ -1,6 +1,6 @@
 import { Event, EventOptions } from 'klasa';
 import { ApplyOptions } from '../lib/util/Decorators';
-import {initClean} from '@klasa/utils'
+import { initClean } from '@klasa/utils';
 
 
 @ApplyOptions<EventOptions>({
