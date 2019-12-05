@@ -11,7 +11,7 @@ export class StarlightGuild extends Structures.get('Guild') {
 		return (api(this.client)
 			.guilds(this.id)
 			.bans(id)
-			.get() as Promise<{user: APIUserData; reason: string}>)
+			.get() as Promise<{ user: APIUserData; reason: string }>)
 			.then((data): { user: User; reason: string } => ({
 				user: this.client.users.add(data.user),
 				reason: data.reason
