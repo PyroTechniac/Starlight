@@ -94,7 +94,7 @@ export interface ReferredPromise<T> {
 
 export interface FSProvider {
 	baseDirectory: string;
-	resolve: (...args: string[]) => string;
+	extension: string;
 }
 
 export interface ContentNodeJSON {
