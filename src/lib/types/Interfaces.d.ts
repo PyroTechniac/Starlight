@@ -1,6 +1,3 @@
-import { FetchType } from '../util/Utils';
-import { RequestInit } from 'node-fetch';
-
 export interface RateLimitInfo {
 	timeout: number;
 	limit: number;
@@ -97,15 +94,6 @@ export interface FSProvider {
 	extension: string;
 }
 
-export interface ContentNodeJSON {
-	url: string;
-	type: FetchType;
-	data: unknown | null;
-	options: RequestInit;
-	timeout: number;
-	valid: boolean;
-}
-
 export interface StatsGeneral {
 	CHANNELS: string;
 	GUILDS: string;
@@ -124,14 +112,4 @@ export interface StatsUsage {
 	CPU_LOAD: string;
 	RAM_TOTAL: string;
 	RAM_USED: string;
-}
-
-export interface LockMetadata {
-	caller: string;
-	unique: symbol;
-	timeout: number;
-}
-
-export interface Lock extends LockMetadata{
-	referred: ReferredPromise<undefined>;
 }
