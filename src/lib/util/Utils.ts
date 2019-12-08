@@ -10,13 +10,11 @@ import { ReferredPromise } from '../types/Interfaces';
 import { rootFolder } from './Constants';
 import { FetchError } from './FetchError';
 
-export * from './FS';
-
 export function isSchemaFolder(input: Schema | SchemaFolder | SchemaEntry): input is SchemaFolder | Schema {
 	return input.type === 'Folder';
 }
 
-// Synonymous for `throw` but allows throwing in one-line arrow functions
+// Synonymous for `throw` but allows throwing in one-line arrow functions and ternary statements.
 export function toss(exception: any): never {
 	throw exception;
 }

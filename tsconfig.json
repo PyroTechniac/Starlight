@@ -5,7 +5,8 @@
         "listEmittedFiles": true,
         "noImplicitAny": false,
         "declaration": true,
-        "target": "es2020"
+        "target": "es2020",
+        "removeComments": true
     },
     "include": [
         "src"
