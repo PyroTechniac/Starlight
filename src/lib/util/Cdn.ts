@@ -1,6 +1,6 @@
-import { RequestInit } from 'node-fetch';
-import { FetchType, fetch } from './Utils';
+import { RequestInit, Response } from 'node-fetch';
 import { URL } from 'url';
+import { ContentFetchManager, FetchTypes } from '../structures/ContentFetchManager';
 
 const noop = (): void => { };
 const methods = ['get', 'post', 'put', 'patch', 'delete'];
@@ -15,7 +15,7 @@ const aborts = ['then', 'catch'];
 export interface Fetch extends ApiMethods {
 	url(url: string): ApiURL;
 	options(options: Omit<RequestInit, 'method'>): ApiOptions;
-	type(type: FetchType): ApiType;
+	type(type: FetchTypes | keyof typeof FetchTypes): ApiType;
 }
 
 export interface ApiMethods {
@@ -32,7 +32,7 @@ export interface ApiOptions extends Omit<Fetch, 'options'> { }
 
 export interface ApiType extends Omit<Fetch, 'type'> { }
 
-export function cdn(): Fetch {
+export function cdn(manager: ContentFetchManager): Fetch {
 	const route: any[] = [];
 	const handler: ProxyHandler<any> = {
 		get(_, name: string | symbol) {
@@ -45,7 +45,7 @@ export function cdn(): Fetch {
 			if (methods.includes(name)) {
 				let url: URL;
 				let options: RequestInit = { method: name.toUpperCase() };
-				let type: FetchType = FetchType.JSON;
+				let type: FetchTypes = FetchTypes.JSON;
 				for (const [i, r] of route.entries()) {
 					if (/url/i.test(r)) {
 						try {
@@ -58,7 +58,7 @@ export function cdn(): Fetch {
 					if (/type/i.test(r)) type = route[i + 1];
 				}
 
-				return (): Promise<any> => fetch(url, options, type);
+				return (): Promise<Response | Buffer | string | unknown> => manager.fetch(url!, options, type);
 			}
 
 			route.push(name);

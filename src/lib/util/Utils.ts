@@ -1,14 +1,11 @@
 import { isThenable } from '@klasa/utils';
 import { Message, Client as DJSClient } from 'discord.js';
 import { Schema, SchemaFolder, SchemaEntry } from 'klasa';
-import nodeFetch, { RequestInit, Response } from 'node-fetch';
 import { join } from 'path';
-import { URL } from 'url';
 import { UserSettings } from '../settings/UserSettings';
 import { BaseColors, Events } from '../types/Enums';
 import { ReferredPromise } from '../types/Interfaces';
 import { rootFolder } from './Constants';
-import { FetchError } from './FetchError';
 
 export function isSchemaFolder(input: Schema | SchemaFolder | SchemaEntry): input is SchemaFolder | Schema {
 	return input.type === 'Folder';
@@ -59,45 +56,6 @@ export function floatPromise<T>(ctx: { client: DJSClient }, prom: Promise<T>): P
 		kFloatedPromises.add(prom);
 	}
 	return prom;
-}
-
-export const enum FetchType {
-	Result,
-	JSON,
-	Buffer,
-	Text
-}
-
-export async function fetch(url: URL | string, type: FetchType.JSON): Promise<object>;
-export async function fetch(url: URL | string, options: RequestInit, type: FetchType.JSON): Promise<object>;
-export async function fetch(url: URL | string, type: FetchType.Buffer): Promise<Buffer>;
-export async function fetch(url: URL | string, options: RequestInit, type: FetchType.Buffer): Promise<Buffer>;
-export async function fetch(url: URL | string, type: FetchType.Text): Promise<string>;
-export async function fetch(url: URL | string, options: RequestInit, type: FetchType.Text): Promise<string>;
-export async function fetch(url: URL | string, type: FetchType.Result): Promise<Response>;
-export async function fetch(url: URL | string, options: RequestInit, type: FetchType.Result): Promise<Response>;
-export async function fetch(url: URL | string, options: RequestInit, type: FetchType): Promise<Response | Buffer | string | object>;
-export async function fetch(url: URL | string, options: RequestInit | FetchType, type?: FetchType): Promise<Response | Buffer | string | object> {
-	if (typeof options === 'undefined') {
-		options = {};
-		type = FetchType.JSON;
-	} else if (typeof options === 'number') {
-		type = options;
-		options = {};
-	} else if (typeof type === 'undefined') {
-		type = FetchType.JSON;
-	}
-
-	const result: Response = await nodeFetch(url, options);
-	if (!result.ok) throw new FetchError(await result.text(), result.status, result.url);
-
-	switch (type) {
-		case FetchType.Result: return result;
-		case FetchType.Buffer: return result.buffer();
-		case FetchType.JSON: return result.json();
-		case FetchType.Text: return result.text();
-		default: throw new Error(`Unknown type ${type}`);
-	}
 }
 
 export function noop(): null {

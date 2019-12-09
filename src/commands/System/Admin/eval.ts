@@ -4,7 +4,7 @@ import { Command, CommandOptions, KlasaMessage, Stopwatch, Type } from 'klasa';
 import { inspect } from 'util';
 import { Events } from '../../../lib/types/Enums';
 import { ApplyOptions, botOwner } from '../../../lib/util/Decorators';
-import { FetchType, noop } from '../../../lib/util/Utils';
+import { noop } from '../../../lib/util/Utils';
 
 
 @ApplyOptions<CommandOptions>({
@@ -120,7 +120,7 @@ export default class extends Command {
 			.options({
 				body: evalResult
 			})
-			.type(FetchType.JSON)
+			.type('JSON')
 			.post<{key: string}>();
 		return `https://hasteb.in/${key}.${language}`;
 	}
