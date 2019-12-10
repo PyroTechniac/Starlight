@@ -9,7 +9,7 @@ export interface DeferredClass {
 const kDeferred = Symbol('Deferred');
 
 export function Deferrable(): Function {
-	return createClassDecorator((Target: Constructor<DeferredClass>) => class extends Target {
+	return createClassDecorator((Target: Constructor<DeferredClass>): Constructor<DeferredClass> => class extends Target {
 
 		private [kDeferred]: [Function, any[]][] = [];
 
