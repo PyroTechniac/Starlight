@@ -2,6 +2,7 @@ import { RequestInit, Response } from 'node-fetch';
 import { URL } from 'url';
 import { ContentFetchManager, FetchTypes } from '../structures/ContentFetchManager';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = (): void => { };
 const methods = ['get', 'post', 'put', 'patch', 'delete'];
 const reflectors = [

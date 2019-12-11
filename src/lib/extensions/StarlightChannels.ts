@@ -1,6 +1,6 @@
 import { CategoryChannel, GuildChannel, Structures, TextChannel, VoiceChannel } from 'discord.js';
 import { Constructor } from '../types/Types';
-import {ChannelGateway} from "../structures/ChannelGateway";
+import { ChannelGateway } from '../structures/ChannelGateway';
 
 function AddSettings<T extends Constructor<GuildChannel>>(target: T): T {
 	return class extends target {

@@ -1,5 +1,5 @@
 import { GuildMember, Structures } from 'discord.js';
-import {MemberGateway} from "../structures/MemberGateway";
+import { MemberGateway } from '../structures/MemberGateway';
 
 export class StarlightGuildMember extends Structures.get('GuildMember') {
 

@@ -1,4 +1,4 @@
-import {IdKeyedObject, Provider as BaseProvider, ProviderStore, SQLProvider as BaseSQLProvider} from 'klasa';
+import { KeyedObject, Provider as BaseProvider, ProviderStore, SQLProvider as BaseSQLProvider } from 'klasa';
 import { FSProvider } from '../types/Interfaces';
 import { resolve } from 'path';
 import * as fs from 'fs-nextra';
@@ -56,15 +56,15 @@ export abstract class FileSystemProvider extends Provider implements FSProvider 
 		return exists ? fs.emptyDir(this.resolve(table)).then((): Promise<void> => fs.remove(this.resolve(table))) : null;
 	}
 
-	public async getAll(table: string, entries?: string[]): Promise<IdKeyedObject[]> {
+	public async getAll(table: string, entries?: string[]): Promise<KeyedObject[]> {
 		if (!Array.isArray(entries) || !entries.length) entries = await this.getKeys(table);
 		if (entries.length < 5000) {
-			return Promise.all(entries.map(this.get.bind(this, table))) as Promise<IdKeyedObject[]>;
+			return Promise.all(entries.map(this.get.bind(this, table))) as Promise<KeyedObject[]>;
 		}
 
 		const chunks = chunk(entries, 5000);
-		const output: IdKeyedObject[] = [];
-		for (const chunk of chunks) output.push(...await Promise.all(chunk.map(this.get.bind(this, table))) as IdKeyedObject[]);
+		const output: KeyedObject[] = [];
+		for (const chunk of chunks) output.push(...await Promise.all(chunk.map(this.get.bind(this, table))) as KeyedObject[]);
 		return output;
 	}
 

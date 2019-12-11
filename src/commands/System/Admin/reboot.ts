@@ -13,7 +13,7 @@ export default class extends Command {
 		await message.sendLocale('COMMAND_REBOOT').catch((err): boolean => this.client.emit(Events.Wtf, err));
 
 		try {
-			await Promise.all(this.client.providers.map((provider): Promise<unknown> => provider.shutdown()));
+			await Promise.all(this.client.providers.map((provider): unknown => provider.shutdown()));
 			this.client.destroy();
 		} catch { }
 

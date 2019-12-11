@@ -1,6 +1,7 @@
-import { createClassDecorator, createMethodDecorator } from './Decorators';
+import { createMethodDecorator } from './Decorators';
 import { Constructor } from '../types/Types';
 import { isFunction } from '@klasa/utils';
+import { wrapPromise } from './Utils';
 
 export interface DeferredClass {
 	defer(fn: Function, ...args: any[]): void;
@@ -8,8 +9,8 @@ export interface DeferredClass {
 
 const kDeferred = Symbol('Deferred');
 
-export function Deferrable(): Function {
-	return createClassDecorator((Target: Constructor<DeferredClass>): Constructor<DeferredClass> => class extends Target {
+export function Deferrable(Target: Constructor<DeferredClass>): Constructor<DeferredClass> {
+	return class extends Target {
 
 		private [kDeferred]: [Function, any[]][] = [];
 
@@ -17,7 +18,7 @@ export function Deferrable(): Function {
 			this[kDeferred].push([fn, args]);
 		}
 
-	});
+	};
 }
 
 export function markDefer(): MethodDecorator {
@@ -32,9 +33,14 @@ export function markDefer(): MethodDecorator {
 			try {
 				return await Reflect.apply(method, this, args);
 			} catch (err) {
+				if (err instanceof Error) {
+					Error.captureStackTrace(err, descriptorValue);
+				}
 				throw err;
 			} finally {
-				for (const [fn, args] of this[kDeferred]) await Reflect.apply(fn, this, args);
+				for (const [fn, defArgs] of this[kDeferred]) {
+					await wrapPromise(fn.bind(this), ...defArgs);
+				}
 			}
 		}) as unknown as undefined;
 	});

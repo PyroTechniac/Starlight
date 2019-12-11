@@ -16,6 +16,16 @@ export function toss(exception: any): never {
 	throw exception;
 }
 
+export function wrapPromise<V, A extends readonly unknown[] = readonly unknown[]>(fn: (...A) => V, ...args: A): Promise<V> {
+	return new Promise<V>((resolve, reject): void => {
+		try {
+			resolve(fn(...args));
+		} catch (err) {
+			reject(err);
+		}
+	});
+}
+
 export function splitText(str: string, length: number, char = ' '): string {
 	const x = str.substring(0, length).lastIndexOf(char);
 	const pos = x === -1 ? length : x;

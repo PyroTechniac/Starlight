@@ -136,7 +136,7 @@ export function botOwner(): MethodDecorator {
 	return requiresPermission(PermissionLevels.BotOwner, inhibit(PermissionLevels.BotOwner));
 }
 
-export function rateLimit(bucket: number, cooldown: number, auth = false): MethodDecorator {
+export function ratelimit(bucket: number, cooldown: number, auth = false): MethodDecorator {
 	const manager = new RateLimitManager(bucket, cooldown);
 	const xRateLimitLimit = bucket;
 	return createFunctionInhibitor(
