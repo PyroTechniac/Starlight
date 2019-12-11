@@ -1,10 +1,11 @@
 import { CategoryChannel, GuildChannel, Structures, TextChannel, VoiceChannel } from 'discord.js';
 import { Constructor } from '../types/Types';
+import {ChannelGateway} from "../structures/ChannelGateway";
 
 function AddSettings<T extends Constructor<GuildChannel>>(target: T): T {
 	return class extends target {
 
-		public settings = this.client.gateways.get(`${this.type}Channels`)!.acquire(this);
+		public settings = (this.client.gateways.get(`${this.type}Channels`) as ChannelGateway).acquire(this);
 
 		public toJSON(): object {
 			return { ...super.toJSON(), settings: this.settings.toJSON() };

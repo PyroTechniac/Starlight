@@ -66,6 +66,6 @@ declare module 'klasa-dashboard-hooks' {
 declare module 'klasa' {
 	interface SettingsFolder {
 		get<K extends string, S>(key: CustomGet<K, S>): S;
-		get(key: string): SettingsFolder | SettingsValue | readonly SettingsValue[];
+		get(key: string): SettingsFolder | unknown | readonly unknown[];
 	}
 }

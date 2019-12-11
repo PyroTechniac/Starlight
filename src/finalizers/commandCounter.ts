@@ -12,8 +12,8 @@ export default class extends Finalizer {
 
 		await Promise.all([this.client.settings!.sync(), message.author.settings.sync()]);
 
-		await this.client.settings!.update(ClientSettings.CommandUses, clientValue + 1, { throwOnError: true });
-		await message.author.settings.update(UserSettings.CommandUses, authorValue + 1, { throwOnError: true });
+		await this.client.settings!.update(ClientSettings.CommandUses, clientValue + 1);
+		await message.author.settings.update(UserSettings.CommandUses, authorValue + 1);
 		if (message.guild) await this.handleGuild(message.guild);
 	}
 
@@ -21,7 +21,7 @@ export default class extends Finalizer {
 		await guild.settings.sync();
 
 		const guildValue = guild.settings.get(GuildSettings.CommandUses);
-		await guild.settings.update(GuildSettings.CommandUses, guildValue + 1, { throwOnError: true });
+		await guild.settings.update(GuildSettings.CommandUses, guildValue + 1);
 	}
 
 }

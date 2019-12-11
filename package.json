@@ -4,6 +4,9 @@
     "author": "Gryffon Bellish <owenbellish@gmail.com>",
     "license": "MIT",
     "main": "./dist/index.js",
+    "resolutions": {
+        "@klasa/settings-gateway": ">=0.0.5"
+    },
     "scripts": {
         "build": "tsc -p .",
         "start": "node .",
