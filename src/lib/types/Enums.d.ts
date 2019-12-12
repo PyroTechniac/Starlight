@@ -112,3 +112,9 @@ export const enum CronTimes {
 	Monthly = '0 0 1 * *',
 	Yearly = '0 0 1 1 *'
 }
+
+export const enum MimeTypes {
+	ApplicationJson = 'application/json',
+	ApplicationFormUrlEncoded = 'application/x-www-form-urlencoded',
+	TextPlain = 'text/plain'
+}

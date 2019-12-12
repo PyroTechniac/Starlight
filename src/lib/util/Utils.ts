@@ -21,6 +21,9 @@ export function wrapPromise<V, A extends readonly unknown[] = readonly unknown[]
 		try {
 			resolve(fn(...args));
 		} catch (err) {
+			if (err instanceof Error) {
+				Error.captureStackTrace(err, wrapPromise);
+			}
 			reject(err);
 		}
 	});
