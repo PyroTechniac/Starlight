@@ -2,6 +2,7 @@ import { Event, EventOptions } from 'klasa';
 import { ApplyOptions } from '../lib/util/Decorators';
 import { WSGuildMemberUpdate } from '../lib/types/Interfaces';
 import { noop } from '../lib/util/Utils';
+import { MemberTag } from '../lib/util/cache/MemberTags';
 
 @ApplyOptions<EventOptions>({
 	event: 'GUILD_MEMBER_UPDATE',
@@ -13,7 +14,13 @@ export default class extends Event {
 		const guild = this.client.guilds.get(data.guild_id);
 		if (!guild) return;
 
-		guild.nicknames.set(data.user.id, data.nick ?? null);
+		const updated: MemberTag = {
+			nickname: data.nick ?? null,
+			roles: data.roles
+		};
+
+		guild.memberTags.set(data.user.id, updated);
+
 		this.client.userCache.create(data.user);
 		const member = await guild.members.fetch(data.user.id).catch(noop);
 		if (!member) return;

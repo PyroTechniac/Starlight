@@ -6,6 +6,14 @@ export interface RateLimitInfo {
 	route: string;
 }
 
+export interface OAuthData {
+	access_token: string;
+	expires_in: number;
+	refresh_token: string;
+	scope: string;
+	token_type: string;
+}
+
 export interface APIUserData {
 	id: string;
 	username: string;

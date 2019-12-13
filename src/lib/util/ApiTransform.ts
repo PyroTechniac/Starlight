@@ -35,7 +35,7 @@ export abstract class Transformer<V extends Discord.Base, F extends FlattenedBas
 	private static _resolveChannel(channel: Discord.GuildChannel): GuildChannelTransformer;
 	private static _resolveChannel(channel: Discord.DMChannel): DMChannelTransformer;
 	private static _resolveChannel(channel: Discord.Channel): ChannelTransformer;
-	private static _resolveChannel(channel: Discord.Channel) {
+	private static _resolveChannel(channel: Discord.Channel): ChannelTransformer {
 		if (channel.type === 'news') return new NewsChannelTransformer(channel as Discord.NewsChannel);
 		if (channel.type === 'text') return new TextChannelTransformer(channel as Discord.TextChannel);
 		if (channel.type === 'voice') return new VoiceChannelTransformer(channel as Discord.VoiceChannel);

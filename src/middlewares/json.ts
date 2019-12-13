@@ -1,5 +1,5 @@
-import { KlasaIncomingMessage, Middleware, MiddlewareOptions } from 'klasa-dashboard-hooks';
-import { createGunzip, createInflate } from 'zlib';
+import { Middleware, MiddlewareOptions, KlasaIncomingMessage } from 'klasa-dashboard-hooks';
+import { createGunzip, createInflate, Gunzip, Inflate } from 'zlib';
 import { ApplyOptions } from '../lib/util/Decorators';
 
 @ApplyOptions<MiddlewareOptions>({
@@ -13,15 +13,16 @@ export default class extends Middleware {
 		const stream = this.contentStream(request);
 		let body = '';
 
+		if (typeof stream === 'undefined') return;
 		for await (const chunk of stream) body += chunk;
 
-		const data = JSON.parse(body);
-		request.body = data;
+		request.body = JSON.parse(body);
 	}
 
-	public contentStream(request: KlasaIncomingMessage): any {
+	private contentStream(request: KlasaIncomingMessage): Inflate | Gunzip | KlasaIncomingMessage | undefined {
 		const length = request.headers['content-length'];
-		let stream;
+		let stream: Inflate | Gunzip | KlasaIncomingMessage | undefined;
+
 		switch ((request.headers['content-encoding'] || 'identity').toLowerCase()) {
 			case 'deflate':
 				stream = createInflate();
@@ -33,8 +34,9 @@ export default class extends Middleware {
 				break;
 			case 'identity':
 				stream = request;
-				stream.length = length;
+				stream.length = Number(length);
 		}
+
 		return stream;
 	}
 

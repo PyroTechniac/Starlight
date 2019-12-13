@@ -1,51 +1,55 @@
 import Collection, { CollectionConstructor } from '@discordjs/collection';
-import { Client, Guild, GuildMember } from 'discord.js';
+import { KlasaGuild } from 'klasa';
+import { Client, GuildMember } from 'discord.js';
 import { APIErrors } from '../../types/Enums';
 
-export class MemberNicknames extends Collection<string, string | null> {
+export class MemberTags extends Collection<string, MemberTag> {
 
-	public readonly client!: Client;
-	public readonly guildID: string;
+	public readonly guild: KlasaGuild;
 
-	public constructor(ctx: {id: string; client: Client}) {
+	public constructor(guild: KlasaGuild) {
 		super();
-		Object.defineProperty(this, 'client', { value: ctx.client });
-		this.guildID = ctx.id;
+		this.guild = guild;
 	}
 
-	public get guild(): Guild {
-		return this.client.guilds.get(this.guildID)!;
+	public get client(): Client {
+		return this.guild.client;
 	}
 
-	public resolve(tagOrID: string): string | null {
-		const ID = this.client.userCache.resolve(tagOrID, true);
+	public resolve(tagOrId: string): MemberTag | null {
+		const ID = this.client.userCache.resolve(tagOrId, true);
 
 		return ID ? this.get(ID) ?? null : null;
 	}
 
-	public create(member: GuildMember): string | null {
-		super.set(member.id, member.nickname ?? null);
+	public create(member: GuildMember): MemberTag {
+		const tag: MemberTag = {
+			nickname: member.nickname ?? null,
+			roles: this.getRawRoles(member)
+		};
+		super.set(member.id, tag);
 		this.client.userCache.create(member.user);
-		return member.nickname;
+		return tag;
 	}
 
-	public async fetch(id: string): Promise<string | null>;
+	public async fetch(id: string): Promise<MemberTag | null>;
 	public async fetch(): Promise<this>;
-	public async fetch(id?: string): Promise<string | null | this> {
+	public async fetch(id?: string): Promise<MemberTag | null | this> {
 		if (typeof id === 'undefined') {
 			const members = await this.guild.members.fetch();
 			for (const member of members.values()) this.create(member);
 			return this;
 		}
+
 		const existing = this.get(id);
 		if (typeof existing !== 'undefined') return existing;
 
 		try {
 			const member = await this.guild.members.fetch(id);
 			return this.create(member);
-		} catch (e) {
-			if (e.code === APIErrors.UnknownMember) return null;
-			throw e;
+		} catch (err) {
+			if (err.code === APIErrors.UnknownMember) return null;
+			throw err;
 		}
 	}
 
@@ -61,8 +65,17 @@ export class MemberNicknames extends Collection<string, string | null> {
 		return new Collection([...this.usernames()]);
 	}
 
+	private getRawRoles(member: GuildMember): string[] {
+		return (member as unknown as {_roles: string[]} & GuildMember)._roles;
+	}
+
 	public static get [Symbol.species](): CollectionConstructor {
 		return Collection as unknown as CollectionConstructor;
 	}
 
+}
+
+export interface MemberTag {
+	nickname: string | null;
+	roles: readonly string[];
 }

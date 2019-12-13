@@ -8,7 +8,7 @@ import {
 	Task
 } from 'klasa';
 import { ApiRequest, ApiResponse } from '../structures/ApiObjects';
-import {Route, RouteStore, Util} from 'klasa-dashboard-hooks';
+import { Route, RouteStore, Util } from 'klasa-dashboard-hooks';
 import { CLIENT_SECRET } from './Constants';
 import { Constructor } from '../types/Types';
 import { isFunction } from '@klasa/utils';
@@ -40,12 +40,14 @@ export function ApplyOptions<T extends PieceOptions>(options: T): Function {
 	});
 }
 
-export function ApplyRoute(route: string): Function {
+export function SetRoute(route: string): Function {
 	return createClassDecorator((target: Constructor<Route>): Constructor<Route> => class extends target {
-		constructor(store: RouteStore, file: string[], directory: string) {
-			super(store, file, directory, {route});
+
+		public constructor(store: RouteStore, file: string[], directory: string) {
+			super(store, file, directory, { route });
 		}
-	})
+
+	});
 }
 
 function ensureTask(task: Task): ScheduledTask | undefined {

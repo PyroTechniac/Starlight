@@ -2,7 +2,7 @@
 import { config } from 'dotenv';
 import { ServerOptions } from 'https';
 import { KlasaClient, KlasaClientOptions } from 'klasa';
-import {ApiResponse, ApiRequest} from '../structures/ApiObjects';
+import { ApiResponse, ApiRequest } from '../structures/ApiObjects';
 import { join } from 'path';
 config();
 

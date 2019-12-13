@@ -95,7 +95,7 @@ export class ClientCache {
 			const { me } = guild;
 
 			for (const member of guild.members.values()) {
-				guild.nicknames.create(member);
+				guild.memberTags.create(member);
 			}
 
 			guildMembers += guild.members.size - 1;

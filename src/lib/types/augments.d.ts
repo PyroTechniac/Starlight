@@ -3,7 +3,7 @@ import { LongLivingReactionCollector } from '../util/LongLivingReactionCollector
 import { ResolverStore } from '../structures/ResolverStore';
 import { ClientCache } from '../util/cache/ClientCache';
 import { UserCache } from '../util/cache/UserCache';
-import { MemberNicknames } from '../util/cache/MemberNicknames';
+import { MemberTags } from '../util/cache/MemberTags';
 import { Fetch } from '../util/Cdn';
 import { ClientManager } from '../structures/ClientManager';
 import { Settings } from 'klasa';
@@ -23,7 +23,7 @@ declare module 'discord.js' {
 	}
 
 	interface Guild {
-		readonly nicknames: MemberNicknames;
+		readonly memberTags: MemberTags;
 	}
 
 	interface GuildChannel {
