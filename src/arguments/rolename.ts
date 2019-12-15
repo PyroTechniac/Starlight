@@ -13,7 +13,7 @@ export default class extends Argument {
 	public async run(arg: string, possible: Possible, message: KlasaMessage, filter?: (entry: Role) => boolean): Promise<Role> {
 		if (!arg) throw message.language.get('RESOLVER_INVALID_ROLENAME', possible.name);
 		if (!message.guild) return this.role.run(arg, possible, message);
-		const resRole = await this.client.resolvers.run('role', arg, message.language, message.guild.roles);
+		const resRole = await this.client.resolvers.run<Role>('role', arg, message.language, message.guild);
 		if (resRole) return resRole;
 
 		const result = await new FuzzySearch(message.guild.roles, (entry): string => entry.name, filter).run(message, arg, possible.min || undefined);

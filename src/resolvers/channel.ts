@@ -1,12 +1,27 @@
-import { Resolver } from '../lib/structures/Resolver';
-import { GuildChannel, GuildChannelStore } from 'discord.js';
+import { Resolver, ResolverContext, ResolverOptions } from '../lib/structures/Resolver';
+import { Channel } from 'discord.js';
+import { ApplyOptions } from '../lib/util/Decorators';
 
-const { channel: CHANNEL_REGEXP } = Resolver.regex;
+@ApplyOptions<ResolverOptions>({
+	aliases: ['categorychannel', 'voicechannel', 'textchannel', 'guildchannel']
+})
+export default class extends Resolver<Channel> {
 
-export default class extends Resolver {
+	public run(context: ResolverContext): Promise<null | Channel> {
+		if (!Resolver.regex.channel.test(context.arg)) return Promise.resolve(null);
+		const channel = (context.guild || this.client).channels.get(Resolver.regex.channel.exec(context.arg)![1]);
+		return Promise.resolve(this.checkChannel(channel, context.type));
+	}
 
-	public run(query: string, _, channels: GuildChannelStore): GuildChannel | null {
-		if (CHANNEL_REGEXP.test(query)) return channels.get(CHANNEL_REGEXP.exec(query)![1]) || null;
+	private checkChannel(channel: Channel | undefined, type: string): Channel | null {
+		if (!channel) return null;
+		if (
+			(type === 'channel')
+            || (type === 'guildchannel' && 'guild' in channel)
+            || (type === 'textchannel' && channel.type === 'text')
+            || (type === 'voicechannel' && channel.type === 'voice')
+            || (type === 'categorychannel' && channel.type === 'category')
+		) return channel;
 		return null;
 	}
 

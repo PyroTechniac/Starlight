@@ -1,26 +1,27 @@
-import { Resolver, ResolverOptions } from '../lib/structures/Resolver';
-import { GuildMember, GuildMemberStore } from 'discord.js';
+import { Resolver, ResolverContext, ResolverOptions } from '../lib/structures/Resolver';
 import { ApplyOptions } from '../lib/util/Decorators';
+import { GuildMember } from 'discord.js';
 import { toss } from '../lib/util/Utils';
-import { Language } from 'klasa';
 
-const { userOrMember: USER_REGEXP } = Resolver.regex;
 const USER_TAG = /^\w{1,32}#\d{4}$/;
+const { userOrMember: USER_REGEXP } = Resolver.regex;
 
 @ApplyOptions<ResolverOptions>({
 	aliases: ['guildmember']
 })
-export default class extends Resolver {
+export default class extends Resolver<GuildMember> {
 
-	public run(query: string, language: Language, members: GuildMemberStore): Promise<GuildMember | null> {
-		const id = USER_REGEXP.test(query)
-			? USER_REGEXP.exec(query)![1]
-			: USER_TAG.test(query)
-				? this.client.userCache.resolve(query, true)
+	public run({ arg, guild, language }: ResolverContext): Promise<null | GuildMember> {
+		if (!guild) return Promise.resolve(null);
+
+		const id = USER_REGEXP.test(arg)
+			? USER_REGEXP.exec(arg)![1]
+			: USER_TAG.test(arg)
+				? this.client.userCache.resolve(arg, true)
 				: null;
 
 		return id
-			? members.fetch(id).catch(() => toss(language.get('USER_NOT_EXISTENT')))
+			? guild.members.fetch(id).catch((): never => toss(language.get('USER_NOT_EXISTENT')))
 			: Promise.resolve(null);
 	}
 

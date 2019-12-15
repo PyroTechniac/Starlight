@@ -7,6 +7,7 @@ import { MemberTags } from '../util/cache/MemberTags';
 import { FetchApi } from '../structures/ContentFetchManager';
 import { ClientManager } from '../structures/ClientManager';
 import { Settings } from 'klasa';
+import { ResolverOptions } from '../structures/Resolver';
 
 
 // This file is for augments to other modules, such as d.js or klasa.
@@ -40,13 +41,16 @@ declare module 'discord.js' {
 
 	interface GuildMemberStore {
 		_fetchSingle(options: FetchMemberOptions): Promise<GuildMember>;
+
 		_fetchMany(options: FetchMembersOptions): Promise<Collection<Snowflake, GuildMember>>;
 	}
 
 	interface Message {
-		text: TextChannel | null;
-		dm: DMChannel | null;
+		readonly text: TextChannel | null;
+		readonly dm: DMChannel | null;
+
 		nuke(time?: number): Promise<Message>;
+
 		prompt(content: string, time?: number): Promise<Message>;
 	}
 
@@ -66,8 +70,13 @@ declare module 'klasa-dashboard-hooks' {
 }
 
 declare module 'klasa' {
+	interface PieceDefaults {
+		resolvers?: ResolverOptions;
+	}
+
 	interface SettingsFolder {
 		get<K extends string, S>(key: CustomGet<K, S>): S;
+
 		get(key: string): SettingsFolder | unknown | readonly unknown[];
 	}
 }
