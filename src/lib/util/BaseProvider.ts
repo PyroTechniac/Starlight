@@ -1,8 +1,14 @@
-import { KeyedObject, Provider as BaseProvider, ProviderStore, SQLProvider as BaseSQLProvider } from 'klasa';
+import {
+	KeyedObject,
+	Provider as BaseProvider,
+	ProviderStore,
+	SchemaEntry,
+	SQLProvider as BaseSQLProvider
+} from 'klasa';
 import { FSProvider } from '../types/Interfaces';
 import { resolve } from 'path';
 import * as fs from 'fs-nextra';
-import { chunk, mergeDefault } from '@klasa/utils';
+import { chunk, isNumber, makeObject, mergeDefault } from '@klasa/utils';
 import { Events } from '../types/Enums';
 
 
@@ -20,6 +26,45 @@ export abstract class SQLProvider extends BaseSQLProvider {
 		return this.client.options.providers.default !== this.name;
 	}
 
+	protected parseSQLEntry(table: string, raw: Record<string, unknown> | null): Record<string, unknown> | null {
+		if (!raw) return null;
+
+		const gateway = this.client.gateways.get(table);
+		if (typeof gateway === 'undefined') return raw;
+
+		const obj: Record<string, unknown> = { id: raw.id };
+		for (const entry of gateway.schema.values(true)) {
+			makeObject(entry.path, this.parseValue(raw[entry.path], entry), obj);
+		}
+
+		return obj;
+	}
+
+	protected parseValue(value: unknown, schemaEntry: SchemaEntry): unknown {
+		if (value === null || typeof value === 'undefined') return schemaEntry.default;
+		return Array.isArray(value)
+			? value.map((element): unknown => this.parsePrimitiveValue(element, schemaEntry.type))
+			: this.parsePrimitiveValue(value, schemaEntry.type);
+	}
+
+	protected parsePrimitiveValue(value: unknown, type: string): unknown {
+		switch (type) {
+			case 'number':
+			case 'float': {
+				const float = typeof value === 'string' ? Number.parseFloat(value) : value;
+				return isNumber(float) ? float : null;
+			}
+			case 'integer': {
+				const int = typeof value === 'string' ? Number.parseInt(value, 10) : value;
+				return isNumber(int) ? int : null;
+			}
+			case 'string':
+				return typeof value === 'string' ? value.trim() : null;
+			default:
+				return value;
+		}
+	}
+
 }
 
 export abstract class FileSystemProvider extends Provider implements FSProvider {
@@ -30,7 +75,7 @@ export abstract class FileSystemProvider extends Provider implements FSProvider 
 		super(store, file, directory);
 
 		const baseDirectory = resolve(this.client.userBaseDirectory, 'bwd', 'provider', this.extension);
-		const defaults = mergeDefault<{baseDirectory: string}, {baseDirectory: string}>({ baseDirectory }, this.client.options.providers[this.name]);
+		const defaults = mergeDefault<{ baseDirectory: string }, { baseDirectory: string }>({ baseDirectory }, this.client.options.providers[this.name]);
 		this.baseDirectory = defaults.baseDirectory;
 	}
 

@@ -3,6 +3,8 @@ import { URL } from 'url';
 import nodeFetch, { RequestInit, Response } from 'node-fetch';
 import { FetchError } from '../util/FetchError';
 import { Type } from 'klasa';
+import AbortController from "abort-controller/dist/abort-controller";
+import { Client } from "discord.js";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = (): void => {};
@@ -31,6 +33,10 @@ export class ContentFetchManager {
 		this.manager = manager;
 	}
 
+	public get client(): Client {
+		return this.manager.client;
+	}
+
 	public get cdn(): FetchApi {
 		return ContentFetchManager._cdn(this);
 	}
@@ -55,8 +61,15 @@ export class ContentFetchManager {
 			type = FetchTypes.JSON;
 		}
 
+		const controller = new AbortController();
+		const timeout = this.client.setTimeout((): void => controller.abort(), this.client.options.cdnRequestTimeout!);
+		options = {
+			...options,
+			signal: controller.signal
+		};
+
 		const urlObj = new URL(url.toString());
-		const result: Response = await nodeFetch(urlObj, options);
+		const result: Response = await nodeFetch(urlObj, options).finally((): void => this.client.clearTimeout(timeout));
 		if (!result.ok) throw new FetchError(await result.text(), result.status, urlObj.toString());
 
 		switch (type) {
