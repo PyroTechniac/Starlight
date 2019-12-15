@@ -1,8 +1,16 @@
-import { Message, Structures } from 'discord.js';
+import { DMChannel, Message, Structures, TextChannel } from 'discord.js';
 import { util } from 'klasa';
 import { Events } from '../types/Enums';
 
 export class StarlightMessage extends Structures.get('Message') {
+
+	public get text(): TextChannel | null {
+		return this.channel.type === 'text' ? this.channel as TextChannel : null;
+	}
+
+	public get dm(): DMChannel | null {
+		return this.channel.type === 'dm' ? this.channel as DMChannel : null;
+	}
 
 	public async nuke(time = 0): Promise<Message> {
 		if (time === 0) return nuke(this);

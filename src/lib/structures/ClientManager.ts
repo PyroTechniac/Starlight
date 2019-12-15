@@ -1,7 +1,7 @@
 import { Client } from 'discord.js';
-import { ContentFetchManager } from './ContentFetchManager';
+import { ContentFetchManager, FetchApi } from './ContentFetchManager';
 import { ClientCache } from '../util/cache/ClientCache';
-import { Fetch } from '../util/Cdn';
+
 
 export class ClientManager {
 
@@ -15,7 +15,7 @@ export class ClientManager {
 		Object.defineProperty(this, 'client', { value: client });
 	}
 
-	public get cdn(): Fetch {
+	public get cdn(): FetchApi {
 		return this.network.cdn;
 	}
 

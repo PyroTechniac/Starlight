@@ -3,7 +3,7 @@ import { config } from 'dotenv';
 import { ServerOptions } from 'https';
 import { KlasaClient, KlasaClientOptions } from 'klasa';
 import { ApiResponse, ApiRequest } from '../structures/ApiObjects';
-import { join } from 'path';
+import { join, resolve } from 'path';
 config();
 
 export const CLIENT_SECRET = process.env.CLIENT_SECRET || '';
@@ -55,6 +55,8 @@ export const PERMS = {
 
 export const rootFolder = join(__dirname, '..', '..', '..');
 
+const baseDirectory = (name: string): string => resolve(rootFolder, 'bwd', 'provider', name);
+
 export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 	prefix,
 	consoleEvents: {
@@ -76,7 +78,10 @@ export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 		'PRESENCE_UPDATE'
 	],
 	providers: {
-		'default': defaultProvider || 'toml'
+		'default': defaultProvider || 'cache',
+		'json': { baseDirectory: baseDirectory('json') },
+		'toml': { baseDirectory: baseDirectory('toml') },
+		'btf': { baseDirectory: baseDirectory('btf') }
 	},
 	console: {
 		colors: {

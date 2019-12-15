@@ -1,7 +1,6 @@
 import { Finalizer, KlasaMessage } from 'klasa';
 import { ClientSettings } from '../lib/settings/ClientSettings';
 import { UserSettings } from '../lib/settings/UserSettings';
-import { TextChannel } from 'discord.js';
 import { GuildSettings } from '../lib/settings/GuildSettings';
 import { MemberSettings } from '../lib/settings/MemberSettings';
 import { TextChannelSettings } from '../lib/settings/TextChannelSettings';
@@ -23,15 +22,15 @@ export default class extends Finalizer {
 		await Promise.all([
 			message.guild!.settings.sync(),
 			message.member!.settings.sync(),
-			(message.channel as TextChannel).settings.sync()
+			message.text!.settings.sync()
 		]);
 
 		const guildValue = message.guild!.settings.get(GuildSettings.CommandUses);
 		const memberValue = message.member!.settings.get(MemberSettings.CommandUses);
-		const textValue = (message.channel as TextChannel).settings.get(TextChannelSettings.CommandUses);
+		const textValue = message.text!.settings.get(TextChannelSettings.CommandUses);
 		await message.guild!.settings.update(GuildSettings.CommandUses, guildValue + 1);
 		await message.member!.settings.update(MemberSettings.CommandUses, memberValue + 1);
-		await (message.channel as TextChannel).settings.update(TextChannelSettings.CommandUses, textValue + 1);
+		await message.text!.settings.update(TextChannelSettings.CommandUses, textValue + 1);
 	}
 
 }

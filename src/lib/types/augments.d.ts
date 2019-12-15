@@ -4,7 +4,7 @@ import { ResolverStore } from '../structures/ResolverStore';
 import { ClientCache } from '../util/cache/ClientCache';
 import { UserCache } from '../util/cache/UserCache';
 import { MemberTags } from '../util/cache/MemberTags';
-import { Fetch } from '../util/Cdn';
+import { FetchApi } from '../structures/ContentFetchManager';
 import { ClientManager } from '../structures/ClientManager';
 import { Settings } from 'klasa';
 
@@ -19,7 +19,7 @@ declare module 'discord.js' {
 		manager: ClientManager;
 		readonly cache: ClientCache;
 		readonly userCache: UserCache;
-		readonly cdn: Fetch;
+		readonly cdn: FetchApi;
 	}
 
 	interface Guild {
@@ -44,6 +44,8 @@ declare module 'discord.js' {
 	}
 
 	interface Message {
+		text: TextChannel | null;
+		dm: DMChannel | null;
 		nuke(time?: number): Promise<Message>;
 		prompt(content: string, time?: number): Promise<Message>;
 	}

@@ -5,6 +5,8 @@ import { config } from 'dotenv';
 import './extensions/StarlightGuild';
 import './extensions/StarlightChannels';
 import './extensions/StarlightMessage';
+import './extensions/StarlightGuildMember';
+import './extensions/StarlightUser';
 import 'reflect-metadata';
 import './setup/PermissionLevels';
 import './schemas/Clients';
@@ -20,10 +22,10 @@ import { ResolverStore } from './structures/ResolverStore';
 import { ClientCache } from './util/cache/ClientCache';
 import { UserCache } from './util/cache/UserCache';
 import { ClientManager } from './structures/ClientManager';
-import { Fetch } from './util/Cdn';
 import { ChannelGateway } from './structures/ChannelGateway';
 import { ChannelGatewaysTypes } from './types/Enums';
 import { MemberGateway } from './structures/MemberGateway';
+import { FetchApi } from './structures/ContentFetchManager';
 
 config();
 
@@ -49,7 +51,7 @@ export class StarlightClient extends Klasa.Client {
 		return this.manager.cache;
 	}
 
-	public get cdn(): Fetch {
+	public get cdn(): FetchApi {
 		return this.manager.cdn;
 	}
 
