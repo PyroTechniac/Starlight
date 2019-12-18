@@ -15,6 +15,10 @@ export class ClientCache {
 		this.manager = manager;
 	}
 
+	public get usage(): string {
+		return (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
+	}
+
 	public get client(): Client {
 		return this.manager.client;
 	}
@@ -78,7 +82,7 @@ export class ClientCache {
 			throw new Error('Cannot reinitialize CacheManager.');
 		} else {
 			this.ready = true;
-			this.client.emit(Events.Verbose, `${this.header} Running initial sweep...`);
+			this.client.emit(Events.Verbose, `${this.header} Running initial sweep, RAM Usage: ${this.usage}...`);
 		}
 
 		const users = this.client.users.size;

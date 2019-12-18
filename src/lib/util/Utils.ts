@@ -82,3 +82,7 @@ export function filterArray<T>(...entries: T[]): T[] {
 export function assetsFolder(...paths: string[]): string {
 	return join(rootFolder, 'assets', ...paths);
 }
+
+export function catchException(exception?: any): any {
+	return exception;
+}

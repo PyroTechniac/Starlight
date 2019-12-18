@@ -1,6 +1,7 @@
 import { Provider } from '../lib/util/BaseProvider';
 import { ReadonlyKeyedObject, SettingsUpdateResults } from 'klasa';
 import { mergeObjects } from '@klasa/utils';
+import { Events } from "../lib/types/Enums";
 
 // This is a development provider for when file system access is not granted to NodeJS and rethink cannot be set up
 // It is in NO WAY meant for production, as it increases cache tremendously.
@@ -18,7 +19,9 @@ export default class extends Provider {
 	private tables = new Map<string, Map<string, object>>();
 
 	public init(): Promise<void> {
-		return this.shouldUnload ? Promise.resolve(this.unload()) : Promise.resolve();
+		if (this.shouldUnload) return Promise.resolve(this.unload());
+		this.client.emit(Events.Warn, '[PROVIDER] The cache provider is not meant for a production environment.');
+		return Promise.resolve();
 	}
 
 	public createTable(table: string): Promise<void> {

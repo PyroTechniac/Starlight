@@ -217,7 +217,7 @@ export class GuildTransformer extends Transformer<Discord.Guild, FlattenedGuild>
 			explicitContentFilter: this.internal.explicitContentFilter,
 			mfaLevel: this.internal.mfaLevel,
 			joinedTimestamp: this.internal.joinedTimestamp,
-			defaultMessageNotification: this.internal.defaultMessageNotifications,
+			defaultMessageNotifications: this.internal.defaultMessageNotifications,
 			vanityURLCode: this.internal.vanityURLCode,
 			description: this.internal.description,
 			banner: this.internal.banner,
@@ -318,7 +318,7 @@ export interface FlattenedGuild extends FlattenedBase {
 	explicitContentFilter: number;
 	mfaLevel: number;
 	joinedTimestamp: number;
-	defaultMessageNotification: number | 'ALL' | 'MENTIONS';
+	defaultMessageNotifications: number | 'ALL' | 'MENTIONS';
 	vanityURLCode: string | null;
 	description: string | null;
 	banner: string | null;

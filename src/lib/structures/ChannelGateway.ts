@@ -3,9 +3,7 @@ import { GuildChannel } from 'discord.js';
 
 export class ChannelGateway extends Gateway {
 
-	public get type(): string {
-		return this.name.split('Channels')[0]!;
-	}
+	private type = this.name.split('Channels')[0]!;
 
 	public get(id: string): Settings | null {
 		const channel = this.client.channels.get(id) as GuildChannel | undefined;
