@@ -2,8 +2,9 @@
 import { config } from 'dotenv';
 import { ServerOptions } from 'https';
 import { KlasaClient, KlasaClientOptions } from 'klasa';
-import { ApiResponse, ApiRequest } from '../structures/ApiObjects';
+import { ApiRequest, ApiResponse } from '../structures/ApiObjects';
 import { join, resolve } from 'path';
+
 config();
 
 export const CLIENT_SECRET = process.env.CLIENT_SECRET || '';

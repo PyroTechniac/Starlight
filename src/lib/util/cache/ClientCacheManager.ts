@@ -1,26 +1,17 @@
-import { Channel, Client, TextChannel, Util } from 'discord.js';
+import { Channel, TextChannel, Util } from 'discord.js';
 import { Colors } from 'klasa';
 import { Events, Time } from '../../types/Enums';
 import { UserCache } from './UserCache';
-import { ClientManager } from '../../structures/ClientManager';
+import { Manager } from '../Manager';
 
-export class ClientCache {
+export class ClientCacheManager extends Manager {
 
-	public readonly manager: ClientManager;
 	public users: UserCache = new UserCache(this);
 	private readonly header = new Colors({ text: 'lightblue' }).format('[MEMORY CLEANUP]');
 	private ready = false;
 
-	public constructor(manager: ClientManager) {
-		this.manager = manager;
-	}
-
 	public get usage(): string {
 		return (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
-	}
-
-	public get client(): Client {
-		return this.manager.client;
 	}
 
 	public clean(init = false): void {
@@ -28,15 +19,15 @@ export class ClientCache {
 
 		this.client.emit(Events.Verbose,
 			`${this.header} ${
-				ClientCache.setColor(presences)} [Presence]s | ${
-				ClientCache.setColor(guildMembers)} [GuildMember]s | ${
-				ClientCache.setColor(users)} [User]s | ${
-				ClientCache.setColor(emojis)} [Emoji]s${lastMessages ? ` | ${ClientCache.setColor(lastMessages)} [Last Message]s.` : '.'}`);
+				ClientCacheManager.setColor(presences)} [Presence]s | ${
+				ClientCacheManager.setColor(guildMembers)} [GuildMember]s | ${
+				ClientCacheManager.setColor(users)} [User]s | ${
+				ClientCacheManager.setColor(emojis)} [Emoji]s${lastMessages ? ` | ${ClientCacheManager.setColor(lastMessages)} [Last Message]s.` : '.'}`);
 	}
 
 	private _clean(): readonly [number, number, number, number, number] {
 		if (!this.ready) throw new Error('Cannot clean uninitialized ClientCache.');
-		const OLD_SNOWFLAKE = Util.binaryToID(((Date.now() - ClientCache.THRESHOLD) - ClientCache.EPOCH).toString(2).padStart(42, '0') + ClientCache.EMPTY);
+		const OLD_SNOWFLAKE = Util.binaryToID(((Date.now() - ClientCacheManager.THRESHOLD) - ClientCacheManager.EPOCH).toString(2).padStart(42, '0') + ClientCacheManager.EMPTY);
 
 		let presences = 0;
 		let guildMembers = 0;
@@ -62,7 +53,7 @@ export class ClientCache {
 		}
 
 		for (const channel of this.client.channels.values()) {
-			if (ClientCache.isTextChannel(channel) && channel.lastMessageID) {
+			if (ClientCacheManager.isTextChannel(channel) && channel.lastMessageID) {
 				channel.lastMessageID = null;
 				lastMessages++;
 			}
@@ -91,7 +82,7 @@ export class ClientCache {
 		let emojis = 0;
 
 		for (const user of this.client.users.values()) {
-		    this.users.create(user);
+			this.users.create(user);
 		}
 
 		this.client.users.clear();
@@ -126,17 +117,15 @@ export class ClientCache {
 	} as const;
 
 	private static readonly THRESHOLD = 1000 * 60 * 30;
-
 	private static EPOCH = 1420070400000 as const;
-
 	private static EMPTY = '0000100000000000000000' as const;
 
 	private static setColor(n: number): string {
 		const text = String(n).padStart(5, ' ');
 
-		if (n > 1000) return ClientCache.colors.red.format(text);
-		if (n > 100) return ClientCache.colors.yellow.format(text);
-		return ClientCache.colors.green.format(text);
+		if (n > 1000) return ClientCacheManager.colors.red.format(text);
+		if (n > 100) return ClientCacheManager.colors.yellow.format(text);
+		return ClientCacheManager.colors.green.format(text);
 	}
 
 	private static isTextChannel(channel: Channel): channel is TextChannel {

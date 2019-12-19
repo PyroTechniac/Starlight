@@ -1,7 +1,7 @@
 import { ReadTOMLOptions, TomlOptions } from '../types/Interfaces';
 import * as TOML from '@iarna/toml';
 import { dirname } from 'path';
-import { readFile, writeFile, writeFileAtomic, mkdirs } from 'fs-nextra';
+import { mkdirs, readFile, writeFile, writeFileAtomic } from 'fs-nextra';
 
 
 const stripBom = (content: string | Buffer): string => {

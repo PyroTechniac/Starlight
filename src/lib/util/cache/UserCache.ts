@@ -1,14 +1,14 @@
 import Collection, { CollectionConstructor } from '@discordjs/collection';
 import { UserData } from '../../types/Types';
-import { ClientCache } from './ClientCache';
+import { ClientCacheManager } from './ClientCacheManager';
 import { Client, User } from 'discord.js';
 import { APIUserData } from '../../types/Interfaces';
 
 export class UserCache extends Collection<string, UserData> {
 
-	public readonly manager!: ClientCache;
+	public readonly manager!: ClientCacheManager;
 
-	public constructor(manager: ClientCache) {
+	public constructor(manager: ClientCacheManager) {
 		super();
 		Object.defineProperty(this, 'manager', { value: manager });
 	}

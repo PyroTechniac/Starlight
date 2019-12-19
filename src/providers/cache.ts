@@ -1,7 +1,7 @@
 import { Provider } from '../lib/util/BaseProvider';
 import { ReadonlyKeyedObject, SettingsUpdateResults } from 'klasa';
 import { mergeObjects } from '@klasa/utils';
-import { Events } from "../lib/types/Enums";
+import { Events } from '../lib/types/Enums';
 
 // This is a development provider for when file system access is not granted to NodeJS and rethink cannot be set up
 // It is in NO WAY meant for production, as it increases cache tremendously.

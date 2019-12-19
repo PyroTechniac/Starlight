@@ -66,7 +66,7 @@ export class MemberTags extends Collection<string, MemberTag> {
 	}
 
 	private getRawRoles(member: GuildMember): string[] {
-		return (member as unknown as {_roles: string[]} & GuildMember)._roles;
+		return (member as unknown as { _roles: string[] } & GuildMember)._roles;
 	}
 
 	public static get [Symbol.species](): CollectionConstructor {

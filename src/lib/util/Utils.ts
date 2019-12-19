@@ -1,6 +1,6 @@
 import { isThenable } from '@klasa/utils';
-import { Message, Client as DJSClient } from 'discord.js';
-import { Schema, SchemaFolder, SchemaEntry } from 'klasa';
+import { Client as DJSClient, Message } from 'discord.js';
+import { Schema, SchemaEntry, SchemaFolder } from 'klasa';
 import { join } from 'path';
 import { UserSettings } from '../settings/UserSettings';
 import { BaseColors, Events } from '../types/Enums';
@@ -83,6 +83,6 @@ export function assetsFolder(...paths: string[]): string {
 	return join(rootFolder, 'assets', ...paths);
 }
 
-export function catchException(exception?: any): any {
+export function intercept(exception?: any): any {
 	return exception;
 }

@@ -19,7 +19,7 @@ import MemberSchema from './schemas/Members';
 import { STARLIGHT_OPTIONS } from './util/Constants';
 import { LongLivingReactionCollector } from './util/LongLivingReactionCollector';
 import { ResolverStore } from './structures/ResolverStore';
-import { ClientCache } from './util/cache/ClientCache';
+import { ClientCacheManager } from './util/cache/ClientCacheManager';
 import { UserCache } from './util/cache/UserCache';
 import { ClientManager } from './structures/ClientManager';
 import { ChannelGateway } from './structures/ChannelGateway';
@@ -47,7 +47,7 @@ export class StarlightClient extends Klasa.Client {
 
 	}
 
-	public get cache(): ClientCache {
+	public get cache(): ClientCacheManager {
 		return this.manager.cache;
 	}
 

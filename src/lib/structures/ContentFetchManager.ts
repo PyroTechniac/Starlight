@@ -1,13 +1,13 @@
-import { ClientManager } from './ClientManager';
+import { Manager } from '../util/Manager';
 import { URL } from 'url';
 import nodeFetch, { RequestInit, Response } from 'node-fetch';
 import { FetchError } from '../util/FetchError';
 import { Type } from 'klasa';
-import AbortController from "abort-controller/dist/abort-controller";
-import { Client } from "discord.js";
+import AbortController from 'abort-controller/dist/abort-controller';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-const noop = (): void => {};
+const noop = (): void => {
+};
 const methods = ['get', 'post', 'patch', 'put', 'delete'];
 const reflectors = [
 	'toString', 'valueOf', 'inspect', 'constructor',
@@ -25,31 +25,30 @@ export const enum FetchTypes {
 	Result
 }
 
-export class ContentFetchManager {
-
-	public readonly manager: ClientManager;
-
-	public constructor(manager: ClientManager) {
-		this.manager = manager;
-	}
-
-	public get client(): Client {
-		return this.manager.client;
-	}
+export class ContentFetchManager extends Manager {
 
 	public get cdn(): FetchApi {
 		return ContentFetchManager._cdn(this);
 	}
 
 	public async fetch(url: URL | string, type: FetchTypes.JSON | 'JSON'): Promise<unknown>;
+
 	public async fetch(url: URL | string, options: RequestInit, type: FetchTypes.JSON | 'JSON'): Promise<unknown>;
+
 	public async fetch(url: URL | string, type: FetchTypes.Buffer | 'Buffer'): Promise<Buffer>;
+
 	public async fetch(url: URL | string, options: RequestInit, type: FetchTypes.Buffer | 'Buffer'): Promise<Buffer>;
+
 	public async fetch(url: URL | string, type: FetchTypes.Text | 'Text'): Promise<string>;
+
 	public async fetch(url: URL | string, options: RequestInit, type: FetchTypes.Text | 'Text'): Promise<string>;
+
 	public async fetch(url: URL | string, type: FetchTypes.Result | 'Result'): Promise<Response>;
+
 	public async fetch(url: URL | string, options: RequestInit, type: FetchTypes.Result | 'Result'): Promise<Response>;
+
 	public async fetch(url: URL | string, options: RequestInit, type: FetchTypes | keyof typeof FetchTypes): Promise<Response | Buffer | string | unknown>;
+
 	public async fetch(url: URL | string, options: RequestInit | FetchTypes | keyof typeof FetchTypes, type?: FetchTypes | keyof typeof FetchTypes): Promise<Response | string | unknown | Buffer> {
 		if (typeof options === 'undefined') {
 			options = {};
@@ -62,7 +61,7 @@ export class ContentFetchManager {
 		}
 
 		const controller = new AbortController();
-		const timeout = this.client.setTimeout((): void => controller.abort(), this.client.options.cdnRequestTimeout!);
+		const timeout = this.client.setTimeout((): void => controller.abort(), this.client.options.cdnRequestTimeout);
 		options = {
 			...options,
 			signal: controller.signal
@@ -74,14 +73,19 @@ export class ContentFetchManager {
 
 		switch (type) {
 			case FetchTypes.Result:
-			case 'Result': return result;
+			case 'Result':
+				return result;
 			case FetchTypes.Buffer:
-			case 'Buffer': return result.buffer();
+			case 'Buffer':
+				return result.buffer();
 			case FetchTypes.JSON:
-			case 'JSON': return result.json();
+			case 'JSON':
+				return result.json();
 			case FetchTypes.Text:
-			case 'Text': return result.text();
-			default: throw new TypeError(`Unknown type '${type}'`);
+			case 'Text':
+				return result.text();
+			default:
+				throw new TypeError(`Unknown type '${type}'`);
 		}
 	}
 
@@ -132,20 +136,29 @@ export class ContentFetchManager {
 
 export interface ApiMethods {
 	get<T = unknown>(): Promise<T>;
+
 	post<T = unknown>(): Promise<T>;
+
 	patch<T = unknown>(): Promise<T>;
+
 	put<T = unknown>(): Promise<T>;
+
 	delete<T = unknown>(): Promise<T>;
 }
 
 export interface FetchApi extends ApiMethods {
 	url(url: string): ApiURL;
+
 	options(options: Omit<RequestInit, 'method'>): ApiOptions;
+
 	type(type: FetchTypes | keyof typeof FetchTypes): ApiType;
 }
 
-export interface ApiURL extends Omit<FetchApi, 'url'> {}
+export interface ApiURL extends Omit<FetchApi, 'url'> {
+}
 
-export interface ApiOptions extends Omit<FetchApi, 'options'> {}
+export interface ApiOptions extends Omit<FetchApi, 'options'> {
+}
 
-export interface ApiType extends Omit<FetchApi, 'type'> {}
+export interface ApiType extends Omit<FetchApi, 'type'> {
+}
