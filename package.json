@@ -52,7 +52,7 @@
         "eslint-config-bamboo": "^3.0.0",
         "madge": "^3.4.4",
         "rimraf": "^3.0.0",
-        "typescript": "^3.7.2"
+        "typescript": "^3.7.4"
     },
     "optionalDependencies": {
         "zlib-sync": "^0.1.5"
