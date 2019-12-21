@@ -31,7 +31,6 @@
         "binarytf": "^2.0.0",
         "canvas": "^2.6.0",
         "canvas-constructor": "^3.1.0",
-        "discord-md-tags": "^0.0.6",
         "discord.js": "vladfrangu/discOwOd.js#sharding-cleanup",
         "dotenv": "^8.2.0",
         "fs-nextra": "^0.4.5",

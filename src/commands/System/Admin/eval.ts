@@ -1,10 +1,10 @@
 import { clean, codeBlock, isThenable, sleep } from '@klasa/utils';
-import { codeblock } from 'discord-md-tags';
 import { Command, CommandOptions, KlasaMessage, Stopwatch, Type } from 'klasa';
 import { inspect } from 'util';
 import { Events } from '../../../lib/types/Enums';
 import { ApplyOptions, botOwner } from '../../../lib/util/Decorators';
 import { noop } from '../../../lib/util/Utils';
+import { codeblock } from '../../../lib/util/Markdown';
 
 
 @ApplyOptions<CommandOptions>({
@@ -32,7 +32,13 @@ export default class extends Command {
 
 		const footer = codeblock('ts')`${type}`;
 		const sendAs = message.flagArgs.output || message.flagArgs['output-to'] || (message.flagArgs.log ? 'log' : null);
-		return this.handleMessage(message, { sendAs, hastebinUnavailable: false, url: null }, { success, result, time, footer, language });
+		return this.handleMessage(message, { sendAs, hastebinUnavailable: false, url: null }, {
+			success,
+			result,
+			time,
+			footer,
+			language
+		});
 	}
 
 	private timedEval(message: KlasaMessage, code: string, flagTime: number): Promise<{
@@ -121,7 +127,7 @@ export default class extends Command {
 				body: evalResult
 			})
 			.type('JSON')
-			.post<{key: string}>();
+			.post<{ key: string }>();
 		return `https://hasteb.in/${key}.${language}`;
 	}
 

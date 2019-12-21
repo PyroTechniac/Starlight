@@ -1,18 +1,18 @@
-import { ApplyOptions } from '../../lib/util/Decorators';
+import { ApplyOptions, botOwner } from '../../lib/util/Decorators';
 import { Command, CommandOptions, KlasaMessage } from 'klasa';
-import { codeblock } from 'discord-md-tags';
 import { exec } from '@klasa/utils';
+import { codeblock } from '../../lib/util/Markdown';
 
 @ApplyOptions<CommandOptions>({
 	aliases: ['execute'],
 	description: (lang): string => lang.get('COMMAND_EXEC_DESCRIPTION'),
 	guarded: true,
-	permissionLevel: 10,
 	usage: '<expression:string>',
 	extendedHelp: (lang): string => lang.get('COMMAND_EXEC_EXTENDED')
 })
 export default class extends Command {
 
+	@botOwner()
 	public async run(msg: KlasaMessage, [input]: [string]): Promise<KlasaMessage> {
 		await msg.sendLocale('COMMAND_EXEC_AWAITING');
 

@@ -582,11 +582,6 @@ detective-typescript@^5.1.1, detective-typescript@^5.7.0:
     node-source-walk "^4.2.0"
     typescript "^3.6.4"
 
-discord-md-tags@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/discord-md-tags/-/discord-md-tags-0.0.6.tgz#74da8f05a02f90ad6b097219d345adf7eab81849"
-  integrity sha512-W3wiKU+JX0NnDSQbFUcTVorO0hnIRdSStVzz+hXdrMfbV2PrGXeEUh+d25HVtwe8660mZYEyTwapBGprhuL5uw==
-
 discord.js@vladfrangu/discOwOd.js#sharding-cleanup:
   version "12.0.0-dev"
   resolved "https://codeload.github.com/vladfrangu/discOwOd.js/tar.gz/355f5a8819057240810d88adb428ef8c8b9bf053"
