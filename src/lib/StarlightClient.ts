@@ -69,7 +69,10 @@ export class StarlightClient extends Klasa.Client {
 		const language = guilds.schema.get('language') as Klasa.SchemaEntry | undefined;
 
 		if (!prefix || prefix.default === null) {
-			guilds.schema.add('prefix', 'string', { 'array': Array.isArray(this.options.prefix), 'default': this.options.prefix });
+			guilds.schema.add('prefix', 'string', {
+				'array': Array.isArray(this.options.prefix),
+				'default': this.options.prefix
+			});
 		}
 
 		if (!language || language.default === null) {

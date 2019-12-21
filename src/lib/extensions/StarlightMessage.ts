@@ -22,7 +22,10 @@ export class StarlightMessage extends Structures.get('Message') {
 
 	public async prompt(content: string, time = 30000): Promise<Message> {
 		const message = await this.channel.send(content);
-		const responses = await this.channel.awaitMessages((msg): boolean => msg.author.id === this.author.id, { time, max: 1 });
+		const responses = await this.channel.awaitMessages((msg): boolean => msg.author.id === this.author.id, {
+			time,
+			max: 1
+		});
 		message.nuke().catch((err): boolean => this.client.emit(Events.Error, err));
 		if (responses.size === 0) throw this.language.get('MESSAGE_PROMPT_TIMEOUT');
 		return responses.first()!;

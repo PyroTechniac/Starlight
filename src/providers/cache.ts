@@ -18,28 +18,6 @@ export default class extends Provider {
 
 	private tables = new Map<string, Map<string, object>>();
 
-	public init(): Promise<void> {
-		if (this.shouldUnload) return Promise.resolve(this.unload());
-		this.client.emit(Events.Warn, '[PROVIDER] The cache provider is not meant for a production environment.');
-		return Promise.resolve();
-	}
-
-	public createTable(table: string): Promise<void> {
-		if (this.tables.has(table)) return Promise.reject(new Error(ErrorMessages.TableExists));
-		this.tables.set(table, new Map());
-		return Promise.resolve();
-	}
-
-	public deleteTable(table: string): Promise<void> {
-		if (!this.tables.has(table)) return Promise.reject(new Error(ErrorMessages.TableNotExists));
-		this.tables.delete(table);
-		return Promise.resolve();
-	}
-
-	public hasTable(table: string): Promise<boolean> {
-		return Promise.resolve(this.tables.has(table));
-	}
-
 	public create(table: string, entry: string, data: ReadonlyKeyedObject): Promise<void> {
 		const resolvedTable = this.tables.get(table);
 		if (typeof resolvedTable === 'undefined') return Promise.reject(new Error(ErrorMessages.TableNotExists));
@@ -49,11 +27,23 @@ export default class extends Provider {
 		return Promise.resolve();
 	}
 
+	public createTable(table: string): Promise<void> {
+		if (this.tables.has(table)) return Promise.reject(new Error(ErrorMessages.TableExists));
+		this.tables.set(table, new Map());
+		return Promise.resolve();
+	}
+
 	public delete(table: string, entry: string): Promise<void> {
 		const resolvedTable = this.tables.get(table);
 		if (typeof resolvedTable === 'undefined') return Promise.reject(new Error(ErrorMessages.TableNotExists));
 		if (!resolvedTable.has(entry)) return Promise.reject(new Error(ErrorMessages.EntryNotExists));
 		resolvedTable.delete(entry);
+		return Promise.resolve();
+	}
+
+	public deleteTable(table: string): Promise<void> {
+		if (!this.tables.has(table)) return Promise.reject(new Error(ErrorMessages.TableNotExists));
+		this.tables.delete(table);
 		return Promise.resolve();
 	}
 
@@ -92,17 +82,13 @@ export default class extends Provider {
 			: Promise.resolve(resolvedTable.has(entry));
 	}
 
-	public update(table: string, entry: string, data: ReadonlyKeyedObject | SettingsUpdateResults): Promise<void> {
-		const resolvedTable = this.tables.get(table);
-		if (typeof resolvedTable === 'undefined') return Promise.reject(new Error(ErrorMessages.TableNotExists));
+	public hasTable(table: string): Promise<boolean> {
+		return Promise.resolve(this.tables.has(table));
+	}
 
-		const resolvedEntry = resolvedTable.get(entry);
-		if (typeof resolvedEntry === 'undefined') return Promise.reject(new Error(ErrorMessages.EntryNotExists));
-
-		const resolved = this.parseUpdateInput(data);
-		const merged = mergeObjects({ ...resolvedEntry }, resolved);
-		resolvedTable.set(entry, merged);
-
+	public init(): Promise<void> {
+		if (this.shouldUnload) return Promise.resolve(this.unload());
+		this.client.emit(Events.Warn, '[PROVIDER] The cache provider is not meant for a production environment.');
 		return Promise.resolve();
 	}
 
@@ -115,6 +101,20 @@ export default class extends Provider {
 
 		const resolved = this.parseUpdateInput(data);
 		resolvedTable.set(entry, { ...resolved, id: entry });
+		return Promise.resolve();
+	}
+
+	public update(table: string, entry: string, data: ReadonlyKeyedObject | SettingsUpdateResults): Promise<void> {
+		const resolvedTable = this.tables.get(table);
+		if (typeof resolvedTable === 'undefined') return Promise.reject(new Error(ErrorMessages.TableNotExists));
+
+		const resolvedEntry = resolvedTable.get(entry);
+		if (typeof resolvedEntry === 'undefined') return Promise.reject(new Error(ErrorMessages.EntryNotExists));
+
+		const resolved = this.parseUpdateInput(data);
+		const merged = mergeObjects({ ...resolvedEntry }, resolved);
+		resolvedTable.set(entry, merged);
+
 		return Promise.resolve();
 	}
 

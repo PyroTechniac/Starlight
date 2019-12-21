@@ -55,7 +55,14 @@ export function underline(subStrings: TemplateStringsArray, ...args: any[]): str
 	return `__${constructTemplate(subStrings, ...args)}__`;
 }
 
-type Format = typeof bold | typeof code | typeof codeblock | typeof italic | typeof spoiler | typeof strikethrough | typeof underline;
+type Format =
+	typeof bold
+	| typeof code
+	| typeof codeblock
+	| typeof italic
+	| typeof spoiler
+	| typeof strikethrough
+	| typeof underline;
 
 export function compose(...formats: Format[]): TagFunction {
 	return (subStrings: TemplateStringsArray, ...values: any[]): string => {

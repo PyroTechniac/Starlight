@@ -1,6 +1,6 @@
 import { Route } from 'klasa-dashboard-hooks';
 import { ApiRequest, ApiResponse } from '../lib/structures/ApiObjects';
-import { SetRoute, ratelimit } from '../lib/util/Decorators';
+import { ratelimit, SetRoute } from '../lib/util/Decorators';
 import { PermissionString } from 'discord.js';
 import { isFunction } from '@klasa/utils';
 

@@ -5,7 +5,8 @@ import { Type } from 'klasa';
 
 export abstract class Transformer<V extends Discord.Base, F extends FlattenedBase> {
 
-	protected constructor(protected internal: V) {}
+	protected constructor(protected internal: V) {
+	}
 
 	public abstract transform(): F;
 
@@ -309,7 +310,7 @@ export interface FlattenedGuild extends FlattenedBase {
 	features: Discord.GuildFeatures[];
 	applicationID: string;
 	afkTimeout: number;
-	afkChannelID: string |null;
+	afkChannelID: string | null;
 	systemChannelID: string | null;
 	embedEnabled: boolean;
 	premiumTier: number;

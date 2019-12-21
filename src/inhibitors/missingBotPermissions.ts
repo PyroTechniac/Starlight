@@ -1,5 +1,5 @@
-import { Inhibitor, KlasaMessage, Command } from 'klasa';
-import { Permissions, TextChannel, PermissionString } from 'discord.js';
+import { Command, Inhibitor, KlasaMessage } from 'klasa';
+import { Permissions, PermissionString, TextChannel } from 'discord.js';
 import { StarlightCommand } from '../lib/structures/StarlightCommand';
 import { PERMS } from '../lib/util/Constants';
 

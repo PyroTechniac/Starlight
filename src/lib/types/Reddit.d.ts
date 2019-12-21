@@ -226,7 +226,8 @@ export namespace Reddit {
 		Dark = 'dark',
 	}
 
-	export interface Gildings { }
+	export interface Gildings {
+	}
 
 	export enum PostHint {
 		Link = 'link',

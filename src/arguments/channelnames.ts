@@ -1,4 +1,4 @@
-import { MultiArgument, Argument } from 'klasa';
+import { Argument, MultiArgument } from 'klasa';
 
 export default class extends MultiArgument {
 

@@ -1,6 +1,6 @@
 import { Middleware, MiddlewareOptions } from 'klasa-dashboard-hooks';
 import { ApplyOptions } from '../lib/util/Decorators';
-import { ApiResponse, ApiRequest } from '../lib/structures/ApiObjects';
+import { ApiRequest, ApiResponse } from '../lib/structures/ApiObjects';
 
 @ApplyOptions<MiddlewareOptions>({
 	priority: 10

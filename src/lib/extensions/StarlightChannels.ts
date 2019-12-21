@@ -15,13 +15,16 @@ function AddSettings<T extends Constructor<GuildChannel>>(target: T): T {
 }
 
 @AddSettings
-export class StarlightTextChannel extends Structures.get('TextChannel') {}
+export class StarlightTextChannel extends Structures.get('TextChannel') {
+}
 
 @AddSettings
-export class StarlightCategoryChannel extends Structures.get('CategoryChannel') {}
+export class StarlightCategoryChannel extends Structures.get('CategoryChannel') {
+}
 
 @AddSettings
-export class StarlightVoiceChannel extends Structures.get('VoiceChannel') {}
+export class StarlightVoiceChannel extends Structures.get('VoiceChannel') {
+}
 
 Structures.extend('TextChannel', (): typeof TextChannel => StarlightTextChannel);
 Structures.extend('CategoryChannel', (): typeof CategoryChannel => StarlightCategoryChannel);

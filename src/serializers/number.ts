@@ -1,4 +1,4 @@
-import { Serializer, SerializerUpdateContext, SerializerOptions } from 'klasa';
+import { Serializer, SerializerOptions, SerializerUpdateContext } from 'klasa';
 import { ApplyOptions } from '../lib/util/Decorators';
 
 @ApplyOptions<SerializerOptions>({

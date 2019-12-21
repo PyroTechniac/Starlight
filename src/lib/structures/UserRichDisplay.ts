@@ -2,7 +2,7 @@
 // This is a recreation of work. The original work can be found here.
 // https://github.com/kyranet/Skyra/blob/master/src/lib/structures/UserRichDisplay.ts
 
-import { RichDisplay, ReactionHandler, KlasaMessage, RichDisplayRunOptions, KlasaUser } from 'klasa';
+import { KlasaMessage, KlasaUser, ReactionHandler, RichDisplay, RichDisplayRunOptions } from 'klasa';
 import { MessageReaction } from 'discord.js';
 import { mergeDefault } from '@klasa/utils';
 

@@ -1,6 +1,6 @@
-import { Command, CommandOptions, Language, KlasaMessage } from 'klasa';
+import { Command, CommandOptions, KlasaMessage, Language } from 'klasa';
 import { ApplyOptions } from '../../../lib/util/Decorators';
-import { TextChannel, MessageOptions } from 'discord.js';
+import { MessageOptions, TextChannel } from 'discord.js';
 import { noop } from '../../../lib/util/Utils';
 
 @ApplyOptions<CommandOptions>({

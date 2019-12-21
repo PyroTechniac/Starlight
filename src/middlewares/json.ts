@@ -1,4 +1,4 @@
-import { Middleware, MiddlewareOptions, KlasaIncomingMessage } from 'klasa-dashboard-hooks';
+import { KlasaIncomingMessage, Middleware, MiddlewareOptions } from 'klasa-dashboard-hooks';
 import { createGunzip, createInflate, Gunzip, Inflate } from 'zlib';
 import { ApplyOptions } from '../lib/util/Decorators';
 

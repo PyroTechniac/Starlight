@@ -1,5 +1,5 @@
 import { FileSystemProvider } from '../lib/util/BaseProvider';
-import { readTOML, outputTOMLAtomic } from '../lib/util/FS';
+import { outputTOMLAtomic, readTOML } from '../lib/util/FS';
 import { mergeObjects } from '@klasa/utils';
 import { KeyedObject } from 'klasa';
 

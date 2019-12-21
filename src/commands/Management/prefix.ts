@@ -1,4 +1,4 @@
-import { Command, CommandOptions, Language, KlasaMessage } from 'klasa';
+import { Command, CommandOptions, KlasaMessage, Language } from 'klasa';
 import { admin, ApplyOptions } from '../../lib/util/Decorators';
 import { GuildSettings } from '../../lib/settings/GuildSettings';
 

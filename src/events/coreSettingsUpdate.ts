@@ -1,6 +1,7 @@
 import { Event, EventOptions, Settings } from 'klasa';
 import { ApplyOptions } from '../lib/util/Decorators';
 import { floatPromise } from '../lib/util/Utils';
+
 const gateways = ['clientStorage', 'users'];
 
 

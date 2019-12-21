@@ -1,4 +1,4 @@
-import { Structures, ImageSize, User } from 'discord.js';
+import { ImageSize, Structures, User } from 'discord.js';
 
 export class StarlightUser extends Structures.get('User') {
 

@@ -2,7 +2,7 @@ import { StarlightCommand } from '../../../lib/structures/StarlightCommand';
 import { ApplyOptions } from '../../../lib/util/Decorators';
 import { Events } from '../../../lib/types/Enums';
 import { CommandOptions, KlasaMessage, Piece } from 'klasa';
-import { resolve, join } from 'path';
+import { join, resolve } from 'path';
 import { access, copy } from 'fs-nextra';
 
 @ApplyOptions<CommandOptions>({

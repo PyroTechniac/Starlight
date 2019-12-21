@@ -93,7 +93,9 @@ export interface UserAuthObject {
 
 export interface ReferredPromise<T> {
 	promise: Promise<T>;
+
 	resolve(value?: T): void;
+
 	reject(error?: Error): void;
 }
 

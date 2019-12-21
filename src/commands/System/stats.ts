@@ -1,4 +1,4 @@
-import { StarlightCommandOptions, StarlightCommand } from '../../lib/structures/StarlightCommand';
+import { StarlightCommand, StarlightCommandOptions } from '../../lib/structures/StarlightCommand';
 import { ApplyOptions } from '../../lib/util/Decorators';
 import { StatsGeneral, StatsUptime, StatsUsage } from '../../lib/types/Interfaces';
 import { version as VERSION } from 'discord.js';

@@ -55,7 +55,7 @@ export default class extends Task {
 	private async backupRethinkProvider(): Promise<void> {
 		const provider = this.provider as RethinkProvider;
 
-		const baseDBName = (provider.pool! as unknown as {connParam: {db: string}}).connParam.db;
+		const baseDBName = (provider.pool! as unknown as { connParam: { db: string } }).connParam.db;
 		const { db: r } = provider;
 
 		await r.branch(r.dbList().contains('backup'), null, r.dbCreate('backup')).run();

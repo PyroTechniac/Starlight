@@ -1,4 +1,4 @@
-import { Client, TextChannel, Guild, User } from 'discord.js';
+import { Client, Guild, TextChannel, User } from 'discord.js';
 
 export type LongLivingReactionCollectorListener = (reaction: LLRCData) => void;
 
@@ -17,6 +17,10 @@ export class LongLivingReactionCollector {
 		this.client.llrcs.add(this);
 	}
 
+	public get ended(): boolean {
+		return this.client.llrcs.has(this);
+	}
+
 	public setListener(listener: LongLivingReactionCollectorListener | null): this {
 		this.listener = listener;
 		return this;
@@ -25,10 +29,6 @@ export class LongLivingReactionCollector {
 	public setEndListener(listener: () => void): this {
 		this.endListener = listener;
 		return this;
-	}
-
-	public get ended(): boolean {
-		return this.client.llrcs.has(this);
 	}
 
 	public send(reaction: LLRCData): void {

@@ -1,4 +1,4 @@
-import { StarlightCommandOptions, StarlightCommand } from '../../lib/structures/StarlightCommand';
+import { StarlightCommand, StarlightCommandOptions } from '../../lib/structures/StarlightCommand';
 import { ApplyOptions, staff } from '../../lib/util/Decorators';
 import { KlasaMessage } from 'klasa';
 import { GuildMember } from 'discord.js';

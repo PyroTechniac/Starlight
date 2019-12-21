@@ -1,5 +1,5 @@
 import { FileSystemProvider } from '../lib/util/BaseProvider';
-import { readJSON, outputJSONAtomic } from 'fs-nextra';
+import { outputJSONAtomic, readJSON } from 'fs-nextra';
 import { mergeObjects } from '@klasa/utils';
 import { KeyedObject } from 'klasa';
 

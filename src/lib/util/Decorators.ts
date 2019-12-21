@@ -2,7 +2,8 @@ import {
 	KlasaMessage,
 	Piece,
 	PieceOptions,
-	RateLimitManager, ScheduledTask,
+	RateLimitManager,
+	ScheduledTask,
 	ScheduledTaskOptions,
 	Store,
 	Task

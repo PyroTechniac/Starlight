@@ -17,10 +17,10 @@ export default class extends Resolver<Channel> {
 		if (!channel) return null;
 		if (
 			(type === 'channel')
-            || (type === 'guildchannel' && 'guild' in channel)
-            || (type === 'textchannel' && channel.type === 'text')
-            || (type === 'voicechannel' && channel.type === 'voice')
-            || (type === 'categorychannel' && channel.type === 'category')
+			|| (type === 'guildchannel' && 'guild' in channel)
+			|| (type === 'textchannel' && channel.type === 'text')
+			|| (type === 'voicechannel' && channel.type === 'voice')
+			|| (type === 'categorychannel' && channel.type === 'category')
 		) return channel;
 		return null;
 	}

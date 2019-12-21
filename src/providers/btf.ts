@@ -1,5 +1,5 @@
 import { FileSystemProvider } from '../lib/util/BaseProvider';
-import { serialize, deserialize } from 'binarytf';
+import { deserialize, serialize } from 'binarytf';
 import { outputFileAtomic, readFile } from 'fs-nextra';
 import { mergeObjects } from '@klasa/utils';
 import { KeyedObject } from 'klasa';

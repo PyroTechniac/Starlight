@@ -1,6 +1,6 @@
 import { StarlightCommand } from '../../../lib/structures/StarlightCommand';
 import { ApplyOptions } from '../../../lib/util/Decorators';
-import { CommandOptions, Store, Stopwatch, KlasaMessage, Piece } from 'klasa';
+import { CommandOptions, KlasaMessage, Piece, Stopwatch, Store } from 'klasa';
 
 @ApplyOptions<CommandOptions>({
 	aliases: ['r'],

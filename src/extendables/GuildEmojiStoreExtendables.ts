@@ -25,7 +25,7 @@ async function fetchSingle(this: GuildEmojiStore, emoji: Snowflake, cache: boole
 }
 
 async function fetchAll(this: GuildEmojiStore, cache: boolean): Promise<Collection<Snowflake, GuildEmoji>> {
-	const data = await api(this.client).guilds(this.guild.id).emojis.get() as {id: string}[];
+	const data = await api(this.client).guilds(this.guild.id).emojis.get() as { id: string }[];
 	const emojis = new Collection<Snowflake, GuildEmoji>();
 	for (const emoji of data) emojis.set(emoji.id, this.add(emoji, cache));
 	return emojis;
