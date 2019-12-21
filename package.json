@@ -29,7 +29,7 @@
         "@klasa/utils": "^0.0.2",
         "abort-controller": "^3.0.0",
         "binarytf": "^2.0.0",
-        "canvas": "^2.6.0",
+        "canvas": "^2.6.1",
         "canvas-constructor": "^3.1.0",
         "discord.js": "vladfrangu/discOwOd.js#sharding-cleanup",
         "dotenv": "^8.2.0",
