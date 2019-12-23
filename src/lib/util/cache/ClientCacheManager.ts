@@ -73,7 +73,7 @@ export class ClientCacheManager extends Manager {
 			throw new Error('Cannot reinitialize CacheManager.');
 		} else {
 			this.ready = true;
-			this.client.emit(Events.Verbose, `${this.header} Running initial sweep, RAM Usage: ${this.usage}...`);
+			this.client.emit(Events.Verbose, `${this.header} Running initial sweep, RAM Usage: ${this.usage} MB...`);
 		}
 
 		const users = this.client.users.size;
