@@ -268,13 +268,13 @@ export interface FlattenedGuildChannel extends FlattenedChannel {
 
 export interface FlattenedNewsChannel extends FlattenedGuildChannel {
 	type: 'news';
-	topic: string;
+	topic: string | null;
 	nsfw: boolean;
 }
 
 export interface FlattenedTextChannel extends FlattenedGuildChannel {
 	type: 'text';
-	topic: string;
+	topic: string | null;
 	nsfw: boolean;
 	rateLimitPerUser: number;
 }

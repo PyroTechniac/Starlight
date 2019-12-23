@@ -1,5 +1,16 @@
 import { isThenable } from '@klasa/utils';
-import { Client as DJSClient, Message } from 'discord.js';
+import {
+	CategoryChannel,
+	Channel,
+	Client as DJSClient,
+	DMChannel,
+	GuildChannel,
+	Message,
+	NewsChannel,
+	StoreChannel,
+	TextChannel,
+	VoiceChannel
+} from 'discord.js';
 import { Schema, SchemaEntry, SchemaFolder } from 'klasa';
 import { join } from 'path';
 import { UserSettings } from '../settings/UserSettings';
@@ -85,4 +96,16 @@ export function assetsFolder(...paths: string[]): string {
 
 export function intercept(exception?: any): any {
 	return exception;
+}
+
+export function checkChannel(channel: Channel, type: 'dm'): channel is DMChannel;
+export function checkChannel(channel: Channel, type: 'text'): channel is TextChannel;
+export function checkChannel(channel: Channel, type: 'category'): channel is CategoryChannel;
+export function checkChannel(channel: Channel, type: 'news'): channel is NewsChannel;
+export function checkChannel(channel: Channel, type: 'store'): channel is StoreChannel;
+export function checkChannel(channel: Channel, type: 'voice'): channel is VoiceChannel;
+export function checkChannel(channel: Channel, type: 'guild'): channel is GuildChannel;
+export function checkChannel(channel: Channel, type: 'dm' | 'text' | 'category' | 'news' | 'store' | 'voice' | 'guild'): channel is DMChannel | TextChannel | CategoryChannel | NewsChannel | StoreChannel | VoiceChannel | GuildChannel {
+	if (type === 'guild') return 'guild' in channel;
+	return channel.type === type;
 }

@@ -1,8 +1,9 @@
-import { Channel, TextChannel, Util } from 'discord.js';
+import { Util } from 'discord.js';
 import { Colors } from 'klasa';
 import { Events, Time } from '../../types/Enums';
 import { UserCache } from './UserCache';
 import { Manager } from '../Manager';
+import { checkChannel } from '../Utils';
 
 export class ClientCacheManager extends Manager {
 
@@ -53,7 +54,7 @@ export class ClientCacheManager extends Manager {
 		}
 
 		for (const channel of this.client.channels.values()) {
-			if (ClientCacheManager.isTextChannel(channel) && channel.lastMessageID) {
+			if (checkChannel(channel, 'text') && channel.lastMessageID) {
 				channel.lastMessageID = null;
 				lastMessages++;
 			}
@@ -126,10 +127,6 @@ export class ClientCacheManager extends Manager {
 		if (n > 1000) return ClientCacheManager.colors.red.format(text);
 		if (n > 100) return ClientCacheManager.colors.yellow.format(text);
 		return ClientCacheManager.colors.green.format(text);
-	}
-
-	private static isTextChannel(channel: Channel): channel is TextChannel {
-		return channel.type === 'text';
 	}
 
 }
