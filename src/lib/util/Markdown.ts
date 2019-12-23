@@ -35,8 +35,8 @@ export function code(subStrings: TemplateStringsArray, ...args: any[]): string {
 export function codeblock(type: string): TagFunction;
 export function codeblock(type: TemplateStringsArray, ...args: any[]): string;
 export function codeblock(type: string | TemplateStringsArray, ...args: any[]): string | TagFunction {
-	if (typeof type === 'string') return (subStrings: TemplateStringsArray, ...args: any[]): string => `\`\`\`${type}${constructTemplate(subStrings, ...args)}\`\`\``;
-	return `\`\`\`${constructTemplate(type, ...args)}\`\`\``;
+	if (typeof type === 'string') return (subStrings: TemplateStringsArray, ...args: any[]): string => `\`\`\`${type}\n${constructTemplate(subStrings, ...args)}\`\`\``;
+	return `\`\`\`\n${constructTemplate(type, ...args)}\`\`\``;
 }
 
 export function italic(subStrings: TemplateStringsArray, ...args: any[]): string {
