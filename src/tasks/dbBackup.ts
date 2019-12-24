@@ -19,7 +19,7 @@ export default class extends Task {
 
 	public async run(): Promise<void> {
 		// Backup the default provider first
-		await this.backup(this.provider.name);
+		await this.backup();
 		for (const provider of this.client.providers.keys()) {
 			if (provider === this.provider.name) continue;
 			try {
@@ -32,7 +32,7 @@ export default class extends Task {
 		}
 	}
 
-	private async backup(provider: string): Promise<void> {
+	private backup(provider: string = this.provider.name): Promise<void> {
 		switch (provider) {
 			case 'toml':
 			case 'json':
@@ -40,8 +40,11 @@ export default class extends Task {
 				return this.backupFSProvider();
 			case 'rethinkdb':
 				return this.backupRethinkProvider();
+			case 'cache':
+				return Promise.resolve();
 			default:
 				this.client.emit(Events.Warn, `Backup not setup for provider ${provider}`);
+				return Promise.resolve();
 		}
 	}
 

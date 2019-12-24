@@ -3,7 +3,7 @@ import { URL } from 'url';
 import nodeFetch, { RequestInit, Response } from 'node-fetch';
 import { FetchError } from '../util/FetchError';
 import { Type } from 'klasa';
-import AbortController from 'abort-controller/dist/abort-controller';
+import AbortController from 'abort-controller';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = (): void => {
