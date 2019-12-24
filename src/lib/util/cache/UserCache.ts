@@ -42,11 +42,11 @@ export class UserCache extends Collection<string, UserData> {
 		return this.create(user);
 	}
 
-	public* usernames(): IterableIterator<string> {
+	public *usernames(): IterableIterator<string> {
 		for (const [username] of super.values()) yield username;
 	}
 
-	public* tags(): IterableIterator<string> {
+	public *tags(): IterableIterator<string> {
 		for (const [username, discrim] of super.values()) yield `${username}#${discrim}`;
 	}
 
