@@ -60,36 +60,40 @@ export class ContentFetchManager extends Manager {
 			type = FetchTypes.JSON;
 		}
 
+		const stackHolder: {stack?: string} = {};
+
+		Error.captureStackTrace(stackHolder, this.fetch); // eslint-disable-line @typescript-eslint/unbound-method
+
+		return this._internalFetch(new URL(url.toString()), options, type, stackHolder.stack);
+	}
+
+	private async _internalFetch(url: URL, options: RequestInit, type: FetchTypes | keyof typeof FetchTypes, stack?: string): Promise<Buffer | string | unknown | Response> {
 		const controller = new AbortController();
 		const timeout = this.client.setTimeout((): void => controller.abort(), this.client.options.cdnRequestTimeout);
-		options = {
-			...options,
-			signal: controller.signal
-		};
-
-		const urlObj = new URL(url.toString());
-		const result: Response = await nodeFetch(urlObj, options).finally((): void => this.client.clearTimeout(timeout));
-		if (!result.ok) throw new FetchError(await result.text(), result.status, urlObj.toString());
+		const result: Response = await nodeFetch(url, options)
+			.catch((err): never => {
+				if (err instanceof Error) throw new FetchError(err.message, 400, url.toString(), stack);
+				else throw err;
+			})
+			.finally((): void => this.client.clearTimeout(timeout));
+		if (!result.ok) throw new FetchError(await result.text(), result.status, url.toString(), stack);
 
 		switch (type) {
 			case FetchTypes.Result:
-			case 'Result':
-				return result;
+			case 'Result': return result;
 			case FetchTypes.Buffer:
-			case 'Buffer':
-				return result.buffer();
+			case 'Buffer': return result.buffer();
 			case FetchTypes.JSON:
-			case 'JSON':
-				return result.json();
+			case 'JSON': return result.json();
 			case FetchTypes.Text:
-			case 'Text':
-				return result.text();
-			default:
-				throw new TypeError(`Unknown type '${type}'`);
+			case 'Text': return result.text();
+			default: throw new TypeError(`Unknown type '${type}'`);
 		}
 	}
 
 	private static _cdn(manager: ContentFetchManager): FetchApi {
+		const stackholder: {stack?: string} = {};
+		Error.captureStackTrace(stackholder, ContentFetchManager._cdn); // eslint-disable-line @typescript-eslint/unbound-method
 		const route: any[] = [];
 		const handler: ProxyHandler<any> = {
 			get(_, name: string | symbol): any {
@@ -111,7 +115,7 @@ export class ContentFetchManager extends Manager {
 						if (/options/i.test(r)) options = { ...options, ...route[i + 1] };
 						if (/type/i.test(r)) type = route[i + 1];
 					}
-					return (): Promise<Response | Buffer | string | unknown> => manager.fetch(url!, options, type);
+					return (): Promise<Response | Buffer | string | unknown> => manager._internalFetch(url!, options, type, stackholder.stack);
 				}
 
 				route.push(name);

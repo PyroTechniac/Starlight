@@ -77,7 +77,8 @@ export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 	disabledEvents: [
 		'TYPING_START',
 		'PRESENCE_UPDATE',
-		'VOICE_STATE_UPDATE'
+		'VOICE_STATE_UPDATE',
+		'VOICE_SERVER_UPDATE'
 	],
 	providers: {
 		'default': defaultProvider || 'cache',
