@@ -9,8 +9,8 @@ export default class CollectorExtendable<K, V> extends Extendable {
 		super(store, file, directory, { appliesTo: [Collector] });
 	}
 
-	public *[Symbol.iterator](this: Collector<K, V>): IterableIterator<V> {
-		yield *this.collected.values();
+	public* [Symbol.iterator](this: Collector<K, V>): IterableIterator<V> {
+		yield* this.collected.values();
 	}
 
 }

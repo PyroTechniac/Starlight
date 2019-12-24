@@ -12,8 +12,8 @@ export default class extends Route {
 		const { lang, category } = request.query;
 		const language = (lang && this.client.languages.get(lang as string)) || this.client.languages.default;
 		const commands = (category
-			? this.client.commands.filter((cmd): boolean => cmd.category === category)
-			: this.client.commands
+				? this.client.commands.filter((cmd): boolean => cmd.category === category)
+				: this.client.commands
 		).filter((cmd): boolean => cmd.permissionLevel < 9);
 
 		const serializedCommands = commands.map((cmd): SerializedCommand => ({

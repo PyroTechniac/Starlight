@@ -53,7 +53,7 @@ export class MemberTags extends Collection<string, MemberTag> {
 		}
 	}
 
-	public *usernames(): IterableIterator<[string, string]> {
+	public* usernames(): IterableIterator<[string, string]> {
 		const { userCache } = this.client;
 		for (const key of this.keys()) {
 			const userTag = userCache.get(key);

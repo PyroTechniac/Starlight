@@ -31,25 +31,25 @@ export class ContentFetchManager extends Manager {
 		return ContentFetchManager._cdn(this);
 	}
 
-	public async fetch(url: URL | string, type: FetchTypes.JSON | 'JSON'): Promise<unknown>;
+	public fetch(url: URL | string, type: FetchTypes.JSON | 'JSON'): Promise<unknown>;
 
-	public async fetch(url: URL | string, options: RequestInit, type: FetchTypes.JSON | 'JSON'): Promise<unknown>;
+	public fetch(url: URL | string, options: RequestInit, type: FetchTypes.JSON | 'JSON'): Promise<unknown>;
 
-	public async fetch(url: URL | string, type: FetchTypes.Buffer | 'Buffer'): Promise<Buffer>;
+	public fetch(url: URL | string, type: FetchTypes.Buffer | 'Buffer'): Promise<Buffer>;
 
-	public async fetch(url: URL | string, options: RequestInit, type: FetchTypes.Buffer | 'Buffer'): Promise<Buffer>;
+	public fetch(url: URL | string, options: RequestInit, type: FetchTypes.Buffer | 'Buffer'): Promise<Buffer>;
 
-	public async fetch(url: URL | string, type: FetchTypes.Text | 'Text'): Promise<string>;
+	public fetch(url: URL | string, type: FetchTypes.Text | 'Text'): Promise<string>;
 
-	public async fetch(url: URL | string, options: RequestInit, type: FetchTypes.Text | 'Text'): Promise<string>;
+	public fetch(url: URL | string, options: RequestInit, type: FetchTypes.Text | 'Text'): Promise<string>;
 
-	public async fetch(url: URL | string, type: FetchTypes.Result | 'Result'): Promise<Response>;
+	public fetch(url: URL | string, type: FetchTypes.Result | 'Result'): Promise<Response>;
 
-	public async fetch(url: URL | string, options: RequestInit, type: FetchTypes.Result | 'Result'): Promise<Response>;
+	public fetch(url: URL | string, options: RequestInit, type: FetchTypes.Result | 'Result'): Promise<Response>;
 
-	public async fetch(url: URL | string, options: RequestInit, type: FetchTypes | keyof typeof FetchTypes): Promise<Response | Buffer | string | unknown>;
+	public fetch(url: URL | string, options: RequestInit, type: FetchTypes | keyof typeof FetchTypes): Promise<Response | Buffer | string | unknown>;
 
-	public async fetch(url: URL | string, options: RequestInit | FetchTypes | keyof typeof FetchTypes, type?: FetchTypes | keyof typeof FetchTypes): Promise<Response | string | unknown | Buffer> {
+	public fetch(url: URL | string, options: RequestInit | FetchTypes | keyof typeof FetchTypes, type?: FetchTypes | keyof typeof FetchTypes): Promise<Response | string | unknown | Buffer> {
 		if (typeof options === 'undefined') {
 			options = {};
 			type = FetchTypes.JSON;
@@ -60,7 +60,7 @@ export class ContentFetchManager extends Manager {
 			type = FetchTypes.JSON;
 		}
 
-		const stackHolder: {stack?: string} = {};
+		const stackHolder: { stack?: string } = {};
 
 		Error.captureStackTrace(stackHolder, this.fetch); // eslint-disable-line @typescript-eslint/unbound-method
 
@@ -80,19 +80,24 @@ export class ContentFetchManager extends Manager {
 
 		switch (type) {
 			case FetchTypes.Result:
-			case 'Result': return result;
+			case 'Result':
+				return result;
 			case FetchTypes.Buffer:
-			case 'Buffer': return result.buffer();
+			case 'Buffer':
+				return result.buffer();
 			case FetchTypes.JSON:
-			case 'JSON': return result.json();
+			case 'JSON':
+				return result.json();
 			case FetchTypes.Text:
-			case 'Text': return result.text();
-			default: throw new TypeError(`Unknown type '${type}'`);
+			case 'Text':
+				return result.text();
+			default:
+				throw new TypeError(`Unknown type '${type}'`);
 		}
 	}
 
 	private static _cdn(manager: ContentFetchManager): FetchApi {
-		const stackholder: {stack?: string} = {};
+		const stackholder: { stack?: string } = {};
 		Error.captureStackTrace(stackholder, ContentFetchManager._cdn); // eslint-disable-line @typescript-eslint/unbound-method
 		const route: any[] = [];
 		const handler: ProxyHandler<any> = {
