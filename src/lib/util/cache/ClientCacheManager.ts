@@ -16,18 +16,17 @@ export class ClientCacheManager extends Manager {
 	}
 
 	public clean(init = false): void {
-		const [presences, guildMembers, users, emojis, voiceStates, lastMessages] = init ? this._init() : this._clean();
+		const [presences, guildMembers, users, emojis, lastMessages] = init ? this._init() : this._clean();
 
 		this.client.emit(Events.Verbose,
 			`${this.header} ${
 				ClientCacheManager.setColor(presences)} [Presence]s | ${
 				ClientCacheManager.setColor(guildMembers)} [GuildMember]s | ${
 				ClientCacheManager.setColor(users)} [User]s | ${
-				ClientCacheManager.setColor(emojis)} [Emoji]s | ${
-				ClientCacheManager.setColor(voiceStates)} [VoiceState]s${lastMessages ? ` | ${ClientCacheManager.setColor(lastMessages)} [Last Message]s.` : '.'}`);
+				ClientCacheManager.setColor(emojis)} [Emoji]s${lastMessages ? ` | ${ClientCacheManager.setColor(lastMessages)} [Last Message]s.` : '.'}`);
 	}
 
-	private _clean(): readonly [number, number, number, number, number, number] {
+	private _clean(): readonly [number, number, number, number, number] {
 		if (!this.ready) throw new Error('Cannot clean uninitialized ClientCache.');
 		const OLD_SNOWFLAKE = Util.binaryToID(((Date.now() - ClientCacheManager.THRESHOLD) - ClientCacheManager.EPOCH).toString(2).padStart(42, '0') + ClientCacheManager.EMPTY);
 
@@ -36,7 +35,6 @@ export class ClientCacheManager extends Manager {
 		let emojis = 0;
 		let lastMessages = 0;
 		let users = 0;
-		let voiceStates = 0;
 
 		for (const guild of this.client.guilds.values()) {
 			presences += guild.presences.size;
@@ -47,9 +45,7 @@ export class ClientCacheManager extends Manager {
 				if (member === me) continue;
 				if (member.voice.channelID) continue;
 				if (member.lastMessageID && member.lastMessageID > OLD_SNOWFLAKE) continue;
-				guild.voiceStates.delete(id);
 				guild.members.delete(id);
-				voiceStates++;
 				guildMembers++;
 			}
 
@@ -70,10 +66,10 @@ export class ClientCacheManager extends Manager {
 			users++;
 		}
 
-		return [presences, guildMembers, users, emojis, voiceStates, lastMessages] as const;
+		return [presences, guildMembers, users, emojis, lastMessages] as const;
 	}
 
-	private _init(): readonly [number, number, number, number, number] {
+	private _init(): readonly [number, number, number, number] {
 		if (this.ready) {
 			throw new Error('Cannot reinitialize CacheManager.');
 		} else {
@@ -85,7 +81,6 @@ export class ClientCacheManager extends Manager {
 		let presences = 0;
 		let guildMembers = 0;
 		let emojis = 0;
-		let voiceStates = 0;
 
 		for (const user of this.client.users.values()) {
 			this.users.create(user);
@@ -102,11 +97,9 @@ export class ClientCacheManager extends Manager {
 			guildMembers += guild.members.size - 1;
 			presences += guild.presences.size;
 			emojis += guild.emojis.size;
-			voiceStates += guild.voiceStates.size;
 
 			guild.presences.clear();
 			guild.emojis.clear();
-			guild.voiceStates.clear();
 
 			guild.members.clear();
 			if (me) guild.members.set(me.id, me);
@@ -114,7 +107,7 @@ export class ClientCacheManager extends Manager {
 
 		this.client.setInterval(this.clean.bind(this), Time.Minute * 10);
 
-		return [presences, guildMembers, users, emojis, voiceStates] as const;
+		return [presences, guildMembers, users, emojis] as const;
 
 	}
 

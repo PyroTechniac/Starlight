@@ -4,7 +4,7 @@
 
 import { KlasaMessage, KlasaUser, ReactionHandler, RichDisplay, RichDisplayRunOptions } from 'klasa';
 import { MessageReaction } from 'discord.js';
-import { mergeDefault } from '@klasa/utils';
+import { mergeDefault } from '../util/Utils';
 
 export class UserRichDisplay extends RichDisplay {
 

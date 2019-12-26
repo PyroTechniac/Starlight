@@ -15,7 +15,7 @@ const reflectors = [
 ];
 const standards = ['url', 'options', 'type', ...methods];
 
-const aborts = ['then', 'catch'];
+const aborts = ['then', 'catch', 'finally'];
 
 
 export const enum FetchTypes {
@@ -104,6 +104,9 @@ export class ContentFetchManager extends Manager {
 			get(_, name: string | symbol): any {
 				if (reflectors.includes(name)) return noop;
 				ContentFetchManager.aString(name);
+
+				if (aborts.includes(name)) return new Proxy(noop, handler);
+
 				if (methods.includes(name)) {
 					let url: URL;
 					let options: RequestInit = { method: name.toUpperCase() };
@@ -156,7 +159,7 @@ export interface ApiMethods {
 }
 
 export interface FetchApi extends ApiMethods {
-	url(url: string): ApiURL;
+	url(url: string | URL): ApiURL;
 
 	options(options: Omit<RequestInit, 'method'>): ApiOptions;
 

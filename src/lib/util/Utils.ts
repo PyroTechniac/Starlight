@@ -1,4 +1,4 @@
-import { isThenable } from '@klasa/utils';
+import { isThenable, isObject, deepClone } from '@klasa/utils';
 import {
 	CategoryChannel,
 	Channel,
@@ -108,4 +108,17 @@ export function checkChannel(channel: Channel, type: 'guild'): channel is GuildC
 export function checkChannel(channel: Channel, type: 'dm' | 'text' | 'category' | 'news' | 'store' | 'voice' | 'guild'): channel is DMChannel | TextChannel | CategoryChannel | NewsChannel | StoreChannel | VoiceChannel | GuildChannel {
 	if (type === 'guild') return 'guild' in channel;
 	return channel.type === type;
+}
+
+export function mergeDefault<A, B extends Partial<A>>(defaults: A, given?: B): A & B {
+	if (!given) return deepClone(defaults) as A & B;
+	for (const key in defaults) {
+		if (typeof given[key] === 'undefined') {
+			given[key] = deepClone(defaults[key]) as unknown as B[Extract<keyof A, string>];
+		} else if (isObject(given[key])) {
+			given[key] = mergeDefault(defaults[key], given[key]) as unknown as B[Extract<keyof A, string>];
+		}
+	}
+
+	return given as A & B;
 }

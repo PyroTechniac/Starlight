@@ -1,4 +1,4 @@
-import { mergeDefault } from '@klasa/utils';
+import { mergeDefault } from './util/Utils';
 import * as Klasa from 'klasa';
 import { Client } from 'klasa-dashboard-hooks';
 import { config } from 'dotenv';
@@ -37,8 +37,6 @@ export class StarlightClient extends Klasa.Client {
 
 	public constructor(options: Klasa.KlasaClientOptions = {}) {
 		super(mergeDefault(STARLIGHT_OPTIONS, options));
-
-		Reflect.defineMetadata('StarlightClient', true, this);
 
 		this.resolvers = new ResolverStore(this);
 		this.registerStore(this.resolvers);

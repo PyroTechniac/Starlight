@@ -22,7 +22,7 @@ export class ResolverStore extends AliasStore<string, Resolver, typeof Resolver>
 
 	public resolveContext(name: string, ctx: string | Omit<ResolverContext, 'type'>, language?: Language, guild?: Guild): ResolverContext {
 		if (typeof ctx === 'string' && language && guild) return { arg: ctx, language, guild, type: name };
-		else if (isObject(ctx)) return { ...ctx as Omit<ResolverContext, 'type'>, type: name };
+		else if (isObject(ctx)) return { ...ctx, type: name };
 		throw new Error('Failed to create ResolverContext.');
 	}
 

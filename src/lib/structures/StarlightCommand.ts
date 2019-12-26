@@ -1,6 +1,6 @@
 import { Command, CommandOptions, CommandStore, KlasaMessage } from 'klasa';
 import { PermissionResolvable, Permissions } from 'discord.js';
-import { mergeDefault } from '@klasa/utils';
+import { mergeDefault } from '../util/Utils';
 
 export abstract class StarlightCommand extends Command {
 

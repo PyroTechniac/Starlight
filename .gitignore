@@ -9,3 +9,4 @@ backup/**
 rethinkdb_data
 yarn-error.log
 bwd/**
+yarn.lock
