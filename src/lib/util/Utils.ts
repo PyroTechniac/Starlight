@@ -1,4 +1,4 @@
-import { isThenable, isObject, deepClone } from '@klasa/utils';
+import { deepClone, isObject, isThenable } from '@klasa/utils';
 import {
 	CategoryChannel,
 	Channel,

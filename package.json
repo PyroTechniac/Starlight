@@ -37,9 +37,11 @@
         "klasa": "dirigeants/klasa#875/head",
         "klasa-dashboard-hooks": "kyranet/klasa-dashboard-hooks#master",
         "node-fetch": "^2.6.0",
+        "opusscript": "^0.0.7",
         "reflect-metadata": "^0.1.13",
         "rethinkdb-ts": "^2.4.0-rc.16",
-        "runtypes": "^4.0.3"
+        "runtypes": "^4.0.3",
+        "ytdl-core-discord": "amishshah/ytdl-core-discord"
     },
     "devDependencies": {
         "@types/dotenv": "^6.1.1",
