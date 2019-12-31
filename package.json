@@ -45,7 +45,7 @@
         "ytdl-core-discord": "amishshah/ytdl-core-discord"
     },
     "devDependencies": {
-        "@types/dotenv": "^6.1.1",
+        "@types/dotenv": "^8.2.0",
         "@types/js-yaml": "^3.12.1",
         "@types/node": "^12.12.17",
         "@types/node-fetch": "^2.5.0",
