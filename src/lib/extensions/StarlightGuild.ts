@@ -3,13 +3,11 @@ import { api } from '../util/Api';
 import { APIUserData } from '../types/Interfaces';
 import { StarlightGuildMemberStore } from '../structures/StarlightGuildMemberStore';
 import { MemberTags } from '../util/cache/MemberTags';
-import { MusicManager } from '../structures/MusicManager';
 
 export class StarlightGuild extends Structures.get('Guild') {
 
 	public readonly memberTags: MemberTags = new MemberTags(this);
 	public members = new StarlightGuildMemberStore(this);
-	public music = new MusicManager(this);
 
 	public fetchBan(id: Snowflake): Promise<{ user: User; reason: string }> {
 		return (api(this.client)

@@ -82,7 +82,8 @@ export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 		'default': defaultProvider || 'cache',
 		'json': { baseDirectory: baseDirectory('json') },
 		'toml': { baseDirectory: baseDirectory('toml') },
-		'btf': { baseDirectory: baseDirectory('btf') }
+		'btf': { baseDirectory: baseDirectory('btf') },
+		'yaml': { baseDirectory: baseDirectory('yaml') }
 	},
 	console: {
 		colors: {

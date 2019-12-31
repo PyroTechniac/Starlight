@@ -1,7 +1,6 @@
 import { Provider } from '../lib/util/BaseProvider';
 import { ReadonlyKeyedObject, SettingsUpdateResults } from 'klasa';
 import { mergeObjects } from '@klasa/utils';
-import { Events } from '../lib/types/Enums';
 
 // This is a development provider for when file system access is not granted to NodeJS and rethink cannot be set up
 // It is in NO WAY meant for production, as it increases cache tremendously.
@@ -88,7 +87,7 @@ export default class extends Provider {
 
 	public init(): Promise<void> {
 		if (this.shouldUnload) return Promise.resolve(this.unload());
-		this.client.emit(Events.Warn, '[PROVIDER] The cache provider is not meant for a production environment.');
+		if (this.client.options.production) return Promise.reject(new Error('[PROVIDER] The cache provider is not meant for production.'));
 		return Promise.resolve();
 	}
 

@@ -34,6 +34,7 @@
         "discord.js": "discordjs/discord.js#50ed3293a57aeb0f9c094f00d49ed9874dc5d87a",
         "dotenv": "^8.2.0",
         "fs-nextra": "^0.4.5",
+        "js-yaml": "^3.13.1",
         "klasa": "dirigeants/klasa#875/head",
         "klasa-dashboard-hooks": "kyranet/klasa-dashboard-hooks#master",
         "node-fetch": "^2.6.0",
@@ -45,6 +46,7 @@
     },
     "devDependencies": {
         "@types/dotenv": "^6.1.1",
+        "@types/js-yaml": "^3.12.1",
         "@types/node": "^12.12.17",
         "@types/node-fetch": "^2.5.0",
         "@types/ws": "^6.0.3",

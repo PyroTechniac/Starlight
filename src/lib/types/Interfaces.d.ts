@@ -81,7 +81,18 @@ export interface TomlOptions {
 	flag?: string;
 }
 
+export interface YamlOptions {
+	encoding?: string;
+	mode?: number;
+	flag?: string;
+}
+
 export interface ReadTOMLOptions {
+	encoding?: BufferEncoding;
+	flag?: string | number;
+}
+
+export interface ReadYAMLOptions {
 	encoding?: BufferEncoding;
 	flag?: string | number;
 }
