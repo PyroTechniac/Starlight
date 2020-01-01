@@ -6,6 +6,7 @@ import { UserRichDisplay } from '../../../lib/structures/UserRichDisplay';
 import { BaseColors } from '../../../lib/types/Enums';
 import { ApplyOptions } from '../../../lib/util/Decorators';
 import { getColor, noop } from '../../../lib/util/Utils';
+import { StarlightCommand } from '../../../lib/structures/StarlightCommand';
 
 const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.ADD_REACTIONS]).freeze();
 
@@ -14,9 +15,14 @@ const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAG
 	description: (lang): string => lang.get('COMMAND_HELP_DESCRIPTION'),
 	guarded: true,
 	usage: '(Command:command{3}|page:integer|category:category)',
-	flagSupport: true
+	flagSupport: true,
+	flags: {
+		categories: 'literal',
+		cat: 'literal',
+		all: 'literal'
+	}
 })
-export default class extends Command {
+export default class extends StarlightCommand {
 
 	public init(): Promise<void> {
 		this

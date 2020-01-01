@@ -1,10 +1,11 @@
 import { clean, codeBlock, isThenable, sleep } from '@klasa/utils';
-import { Command, CommandOptions, KlasaMessage, Stopwatch, Type } from 'klasa';
+import { CommandOptions, KlasaMessage, Stopwatch, Type } from 'klasa';
 import { inspect } from 'util';
 import { Events } from '../../../lib/types/Enums';
 import { ApplyOptions, botOwner } from '../../../lib/util/Decorators';
 import { noop } from '../../../lib/util/Utils';
 import { codeblock } from '../../../lib/util/Markdown';
+import { StarlightCommand } from '../../../lib/structures/StarlightCommand';
 
 
 @ApplyOptions<CommandOptions>({
@@ -13,9 +14,19 @@ import { codeblock } from '../../../lib/util/Markdown';
 	extendedHelp: (lang): string => lang.get('COMMAND_EVAL_EXTENDED'),
 	guarded: true,
 	usage: '<expression:string>',
-	flagSupport: true
+	flagSupport: true,
+	flags: {
+		'no-timeout': 'literal',
+		'wait': 'number',
+		'output-to': ['file', 'haste', 'hastebin', 'console', 'log', 'abort', 'none'],
+		'log': 'literal',
+		'async': 'literal',
+		'json': 'literal',
+		'depth': 'number',
+		'showHidden': 'literal'
+	}
 })
-export default class extends Command {
+export default class extends StarlightCommand {
 
 	private readonly timeout = 60000;
 

@@ -74,6 +74,10 @@ declare module 'klasa' {
 		resolvers?: ResolverOptions;
 	}
 
+	interface CommandOptions {
+		flags?: Record<string, string | string[]>;
+	}
+
 	interface SettingsFolder {
 		get<K extends string, S>(key: CustomGet<K, S>): S;
 

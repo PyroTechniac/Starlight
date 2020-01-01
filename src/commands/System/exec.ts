@@ -1,16 +1,20 @@
 import { ApplyOptions, botOwner } from '../../lib/util/Decorators';
-import { Command, CommandOptions, KlasaMessage } from 'klasa';
+import { CommandOptions, KlasaMessage } from 'klasa';
 import { exec } from '@klasa/utils';
 import { codeblock } from '../../lib/util/Markdown';
+import { StarlightCommand } from '../../lib/structures/StarlightCommand';
 
 @ApplyOptions<CommandOptions>({
 	aliases: ['execute'],
 	description: (lang): string => lang.get('COMMAND_EXEC_DESCRIPTION'),
 	guarded: true,
 	usage: '<expression:string>',
-	extendedHelp: (lang): string => lang.get('COMMAND_EXEC_EXTENDED')
+	extendedHelp: (lang): string => lang.get('COMMAND_EXEC_EXTENDED'),
+	flags: {
+		timeout: 'number'
+	}
 })
-export default class extends Command {
+export default class extends StarlightCommand {
 
 	@botOwner()
 	public async run(msg: KlasaMessage, [input]: [string]): Promise<KlasaMessage> {
