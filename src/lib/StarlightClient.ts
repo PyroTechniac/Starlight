@@ -23,7 +23,7 @@ import { ClientCacheManager } from './util/cache/ClientCacheManager';
 import { UserCache } from './util/cache/UserCache';
 import { ClientManager } from './structures/ClientManager';
 import { ChannelGateway } from './structures/ChannelGateway';
-import { ChannelGatewaysTypes } from './types/Enums';
+import { Databases } from './types/Enums';
 import { MemberGateway } from './structures/MemberGateway';
 import { FetchApi } from './structures/ContentFetchManager';
 
@@ -80,13 +80,13 @@ export class StarlightClient extends Klasa.Client {
 		guilds.schema.add('disableNaturalPrefix', 'boolean', { configurable: Boolean(this.options.regexPrefix) });
 
 		this.gateways
-			.register(new Klasa.Gateway(this, 'guilds', guilds))
-			.register(new Klasa.Gateway(this, 'users', users))
-			.register(new Klasa.Gateway(this, 'clientStorage', clientStorage))
-			.register(new ChannelGateway(this, ChannelGatewaysTypes.Text, { schema: TextSchema }))
-			.register(new ChannelGateway(this, ChannelGatewaysTypes.Voice, { schema: VoiceSchema }))
-			.register(new ChannelGateway(this, ChannelGatewaysTypes.Category, { schema: CategorySchema }))
-			.register(new MemberGateway(this, 'members', { schema: MemberSchema }));
+			.register(new Klasa.Gateway(this, Databases.Guilds, guilds))
+			.register(new Klasa.Gateway(this, Databases.Users, users))
+			.register(new Klasa.Gateway(this, Databases.ClientStorage, clientStorage))
+			.register(new ChannelGateway(this, Databases.Texts, { schema: TextSchema }))
+			.register(new ChannelGateway(this, Databases.Voices, { schema: VoiceSchema }))
+			.register(new ChannelGateway(this, Databases.Categories, { schema: CategorySchema }))
+			.register(new MemberGateway(this, Databases.Members, { schema: MemberSchema }));
 
 	}
 

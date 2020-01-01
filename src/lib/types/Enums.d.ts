@@ -17,13 +17,11 @@ export const enum Events {
 export const enum Databases {
 	Users = 'users',
 	Guilds = 'guilds',
-	ClientStorage = 'clientStorage'
-}
-
-export const enum ChannelGatewaysTypes {
-	Text = 'textChannels',
-	Voice = 'voiceChannels',
-	Category = 'categoryChannels'
+	ClientStorage = 'clientStorage',
+	Texts = 'textChannels',
+	Voices = 'voiceChannels',
+	Categories = 'categoryChannels',
+	Members = 'members'
 }
 
 export const enum APIErrors {
