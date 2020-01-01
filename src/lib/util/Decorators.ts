@@ -16,7 +16,7 @@ import { isFunction } from '@klasa/utils';
 import { Events, PermissionLevels } from '../types/Enums';
 import { toss } from './Utils';
 
-export { Deferrable, markDefer } from './Defer';
+export * from './Defer';
 
 // Copyright (c) 2019 kyranet. All rights reserved. MIT License
 // This is a recreation of kyranet's klasa-decorators but with proper type annotation.
