@@ -87,6 +87,12 @@ export interface YamlOptions {
 	flag?: string;
 }
 
+export interface BtfOptions {
+	encoding?: string;
+	mode?: number;
+	flag?: string;
+}
+
 export interface ReadTOMLOptions {
 	encoding?: BufferEncoding;
 	flag?: string | number;

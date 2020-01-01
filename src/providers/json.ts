@@ -1,30 +1,15 @@
 import { FileSystemProvider } from '../lib/util/BaseProvider';
 import { outputJSONAtomic, readJSON } from 'fs-nextra';
-import { mergeObjects } from '@klasa/utils';
 import { KeyedObject } from 'klasa';
 
 export default class extends FileSystemProvider {
 
-	public async get(table: string, id: string): Promise<KeyedObject | null> {
-		try {
-			return await readJSON(this.resolve(table, id));
-		} catch {
-			return null;
-		}
+	public read(file: string): Promise<KeyedObject> {
+		return readJSON(file);
 	}
 
-	public create(table: string, id: string, data: object = {}): Promise<void> {
-		return outputJSONAtomic(this.resolve(table, id), { id, ...this.parseUpdateInput(data) });
-	}
-
-	public async update(table: string, id: string, data: object): Promise<void> {
-		const existent = await this.get(table, id) as Record<PropertyKey, unknown>;
-		const parsedData = this.parseUpdateInput(data);
-		return outputJSONAtomic(this.resolve(table, id), mergeObjects(existent || { id }, parsedData));
-	}
-
-	public replace(table: string, id: string, data: object): Promise<void> {
-		return outputJSONAtomic(this.resolve(table, id), { id, ...this.parseUpdateInput(data) });
+	public write(path: string, data: object): Promise<void> {
+		return outputJSONAtomic(path, data);
 	}
 
 }

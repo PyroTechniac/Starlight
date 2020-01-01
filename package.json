@@ -28,10 +28,11 @@
         "@klasa/querybuilder": "^0.0.1",
         "@klasa/utils": "^0.0.4",
         "abort-controller": "^3.0.0",
+        "better-sqlite3": "^5.4.3",
         "binarytf": "^2.0.0",
         "canvas": "^2.6.0",
         "canvas-constructor": "^3.1.0",
-        "discord.js": "discordjs/discord.js#50ed3293a57aeb0f9c094f00d49ed9874dc5d87a",
+        "discord.js": "discordjs/discord.js#97eac663b3e1292cc399c56eb701069301f4637d",
         "dotenv": "^8.2.0",
         "fs-nextra": "^0.4.5",
         "js-yaml": "^3.13.1",
@@ -45,6 +46,7 @@
         "ytdl-core-discord": "amishshah/ytdl-core-discord"
     },
     "devDependencies": {
+        "@types/better-sqlite3": "^5.4.0",
         "@types/dotenv": "^8.2.0",
         "@types/js-yaml": "^3.12.1",
         "@types/node": "^13.1.2",

@@ -3,6 +3,7 @@ import JsonProvider from '../providers/json';
 import TomlProvider from '../providers/toml';
 import RethinkProvider from '../providers/rethinkdb';
 import BtfProvider from '../providers/btf';
+import YamlProvider from '../providers/yaml';
 import { dirname, resolve } from 'path';
 import { ensureDir, targz } from 'fs-nextra';
 import { CronTimes, Events } from '../lib/types/Enums';
@@ -37,6 +38,7 @@ export default class extends Task {
 			case 'toml':
 			case 'json':
 			case 'btf':
+			case 'yaml':
 				return this.backupFSProvider();
 			case 'rethinkdb':
 				return this.backupRethinkProvider();
@@ -49,7 +51,7 @@ export default class extends Task {
 	}
 
 	private async backupFSProvider(): Promise<void> {
-		const provider = this.provider as JsonProvider | TomlProvider | BtfProvider;
+		const provider = this.provider as JsonProvider | TomlProvider | BtfProvider | YamlProvider;
 
 		const file = resolve('./', 'backup', `${provider.name}-backup-${this.timestamp}.tar.gz`);
 		await ensureDir(dirname(file)).then((): Promise<void> => targz(file, provider.baseDirectory));
