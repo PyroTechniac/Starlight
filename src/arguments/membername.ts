@@ -8,8 +8,7 @@ export default class extends Argument {
 	public async run(arg: string, possible: Possible, message: KlasaMessage, filter?: (entry: string) => boolean): Promise<GuildMember> {
 		if (!arg) throw message.language.get('RESOVLER_INVALID_USERNAME', possible.name);
 		if (!message.guild) throw message.language.get('INHIBITOR_PERMISSIONS');
-
-		const resMember = await this.client.resolvers.run<GuildMember>('guildmember', arg, message.language, message.guild);
+		const resMember = await this.client.resolver.member(arg, message.guild);
 		if (resMember) return resMember;
 
 		const result = await new FuzzySearch(message.guild.memberTags.mapUsernames(), (entry): string => entry, filter).run(message, arg, possible.min || undefined);

@@ -101,11 +101,5 @@ export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 	},
 	clientSecret,
 	clientID,
-	pieceDefaults: {
-		resolvers: {
-			aliases: [],
-			enabled: true
-		}
-	},
 	cdnRequestTimeout: 15000
 };

@@ -13,8 +13,7 @@ export default class extends Argument {
 		if (!arg) throw message.language.get('RESOLVER_INVALID_USERNAME', possible.name);
 		if (!message.guild) return this.user.run(arg, possible, message);
 
-
-		const resUser = await this.client.resolvers.run<User>('user', { arg, language: message.language, guild: null });
+		const resUser = await this.client.resolver.user(arg);
 		if (resUser) return resUser;
 
 		const result = await new FuzzySearch(message.guild.memberTags.mapUsernames(), (entry): string => entry, filter).run(message, arg, possible.min || undefined);

@@ -18,7 +18,6 @@ import VoiceSchema from './schemas/Voices';
 import MemberSchema from './schemas/Members';
 import { STARLIGHT_OPTIONS } from './util/Constants';
 import { LongLivingReactionCollector } from './util/LongLivingReactionCollector';
-import { ResolverStore } from './structures/ResolverStore';
 import { ClientCacheManager } from './util/cache/ClientCacheManager';
 import { UserCache } from './util/cache/UserCache';
 import { ClientManager } from './structures/ClientManager';
@@ -26,6 +25,7 @@ import { ChannelGateway } from './structures/ChannelGateway';
 import { Databases } from './types/Enums';
 import { MemberGateway } from './structures/MemberGateway';
 import { FetchApi } from './structures/ContentFetchManager';
+import { Resolver } from './structures/Resolver';
 
 config();
 
@@ -35,11 +35,10 @@ export class StarlightClient extends Klasa.Client {
 
 	public manager: ClientManager = new ClientManager(this);
 
+	public resolver: Resolver = new Resolver(this);
+
 	public constructor(options: Klasa.KlasaClientOptions = {}) {
 		super(mergeDefault(STARLIGHT_OPTIONS, options));
-
-		this.resolvers = new ResolverStore(this);
-		this.registerStore(this.resolvers);
 
 		this._registerGateways();
 

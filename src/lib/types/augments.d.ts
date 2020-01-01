@@ -1,22 +1,20 @@
 import { CustomGet } from '../settings/Shared';
 import { LongLivingReactionCollector } from '../util/LongLivingReactionCollector';
-import { ResolverStore } from '../structures/ResolverStore';
 import { ClientCacheManager } from '../util/cache/ClientCacheManager';
 import { UserCache } from '../util/cache/UserCache';
 import { MemberTags } from '../util/cache/MemberTags';
 import { FetchApi } from '../structures/ContentFetchManager';
 import { ClientManager } from '../structures/ClientManager';
+import { Resolver } from '../structures/Resolver';
 import { Settings } from 'klasa';
-import { ResolverOptions } from '../structures/Resolver';
 
 
 // This file is for augments to other modules, such as d.js or klasa.
 
 declare module 'discord.js' {
-
 	interface Client {
 		llrcs: Set<LongLivingReactionCollector>;
-		resolvers: ResolverStore;
+		resolver: Resolver;
 		manager: ClientManager;
 		readonly cache: ClientCacheManager;
 		readonly userCache: UserCache;
@@ -70,10 +68,6 @@ declare module 'klasa-dashboard-hooks' {
 }
 
 declare module 'klasa' {
-	interface PieceDefaults {
-		resolvers?: ResolverOptions;
-	}
-
 	interface CommandOptions {
 		flags?: Record<string, string | string[]>;
 	}
