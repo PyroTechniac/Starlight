@@ -6,6 +6,7 @@ export class ReadableBuffer extends Readable {
 	private _source: Buffer | null;
 	private _offset: number | null = 0;
 	private _length: number | null;
+
 	public constructor(source: Buffer) {
 		super();
 
