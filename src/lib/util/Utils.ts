@@ -87,7 +87,7 @@ export function noop(): null {
 	return null;
 }
 
-export function filterArray<T>(...entries: T[]): T[] {
+export function filterArray<T>(entries: T[]): T[] {
 	return Array.from(new Set([...entries]));
 }
 
