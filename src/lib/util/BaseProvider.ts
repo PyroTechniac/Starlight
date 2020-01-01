@@ -168,7 +168,7 @@ export abstract class FileSystemProvider extends Provider implements FSProvider 
 	public constructor(store: ProviderStore, file: string[], directory: string) {
 		super(store, file, directory);
 
-		const baseDirectory = resolve(this.client.userBaseDirectory, 'bwd', 'provider', this.extension);
+		const baseDirectory = resolve(this.client.userBaseDirectory, 'bwd', 'provider', this.name);
 		const defaults = mergeDefault<{ baseDirectory: string }, { baseDirectory: string }>({ baseDirectory }, this.client.options.providers[this.name]);
 		this.baseDirectory = defaults.baseDirectory;
 	}
@@ -231,9 +231,13 @@ export abstract class FileSystemProvider extends Provider implements FSProvider 
 
 	public async getKeys(table: string): Promise<string[]> {
 		const extension = `.${this.extension}`;
-		return (await fs.readdir(this.resolve(table)))
-			.filter((filename): boolean => filename.endsWith(extension))
-			.map((file): string => file.slice(0, file.length - extension.length));
+		const raw = await fs.readdir(this.resolve(table));
+		const files: string[] = [];
+		for (const filename of raw) {
+			if (!filename.endsWith(extension)) continue;
+			files.push(filename.slice(0, filename.length - extension.length));
+		}
+		return files;
 	}
 
 	public has(table: string, id: string): Promise<boolean> {
