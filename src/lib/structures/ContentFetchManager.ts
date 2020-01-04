@@ -62,7 +62,7 @@ export class ContentFetchManager extends Manager {
 
 		const stackHolder: { stack?: string } = {};
 
-		Error.captureStackTrace(stackHolder, this.fetch); // eslint-disable-line @typescript-eslint/unbound-method
+		Error.captureStackTrace(stackHolder, ContentFetchManager.prototype.fetch);
 
 		return this._internalFetch(new URL(url.toString()), options, type, stackHolder.stack);
 	}
