@@ -36,7 +36,7 @@
         "dotenv": "^8.2.0",
         "fs-nextra": "^0.4.5",
         "js-yaml": "^3.13.1",
-        "klasa": "dirigeants/klasa#875/head",
+        "klasa": "dirigeants/klasa#de71f01513c44699a577e056631917b8c08a16eb",
         "klasa-dashboard-hooks": "kyranet/klasa-dashboard-hooks#master",
         "node-fetch": "^2.6.0",
         "opusscript": "^0.0.7",

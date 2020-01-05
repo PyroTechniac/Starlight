@@ -57,31 +57,7 @@ export class StarlightClient extends Klasa.Client {
 	}
 
 	private _registerGateways(): void {
-		const { guilds = {}, users = {}, clientStorage = {} } = this.options.settings.gateways!;
-		guilds.schema = 'schema' in guilds ? guilds.schema! : Client.defaultGuildSchema;
-		users.schema = 'schema' in users ? users.schema! : Client.defaultUserSchema;
-		clientStorage.schema = 'schema' in clientStorage ? clientStorage.schema! : Client.defaultClientSchema;
-
-		const prefix = guilds.schema.get('prefix') as Klasa.SchemaEntry | undefined;
-		const language = guilds.schema.get('language') as Klasa.SchemaEntry | undefined;
-
-		if (!prefix || prefix.default === null) {
-			guilds.schema.add('prefix', 'string', {
-				'array': Array.isArray(this.options.prefix),
-				'default': this.options.prefix
-			});
-		}
-
-		if (!language || language.default === null) {
-			guilds.schema.add('language', 'language', { 'default': this.options.language });
-		}
-
-		guilds.schema.add('disableNaturalPrefix', 'boolean', { configurable: Boolean(this.options.regexPrefix) });
-
 		this.gateways
-			.register(new Klasa.Gateway(this, Databases.Guilds, guilds))
-			.register(new Klasa.Gateway(this, Databases.Users, users))
-			.register(new Klasa.Gateway(this, Databases.ClientStorage, clientStorage))
 			.register(new ChannelGateway(this, Databases.Texts, { schema: TextSchema }))
 			.register(new ChannelGateway(this, Databases.Voices, { schema: VoiceSchema }))
 			.register(new ChannelGateway(this, Databases.Categories, { schema: CategorySchema }))
