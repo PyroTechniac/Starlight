@@ -1,5 +1,6 @@
 import {
-	Extendable as KlasaExtendable, ExtendableStore,
+	Extendable as KlasaExtendable,
+	ExtendableStore,
 	KlasaMessage,
 	Piece,
 	PieceOptions,
@@ -15,7 +16,6 @@ import { CLIENT_SECRET } from './Constants';
 import { Constructor } from '../types/Types';
 import { isFunction } from '@klasa/utils';
 import { Events, PermissionLevels } from '../types/Enums';
-import { toss } from './Utils';
 
 export * from './Defer';
 
@@ -103,48 +103,28 @@ export function requiresDMContext(fallback: Fallback = (): undefined => undefine
 	return createFunctionInhibitor((message: KlasaMessage): boolean => message.guild === null, fallback);
 }
 
-function inhibit(level: PermissionLevels): (message: KlasaMessage) => never {
-	let toThrow;
-	switch (level) {
-		case PermissionLevels.Staff: {
-			toThrow = 'INHIBITOR_STAFF_LEVEL';
-			break;
-		}
-		case PermissionLevels.Moderator: {
-			toThrow = 'INHIBITOR_MOD_LEVEL';
-			break;
-		}
-		case PermissionLevels.Administrator: {
-			toThrow = 'INHIBITOR_ADMIN_LEVEL';
-			break;
-		}
-		default: {
-			toThrow = 'INHIBITOR_PERMISSIONS';
-			break;
-		}
-	}
-
-	return (message: KlasaMessage): never => toss(message.language.get(toThrow));
+function inhibit(message: KlasaMessage): never {
+	throw message.language.get('INHIBITOR_PERMISSIONS');
 }
 
 export function staff(): MethodDecorator {
-	return requiresPermission(PermissionLevels.Staff, inhibit(PermissionLevels.Staff));
+	return requiresPermission(PermissionLevels.Staff, inhibit);
 }
 
 export function mod(): MethodDecorator {
-	return requiresPermission(PermissionLevels.Moderator, inhibit(PermissionLevels.Moderator));
+	return requiresPermission(PermissionLevels.Moderator, inhibit);
 }
 
 export function admin(): MethodDecorator {
-	return requiresPermission(PermissionLevels.Administrator, inhibit(PermissionLevels.Administrator));
+	return requiresPermission(PermissionLevels.Administrator, inhibit);
 }
 
 export function owner(): MethodDecorator {
-	return requiresPermission(PermissionLevels.ServerOwner, inhibit(PermissionLevels.ServerOwner));
+	return requiresPermission(PermissionLevels.ServerOwner, inhibit);
 }
 
 export function botOwner(): MethodDecorator {
-	return requiresPermission(PermissionLevels.BotOwner, inhibit(PermissionLevels.BotOwner));
+	return requiresPermission(PermissionLevels.BotOwner, inhibit);
 }
 
 export function ratelimit(bucket: number, cooldown: number, auth = false): MethodDecorator {
@@ -208,9 +188,11 @@ export function enumerable(value: boolean): PropertyDecorator {
 // Not a Decorator, but a function that returns a class, so it's close enough.
 export function Extendable(...appliesTo: any[]): Constructor<KlasaExtendable> {
 	return class extends KlasaExtendable {
+
 		public constructor(store: ExtendableStore, file: string[], directory: string) {
-			super(store, file, directory, {appliesTo});
+			super(store, file, directory, { appliesTo });
 		}
+
 	};
 }
 

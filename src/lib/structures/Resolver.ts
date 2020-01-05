@@ -118,6 +118,17 @@ export class Resolver {
 		return Promise.resolve(parsed);
 	}
 
+	public snowflake(toResolve: Snowflake | Channel | User | GuildMember | Guild | GuildEmoji | Message): Promise<Snowflake | null> {
+		if (typeof toResolve === 'string' && Resolver.regex.snowflake.test(toResolve)) return Promise.resolve(Resolver.regex.snowflake.exec(toResolve)![1]);
+		if (toResolve instanceof Channel
+			|| toResolve instanceof User
+			|| toResolve instanceof GuildMember
+			|| toResolve instanceof Guild
+			|| toResolve instanceof GuildEmoji
+			|| toResolve instanceof Message) return Promise.resolve(toResolve.id);
+		return Promise.resolve(null);
+	}
+
 	public float(f: number | string): Promise<number | null> {
 		if (typeof f === 'number' && !Number.isNaN(f)) return Promise.resolve(f);
 		const parsed = Number.parseFloat(f as string);
@@ -131,37 +142,38 @@ export class Resolver {
 		return Promise.resolve(null);
 	}
 
-	public async textChannel(channel: Channel | Snowflake): Promise<TextChannel | null> {
+	public async text(channel: Channel | Snowflake): Promise<TextChannel | null> {
 		const parsed = await this.channel(channel);
 		if (!parsed) return null;
 		return this._checkChannel(parsed, 'text');
 	}
 
-	public async voiceChannel(channel: Channel | Snowflake): Promise<VoiceChannel | null> {
+	public async voice(channel: Channel | Snowflake): Promise<VoiceChannel | null> {
 		const parsed = await this.channel(channel);
 		if (!parsed) return null;
 		return this._checkChannel(parsed, 'voice');
 	}
 
-	public async dmChannel(channel: Channel | Snowflake): Promise<DMChannel | null> {
+	public async dm(channel: Channel | Snowflake | User | GuildMember): Promise<DMChannel | null> {
+		if (channel instanceof GuildMember || channel instanceof User) return channel.createDM().then((chan): Promise<DMChannel | null> => this.dm(chan));
 		const parsed = await this.channel(channel);
 		if (!parsed) return null;
 		return this._checkChannel(parsed, 'dm');
 	}
 
-	public async categoryChannel(channel: Channel | Snowflake): Promise<CategoryChannel | null> {
+	public async category(channel: Channel | Snowflake): Promise<CategoryChannel | null> {
 		const parsed = await this.channel(channel);
 		if (!parsed) return null;
 		return this._checkChannel(parsed, 'category');
 	}
 
-	public async newsChannel(channel: Channel | Snowflake): Promise<NewsChannel | null> {
+	public async news(channel: Channel | Snowflake): Promise<NewsChannel | null> {
 		const parsed = await this.channel(channel);
 		if (!parsed) return null;
 		return this._checkChannel(parsed, 'news');
 	}
 
-	public async storeChannel(channel: Channel | Snowflake): Promise<StoreChannel | null> {
+	public async store(channel: Channel | Snowflake): Promise<StoreChannel | null> {
 		const parsed = await this.channel(channel);
 		if (!parsed) return null;
 		return this._checkChannel(parsed, 'store');

@@ -28,7 +28,6 @@
         "@klasa/querybuilder": "^0.0.1",
         "@klasa/utils": "^0.0.4",
         "abort-controller": "^3.0.0",
-        "better-sqlite3": "^5.4.3",
         "binarytf": "^2.0.0",
         "canvas": "^2.6.0",
         "canvas-constructor": "^3.1.0",
@@ -39,11 +38,8 @@
         "klasa": "dirigeants/klasa#de71f01513c44699a577e056631917b8c08a16eb",
         "klasa-dashboard-hooks": "kyranet/klasa-dashboard-hooks#master",
         "node-fetch": "^2.6.0",
-        "opusscript": "^0.0.7",
         "reflect-metadata": "^0.1.13",
-        "rethinkdb-ts": "^2.4.0-rc.16",
-        "runtypes": "^4.0.3",
-        "ytdl-core-discord": "amishshah/ytdl-core-discord"
+        "rethinkdb-ts": "^2.4.0-rc.16"
     },
     "devDependencies": {
         "@types/better-sqlite3": "^5.4.0",
@@ -61,7 +57,6 @@
         "typescript": "^3.7.2"
     },
     "optionalDependencies": {
-        "node-opus": "^0.3.3",
         "zlib-sync": "^0.1.5"
     }
 }
