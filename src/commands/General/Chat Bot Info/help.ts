@@ -17,9 +17,13 @@ const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAG
 	usage: '(Command:command{3}|page:integer|category:category)',
 	flagSupport: true,
 	flags: {
-		categories: 'literal',
-		cat: 'literal',
-		all: 'literal'
+		categories: {
+			aliases: ['cat'],
+			type: 'literal'
+		},
+		all: {
+			type: 'literal'
+		}
 	}
 })
 export default class extends StarlightCommand {

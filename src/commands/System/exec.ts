@@ -11,7 +11,9 @@ import { StarlightCommand } from '../../lib/structures/StarlightCommand';
 	usage: '<expression:string>',
 	extendedHelp: (lang): string => lang.get('COMMAND_EXEC_EXTENDED'),
 	flags: {
-		timeout: 'number'
+		timeout: {
+			type: 'number'
+		}
 	}
 })
 export default class extends StarlightCommand {

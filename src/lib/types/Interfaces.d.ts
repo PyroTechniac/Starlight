@@ -140,3 +140,8 @@ export interface StatsUsage {
 	RAM_TOTAL: string;
 	RAM_USED: string;
 }
+
+export interface FlagData {
+	type: string | string[];
+	aliases?: string[];
+}

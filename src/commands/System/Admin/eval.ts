@@ -16,14 +16,30 @@ import { StarlightCommand } from '../../../lib/structures/StarlightCommand';
 	usage: '<expression:string>',
 	flagSupport: true,
 	flags: {
-		'no-timeout': 'literal',
-		'wait': 'number',
-		'output-to': ['file', 'haste', 'hastebin', 'console', 'log', 'abort', 'none'],
-		'log': 'literal',
-		'async': 'literal',
-		'json': 'literal',
-		'depth': 'number',
-		'showHidden': 'literal'
+		'json': {
+			type: 'literal'
+		},
+		'depth': {
+			type: 'number'
+		},
+		'showHidden': {
+			type: 'literal'
+		},
+		'no-timeout': {
+			type: 'literal'
+		},
+		'wait': {
+			type: 'number'
+		},
+		'output-to': {
+			type: ['file', 'haste', 'hastebin', 'console', 'log', 'abort', 'none']
+		},
+		'log': {
+			type: 'literal'
+		},
+		'async': {
+			type: 'literal'
+		}
 	}
 })
 export default class extends StarlightCommand {

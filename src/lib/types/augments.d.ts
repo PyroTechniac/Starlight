@@ -7,7 +7,7 @@ import { FetchApi } from '../structures/ContentFetchManager';
 import { ClientManager } from '../structures/ClientManager';
 import { Resolver } from '../structures/Resolver';
 import { Settings } from 'klasa';
-
+import { FlagData } from './Interfaces';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -69,7 +69,7 @@ declare module 'klasa-dashboard-hooks' {
 
 declare module 'klasa' {
 	interface CommandOptions {
-		flags?: Record<string, string | string[]>;
+		flags?: Record<string, FlagData>;
 	}
 
 	interface SettingsFolder {
