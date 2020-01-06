@@ -31,7 +31,8 @@
         "binarytf": "^2.0.0",
         "canvas": "^2.6.0",
         "canvas-constructor": "^3.1.0",
-        "discord.js": "discordjs/discord.js#97eac663b3e1292cc399c56eb701069301f4637d",
+        "chokidar": "^3.3.1",
+        "discord.js": "discordjs/discord.js#d2ef02906c5618d883b1adfb348fd248a4db616f",
         "dotenv": "^8.2.0",
         "fs-nextra": "^0.4.5",
         "js-yaml": "^3.13.1",
@@ -57,6 +58,7 @@
         "typescript": "^3.7.2"
     },
     "optionalDependencies": {
+        "erlpack": "discordapp/erlpack",
         "zlib-sync": "^0.1.5"
     }
 }

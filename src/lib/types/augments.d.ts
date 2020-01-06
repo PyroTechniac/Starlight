@@ -8,6 +8,7 @@ import { ClientManager } from '../structures/ClientManager';
 import { Resolver } from '../structures/Resolver';
 import { Settings } from 'klasa';
 import { FlagData } from './Interfaces';
+import {FSWatcher} from 'chokidar'
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -16,6 +17,7 @@ declare module 'discord.js' {
 		llrcs: Set<LongLivingReactionCollector>;
 		resolver: Resolver;
 		manager: ClientManager;
+		fsWatcher: FSWatcher | null;
 		readonly cache: ClientCacheManager;
 		readonly userCache: UserCache;
 		readonly cdn: FetchApi;
@@ -54,6 +56,7 @@ declare module 'discord.js' {
 
 	interface ClientOptions {
 		cdnRequestTimeout?: number;
+		watchFiles?: boolean;
 	}
 
 	interface Collector<K, V> {

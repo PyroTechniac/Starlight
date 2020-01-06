@@ -26,6 +26,7 @@ import { Databases } from './types/Enums';
 import { MemberGateway } from './structures/MemberGateway';
 import { FetchApi } from './structures/ContentFetchManager';
 import { Resolver } from './structures/Resolver';
+import { FSWatcher } from 'chokidar';
 
 config();
 
@@ -36,6 +37,8 @@ export class StarlightClient extends Klasa.Client {
 	public manager: ClientManager = new ClientManager(this);
 
 	public resolver: Resolver = new Resolver(this);
+
+	public fsWatcher: FSWatcher | null = null;
 
 	public constructor(options: Klasa.KlasaClientOptions = {}) {
 		super(mergeDefault(STARLIGHT_OPTIONS, options));
