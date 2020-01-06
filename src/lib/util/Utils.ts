@@ -17,7 +17,6 @@ import { UserSettings } from '../settings/UserSettings';
 import { BaseColors, Events } from '../types/Enums';
 import { ReferredPromise } from '../types/Interfaces';
 import { rootFolder } from './Constants';
-import { Readable } from 'stream';
 
 export function isSchemaFolder(input: Schema | SchemaFolder | SchemaEntry): input is SchemaFolder | Schema {
 	return input.type === 'Folder';
@@ -124,8 +123,6 @@ export function mergeDefault<A, B extends Partial<A>>(defaults: A, given?: B): A
 	return given as A & B;
 }
 
-export async function *streamToIterator(stream: Readable): AsyncIterableIterator<Buffer> {
-	const data: Buffer[] = [];
-	for await (const buffer of stream) data.push(buffer as Buffer);
-	yield *data;
+export function cast<V>(value: unknown): V {
+	return value as V;
 }

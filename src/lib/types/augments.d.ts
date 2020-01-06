@@ -8,7 +8,7 @@ import { ClientManager } from '../structures/ClientManager';
 import { Resolver } from '../structures/Resolver';
 import { Settings } from 'klasa';
 import { FlagData } from './Interfaces';
-import {FSWatcher} from 'chokidar'
+import { FSWatcher } from 'chokidar';
 
 // This file is for augments to other modules, such as d.js or klasa.
 

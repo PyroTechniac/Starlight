@@ -3,18 +3,18 @@ import { KlasaMessage, Piece, Stopwatch, Task } from 'klasa';
 import { StarlightCommand } from '../lib/structures/StarlightCommand';
 import { Events } from '../lib/types/Enums';
 import { watch } from 'chokidar';
-import { floatPromise } from '../lib/util/Utils';
+import { cast, floatPromise } from '../lib/util/Utils';
 
 const nodeModules = `${sep}node_modules${sep}`;
 
-const fakeMessage = {
+const fakeMessage = cast<KlasaMessage>({
 	sendLocale(): Promise<{}> {
 		return Promise.resolve({});
 	},
 	sendMessage(): Promise<{}> {
 		return Promise.resolve({});
 	}
-} as unknown as KlasaMessage;
+})
 
 interface Reload extends StarlightCommand {
 	everything(message: KlasaMessage): Promise<unknown>;
@@ -27,9 +27,10 @@ interface Run {
 }
 
 export default class extends Task {
+
 	private running = false;
 
-	public async run({name, store, piece}: Run): Promise<void> {
+	public async run({ name, store, piece }: Run): Promise<void> {
 		const timer = new Stopwatch();
 
 		for (const module of Object.keys(require.cache)) {
@@ -74,12 +75,12 @@ export default class extends Task {
 			if (!piece) {
 				if (this.running) return;
 				this.running = true;
-				await this.run({name, store, piece});
+				await this.run({ name, store, piece });
 				this.running = false;
 				return;
 			}
 
-			floatPromise(this, this.run({name, store, piece}));
+			floatPromise(this, this.run({ name, store, piece })); // eslint-disable-line @typescript-eslint/no-floating-promises
 		};
 
 		for (const event of ['add', 'change', 'unlink']) {
@@ -88,4 +89,5 @@ export default class extends Task {
 
 		return Promise.resolve();
 	}
+
 }
