@@ -1,4 +1,4 @@
-import { Manager } from '../util/Manager';
+import { Engine } from '../util/Engine';
 import { URL } from 'url';
 import nodeFetch, { RequestInit, Response } from 'node-fetch';
 import { FetchError } from '../util/FetchError';
@@ -25,10 +25,10 @@ export const enum FetchTypes {
 	Result
 }
 
-export class ContentFetchManager extends Manager {
+export class ContentFetchEngine extends Engine {
 
 	public get cdn(): FetchApi {
-		return ContentFetchManager._cdn(this);
+		return ContentFetchEngine._cdn(this);
 	}
 
 	public fetch(url: URL | string, type: FetchTypes.JSON | 'JSON'): Promise<unknown>;
@@ -62,7 +62,7 @@ export class ContentFetchManager extends Manager {
 
 		const stackHolder: { stack?: string } = {};
 
-		Error.captureStackTrace(stackHolder, ContentFetchManager.prototype.fetch); // eslint-disable-line @typescript-eslint/unbound-method
+		Error.captureStackTrace(stackHolder, ContentFetchEngine.prototype.fetch); // eslint-disable-line @typescript-eslint/unbound-method
 
 		return this._internalFetch(new URL(url.toString()), options, type, stackHolder.stack);
 	}
@@ -96,14 +96,14 @@ export class ContentFetchManager extends Manager {
 		}
 	}
 
-	private static _cdn(manager: ContentFetchManager): FetchApi {
+	private static _cdn(manager: ContentFetchEngine): FetchApi {
 		const stackholder: { stack?: string } = {};
-		Error.captureStackTrace(stackholder, ContentFetchManager._cdn); // eslint-disable-line @typescript-eslint/unbound-method
+		Error.captureStackTrace(stackholder, ContentFetchEngine._cdn); // eslint-disable-line @typescript-eslint/unbound-method
 		const route: any[] = [];
 		const handler: ProxyHandler<any> = {
 			get(_, name: string | symbol): any {
 				if (reflectors.includes(name)) return noop;
-				ContentFetchManager.aString(name);
+				ContentFetchEngine.aString(name);
 
 				if (aborts.includes(name)) return new Proxy(noop, handler);
 

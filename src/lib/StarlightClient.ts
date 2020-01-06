@@ -18,13 +18,13 @@ import VoiceSchema from './schemas/Voices';
 import MemberSchema from './schemas/Members';
 import { STARLIGHT_OPTIONS } from './util/Constants';
 import { LongLivingReactionCollector } from './util/LongLivingReactionCollector';
-import { ClientCacheManager } from './util/cache/ClientCacheManager';
+import { ClientCacheEngine } from './util/cache/ClientCacheEngine';
 import { UserCache } from './util/cache/UserCache';
-import { ClientManager } from './structures/ClientManager';
+import { ClientEngine } from './structures/ClientEngine';
 import { ChannelGateway } from './structures/ChannelGateway';
 import { Databases } from './types/Enums';
 import { MemberGateway } from './structures/MemberGateway';
-import { FetchApi } from './structures/ContentFetchManager';
+import { FetchApi } from './structures/ContentFetchEngine';
 import { Resolver } from './structures/Resolver';
 import { FSWatcher } from 'chokidar';
 
@@ -34,7 +34,7 @@ export class StarlightClient extends Klasa.Client {
 
 	public llrcs: Set<LongLivingReactionCollector> = new Set();
 
-	public manager: ClientManager = new ClientManager(this);
+	public engine: ClientEngine = new ClientEngine(this);
 
 	public resolver: Resolver = new Resolver(this);
 
@@ -47,12 +47,12 @@ export class StarlightClient extends Klasa.Client {
 
 	}
 
-	public get cache(): ClientCacheManager {
-		return this.manager.cache;
+	public get cache(): ClientCacheEngine {
+		return this.engine.cache;
 	}
 
 	public get cdn(): FetchApi {
-		return this.manager.cdn;
+		return this.engine.cdn;
 	}
 
 	public get userCache(): UserCache {

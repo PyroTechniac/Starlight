@@ -1,10 +1,10 @@
 import { CustomGet } from '../settings/Shared';
 import { LongLivingReactionCollector } from '../util/LongLivingReactionCollector';
-import { ClientCacheManager } from '../util/cache/ClientCacheManager';
+import { ClientCacheEngine } from '../util/cache/ClientCacheEngine';
 import { UserCache } from '../util/cache/UserCache';
 import { MemberTags } from '../util/cache/MemberTags';
-import { FetchApi } from '../structures/ContentFetchManager';
-import { ClientManager } from '../structures/ClientManager';
+import { FetchApi } from '../structures/ContentFetchEngine';
+import { ClientEngine } from '../structures/ClientEngine';
 import { Resolver } from '../structures/Resolver';
 import { Settings } from 'klasa';
 import { FlagData } from './Interfaces';
@@ -16,9 +16,9 @@ declare module 'discord.js' {
 	interface Client {
 		llrcs: Set<LongLivingReactionCollector>;
 		resolver: Resolver;
-		manager: ClientManager;
+		engine: ClientEngine;
 		fsWatcher: FSWatcher | null;
-		readonly cache: ClientCacheManager;
+		readonly cache: ClientCacheEngine;
 		readonly userCache: UserCache;
 		readonly cdn: FetchApi;
 	}

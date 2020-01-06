@@ -2,10 +2,10 @@ import { Util } from 'discord.js';
 import { Colors } from 'klasa';
 import { Events, Time } from '../../types/Enums';
 import { UserCache } from './UserCache';
-import { Manager } from '../Manager';
+import { Engine } from '../Engine';
 import { checkChannel } from '../Utils';
 
-export class ClientCacheManager extends Manager {
+export class ClientCacheEngine extends Engine {
 
 	public users: UserCache = new UserCache(this);
 	private readonly header = new Colors({ text: 'lightblue' }).format('[MEMORY CLEANUP]');
@@ -20,15 +20,15 @@ export class ClientCacheManager extends Manager {
 
 		this.client.emit(Events.Verbose,
 			`${this.header} ${
-				ClientCacheManager.setColor(presences)} [Presence]s | ${
-				ClientCacheManager.setColor(guildMembers)} [GuildMember]s | ${
-				ClientCacheManager.setColor(users)} [User]s | ${
-				ClientCacheManager.setColor(emojis)} [Emoji]s${lastMessages ? ` | ${ClientCacheManager.setColor(lastMessages)} [Last Message]s.` : '.'}`);
+				ClientCacheEngine.setColor(presences)} [Presence]s | ${
+				ClientCacheEngine.setColor(guildMembers)} [GuildMember]s | ${
+				ClientCacheEngine.setColor(users)} [User]s | ${
+				ClientCacheEngine.setColor(emojis)} [Emoji]s${lastMessages ? ` | ${ClientCacheEngine.setColor(lastMessages)} [Last Message]s.` : '.'}`);
 	}
 
 	private _clean(): readonly [number, number, number, number, number] {
 		if (!this.ready) throw new Error('Cannot clean uninitialized ClientCache.');
-		const OLD_SNOWFLAKE = Util.binaryToID(((Date.now() - ClientCacheManager.THRESHOLD) - ClientCacheManager.EPOCH).toString(2).padStart(42, '0') + ClientCacheManager.EMPTY);
+		const OLD_SNOWFLAKE = Util.binaryToID(((Date.now() - ClientCacheEngine.THRESHOLD) - ClientCacheEngine.EPOCH).toString(2).padStart(42, '0') + ClientCacheEngine.EMPTY);
 
 		let presences = 0;
 		let guildMembers = 0;
@@ -124,9 +124,9 @@ export class ClientCacheManager extends Manager {
 	private static setColor(n: number): string {
 		const text = String(n).padStart(5, ' ');
 
-		if (n > 1000) return ClientCacheManager.colors.red.format(text);
-		if (n > 100) return ClientCacheManager.colors.yellow.format(text);
-		return ClientCacheManager.colors.green.format(text);
+		if (n > 1000) return ClientCacheEngine.colors.red.format(text);
+		if (n > 100) return ClientCacheEngine.colors.yellow.format(text);
+		return ClientCacheEngine.colors.green.format(text);
 	}
 
 }
