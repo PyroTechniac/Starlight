@@ -3,18 +3,21 @@ import { UserData } from '../../types/Types';
 import { ClientCacheEngine } from './ClientCacheEngine';
 import { Client, User } from 'discord.js';
 import { APIUserData } from '../../types/Interfaces';
+import { Engine } from '../Engine';
+import { ClientEngine } from '../../structures/ClientEngine';
 
-export class UserCache extends Collection<string, UserData> {
+export class UserCache extends Collection<string, UserData> implements Engine {
 
-	public readonly manager!: ClientCacheEngine;
-
-	public constructor(manager: ClientCacheEngine) {
+	public constructor(public readonly cache: ClientCacheEngine) {
 		super();
-		Object.defineProperty(this, 'manager', { value: manager });
+	}
+
+	public get engine(): ClientEngine {
+		return this.cache.engine;
 	}
 
 	public get client(): Client {
-		return this.manager.client;
+		return this.cache.client;
 	}
 
 	public resolve(usernameOrTag: string, id: true): string | null;
