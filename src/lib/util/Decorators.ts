@@ -186,7 +186,7 @@ export function enumerable(value: boolean): PropertyDecorator {
 }
 
 // Not a Decorator, but a function that returns a class, so it's close enough.
-export function Extendable(...appliesTo: any[]): Constructor<KlasaExtendable> {
+export function Extendable(appliesTo: any[]): Constructor<KlasaExtendable> {
 	return class extends KlasaExtendable {
 
 		public constructor(store: ExtendableStore, file: string[], directory: string) {

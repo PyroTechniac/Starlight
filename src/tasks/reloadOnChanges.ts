@@ -14,7 +14,7 @@ const fakeMessage = cast<KlasaMessage>({
 	sendMessage(): Promise<{}> {
 		return Promise.resolve({});
 	}
-})
+});
 
 interface Reload extends StarlightCommand {
 	everything(message: KlasaMessage): Promise<unknown>;

@@ -11,9 +11,8 @@ import { filterArray } from '../lib/util/Utils';
 export default class extends Event {
 
 	public run(): void {
-		this.client.options.owners = this.resolveOwners();
-
 		initClean(this.client.token!);
+		this.client.options.owners = this.resolveOwners();
 		this.client.cache.clean(true);
 	}
 

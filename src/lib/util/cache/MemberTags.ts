@@ -2,6 +2,7 @@ import Collection, { CollectionConstructor } from '@discordjs/collection';
 import { KlasaGuild } from 'klasa';
 import { Client, GuildMember } from 'discord.js';
 import { APIErrors } from '../../types/Enums';
+import { cast } from '../Utils';
 
 export class MemberTags extends Collection<string, MemberTag> {
 
@@ -66,7 +67,7 @@ export class MemberTags extends Collection<string, MemberTag> {
 	}
 
 	private getRawRoles(member: GuildMember): string[] {
-		return (member as unknown as { _roles: string[] } & GuildMember)._roles;
+		return cast<{ _roles: string[] } & GuildMember>(member)._roles;
 	}
 
 	public static get [Symbol.species](): CollectionConstructor {

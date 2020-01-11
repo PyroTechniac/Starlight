@@ -8,13 +8,10 @@ import { TextChannelSettings } from '../lib/settings/TextChannelSettings';
 export default class extends Finalizer {
 
 	public async run(message: KlasaMessage): Promise<void> {
-		const clientValue = this.client.settings!.get(ClientSettings.CommandUses);
-		const authorValue = message.author.settings.get(UserSettings.CommandUses);
-
 		await Promise.all([this.client.settings!.sync(), message.author.settings.sync()]);
 
-		await this.client.settings!.update(ClientSettings.CommandUses, clientValue + 1);
-		await message.author.settings.update(UserSettings.CommandUses, authorValue + 1);
+		await this.client.settings!.increase(ClientSettings.CommandUses, 1);
+		await message.author.settings.increase(UserSettings.CommandUses, 1);
 		if (message.guild) await this.handleGuild(message);
 	}
 
@@ -25,12 +22,9 @@ export default class extends Finalizer {
 			message.text!.settings.sync()
 		]);
 
-		const guildValue = message.guild!.settings.get(GuildSettings.CommandUses);
-		const memberValue = message.member!.settings.get(MemberSettings.CommandUses);
-		const textValue = message.text!.settings.get(TextChannelSettings.CommandUses);
-		await message.guild!.settings.update(GuildSettings.CommandUses, guildValue + 1);
-		await message.member!.settings.update(MemberSettings.CommandUses, memberValue + 1);
-		await message.text!.settings.update(TextChannelSettings.CommandUses, textValue + 1);
+		await message.guild!.settings.increase(GuildSettings.CommandUses, 1);
+		await message.member!.settings.increase(MemberSettings.CommandUses, 1);
+		await message.text!.settings.increase(TextChannelSettings.CommandUses, 1);
 	}
 
 }

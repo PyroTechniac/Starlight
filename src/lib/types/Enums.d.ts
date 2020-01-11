@@ -11,7 +11,9 @@ export const enum Events {
 	CommandInhibited = 'commandInhibited',
 	CommandError = 'commandError',
 	TaskScheduled = 'taskScheduled',
-	TaskFound = 'taskFound'
+	TaskFound = 'taskFound',
+	GuildMemberAdd = 'guildMemberAdd',
+	GuildMemberRemove = 'guildMemberRemove'
 }
 
 export const enum Databases {

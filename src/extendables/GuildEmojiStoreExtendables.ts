@@ -2,7 +2,7 @@ import { Collection, GuildEmoji, GuildEmojiStore, Snowflake } from 'discord.js';
 import { api } from '../lib/util/Api';
 import { Extendable } from '../lib/util/Decorators';
 
-export default class extends Extendable(GuildEmojiStore) {
+export default class extends Extendable([GuildEmojiStore]) {
 
 	public fetch(emoji: Snowflake, cache?: boolean): Promise<GuildEmoji>;
 	public fetch(emoji?: Snowflake, cache?: boolean): Promise<Collection<Snowflake, GuildEmoji>>;

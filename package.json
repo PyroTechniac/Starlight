@@ -43,8 +43,6 @@
         "rethinkdb-ts": "^2.4.0-rc.16"
     },
     "devDependencies": {
-        "@types/better-sqlite3": "^5.4.0",
-        "@types/dotenv": "^8.2.0",
         "@types/js-yaml": "^3.12.1",
         "@types/node": "^13.1.2",
         "@types/node-fetch": "^2.5.0",

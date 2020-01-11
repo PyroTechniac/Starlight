@@ -6,7 +6,7 @@ import { MemberTags } from '../util/cache/MemberTags';
 import { FetchApi } from '../structures/ContentFetchEngine';
 import { ClientEngine } from '../structures/ClientEngine';
 import { Resolver } from '../structures/Resolver';
-import { Settings } from 'klasa';
+import { Settings, SettingsUpdateResults, SettingsFolderUpdateOptions } from 'klasa';
 import { FlagData } from './Interfaces';
 import { FSWatcher } from 'chokidar';
 
@@ -79,5 +79,8 @@ declare module 'klasa' {
 		get<K extends string, S>(key: CustomGet<K, S>): S;
 
 		get(key: string): SettingsFolder | unknown | readonly unknown[];
+
+		increase(key: string, value: number, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
+		decrease(key: string, value: number, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
 	}
 }
