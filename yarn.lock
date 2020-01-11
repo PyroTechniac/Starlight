@@ -64,34 +64,15 @@
   resolved "https://registry.yarnpkg.com/@klasa/utils/-/utils-0.0.4.tgz#4bf010b09d0f93b39245523ed22a09571d56508c"
   integrity sha512-9gZSGN/As3sxZumZ9ZwyQ+KcNSenzY8tR1orRakv8HKK0WH0gG7QrsP/1O2TD4uHxUyr8dysCjt73RYPfzuDWQ==
 
-"@types/better-sqlite3@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@types/better-sqlite3/-/better-sqlite3-5.4.0.tgz#ab7336ccc2e31bd88247016c675cfcb01df99787"
-  integrity sha512-nzm7lJ7l3jBmGUbtkL8cdOMhPkN6Pw2IM+b0V7iIKba+YKiLrjkIy7vVLsBIVnd7+lgzBzrHsXZxCaFTcmw5Ow==
-  dependencies:
-    "@types/integer" "*"
-
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
-"@types/dotenv@^8.2.0":
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/@types/dotenv/-/dotenv-8.2.0.tgz#5cd64710c3c98e82d9d15844375a33bf1b45d053"
-  integrity sha512-ylSC9GhfRH7m1EUXBXofhgx4lUWmFeQDINW5oLuS+gxWdfUeW4zJdeVTYVkexEW+e2VUvlZR2kGnGGipAWR7kw==
-  dependencies:
-    dotenv "*"
-
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
   integrity sha512-OCutwjDZ4aFS6PB1UZ988C4YgwlBHJd6wCeQqaLdmadZ/7e+w79+hbMUFC1QXDNCmdyoRfAFdm0RypzwR+Qpag==
-
-"@types/integer@*":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@types/integer/-/integer-1.0.0.tgz#f5b313876012fad0afeb5318f03cb871064eb33e"
-  integrity sha512-3viiRKLoSP2Qr78nMoQjkDc0fan4BgmpOyV1+1gKjE8wWXo3QQ78WItO6f9WuBf3qe3ymDYhM65oqHTOZ0rFxw==
 
 "@types/js-yaml@^3.12.1":
   version "3.12.1"
@@ -181,11 +162,6 @@ acorn-jsx@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.1.0.tgz#294adb71b57398b0680015f0a38c563ee1db5384"
   integrity sha512-tMUqwBWfLFbJbizRmEcWSLw6HnFzfdJs2sOJEOwwtVPMoH/0Ay+E703oZz78VSXZiiDcZrQ5XKjPIUQixhmgVw==
-
-acorn@^5.1.1:
-  version "5.7.3"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.3.tgz#67aa231bf8812974b85235a96771eb6bd07ea279"
-  integrity sha512-T/zvzYRfbVojPWahDsE5evJdHb3oJoQfFbsrKM7w5Zcs++Tr257tia3BmMP8XYVjp1S9RZXQMh7gao96BlqZOw==
 
 acorn@^7.1.0:
   version "7.1.0"
@@ -328,13 +304,6 @@ braces@~3.0.2:
   integrity sha512-b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==
   dependencies:
     fill-range "^7.0.1"
-
-brain.js@bdistin/brain.js#trainAsync-on-rnn:
-  version "1.6.1"
-  resolved "https://codeload.github.com/bdistin/brain.js/tar.gz/db1e88b87e7b1d0387ae47302dd3e0acd7d2e22d"
-  dependencies:
-    gpu.js "^1.10.4"
-    thaw.js "^2.0.0"
 
 callsites@^3.0.0:
   version "3.1.0"
@@ -663,7 +632,7 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
-dotenv@*, dotenv@^8.2.0:
+dotenv@^8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
   integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
@@ -1029,13 +998,6 @@ gonzales-pe@^4.2.3:
   integrity sha512-v0Ts/8IsSbh9n1OJRnSfa7Nlxi4AkXIsWB6vPept8FDbL4bXn3FNuxjYtO/nmBGu7GDkL9MFeGebeSu6l55EPQ==
   dependencies:
     minimist "1.1.x"
-
-gpu.js@^1.10.4:
-  version "1.10.4"
-  resolved "https://registry.yarnpkg.com/gpu.js/-/gpu.js-1.10.4.tgz#f0290dc08d40a9de7329b91f1523703cdd0a64c7"
-  integrity sha512-qh5O1LXwwkhGOpEicR9SnQB7xduUDY5rKGPWj9yOFLNI90bX+mReooGQjnL3iZ08btBOT0zQGu9wKA+gGy2BhQ==
-  dependencies:
-    acorn "^5.1.1"
 
 graceful-fs@^4.1.2:
   version "4.2.3"
@@ -2075,11 +2037,6 @@ text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
-
-thaw.js@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/thaw.js/-/thaw.js-2.0.0.tgz#452bc5d7ee2ce1b6f92037b05b506cbd656291d0"
-  integrity sha1-RSvF1+4s4bb5IDewW1BsvWVikdA=
 
 through@^2.3.6:
   version "2.3.8"
