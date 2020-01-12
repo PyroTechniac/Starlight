@@ -9,7 +9,7 @@ export default class extends FileSystemProvider {
 	}
 
 	public write(path: string, data: object): Promise<void> {
-		return outputJSONAtomic(path, data);
+		return outputJSONAtomic(path, data, { spaces: 4 });
 	}
 
 }
