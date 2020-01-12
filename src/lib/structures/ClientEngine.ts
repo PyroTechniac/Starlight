@@ -1,6 +1,7 @@
 import { Client } from 'discord.js';
 import { ContentFetchEngine, FetchApi } from './ContentFetchEngine';
 import { ClientCacheEngine } from '../util/cache/ClientCacheEngine';
+import { SchemaEngine } from './SchemaEngine';
 
 
 export class ClientEngine {
@@ -10,6 +11,8 @@ export class ClientEngine {
 	public network: ContentFetchEngine = new ContentFetchEngine(this);
 
 	public cache: ClientCacheEngine = new ClientCacheEngine(this);
+
+	public schemas: SchemaEngine = new SchemaEngine(this);
 
 	public constructor(client: Client) {
 		Object.defineProperty(this, 'client', { value: client });

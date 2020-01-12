@@ -118,3 +118,8 @@ export const enum MimeTypes {
 	ApplicationFormUrlEncoded = 'application/x-www-form-urlencoded',
 	TextPlain = 'text/plain'
 }
+
+export const enum Emojis {
+	SettingsMenuBack = '◀',
+	SettingsMenuStop = '⏹'
+}

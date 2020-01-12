@@ -11,6 +11,7 @@ import { FlagData } from './Interfaces';
 import { FSWatcher } from 'chokidar';
 import { AssetOptions } from '../structures/Asset';
 import { AssetStore } from '../structures/AssetStore';
+import { SchemaEngine } from '../structures/SchemaEngine';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -22,6 +23,7 @@ declare module 'discord.js' {
 		fsWatcher: FSWatcher | null;
 		assets: AssetStore;
 		readonly cache: ClientCacheEngine;
+		readonly schemas: SchemaEngine;
 		readonly userCache: UserCache;
 		readonly cdn: FetchApi;
 	}

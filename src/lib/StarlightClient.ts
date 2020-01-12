@@ -29,6 +29,7 @@ import { Resolver } from './structures/Resolver';
 import { FSWatcher } from 'chokidar';
 import { join } from 'path';
 import { AssetStore } from './structures/AssetStore';
+import { SchemaEngine } from './structures/SchemaEngine';
 
 config();
 
@@ -59,6 +60,10 @@ export class StarlightClient extends Klasa.Client {
 
 	public get cdn(): FetchApi {
 		return this.engine.cdn;
+	}
+
+	public get schemas(): SchemaEngine {
+		return this.engine.schemas;
 	}
 
 	public get userCache(): UserCache {
