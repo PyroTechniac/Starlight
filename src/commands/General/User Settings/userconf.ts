@@ -1,9 +1,9 @@
 import { Command, CommandOptions, KlasaMessage, SettingsFolder } from 'klasa';
-import { admin, ApplyOptions } from '../../lib/util/Decorators';
+import { admin, ApplyOptions } from '../../../lib/util/Decorators';
+import { Databases } from '../../../lib/types/Enums';
 import { toTitleCase } from '@klasa/utils';
-import { codeblock } from '../../lib/util/Markdown';
-import { cast } from '../../lib/util/Utils';
-import { Databases } from '../../lib/types/Enums';
+import { codeblock } from '../../../lib/util/Markdown';
+import { cast } from '../../../lib/util/Utils';
 
 @ApplyOptions<CommandOptions>({
 	runIn: ['text'],
@@ -17,21 +17,21 @@ export default class extends Command {
 
 	@admin()
 	public show(message: KlasaMessage, [key]: [string]): Promise<KlasaMessage> {
-		const schemaOrEntry = this.client.schemas.get(Databases.Guilds, key);
+		const schemaOrEntry = this.client.schemas.get(Databases.Users, key);
 		if (typeof schemaOrEntry === 'undefined') throw message.language.get('COMMAND_CONF_GET_NOEXT', key);
 
-		const value = key ? message.guild!.settings.get(key) : message.guild!.settings;
+		const value = key ? message.author.settings.get(key) : message.author.settings;
 		if (this.client.schemas.isSchemaEntry(schemaOrEntry)) {
-			return message.sendLocale('COMMAND_CONF_GET', [key, this.client.schemas.displayEntry(schemaOrEntry, value, message.guild)]);
+			return message.sendLocale('COMMAND_CONF_GET', [key, this.client.schemas.displayEntry(schemaOrEntry, value)]);
 		}
 
 		return message.sendLocale('COMMAND_CONF_SERVER', [
 			key ? `: ${key.split('.').map(toTitleCase).join('/')}` : '',
-			codeblock('asciidoc')`${this.client.schemas.displayFolder(Databases.Guilds, cast<SettingsFolder>(value))}`
+			codeblock('asciidoc')`${this.client.schemas.displayFolder(Databases.Users, cast<SettingsFolder>(value))}`
 		]);
 	}
 
-	public async set(message: KlasaMessage, [key, valueToSet]: [string, unknown]): Promise<KlasaMessage> {
+	public set(message: KlasaMessage, [key, valueToSet]: [string, unknown]): Promise<KlasaMessage> {
 		return this.editSettings(message, key, valueToSet, 'add');
 	}
 
@@ -42,10 +42,10 @@ export default class extends Command {
 	@admin()
 	public async reset(message: KlasaMessage, [key]: [string]): Promise<KlasaMessage> {
 		try {
-			const [update] = await message.guild!.settings.reset(key);
-			return message.sendLocale('COMMAND_CONF_RESET', [key, this.client.schemas.displayEntry(update.entry, update.next, message.guild)]);
-		} catch (err) {
-			throw String(err);
+			const [update] = await message.author.settings.reset(key);
+			return message.sendLocale('COMMAND_CONF_RESET', [key, this.client.schemas.displayEntry(update.entry, update.next)]);
+		} catch (error) {
+			throw String(error);
 		}
 	}
 
@@ -66,8 +66,8 @@ export default class extends Command {
 	@admin()
 	private async editSettings(message: KlasaMessage, key: string, value: unknown, arrayAction: 'add' | 'remove'): Promise<KlasaMessage> {
 		try {
-			const [update] = await message.guild!.settings.update(key, value, { onlyConfigurable: true, arrayAction });
-			return message.sendLocale('COMMAND_CONF_UPDATED', [key, this.client.schemas.displayEntry(update.entry, update.next, message.guild)]);
+			const [update] = await message.author.settings.update(key, value, { onlyConfigurable: true, arrayAction });
+			return message.sendLocale('COMMAND_CONF_UPDATED', [key, this.client.schemas.displayEntry(update.entry, update.next)]);
 		} catch (error) {
 			throw String(error);
 		}

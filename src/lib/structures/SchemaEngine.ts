@@ -4,6 +4,7 @@ import Collection from '@discordjs/collection';
 import { Guild } from 'discord.js';
 import { cast } from '../util/Utils';
 import { toTitleCase } from '@klasa/utils';
+import { Databases } from '../types/Enums';
 
 export class SchemaEngine extends Engine {
 
@@ -15,7 +16,11 @@ export class SchemaEngine extends Engine {
 		}
 	}
 
-	public displaySettings(prefix: string, settings: SettingsFolder): string {
+	public get(prefix: Databases, path: string): Schema | SchemaEntry | undefined {
+		return this.configurable.get(`${prefix}/${path}`);
+	}
+
+	public displayFolder(prefix: string, settings: SettingsFolder): string {
 		const array: string[] = [];
 		const folders: string[] = [];
 		const sections = new Map<string, string[]>();
@@ -47,7 +52,7 @@ export class SchemaEngine extends Engine {
 		return array.join('\n');
 	}
 
-	public displayEntry(entry: SchemaEntry, value: unknown, guild: Guild | null): string {
+	public displayEntry(entry: SchemaEntry, value: unknown, guild: Guild | null = null): string {
 		return entry.array
 			? this.displayEntryMultiple(entry, cast<readonly unknown[]>(value), guild)
 			: this.displayEntrySingle(entry, value, guild);
