@@ -27,6 +27,8 @@ import { MemberGateway } from './structures/MemberGateway';
 import { FetchApi } from './structures/ContentFetchEngine';
 import { Resolver } from './structures/Resolver';
 import { FSWatcher } from 'chokidar';
+import { join } from 'path';
+import { AssetStore } from './structures/AssetStore';
 
 config();
 
@@ -42,6 +44,10 @@ export class StarlightClient extends Klasa.Client {
 
 	public constructor(options: Klasa.KlasaClientOptions = {}) {
 		super(mergeDefault(STARLIGHT_OPTIONS, options));
+
+		this.assets = new AssetStore(this, join(__dirname, '..', '/'));
+
+		this.registerStore(this.assets);
 
 		this._registerGateways();
 
@@ -59,13 +65,14 @@ export class StarlightClient extends Klasa.Client {
 		return this.cache.users;
 	}
 
-	private _registerGateways(): void {
+	private _registerGateways(): this {
 		this.gateways
 			.register(new ChannelGateway(this, Databases.Texts, { schema: TextSchema }))
 			.register(new ChannelGateway(this, Databases.Voices, { schema: VoiceSchema }))
 			.register(new ChannelGateway(this, Databases.Categories, { schema: CategorySchema }))
 			.register(new MemberGateway(this, Databases.Members, { schema: MemberSchema }));
 
+		return this;
 	}
 
 }

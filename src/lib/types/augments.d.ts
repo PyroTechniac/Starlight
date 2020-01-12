@@ -6,9 +6,11 @@ import { MemberTags } from '../util/cache/MemberTags';
 import { FetchApi } from '../structures/ContentFetchEngine';
 import { ClientEngine } from '../structures/ClientEngine';
 import { Resolver } from '../structures/Resolver';
-import { Settings, SettingsUpdateResults, SettingsFolderUpdateOptions } from 'klasa';
+import { Settings, SettingsFolderUpdateOptions, SettingsUpdateResults } from 'klasa';
 import { FlagData } from './Interfaces';
 import { FSWatcher } from 'chokidar';
+import { AssetOptions } from '../structures/Asset';
+import { AssetStore } from '../structures/AssetStore';
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -18,6 +20,7 @@ declare module 'discord.js' {
 		resolver: Resolver;
 		engine: ClientEngine;
 		fsWatcher: FSWatcher | null;
+		assets: AssetStore;
 		readonly cache: ClientCacheEngine;
 		readonly userCache: UserCache;
 		readonly cdn: FetchApi;
@@ -81,6 +84,11 @@ declare module 'klasa' {
 		get(key: string): SettingsFolder | unknown | readonly unknown[];
 
 		increase(key: string, value: number, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
+
 		decrease(key: string, value: number, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
+	}
+
+	interface PieceDefaults {
+		assets?: AssetOptions;
 	}
 }
