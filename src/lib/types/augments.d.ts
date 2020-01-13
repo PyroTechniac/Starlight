@@ -54,6 +54,8 @@ declare module 'discord.js' {
 		readonly text: TextChannel | null;
 		readonly dm: DMChannel | null;
 
+		readonly color: number;
+
 		nuke(time?: number): Promise<Message>;
 
 		prompt(content: string, time?: number): Promise<Message>;

@@ -5,7 +5,7 @@ import { GuildSettings } from '../../../lib/settings/GuildSettings';
 import { UserRichDisplay } from '../../../lib/structures/UserRichDisplay';
 import { BaseColors } from '../../../lib/types/Enums';
 import { ApplyOptions } from '../../../lib/util/Decorators';
-import { getColor, noop } from '../../../lib/util/Utils';
+import { noop } from '../../../lib/util/Utils';
 import { StarlightCommand } from '../../../lib/structures/StarlightCommand';
 
 const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.ADD_REACTIONS]).freeze();
@@ -107,11 +107,13 @@ export default class extends StarlightCommand {
 		const commandsByCategory = await this._fetchCommands(message);
 		const prefix = message.guildSettings.get(GuildSettings.Prefix);
 
-		const display = new UserRichDisplay(new MessageEmbed({ color: getColor(message) }));
+		const { color } = message;
+
+		const display = new UserRichDisplay(new MessageEmbed({ color }));
 
 		for (const [category, commands] of commandsByCategory) {
 			display.addPage(new MessageEmbed()
-				.setColor(getColor(message))
+				.setColor(color)
 				.setTitle(`${category} Commands`)
 				.setDescription(commands.map(this.formatCommand.bind(this, message, prefix, true)).join('\n')));
 		}

@@ -1,4 +1,6 @@
 import { Schema } from 'klasa';
+import { MemberSettings } from '../settings/MemberSettings';
 
 export default new Schema()
-	.add('commandUses', 'Integer', { 'default': 0, 'configurable': false });
+	.add(MemberSettings.CommandUses, 'Integer', { 'default': 0, 'configurable': false })
+	.add(MemberSettings.Points, 'Integer', { 'default': 0, 'configurable': false });

@@ -5,7 +5,6 @@ import {
 	Client as DJSClient,
 	DMChannel,
 	GuildChannel,
-	Message,
 	NewsChannel,
 	StoreChannel,
 	TextChannel,
@@ -13,8 +12,7 @@ import {
 } from 'discord.js';
 import { Schema, SchemaEntry, SchemaFolder } from 'klasa';
 import { join } from 'path';
-import { UserSettings } from '../settings/UserSettings';
-import { BaseColors, Events } from '../types/Enums';
+import { Events } from '../types/Enums';
 import { ReferredPromise } from '../types/Interfaces';
 import { rootFolder } from './Constants';
 
@@ -44,10 +42,6 @@ export function splitText(str: string, length: number, char = ' '): string {
 	const x = str.substring(0, length).lastIndexOf(char);
 	const pos = x === -1 ? length : x;
 	return str.substring(0, pos);
-}
-
-export function getColor(message: Message): number {
-	return message.author.settings.get(UserSettings.Color) || (message.member && message.member.displayColor) || BaseColors.Primary;
 }
 
 export function cutText(str: string, length: number): string {

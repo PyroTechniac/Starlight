@@ -1,4 +1,4 @@
-import { Piece, PieceOptions } from 'klasa';
+import { Piece, PieceJSON, PieceOptions } from 'klasa';
 import { readFile } from 'fs-nextra';
 import { MessageAttachment } from 'discord.js';
 import { assetsFolder } from '../util/Utils';
@@ -20,6 +20,14 @@ export abstract class Asset extends Piece {
 		this.raw = await readFile(this.filePath);
 	}
 
+	public toJSON(): PieceAssetJSON {
+		return {
+			...super.toJSON(),
+			fileName: this.fileName,
+			filePath: this.filePath
+		};
+	}
+
 	protected static makePath(...path: string[]): string {
 		return assetsFolder(...path);
 	}
@@ -27,5 +35,9 @@ export abstract class Asset extends Piece {
 }
 
 export interface AssetOptions extends PieceOptions {
-	fileName?: string;
+}
+
+export interface PieceAssetJSON extends PieceJSON {
+	fileName: string;
+	filePath: string;
 }
