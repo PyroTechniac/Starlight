@@ -2,7 +2,7 @@ import Collection, { CollectionConstructor } from '@discordjs/collection';
 import { KlasaGuild } from 'klasa';
 import { Client, GuildMember } from 'discord.js';
 import { APIErrors } from '../../types/Enums';
-import { cast } from '../Utils';
+import { cast, handleDAPIError } from '../Utils';
 
 export class MemberTags extends Collection<string, MemberTag> {
 
@@ -45,13 +45,9 @@ export class MemberTags extends Collection<string, MemberTag> {
 		const existing = this.get(id);
 		if (typeof existing !== 'undefined') return existing;
 
-		try {
-			const member = await this.guild.members.fetch(id);
-			return this.create(member);
-		} catch (err) {
-			if (err.code === APIErrors.UnknownMember) return null;
-			throw err;
-		}
+
+		const member = await handleDAPIError(this.guild.members.fetch(id), APIErrors.UnknownMember);
+		return member ? this.create(member) : null;
 	}
 
 	public *usernames(): IterableIterator<[string, string]> {
@@ -71,7 +67,7 @@ export class MemberTags extends Collection<string, MemberTag> {
 	}
 
 	public static get [Symbol.species](): CollectionConstructor {
-		return Collection as unknown as CollectionConstructor;
+		return cast<CollectionConstructor>(Collection);
 	}
 
 }

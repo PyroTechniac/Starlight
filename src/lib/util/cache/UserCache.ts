@@ -5,6 +5,8 @@ import { Client, User } from 'discord.js';
 import { APIUserData } from '../../types/Interfaces';
 import { Engine } from '../Engine';
 import { ClientEngine } from '../../structures/ClientEngine';
+import { cast, handleDAPIError } from '../Utils';
+import { APIErrors } from '../../types/Enums';
 
 export class UserCache extends Collection<string, UserData> implements Engine {
 
@@ -23,7 +25,7 @@ export class UserCache extends Collection<string, UserData> implements Engine {
 	public resolve(usernameOrTag: string, id: true): string | null;
 	public resolve(usernameOrTag: string, id?: false): UserData | null;
 	public resolve(usernameOrTag: string, id = false): UserData | string | null {
-		const isTag = UserCache.isTag(usernameOrTag);
+		const isTag = this.isTag(usernameOrTag);
 		for (const [key, value] of super.entries()) {
 			if (usernameOrTag === `${value[0]}${isTag ? `#${value[1]}` : ''}`) return id ? key : value;
 		}
@@ -37,12 +39,13 @@ export class UserCache extends Collection<string, UserData> implements Engine {
 		return created;
 	}
 
-	public async fetch(id: string): Promise<UserData> {
+	public async fetch(id: string): Promise<UserData | null> {
 		const existing = super.get(id);
 		if (typeof existing !== 'undefined') return existing;
 
-		const user = await this.client.users.fetch(id);
-		return this.create(user);
+		// const user = await this.client.users.fetch(id);
+		const user = await handleDAPIError(this.client.users.fetch(id), APIErrors.UnknownUser);
+		return user ? this.create(user) : null;
 	}
 
 	public *usernames(): IterableIterator<string> {
@@ -53,13 +56,13 @@ export class UserCache extends Collection<string, UserData> implements Engine {
 		for (const [username, discrim] of super.values()) yield `${username}#${discrim}`;
 	}
 
-	public static get [Symbol.species](): CollectionConstructor {
-		return Collection as unknown as CollectionConstructor;
-	}
-
-	private static isTag(tag: string): boolean {
+	private isTag(tag: string): boolean {
 		const pieces = tag.split('#', 2);
 		return (pieces.length === 2 && pieces[1].length === 4);
+	}
+
+	public static get [Symbol.species](): CollectionConstructor {
+		return cast<CollectionConstructor>(Collection);
 	}
 
 }

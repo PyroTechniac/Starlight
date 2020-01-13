@@ -2,7 +2,7 @@ import { deepClone, isObject, isThenable } from '@klasa/utils';
 import {
 	CategoryChannel,
 	Channel,
-	Client as DJSClient,
+	Client as DJSClient, DiscordAPIError,
 	DMChannel,
 	GuildChannel,
 	NewsChannel,
@@ -12,7 +12,7 @@ import {
 } from 'discord.js';
 import { Schema, SchemaEntry, SchemaFolder } from 'klasa';
 import { join } from 'path';
-import { Events } from '../types/Enums';
+import { APIErrors, Events } from '../types/Enums';
 import { ReferredPromise } from '../types/Interfaces';
 import { rootFolder } from './Constants';
 
@@ -23,6 +23,15 @@ export function isSchemaFolder(input: Schema | SchemaFolder | SchemaEntry): inpu
 // Synonymous for `throw` but allows throwing in one-line arrow functions and ternary statements.
 export function toss(exception: any): never {
 	throw exception;
+}
+
+export async function handleDAPIError<V>(promise: Promise<V>, ...errors: APIErrors[]): Promise<V | null> {
+	try {
+		return await promise;
+	} catch (err) {
+		if (err instanceof DiscordAPIError && errors.includes(err.code)) return null;
+		throw err;
+	}
 }
 
 export function wrapPromise<V, A extends readonly unknown[] = readonly unknown[]>(fn: (...A) => V, ...args: A): Promise<V> {
