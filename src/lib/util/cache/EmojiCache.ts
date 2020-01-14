@@ -1,18 +1,18 @@
 import Collection, { CollectionConstructor } from '@discordjs/collection';
-import { CacheHandler, EmojiData } from '../../types/Interfaces';
+import { EmojiData, GuildCacheHandler } from '../../types/Interfaces';
 import { Guild, GuildEmoji } from 'discord.js';
 import { RequestHandler } from '../../structures/RequestHandler';
 import { cast, handleDAPIError } from '../Utils';
 import { APIErrors } from '../../types/Enums';
 
-export class EmojiCache extends Collection<string, EmojiData> implements CacheHandler<GuildEmoji> {
+export class EmojiCache extends Collection<string, EmojiData> implements GuildCacheHandler<GuildEmoji> {
 
 	public handler: RequestHandler<string, GuildEmoji> = new RequestHandler<string, GuildEmoji>(
 		this.request.bind(this),
 		this.requestMany.bind(this)
 	);
 
-	private kPromise: Promise<void> | null = null;
+	public kPromise: Promise<void> | null = null;
 
 	public constructor(public readonly guild: Guild) {
 		super();
@@ -69,7 +69,7 @@ export class EmojiCache extends Collection<string, EmojiData> implements CacheHa
 		return Promise.all(ids.map((id): Promise<GuildEmoji> => this.guild.emojis.fetch(id)));
 	}
 
-	private async requestAll(): Promise<void> {
+	public async requestAll(): Promise<void> {
 		try {
 			const emojis = await this.guild.emojis.fetch();
 			for (const emoji of emojis.values()) this.create(emoji);

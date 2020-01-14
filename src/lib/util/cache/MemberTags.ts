@@ -4,16 +4,16 @@ import { Client, GuildMember } from 'discord.js';
 import { APIErrors } from '../../types/Enums';
 import { cast, handleDAPIError } from '../Utils';
 import { RequestHandler } from '../../structures/RequestHandler';
-import { CacheHandler } from '../../types/Interfaces';
+import { GuildCacheHandler } from '../../types/Interfaces';
 
-export class MemberTags extends Collection<string, MemberTag> implements CacheHandler<GuildMember> {
+export class MemberTags extends Collection<string, MemberTag> implements GuildCacheHandler<GuildMember> {
 
 	public handler: RequestHandler<string, GuildMember> = new RequestHandler<string, GuildMember>(
 		this.request.bind(this),
 		this.requestMany.bind(this)
 	);
 
-	private kPromise: Promise<void> | null = null;
+	public kPromise: Promise<void> | null = null;
 
 	public constructor(public readonly guild: KlasaGuild) {
 		super();
@@ -78,7 +78,7 @@ export class MemberTags extends Collection<string, MemberTag> implements CacheHa
 		return Promise.all(ids.map((id): Promise<GuildMember> => this.guild.members.fetch(id)));
 	}
 
-	private async requestAll(): Promise<void> {
+	public async requestAll(): Promise<void> {
 		try {
 			const members = await this.guild.members.fetch();
 			for (const member of members.values()) this.create(member);

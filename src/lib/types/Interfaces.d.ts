@@ -1,4 +1,5 @@
 import { IdKeyed, RequestHandler } from '../structures/RequestHandler';
+import { Guild } from 'discord.js';
 
 export interface RateLimitInfo {
 	timeout: number;
@@ -154,6 +155,12 @@ export interface CacheHandler<V extends IdKeyed<string>> {
 	request(id: string): Promise<V>;
 
 	requestMany(ids: readonly string[]): Promise<V[]>;
+}
+
+export interface GuildCacheHandler<V extends IdKeyed<string>> extends CacheHandler<V> {
+	readonly guild: Guild;
+	kPromise: Promise<void> | null;
+	requestAll(): Promise<void>;
 }
 
 export interface UserData {

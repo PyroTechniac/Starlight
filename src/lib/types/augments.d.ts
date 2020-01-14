@@ -12,6 +12,8 @@ import { FSWatcher } from 'chokidar';
 import { AssetOptions } from '../structures/Asset';
 import { AssetStore } from '../structures/AssetStore';
 import { SchemaEngine } from '../structures/SchemaEngine';
+import { EmojiCache } from '../util/cache/EmojiCache';
+
 
 // This file is for augments to other modules, such as d.js or klasa.
 
@@ -30,6 +32,7 @@ declare module 'discord.js' {
 
 	interface Guild {
 		readonly memberTags: MemberTags;
+		readonly emojiCache: EmojiCache;
 	}
 
 	interface GuildChannel {
