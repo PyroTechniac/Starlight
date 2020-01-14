@@ -1,17 +1,16 @@
 import Collection, { CollectionConstructor } from '@discordjs/collection';
-import { UserData } from '../../types/Types';
+import { APIUserData, CacheHandler, UserData } from '../../types/Interfaces';
 import { ClientCacheEngine } from './ClientCacheEngine';
 import { Client, User } from 'discord.js';
-import { APIUserData, Cacher } from '../../types/Interfaces';
 import { Engine } from '../Engine';
 import { ClientEngine } from '../../structures/ClientEngine';
 import { cast, handleDAPIError } from '../Utils';
 import { APIErrors } from '../../types/Enums';
 import { RequestHandler } from '../../structures/RequestHandler';
 
-export class UserCache extends Collection<string, UserData> implements Engine, Cacher<User> {
+export class UserCache extends Collection<string, UserData> implements Engine, CacheHandler<User> {
 
-	private handler: RequestHandler<string, APIUserData> = new RequestHandler<string, APIUserData>(
+	public handler: RequestHandler<string, User> = new RequestHandler<string, User>(
 		this.request.bind(this),
 		this.requestMany.bind(this)
 	);
@@ -40,7 +39,11 @@ export class UserCache extends Collection<string, UserData> implements Engine, C
 	}
 
 	public create(data: User | APIUserData): UserData {
-		const created: UserData = [data.username, data.discriminator, data.avatar];
+		const created: UserData = {
+			avatar: data.avatar,
+			username: data.username,
+			discriminator: data.discriminator
+		} as const;
 		super.set(data.id, created);
 		return created;
 	}
@@ -57,11 +60,11 @@ export class UserCache extends Collection<string, UserData> implements Engine, C
 	}
 
 	public *usernames(): IterableIterator<string> {
-		for (const [username] of super.values()) yield username;
+		for (const { username } of super.values()) yield username;
 	}
 
 	public *tags(): IterableIterator<string> {
-		for (const [username, discrim] of super.values()) yield `${username}#${discrim}`;
+		for (const { username, discriminator: discrim } of super.values()) yield `${username}#${discrim}`;
 	}
 
 	public request(id: string): Promise<User> {

@@ -32,7 +32,7 @@
         "canvas": "^2.6.0",
         "canvas-constructor": "^3.1.0",
         "chokidar": "^3.3.1",
-        "discord.js": "discordjs/discord.js#75fe1faf2f95775ae29883bfcf6f27651a1b53b2",
+        "discord.js": "discordjs/discord.js#7a0e811ac8f36d74ba93d39fcadb94d2ffd9f521",
         "dotenv": "^8.2.0",
         "fs-nextra": "^0.4.5",
         "js-yaml": "^3.13.1",

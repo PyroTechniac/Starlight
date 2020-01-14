@@ -1,3 +1,5 @@
+import { IdKeyed, RequestHandler } from '../structures/RequestHandler';
+
 export interface RateLimitInfo {
 	timeout: number;
 	limit: number;
@@ -146,8 +148,22 @@ export interface FlagData {
 	aliases?: string[];
 }
 
-export interface Cacher<V> {
+export interface CacheHandler<V extends IdKeyed<string>> {
+	handler: RequestHandler<string, V>;
+
 	request(id: string): Promise<V>;
 
 	requestMany(ids: readonly string[]): Promise<V[]>;
+}
+
+export interface UserData {
+	readonly avatar: string | null;
+	readonly username: string;
+	readonly discriminator: string;
+}
+
+export interface EmojiData {
+	readonly animated: boolean;
+	readonly id: string;
+	readonly name: string;
 }

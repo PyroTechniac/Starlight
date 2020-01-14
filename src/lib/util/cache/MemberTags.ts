@@ -4,22 +4,19 @@ import { Client, GuildMember } from 'discord.js';
 import { APIErrors } from '../../types/Enums';
 import { cast, handleDAPIError } from '../Utils';
 import { RequestHandler } from '../../structures/RequestHandler';
-import { Cacher } from '../../types/Interfaces';
+import { CacheHandler } from '../../types/Interfaces';
 
-export class MemberTags extends Collection<string, MemberTag> implements Cacher<GuildMember> {
+export class MemberTags extends Collection<string, MemberTag> implements CacheHandler<GuildMember> {
 
-	public readonly guild: KlasaGuild;
-
-	private kPromise: Promise<void> | null = null;
-
-	private handler: RequestHandler<string, GuildMember> = new RequestHandler(
+	public handler: RequestHandler<string, GuildMember> = new RequestHandler<string, GuildMember>(
 		this.request.bind(this),
 		this.requestMany.bind(this)
 	);
 
-	public constructor(guild: KlasaGuild) {
+	private kPromise: Promise<void> | null = null;
+
+	public constructor(public readonly guild: KlasaGuild) {
 		super();
-		this.guild = guild;
 	}
 
 	public get client(): Client {
@@ -65,7 +62,7 @@ export class MemberTags extends Collection<string, MemberTag> implements Cacher<
 		const { userCache } = this.client;
 		for (const key of this.keys()) {
 			const userTag = userCache.get(key);
-			if (typeof userTag !== 'undefined') yield [key, userTag[0]];
+			if (typeof userTag !== 'undefined') yield [key, userTag.username];
 		}
 	}
 
