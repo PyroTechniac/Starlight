@@ -3,10 +3,19 @@ import { KlasaGuild } from 'klasa';
 import { Client, GuildMember } from 'discord.js';
 import { APIErrors } from '../../types/Enums';
 import { cast, handleDAPIError } from '../Utils';
+import { RequestHandler } from '../../structures/RequestHandler';
+import { Cacher } from '../../types/Interfaces';
 
-export class MemberTags extends Collection<string, MemberTag> {
+export class MemberTags extends Collection<string, MemberTag> implements Cacher<GuildMember> {
 
 	public readonly guild: KlasaGuild;
+
+	private kPromise: Promise<void> | null = null;
+
+	private handler: RequestHandler<string, GuildMember> = new RequestHandler(
+		this.request.bind(this),
+		this.requestMany.bind(this)
+	);
 
 	public constructor(guild: KlasaGuild) {
 		super();
@@ -37,16 +46,18 @@ export class MemberTags extends Collection<string, MemberTag> {
 	public async fetch(): Promise<this>;
 	public async fetch(id?: string): Promise<MemberTag | null | this> {
 		if (typeof id === 'undefined') {
-			const members = await this.guild.members.fetch();
-			for (const member of members.values()) this.create(member);
+			if (this.kPromise === null) {
+				this.kPromise = this.requestAll();
+			}
+
+			await this.kPromise;
 			return this;
 		}
 
 		const existing = this.get(id);
 		if (typeof existing !== 'undefined') return existing;
 
-
-		const member = await handleDAPIError(this.guild.members.fetch(id), APIErrors.UnknownMember);
+		const member = await handleDAPIError(this.handler.push(id), APIErrors.UnknownMember);
 		return member ? this.create(member) : null;
 	}
 
@@ -60,6 +71,23 @@ export class MemberTags extends Collection<string, MemberTag> {
 
 	public mapUsernames(): Collection<string, string> {
 		return new Collection([...this.usernames()]);
+	}
+
+	public request(id: string): Promise<GuildMember> {
+		return this.guild.members.fetch(id);
+	}
+
+	public requestMany(ids: readonly string[]): Promise<GuildMember[]> {
+		return Promise.all(ids.map((id): Promise<GuildMember> => this.guild.members.fetch(id)));
+	}
+
+	private async requestAll(): Promise<void> {
+		try {
+			const members = await this.guild.members.fetch();
+			for (const member of members.values()) this.create(member);
+		} finally {
+			this.kPromise = null;
+		}
 	}
 
 	private getRawRoles(member: GuildMember): string[] {

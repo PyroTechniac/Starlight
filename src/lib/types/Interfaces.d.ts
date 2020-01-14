@@ -145,3 +145,9 @@ export interface FlagData {
 	type: string | string[];
 	aliases?: string[];
 }
+
+export interface Cacher<V> {
+	request(id: string): Promise<V>;
+
+	requestMany(ids: readonly string[]): Promise<V[]>;
+}

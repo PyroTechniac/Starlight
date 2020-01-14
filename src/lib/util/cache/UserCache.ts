@@ -2,13 +2,19 @@ import Collection, { CollectionConstructor } from '@discordjs/collection';
 import { UserData } from '../../types/Types';
 import { ClientCacheEngine } from './ClientCacheEngine';
 import { Client, User } from 'discord.js';
-import { APIUserData } from '../../types/Interfaces';
+import { APIUserData, Cacher } from '../../types/Interfaces';
 import { Engine } from '../Engine';
 import { ClientEngine } from '../../structures/ClientEngine';
 import { cast, handleDAPIError } from '../Utils';
 import { APIErrors } from '../../types/Enums';
+import { RequestHandler } from '../../structures/RequestHandler';
 
-export class UserCache extends Collection<string, UserData> implements Engine {
+export class UserCache extends Collection<string, UserData> implements Engine, Cacher<User> {
+
+	private handler: RequestHandler<string, APIUserData> = new RequestHandler<string, APIUserData>(
+		this.request.bind(this),
+		this.requestMany.bind(this)
+	);
 
 	public constructor(public readonly cache: ClientCacheEngine) {
 		super();
@@ -43,8 +49,10 @@ export class UserCache extends Collection<string, UserData> implements Engine {
 		const existing = super.get(id);
 		if (typeof existing !== 'undefined') return existing;
 
-		// const user = await this.client.users.fetch(id);
-		const user = await handleDAPIError(this.client.users.fetch(id), APIErrors.UnknownUser);
+		// // const user = await this.client.users.fetch(id);
+		// const user = await handleDAPIError(this.client.users.fetch(id), APIErrors.UnknownUser);
+		// return user ? this.create(user) : null;
+		const user = await handleDAPIError(this.handler.push(id), APIErrors.UnknownUser);
 		return user ? this.create(user) : null;
 	}
 
@@ -54,6 +62,14 @@ export class UserCache extends Collection<string, UserData> implements Engine {
 
 	public *tags(): IterableIterator<string> {
 		for (const [username, discrim] of super.values()) yield `${username}#${discrim}`;
+	}
+
+	public request(id: string): Promise<User> {
+		return this.client.users.fetch(id);
+	}
+
+	public requestMany(ids: readonly string[]): Promise<User[]> {
+		return Promise.all(ids.map((id): Promise<User> => this.client.users.fetch(id)));
 	}
 
 	private isTag(tag: string): boolean {
