@@ -1,4 +1,4 @@
-import { FileSystemProvider } from '../lib/util/BaseProvider';
+import { FileSystemProvider } from '../lib/util/FileSystemProvider';
 import { outputJSONAtomic, readJSON } from 'fs-nextra';
 import { KeyedObject } from 'klasa';
 

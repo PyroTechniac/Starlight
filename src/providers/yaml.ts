@@ -1,4 +1,4 @@
-import { FileSystemProvider } from '../lib/util/BaseProvider';
+import { FileSystemProvider } from '../lib/util/FileSystemProvider';
 import { outputYAMLAtomic, readYAML } from '../lib/util/FS';
 import { KeyedObject } from 'klasa';
 

@@ -1,4 +1,4 @@
-import { FileSystemProvider } from '../lib/util/BaseProvider';
+import { FileSystemProvider } from '../lib/util/FileSystemProvider';
 import { KeyedObject } from 'klasa';
 import { outputBTFAtomic, readBTF } from '../lib/util/FS';
 
