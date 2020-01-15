@@ -65,7 +65,7 @@ export class SchemaEngine extends Engine {
 	}
 
 	public displayEntrySingle(entry: SchemaEntry, value: unknown, guild: Guild | null): string {
-		return entry.serializer!.stringify(value, guild) || 'Not set';
+		return entry.serializer.stringify(value, guild) || 'Not set';
 	}
 
 	public init(prefix: string, schema: Schema): boolean {

@@ -1,6 +1,6 @@
 import { Provider } from './BaseProvider';
 import { FSProvider } from '../types/Interfaces';
-import { KeyedObject, ProviderOptions, ProviderStore, Timestamp } from 'klasa';
+import { KeyedObject, ProviderOptions, ProviderStore } from 'klasa';
 import { resolve } from 'path';
 import { cast, mergeDefault } from './Utils';
 import * as fs from 'fs-nextra';
