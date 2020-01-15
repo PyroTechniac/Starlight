@@ -107,5 +107,8 @@ export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 		assets: {
 			enabled: true
 		}
-	}
+	},
+	messageCacheLifetime: 900,
+	messageCacheMaxSize: 300,
+	messageSweepInterval: 180
 };
