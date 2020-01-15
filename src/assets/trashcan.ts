@@ -2,11 +2,11 @@ import { Asset } from '../lib/structures/Asset';
 
 export default class extends Asset {
 
-	public get fileName(): string {
+	public get filename(): string {
 		return 'trash-can';
 	}
 
-	public get filePath(): string {
+	public get filepath(): string {
 		return Asset.makePath('icons', 'trash-can.png');
 	}
 

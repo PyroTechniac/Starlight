@@ -7,24 +7,24 @@ export abstract class Asset extends Piece {
 
 	private raw: Buffer | null = null;
 
-	public abstract get filePath(): string;
+	public abstract get filepath(): string;
 
-	public abstract get fileName(): string;
+	public abstract get filename(): string;
 
 	public get attachment(): MessageAttachment {
 		if (this.raw === null) throw new Error('Cannot access file when asset isn\'t loaded');
-		return new MessageAttachment(this.raw, this.fileName);
+		return new MessageAttachment(this.raw, this.filename);
 	}
 
 	public async init(): Promise<void> {
-		this.raw = await readFile(this.filePath);
+		this.raw = await readFile(this.filepath);
 	}
 
 	public toJSON(): PieceAssetJSON {
 		return {
 			...super.toJSON(),
-			fileName: this.fileName,
-			filePath: this.filePath
+			filename: this.filename,
+			filepath: this.filepath
 		};
 	}
 
@@ -38,6 +38,6 @@ export interface AssetOptions extends PieceOptions {
 }
 
 export interface PieceAssetJSON extends PieceJSON {
-	fileName: string;
-	filePath: string;
+	filename: string;
+	filepath: string;
 }
