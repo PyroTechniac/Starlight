@@ -28,9 +28,9 @@
   resolved "https://registry.yarnpkg.com/@discordjs/collection/-/collection-0.1.3.tgz#af9b1c22ccb2ee5c0cad1e1bd2bc3d82a817b05f"
   integrity sha512-4ek19SmNcPI92942RkuBrZrBK8hg7nG+ae/skkNNDeOaUG+XvxTPkv/jPZVgXwVPDkU5EFsewsI+0n4dTwFvgA==
 
-"@iarna/toml@iarna/iarna-toml":
+"@iarna/toml@github:pyrotechniac/iarna-toml#latest":
   version "2.2.3"
-  resolved "https://codeload.github.com/iarna/iarna-toml/tar.gz/8a36427d83bd920f5b6b24db2564f59a88eb1696"
+  resolved "https://codeload.github.com/pyrotechniac/iarna-toml/tar.gz/8a36427d83bd920f5b6b24db2564f59a88eb1696"
 
 "@klasa/querybuilder@^0.0.1":
   version "0.0.1"
@@ -92,9 +92,9 @@
     "@types/node" "*"
 
 "@types/node@*", "@types/node@^13.1.2":
-  version "13.1.6"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.1.6.tgz#076028d0b0400be8105b89a0a55550c86684ffec"
-  integrity sha512-Jg1F+bmxcpENHP23sVKkNuU3uaxPnsBMW0cLjleiikFKomJQbsn0Cqk2yDvQArqzZN6ABfBkZ0To7pQ8sLdWDg==
+  version "13.1.7"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.1.7.tgz#db51d28b8dfacfe4fb2d0da88f5eb0a2eca00675"
+  integrity sha512-HU0q9GXazqiKwviVxg9SI/+t/nAsGkvLDkIdxz+ObejG2nX6Si00TeLqHMoS+a/1tjH7a8YpKVQwtgHuMQsldg==
 
 "@types/ws@^6.0.3":
   version "6.0.4"
@@ -612,9 +612,9 @@ detective-typescript@^5.1.1, detective-typescript@^5.7.0:
     node-source-walk "^4.2.0"
     typescript "^3.6.4"
 
-discord.js@discordjs/discord.js#7a0e811ac8f36d74ba93d39fcadb94d2ffd9f521:
+"discord.js@github:discordjs/discord.js#3694/head":
   version "12.0.0-dev"
-  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/7a0e811ac8f36d74ba93d39fcadb94d2ffd9f521"
+  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/214c2d8d3ee5b7359a2f2576db0ae724026fddac"
   dependencies:
     "@discordjs/collection" "^0.1.1"
     abort-controller "^3.0.0"
@@ -1210,7 +1210,7 @@ klasa-dashboard-hooks@kyranet/klasa-dashboard-hooks#master:
   dependencies:
     node-fetch "^2.6.0"
 
-klasa@dirigeants/klasa#a06c40023dca2a0d1c3a3d35176bd70be3153489:
+"klasa@github:dirigeants/klasa#875/head":
   version "0.5.0-dev"
   resolved "https://codeload.github.com/dirigeants/klasa/tar.gz/a06c40023dca2a0d1c3a3d35176bd70be3153489"
   dependencies:

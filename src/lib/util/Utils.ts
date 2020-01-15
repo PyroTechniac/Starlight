@@ -1,24 +1,9 @@
 import { deepClone, isObject, isThenable } from '@klasa/utils';
-import {
-	CategoryChannel,
-	Channel,
-	Client as DJSClient, DiscordAPIError,
-	DMChannel,
-	GuildChannel,
-	NewsChannel,
-	StoreChannel,
-	TextChannel,
-	VoiceChannel
-} from 'discord.js';
-import { Schema, SchemaEntry, SchemaFolder } from 'klasa';
+import { CategoryChannel, Channel, Client as DJSClient, DiscordAPIError, DMChannel, GuildChannel, NewsChannel, StoreChannel, TextChannel, VoiceChannel } from 'discord.js';
 import { join } from 'path';
 import { APIErrors, Events } from '../types/Enums';
 import { ReferredPromise } from '../types/Interfaces';
 import { rootFolder } from './Constants';
-
-export function isSchemaFolder(input: Schema | SchemaFolder | SchemaEntry): input is SchemaFolder | Schema {
-	return input.type === 'Folder';
-}
 
 // Synonymous for `throw` but allows throwing in one-line arrow functions and ternary statements.
 export function toss(exception: any): never {

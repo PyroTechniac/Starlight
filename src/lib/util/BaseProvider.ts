@@ -1,7 +1,6 @@
 import { Provider as BaseProvider, SchemaEntry, SQLProvider as BaseSQLProvider, Type } from 'klasa';
 import { isNumber, makeObject } from '@klasa/utils';
 import { AnyObject } from '../types/Types';
-import { isSchemaFolder } from './Utils';
 
 
 export abstract class Provider extends BaseProvider {
@@ -23,7 +22,7 @@ export abstract class SQLProvider extends BaseSQLProvider {
 		if (typeof gateway === 'undefined') return this.cUnknown(value);
 
 		const entry = gateway.schema.get(key);
-		if (!entry || isSchemaFolder(entry)) return this.cUnknown(value);
+		if (!entry || this.client.schemas.isSchemaFolder(entry)) return this.cUnknown(value);
 
 		const qbEntry = this.qb.get(entry.type);
 		return qbEntry
@@ -43,7 +42,7 @@ export abstract class SQLProvider extends BaseSQLProvider {
 			const key = keys[i];
 			const value = values[i];
 			const entry = schema.get(key);
-			if (!entry || isSchemaFolder(entry)) {
+			if (!entry || this.client.schemas.isSchemaFolder(entry)) {
 				parsedValues.push(this.cUnknown(value));
 				continue;
 			}
