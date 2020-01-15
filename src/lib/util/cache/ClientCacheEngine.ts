@@ -94,6 +94,10 @@ export class ClientCacheEngine extends Engine {
 				guild.memberTags.create(member);
 			}
 
+			for (const emoji of guild.emojis.values()) {
+				guild.emojiCache.create(emoji);
+			}
+
 			guildMembers += guild.members.size - 1;
 			presences += guild.presences.size;
 			emojis += guild.emojis.size;
