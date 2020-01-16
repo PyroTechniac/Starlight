@@ -21,7 +21,7 @@ export class AssetStore extends Store<string, Asset, typeof Asset> {
 		const { filepaths } = this;
 
 		const files = await scan(Asset.basePath, {
-			filter: (stats, path): boolean => stats.isFile() && ['webp', 'png', 'jpg', 'gif'].includes(extname(path))
+			filter: (stats, path): boolean => stats.isFile() && ['.webp', '.png', '.jpg', '.gif'].includes(extname(path))
 		})
 			.then((f): string[] => [...f.keys()].filter((path): boolean => !filepaths.includes(path)))
 			.catch(noop);
