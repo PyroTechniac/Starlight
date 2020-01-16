@@ -34,4 +34,5 @@ export class AssetStore extends Store<string, Asset, typeof Asset> {
 
 		return super.init();
 	}
+
 }
