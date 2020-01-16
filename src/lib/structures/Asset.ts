@@ -28,6 +28,10 @@ export abstract class Asset extends Piece {
 		};
 	}
 
+	public static get basePath(): string {
+		return this.makePath();
+	}
+
 	protected static makePath(...path: string[]): string {
 		return assetsFolder(...path);
 	}

@@ -102,7 +102,7 @@ export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 	clientSecret,
 	clientID,
 	cdnRequestTimeout: 15000,
-	watchFiles: true,
+	watchFiles: false,
 	pieceDefaults: {
 		assets: {
 			enabled: true
