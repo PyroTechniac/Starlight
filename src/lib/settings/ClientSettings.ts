@@ -17,4 +17,5 @@ export namespace ClientSettings {
 	export const Schedules = T<readonly RawScheduledTask[]>('schedules');
 
 	export const CommandUses = T<number>('commandUses');
+	export const LastCommand = T<string>('lastCommand');
 }
