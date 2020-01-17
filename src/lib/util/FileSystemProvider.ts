@@ -1,7 +1,7 @@
 import { Provider } from './BaseProvider';
 import { FSProvider } from '../types/Interfaces';
 import { KeyedObject, ProviderOptions, ProviderStore } from 'klasa';
-import { resolve } from 'path';
+import { resolve, dirname } from 'path';
 import { cast, mergeDefault } from './Utils';
 import * as fs from 'fs-nextra';
 import { Events } from '../types/Enums';
@@ -97,6 +97,10 @@ export abstract class FileSystemProvider extends Provider implements FSProvider 
 
 	public delete(table: string, id: string): Promise<void> {
 		return fs.unlink(this.resolve(table, id));
+	}
+
+	public backup(file: string): Promise<void> {
+		return fs.ensureDir(dirname(file)).then((): Promise<void> => fs.targz(file, this.baseDirectory));
 	}
 
 	public abstract write(file: string, data: object): Promise<void>;

@@ -1,21 +1,18 @@
 import { Task, Timestamp } from 'klasa';
-import JsonProvider from '../providers/json';
-import TomlProvider from '../providers/toml';
 import RethinkProvider from '../providers/rethinkdb';
-import BtfProvider from '../providers/btf';
-import YamlProvider from '../providers/yaml';
-import { dirname, resolve } from 'path';
-import { ensureDir, targz } from 'fs-nextra';
+import { resolve } from 'path';
 import { CronTimes, Events } from '../lib/types/Enums';
 import { SetupTask } from '../lib/util/Decorators';
+import { FileSystemProvider } from '../lib/util/FileSystemProvider';
+import { cast } from '../lib/util/Utils';
 
 @SetupTask(CronTimes.Daily, { catchUp: true })
 export default class extends Task {
 
 	private timestamp: Timestamp = new Timestamp('YYYY-MM-DD[T]HHmmss');
 
-	private get provider(): JsonProvider | RethinkProvider | TomlProvider {
-		return this.client.providers.default as JsonProvider | RethinkProvider | TomlProvider | BtfProvider;
+	private get provider(): RethinkProvider | FileSystemProvider {
+		return cast<FileSystemProvider | RethinkProvider>(this.client.providers.default);
 	}
 
 	public async run(): Promise<void> {
@@ -51,14 +48,14 @@ export default class extends Task {
 	}
 
 	private async backupFSProvider(): Promise<void> {
-		const provider = this.provider as JsonProvider | TomlProvider | BtfProvider | YamlProvider;
+		const provider = cast<FileSystemProvider>(this.provider);
 
 		const file = resolve('./', 'backup', `${provider.name}-backup-${this.timestamp}.tar.gz`);
-		await ensureDir(dirname(file)).then((): Promise<void> => targz(file, provider.baseDirectory));
+		await provider.backup(file);
 	}
 
 	private async backupRethinkProvider(): Promise<void> {
-		const provider = this.provider as RethinkProvider;
+		const provider = cast<RethinkProvider>(this.provider);
 
 		const baseDBName = (provider.pool! as unknown as { connParam: { db: string } }).connParam.db;
 		const { db: r } = provider;
