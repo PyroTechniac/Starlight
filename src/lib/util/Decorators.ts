@@ -196,6 +196,7 @@ export function Extendable(appliesTo: any[]): Constructor<KlasaExtendable> {
 	};
 }
 
+
 export interface Inhibitor {
 	(...args: any[]): boolean | Promise<boolean>;
 }

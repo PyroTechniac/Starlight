@@ -1,4 +1,4 @@
-import { KlasaMessage, Monitor, RateLimitManager, MonitorOptions } from 'klasa';
+import { KlasaMessage, Monitor, MonitorOptions, RateLimitManager } from 'klasa';
 import { UserSettings } from '../lib/settings/UserSettings';
 import { MemberSettings } from '../lib/settings/MemberSettings';
 import { Events } from '../lib/types/Enums';

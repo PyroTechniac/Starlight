@@ -7,7 +7,7 @@ export abstract class Asset extends Piece {
 
 	private raw: Buffer | null = null;
 
-	private initialized: boolean = false;
+	private initialized = false;
 
 	public abstract get filepath(): string;
 

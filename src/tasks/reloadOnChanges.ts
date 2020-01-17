@@ -1,4 +1,4 @@
-import { sep, extname, join, basename } from 'path';
+import { basename, extname, join, sep } from 'path';
 import { KlasaMessage, Piece, Stopwatch, Task } from 'klasa';
 import { StarlightCommand } from '../lib/structures/StarlightCommand';
 import { Events } from '../lib/types/Enums';

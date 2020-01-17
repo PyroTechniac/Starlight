@@ -160,6 +160,7 @@ export interface CacheHandler<V extends IdKeyed<string>> {
 export interface GuildCacheHandler<V extends IdKeyed<string>> extends CacheHandler<V> {
 	readonly guild: Guild;
 	kPromise: Promise<void> | null;
+
 	requestAll(): Promise<void>;
 }
 

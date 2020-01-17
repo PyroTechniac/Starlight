@@ -41,7 +41,9 @@ declare module 'discord.js' {
 
 	interface GuildEmojiStore {
 		guild: Guild;
+
 		fetch(id: Snowflake, cache?: boolean): Promise<GuildEmoji>;
+
 		fetch(id?: Snowflake, cache?: boolean): Promise<Collection<Snowflake, GuildEmoji>>;
 	}
 

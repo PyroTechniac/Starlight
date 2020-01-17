@@ -1,5 +1,16 @@
 import { deepClone, isObject, isThenable } from '@klasa/utils';
-import { CategoryChannel, Channel, Client as DJSClient, DiscordAPIError, DMChannel, GuildChannel, NewsChannel, StoreChannel, TextChannel, VoiceChannel } from 'discord.js';
+import {
+	CategoryChannel,
+	Channel,
+	Client as DJSClient,
+	DiscordAPIError,
+	DMChannel,
+	GuildChannel,
+	NewsChannel,
+	StoreChannel,
+	TextChannel,
+	VoiceChannel
+} from 'discord.js';
 import { join } from 'path';
 import { APIErrors, Events } from '../types/Enums';
 import { ReferredPromise } from '../types/Interfaces';
