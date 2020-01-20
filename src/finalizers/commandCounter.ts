@@ -13,7 +13,7 @@ export default class extends Finalizer {
 		await this.client.settings!.increase(ClientSettings.CommandUses, 1);
 		await message.author.settings.increase(UserSettings.CommandUses, 1);
 		await this.client.settings!.update(ClientSettings.LastCommand, command);
-		await message.author.settings.update(ClientSettings.LastCommand, Command);
+		await message.author.settings.update(ClientSettings.LastCommand, command);
 		if (message.guild) await this.handleGuild(message);
 	}
 

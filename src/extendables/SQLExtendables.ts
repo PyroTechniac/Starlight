@@ -1,23 +1,11 @@
-import { Provider as BaseProvider, SchemaEntry, SQLProvider as BaseSQLProvider, Type } from 'klasa';
+import { Extendable } from '../lib/util/Decorators';
+import { SchemaEntry, SQLProvider, Type } from 'klasa';
+import { AnyObject } from '../lib/types/Types';
 import { isNumber, makeObject } from '@klasa/utils';
-import { AnyObject } from '../types/Types';
 
+export default class extends Extendable([SQLProvider]) {
 
-export abstract class Provider extends BaseProvider {
-
-	protected get shouldUnload(): boolean {
-		return this.client.options.providers.default !== this.name;
-	}
-
-}
-
-export abstract class SQLProvider extends BaseSQLProvider {
-
-	protected get shouldUnload(): boolean {
-		return this.client.options.providers.default !== this.name;
-	}
-
-	protected cValue(table: string, key: string, value: unknown): string {
+	public cValue(this: SQLProvider, table: string, key: string, value: unknown): string {
 		const gateway = this.client.gateways.get(table);
 		if (typeof gateway === 'undefined') return this.cUnknown(value);
 
@@ -32,7 +20,7 @@ export abstract class SQLProvider extends BaseSQLProvider {
 			: this.cUnknown(value);
 	}
 
-	protected cValues(table: string, keys: readonly string[], values: readonly unknown[]): string[] {
+	public cValues(this: SQLProvider, table: string, keys: readonly string[], values: readonly unknown[]): string[] {
 		const gateway = this.client.gateways.get(table);
 		if (typeof gateway === 'undefined') return values.map(this.cUnknown.bind(this));
 
@@ -59,28 +47,7 @@ export abstract class SQLProvider extends BaseSQLProvider {
 		return parsedValues;
 	}
 
-	protected parseSQLEntry(table: string, raw: Record<string, unknown> | null): Record<string, unknown> | null {
-		if (!raw) return null;
-
-		const gateway = this.client.gateways.get(table);
-		if (typeof gateway === 'undefined') return raw;
-
-		const obj: Record<string, unknown> = { id: raw.id };
-		for (const entry of gateway.schema.values(true)) {
-			makeObject(entry.path, this.parseValue(raw[entry.path], entry), obj);
-		}
-
-		return obj;
-	}
-
-	protected parseValue(value: unknown, schemaEntry: SchemaEntry): unknown {
-		if (value === null || typeof value === 'undefined') return schemaEntry.default;
-		return Array.isArray(value)
-			? value.map((element): unknown => this.parsePrimitiveValue(element, schemaEntry.type))
-			: this.parsePrimitiveValue(value, schemaEntry.type);
-	}
-
-	protected parsePrimitiveValue(value: unknown, type: string): unknown {
+	public parsePrimitiveValue(this: SQLProvider, value: unknown, type: string): unknown {
 		switch (type) {
 			case 'number':
 			case 'float': {
@@ -98,35 +65,56 @@ export abstract class SQLProvider extends BaseSQLProvider {
 		}
 	}
 
-	protected cIdentifier(input: string): string {
-		return `"${input.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
+	public parseSQLEntry(this: SQLProvider, table: string, raw: Record<string, unknown> | null): Record<string, unknown> | null {
+		if (!raw) return null;
+
+		const gateway = this.client.gateways.get(table);
+		if (typeof gateway === 'undefined') return raw;
+
+		const obj: Record<string, unknown> = { id: raw.id };
+		for (const entry of gateway.schema.values(true)) {
+			makeObject(entry.path, this.parseValue(raw[entry.path], entry), obj);
+		}
+
+		return obj;
 	}
 
-	protected cString(value: string): string {
+	public parseValue(this: SQLProvider, value: unknown, schemaEntry: SchemaEntry): unknown {
+		if (value === null || typeof value === 'undefined') return schemaEntry.default;
+		return Array.isArray(value)
+			? value.map((element): unknown => this.parsePrimitiveValue(element, schemaEntry.type))
+			: this.parsePrimitiveValue(value, schemaEntry.type);
+	}
+
+	public cIdentifier(this: SQLProvider, input: string): string {
+		return `"${input.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}`;
+	}
+
+	public cString(this: SQLProvider, value: string): string {
 		return `'${value.replace(/'/g, '\'\'')}'`;
 	}
 
-	protected cNumber(value: number | bigint): string {
+	public cNumber(this: SQLProvider, value: number | bigint): string {
 		return value.toString();
 	}
 
-	protected cBoolean(value: boolean): string {
+	public cBoolean(this: SQLProvider, value: boolean): string {
 		return value ? 'TRUE' : 'FALSE';
 	}
 
-	protected cDate(value: Date): string {
+	public cDate(this: SQLProvider, value: Date): string {
 		return this.cNumber(value.getTime());
 	}
 
-	protected cJson(value: AnyObject): string {
+	public cJson(this: SQLProvider, value: AnyObject): string {
 		return this.cString(JSON.stringify(value));
 	}
 
-	protected cArray(value: readonly unknown[]): string {
+	public cArray(this: SQLProvider, value: readonly unknown[]): string {
 		return `${value.map(this.cUnknown.bind(this)).join(', ')}`;
 	}
 
-	protected cUnknown(value: unknown): string {
+	public cUnknown(this: SQLProvider, value: unknown): string {
 		switch (typeof value) {
 			case 'string':
 				return this.cString(value);

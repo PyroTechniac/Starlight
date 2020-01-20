@@ -1,7 +1,6 @@
-import { Provider } from './BaseProvider';
+import { KeyedObject, Provider, ProviderOptions, ProviderStore } from 'klasa';
 import { FSProvider } from '../types/Interfaces';
-import { KeyedObject, ProviderOptions, ProviderStore } from 'klasa';
-import { resolve, dirname } from 'path';
+import { dirname, resolve } from 'path';
 import { cast, mergeDefault } from './Utils';
 import * as fs from 'fs-nextra';
 import { Events } from '../types/Enums';

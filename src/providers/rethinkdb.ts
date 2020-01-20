@@ -1,6 +1,6 @@
 import { chunk, mergeDefault } from '@klasa/utils';
 import { MasterPool, r, TableChangeResult, WriteResult } from 'rethinkdb-ts';
-import { Provider } from '../lib/util/BaseProvider';
+import { Provider } from 'klasa';
 
 export default class extends Provider {
 

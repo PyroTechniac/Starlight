@@ -31,7 +31,7 @@
         "canvas": "^2.6.0",
         "canvas-constructor": "^3.1.0",
         "chokidar": "^3.3.1",
-        "discord.js": "github:discordjs/discord.js#3694/head",
+        "discord.js": "github:discordjs/discord.js#6302afb84bb05907d12790280c6074ff850497a3",
         "dotenv": "^8.2.0",
         "fs-nextra": "^0.4.5",
         "js-yaml": "^3.13.1",
@@ -50,7 +50,6 @@
         "@typescript-eslint/parser": "^2.14.0",
         "eslint": "^6.6.0",
         "eslint-config-bamboo": "^3.0.0",
-        "madge": "^3.4.4",
         "rimraf": "^3.0.0",
         "typescript": "^3.7.2"
     },

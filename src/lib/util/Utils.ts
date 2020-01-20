@@ -15,10 +15,19 @@ import { join } from 'path';
 import { APIErrors, Events } from '../types/Enums';
 import { ReferredPromise } from '../types/Interfaces';
 import { rootFolder } from './Constants';
+import { Readable } from 'stream';
 
 // Synonymous for `throw` but allows throwing in one-line arrow functions and ternary statements.
 export function toss(exception: any): never {
 	throw exception;
+}
+
+export async function streamToGenerator(stream: Readable): Promise<() => IterableIterator<Buffer>> {
+	const data: Buffer[] = [];
+	for await (const buf of stream) data.push(cast<Buffer>(buf));
+	return function *gen(): IterableIterator<Buffer> {
+		yield *data;
+	};
 }
 
 export async function handleDAPIError<V>(promise: Promise<V>, ...errors: APIErrors[]): Promise<V | null> {

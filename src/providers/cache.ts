@@ -1,5 +1,4 @@
-import { Provider } from '../lib/util/BaseProvider';
-import { ReadonlyKeyedObject, SettingsUpdateResults } from 'klasa';
+import { Provider, ReadonlyKeyedObject, SettingsUpdateResults } from 'klasa';
 import { mergeObjects } from '@klasa/utils';
 
 // This is a development provider for when file system access is not granted to NodeJS and rethink cannot be set up

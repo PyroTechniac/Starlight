@@ -6,13 +6,14 @@ import { MemberTags } from '../util/cache/MemberTags';
 import { FetchApi } from '../structures/ContentFetchEngine';
 import { ClientEngine } from '../structures/ClientEngine';
 import { Resolver } from '../structures/Resolver';
-import { Settings, SettingsFolderUpdateOptions, SettingsUpdateResults } from 'klasa';
+import { SchemaEntry, Settings, SettingsFolderUpdateOptions, SettingsUpdateResults } from 'klasa';
 import { FlagData } from './Interfaces';
 import { FSWatcher } from 'chokidar';
 import { AssetOptions } from '../structures/Asset';
 import { AssetStore } from '../structures/AssetStore';
 import { SchemaEngine } from '../structures/SchemaEngine';
 import { EmojiCache } from '../util/cache/EmojiCache';
+import { AnyObject } from './Types';
 
 
 // This file is for augments to other modules, such as d.js or klasa.
@@ -101,5 +102,37 @@ declare module 'klasa' {
 
 	interface PieceDefaults {
 		assets?: AssetOptions;
+	}
+
+	interface Provider {
+		readonly shouldUnload: boolean;
+	}
+
+	interface SQLProvider {
+		cValue(table: string, key: string, value: unknown): string;
+
+		cValues(table: string, keys: readonly string[], values: readonly unknown[]): string[];
+
+		parseSQLEntry(table: string, raw: Record<string, unknown> | null): null | Record<string, unknown>;
+
+		parseValue(value: unknown, schemaEntry: SchemaEntry): unknown;
+
+		parsePrimitiveValue(value: unknown, type: string): unknown;
+
+		cIdentifier(value: string): string;
+
+		cString(value: string): string;
+
+		cNumber(value: number | bigint): string;
+
+		cBoolean(value: boolean): string;
+
+		cDate(value: Date): string;
+
+		cJson(value: AnyObject): string;
+
+		cArray(value: readonly unknown[]): string;
+
+		cUnknown(value: unknown): string;
 	}
 }
