@@ -95,9 +95,15 @@ declare module 'klasa' {
 
 		get(key: string): SettingsFolder | unknown | readonly unknown[];
 
+		setValue<K extends string, S>(key: CustomGet<K, S>, fn: (value: S) => S, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
+
 		setValue(key: string, fn: (value: any) => unknown, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
 
+		increase<K extends string>(key: CustomGet<K, number>, value: number, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
+
 		increase(key: string, value: number, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
+
+		decrease<K extends string>(key: CustomGet<K, number>, value: number, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
 
 		decrease(key: string, value: number, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
 	}
