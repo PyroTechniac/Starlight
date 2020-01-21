@@ -18,12 +18,16 @@ export class ClientCacheEngine extends Engine {
 	public clean(init = false): void {
 		const [presences, guildMembers, users, emojis, lastMessages] = init ? this._init() : this._clean();
 
-		this.client.emit(Events.Verbose,
-			`${this.header} ${
-				ClientCacheEngine.setColor(presences)} [Presence]s | ${
-				ClientCacheEngine.setColor(guildMembers)} [GuildMember]s | ${
-				ClientCacheEngine.setColor(users)} [User]s | ${
-				ClientCacheEngine.setColor(emojis)} [Emoji]s${lastMessages ? ` | ${ClientCacheEngine.setColor(lastMessages)} [Last Message]s.` : '.'}`);
+		const values = [
+			`${this.header} ${ClientCacheEngine.setColor(presences)} [Presence]s`,
+			`${ClientCacheEngine.setColor(guildMembers)} [GuildMember]s`,
+			`${ClientCacheEngine.setColor(users)} [User]s`,
+			`${ClientCacheEngine.setColor(emojis)} [Emoji]s${typeof lastMessages === 'undefined' ? '.' : ''}`
+		];
+
+		if (typeof lastMessages !== 'undefined') values.push(`${ClientCacheEngine.setColor(lastMessages)} [Last Message]s.`);
+
+		this.client.emit(Events.Verbose, values.join(' | '));
 	}
 
 	private _clean(): readonly [number, number, number, number, number] {
