@@ -39,7 +39,7 @@ export async function handleDAPIError<V>(promise: Promise<V>, ...errors: APIErro
 	}
 }
 
-export function wrapPromise<V, A extends readonly unknown[] = readonly unknown[]>(fn: (...A) => V, ...args: A): Promise<V> {
+export function wrapPromise<V, A extends readonly unknown[] = readonly unknown[]>(fn: (...args: A) => V, ...args: A): Promise<V> {
 	return new Promise<V>((resolve, reject): void => {
 		try {
 			resolve(fn(...args));

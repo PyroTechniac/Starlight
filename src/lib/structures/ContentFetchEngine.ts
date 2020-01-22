@@ -130,7 +130,7 @@ export class ContentFetchEngine extends Engine {
 				return new Proxy(noop, handler);
 			},
 			apply(_, __, args): any {
-				route.push(...args.filter((x): boolean => x != null)); // eslint-disable-line no-eq-null
+				route.push(...args.filter((x: unknown): boolean => x != null)); // eslint-disable-line no-eq-null
 				return new Proxy(noop, handler);
 			},
 			has(_, name: string) {

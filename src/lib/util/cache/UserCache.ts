@@ -32,7 +32,7 @@ export class UserCache extends Collection<string, UserData> implements Engine, C
 	public resolve(usernameOrTag: string, id = false): UserData | string | null {
 		const isTag = this.isTag(usernameOrTag);
 		for (const [key, value] of super.entries()) {
-			if (usernameOrTag === `${value[0]}${isTag ? `#${value[1]}` : ''}`) return id ? key : value;
+			if (usernameOrTag === `${value.username}${isTag ? `#${value.discriminator}` : ''}`) return id ? key : value;
 		}
 
 		return null;

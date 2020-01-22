@@ -9,7 +9,7 @@ export class StarlightGuild extends Structures.get('Guild') {
 
 	public readonly memberTags: MemberTags = new MemberTags(this);
 	public readonly emojiCache: EmojiCache = new EmojiCache(this);
-	public members = new StarlightGuildMemberStore(this);
+	public members: StarlightGuildMemberStore = new StarlightGuildMemberStore(this);
 
 	public fetchBan(id: Snowflake): Promise<{ user: User; reason: string }> {
 		return (api(this.client)
