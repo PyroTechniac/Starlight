@@ -9,6 +9,7 @@
         "start": "node .",
         "lint": "eslint src --ext .ts --fix",
         "clean": "rimraf dist/",
+        "graph": "madge dist -i ./deps-graph.png",
         "pm2:delete": "pm2 delete Starlight",
         "pm2:logs": "pm2 logs Starlight --lines=200",
         "pm2:restart": "pm2 restart Starlight",
@@ -50,6 +51,7 @@
         "@typescript-eslint/parser": "^2.14.0",
         "eslint": "^6.6.0",
         "eslint-config-bamboo": "^3.0.0",
+        "madge": "^3.6.0",
         "rimraf": "^3.0.0",
         "typescript": "^3.7.2"
     },
