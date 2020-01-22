@@ -9,7 +9,7 @@
         "start": "node .",
         "lint": "eslint src --ext .ts --fix",
         "clean": "rimraf dist/",
-        "graph": "madge dist -i ./deps-graph.png",
+        "postbuild": "madge dist -i ./deps-graph.png",
         "pm2:delete": "pm2 delete Starlight",
         "pm2:logs": "pm2 logs Starlight --lines=200",
         "pm2:restart": "pm2 restart Starlight",
