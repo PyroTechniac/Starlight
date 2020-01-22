@@ -73,10 +73,7 @@ declare module 'discord.js' {
 		cdnRequestTimeout?: number;
 		watchFiles?: boolean;
 	}
-
-	interface Collector<K, V> {
-		[Symbol.iterator](): IterableIterator<V>;
-	}
+	
 }
 
 declare module 'klasa-dashboard-hooks' {

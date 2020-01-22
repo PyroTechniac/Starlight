@@ -1,3 +1,5 @@
+// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT License
+
 import { ReferredPromise } from '../types/Interfaces';
 import { cast, createReferPromise } from '../util/Utils';
 

@@ -147,11 +147,7 @@ export default class extends Language {
 			`• CPU Load   :: ${USAGE.CPU_LOAD}`,
 			`• RAM +Node  :: ${USAGE.RAM_TOTAL}`,
 			`• RAM Usage  :: ${USAGE.RAM_USED}`
-		].join('\n'),
-		RESOLVER_INVALID_PERMISSIONS: (): string => 'Could not resolve the provided argument to a Permissions',
-		INHIBITOR_STAFF_LEVEL: 'This command requires the `staff` role.',
-		INHIBITOR_MOD_LEVEL: 'This command requires the `moderator` role.',
-		INHIBITOR_ADMIN_LEVEL: 'This command requires the `admin` role.'
+		].join('\n')
 	};
 
 }
