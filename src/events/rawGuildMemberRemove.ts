@@ -10,7 +10,7 @@ export default class extends Event {
 
 	public run(data: WSGuildMemberRemove): void {
 		const guild = this.client.guilds.get(data.guild_id);
-		if (!guild || !guild.available) return;
+		if (!guild?.available) return;
 
 		guild.memberTags.delete(data.user.id);
 		if (!this.client.guilds.some((g): boolean => g.memberTags.has(data.user.id))) this.client.userCache.delete(data.user.id);

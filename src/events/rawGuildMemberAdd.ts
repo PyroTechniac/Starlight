@@ -10,7 +10,7 @@ export default class extends Event {
 
 	public run(data: WSGuildMemberAdd): void {
 		const guild = this.client.guilds.get(data.guild_id);
-		if (!guild || !guild.available) return;
+		if (!guild?.available) return;
 
 
 		guild.memberTags.set(data.user.id, {

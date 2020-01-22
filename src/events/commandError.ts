@@ -12,7 +12,7 @@ export default class extends Event {
 	}
 
 	private async handleError(message: KlasaMessage, command: Command, error: Error): Promise<void> {
-		this.client.emit(Events.Wtf, `[COMMAND] ${command.path}\n${error.stack || error}`);
+		this.client.emit(Events.Wtf, `[COMMAND] ${command.path}\n${error.stack ?? error}`);
 		const isOwner = await message.hasAtLeastPermissionLevel(PermissionLevels.BotOwner);
 		if (!isOwner || !error.stack) {
 			await message.sendCode('JSON', error.message).catch((err): boolean => this.client.emit(Events.Wtf, err));

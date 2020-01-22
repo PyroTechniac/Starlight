@@ -1,8 +1,8 @@
 import { Event, EventOptions } from 'klasa';
 import { ApplyOptions } from '../lib/util/Decorators';
-import { TextChannel } from 'discord.js';
 import { WSMessageReactionAdd } from '../lib/types/Interfaces';
 import { LLRCData } from '../lib/util/LongLivingReactionCollector';
+import { checkChannel } from '../lib/util/Utils';
 
 @ApplyOptions<EventOptions>({
 	event: 'MESSAGE_REACTION_ADD',
@@ -11,8 +11,8 @@ import { LLRCData } from '../lib/util/LongLivingReactionCollector';
 export default class extends Event {
 
 	public run(data: WSMessageReactionAdd): void {
-		const channel = this.client.channels.get(data.channel_id) as TextChannel;
-		if (!channel || channel.type !== 'text' || !channel.readable) return;
+		const channel = this.client.channels.get(data.channel_id);
+		if (typeof channel === 'undefined' || !checkChannel(channel, 'text') || !channel.readable) return;
 
 		const parsed: LLRCData = {
 			channel,

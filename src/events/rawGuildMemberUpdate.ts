@@ -12,7 +12,7 @@ export default class extends Event {
 
 	public async run(data: WSGuildMemberUpdate): Promise<void> {
 		const guild = this.client.guilds.get(data.guild_id);
-		if (!guild) return;
+		if (!guild?.available) return;
 
 		const updated: MemberTag = {
 			nickname: data.nick ?? null,
