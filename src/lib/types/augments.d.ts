@@ -73,7 +73,7 @@ declare module 'discord.js' {
 		cdnRequestTimeout?: number;
 		watchFiles?: boolean;
 	}
-	
+
 }
 
 declare module 'klasa-dashboard-hooks' {

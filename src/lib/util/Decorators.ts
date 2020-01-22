@@ -17,8 +17,6 @@ import { Constructor } from '../types/Types';
 import { isFunction } from '@klasa/utils';
 import { Events, PermissionLevels } from '../types/Enums';
 
-export * from './Defer';
-
 // Copyright (c) 2019 kyranet. All rights reserved. MIT License
 // This is a recreation of kyranet's klasa-decorators but with proper type annotation.
 // The original work can be found at https://github.com/kyranet/klasa-decorators.
