@@ -48,7 +48,7 @@ export class EmojiCache extends Collection<string, EmojiData> implements GuildCa
 	}
 
 	public createIdentifier(data: EmojiData): string {
-		return `${data.animated ? 'a:' : ''}${data.name}:${data.id}`;
+		return `${data.animated ? 'a' : ''}:${data.name}:${data.id}`;
 	}
 
 	public create(emoji: GuildEmoji): EmojiData {
