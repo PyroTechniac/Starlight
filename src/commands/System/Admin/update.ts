@@ -1,7 +1,7 @@
 import { codeBlock, exec, sleep } from '@klasa/utils';
 import { KlasaMessage } from 'klasa';
 import { StarlightCommand, StarlightCommandOptions } from '../../../lib/structures/StarlightCommand';
-import { ApplyOptions } from '../../../lib/util/Decorators';
+import { ApplyOptions, botOwner } from '../../../lib/util/Decorators';
 
 @ApplyOptions<StarlightCommandOptions>({
 	aliases: ['pull'],
@@ -11,6 +11,7 @@ import { ApplyOptions } from '../../../lib/util/Decorators';
 })
 export default class extends StarlightCommand {
 
+	@botOwner()
 	public async run(message: KlasaMessage, [branch = 'master']: [string?]): Promise<KlasaMessage> {
 		await this.fetch(message, branch);
 		return this.compile(message);
