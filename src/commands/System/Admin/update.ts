@@ -18,6 +18,7 @@ export default class extends StarlightCommand {
 	}
 
 	private async compile(message: KlasaMessage): Promise<KlasaMessage> {
+		await exec('yarn clean');
 		const { stderr } = await exec('yarn build')
 			.catch((err): { stdout: string; stderr: string } => ({ stdout: '', stderr: (err?.message ?? err ?? '') }));
 		if (stderr.length) throw stderr.trim();
@@ -39,7 +40,7 @@ export default class extends StarlightCommand {
 			if (this.needsStash(stdout + stderr)) return this.stash(message);
 		}
 
-		return message.send(codeBlock('prolog', [stdout || '✔', stderr || '✔'].join('\n-=-=-=-\n')));
+		return message.send(codeBlock('prolog', [stdout || '✔', stderr || '✔'].join('\n-=-=-=-\n')), { split: { 'char': '\n' } });
 	}
 
 	private async stash(message: KlasaMessage): Promise<KlasaMessage> {
