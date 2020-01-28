@@ -16,7 +16,7 @@ export default class extends Extendable([SettingsFolder]) {
 	}
 	/* eslint-enable @typescript-eslint/restrict-plus-operands */
 
-	public async setValue<K extends string, V>(key: CustomGet<K, V>, fn: (value: V) => V, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
+	public async setValue<K extends string, V>(key: CustomGet<K, V>, fn: (value: V) => V | Promise<V>, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
 	public async setValue(this: SettingsFolder, key: string, fn: (value: any) => unknown, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults> {
 		const raw = this.get(key);
 		const value = await fn(raw);

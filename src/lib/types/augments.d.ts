@@ -92,7 +92,7 @@ declare module 'klasa' {
 
 		get(key: string): SettingsFolder | unknown | readonly unknown[];
 
-		setValue<K extends string, S>(key: CustomGet<K, S>, fn: (value: S) => S, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
+		setValue<K extends string, S>(key: CustomGet<K, S>, fn: (value: S) => S | Promise<S>, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
 
 		setValue(key: string, fn: (value: any) => unknown, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
 
