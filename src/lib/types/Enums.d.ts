@@ -13,7 +13,8 @@ export const enum Events {
 	TaskScheduled = 'taskScheduled',
 	TaskFound = 'taskFound',
 	GuildMemberAdd = 'guildMemberAdd',
-	GuildMemberRemove = 'guildMemberRemove'
+	GuildMemberRemove = 'guildMemberRemove',
+	GuildCreate = 'guildCreate'
 }
 
 export const enum Databases {

@@ -76,7 +76,8 @@ export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 	restRequestTimeout: 60000,
 	disabledEvents: [
 		'TYPING_START',
-		'PRESENCE_UPDATE'
+		'PRESENCE_UPDATE',
+		'GUILD_CREATE'
 	],
 	providers: {
 		'default': defaultProvider || 'cache',
