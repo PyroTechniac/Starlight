@@ -13,7 +13,7 @@ export default class extends Event {
 	public run(): void {
 		initClean(this.client.token!);
 		this.client.options.owners = this.resolveOwners();
-		this.client.engine.schemas.initAll();
+		this.client.schemas.initAll();
 		this.client.cache.clean(true);
 	}
 
