@@ -13,7 +13,7 @@
         "pm2:delete": "pm2 delete Starlight",
         "pm2:logs": "pm2 logs Starlight --lines=200",
         "pm2:restart": "pm2 restart Starlight",
-        "pm2:start": "pm2 start dist/index.js --name=\"Starlight\"",
+        "pm2:start": "pm2 start pm2.ecosystem.yml",
         "pm2:stop": "pm2 stop Starlight",
         "pm2:dash": "pm2 plus",
         "db:start": "pm2 start rethinkdb --name=\"Rethink\"",

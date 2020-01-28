@@ -1,0 +1,7 @@
+apps:
+  script: './dist/index.js'
+  name: 'Starlight'
+  env_production:
+    NODE_ENV: production
+  env:
+    NODE_ENV: development
