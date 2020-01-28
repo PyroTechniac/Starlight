@@ -1,8 +1,8 @@
 import { Extendable } from '../lib/util/Decorators';
 import { DMChannel, Message, TextChannel } from 'discord.js';
-import { checkChannel } from '../lib/util/Utils';
+import { checkChannel, handleDAPIError } from '../lib/util/Utils';
 import { sleep } from '@klasa/utils';
-import { BaseColors, Events } from '../lib/types/Enums';
+import { APIErrors, BaseColors, Events } from '../lib/types/Enums';
 
 export default class extends Extendable([Message]) {
 
@@ -40,10 +40,5 @@ export default class extends Extendable([Message]) {
 }
 
 async function nuke(message: Message): Promise<Message> {
-	try {
-		return await message.delete();
-	} catch (error) {
-		if (error.code === 10008) return message;
-		throw error;
-	}
+	return (await handleDAPIError(message.delete(), APIErrors.UnknownMessage)) ?? message;
 }
