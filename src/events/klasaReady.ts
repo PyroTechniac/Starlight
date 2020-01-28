@@ -14,7 +14,6 @@ export default class extends Event {
 		initClean(this.client.token!);
 		this.client.options.owners = this.resolveOwners();
 		this.client.schemas.initAll();
-		this.client.cache.clean(true);
 	}
 
 	private resolveOwners(): string[] {

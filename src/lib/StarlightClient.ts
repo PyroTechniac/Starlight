@@ -16,8 +16,6 @@ import VoiceSchema from './schemas/Voices';
 import MemberSchema from './schemas/Members';
 import { STARLIGHT_OPTIONS } from './util/Constants';
 import { LongLivingReactionCollector } from './util/LongLivingReactionCollector';
-import { ClientCacheEngine } from './util/cache/ClientCacheEngine';
-import { UserCache } from './util/cache/UserCache';
 import { ClientEngine } from './structures/ClientEngine';
 import { ChannelGateway } from './structures/ChannelGateway';
 import { Databases } from './types/Enums';
@@ -52,20 +50,12 @@ export class StarlightClient extends Klasa.Client {
 
 	}
 
-	public get cache(): ClientCacheEngine {
-		return this.engine.cache;
-	}
-
 	public get cdn(): FetchApi {
 		return this.engine.cdn;
 	}
 
 	public get schemas(): SchemaEngine {
 		return this.engine.schemas;
-	}
-
-	public get userCache(): UserCache {
-		return this.cache.users;
 	}
 
 	private _registerGateways(): this {

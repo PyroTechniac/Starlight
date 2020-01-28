@@ -2,13 +2,9 @@ import { Guild, Snowflake, Structures, User } from 'discord.js';
 import { api } from '../util/Api';
 import { APIUserData } from '../types/Interfaces';
 import { StarlightGuildMemberStore } from '../structures/StarlightGuildMemberStore';
-import { MemberTags } from '../util/cache/MemberTags';
-import { EmojiCache } from '../util/cache/EmojiCache';
 
 export class StarlightGuild extends Structures.get('Guild') {
 
-	public readonly memberTags: MemberTags = new MemberTags(this);
-	public readonly emojiCache: EmojiCache = new EmojiCache(this);
 	public members: StarlightGuildMemberStore = new StarlightGuildMemberStore(this);
 
 	public fetchBan(id: Snowflake): Promise<{ user: User; reason: string }> {

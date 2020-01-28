@@ -25,7 +25,7 @@ export default class extends Language {
 		}),
 		COMMAND_EXEC_AWAITING: 'Executing your command...',
 		COMMAND_EXEC_NO_OUTPUT: 'Done. There was no output to stdout or stderr.',
-		COMMAND_HEAPSNAPSHOT_CAPTURING: (used: string): string => `Capturing HEAP Snapshot, this may take a while. RAM Usage: ${used} MB`,
+		COMMAND_HEAPSNAPSHOT_CAPTURING: 'Capturing HEAP Snapshot, this may take a while.',
 		COMMAND_HEAPSNAPSHOT_CAPTURED: (path: string): string => `Captured in \`${path}\`, check! Remember, do NOT share this with anybody, it may contain a lot of sensitive data.`,
 		COMMAND_SUBREDDIT_DESCRIPTION: 'Returns information on a subreddit.',
 		COMMAND_SUBREDDIT_ERROR: 'There was an error. Reddit may be down, or the subreddit doesn\'t exist.',

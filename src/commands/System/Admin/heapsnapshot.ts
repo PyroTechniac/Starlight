@@ -11,7 +11,7 @@ import { writeHeapSnapshot } from 'v8';
 export default class extends Command {
 
 	public async run(msg: KlasaMessage): Promise<KlasaMessage> {
-		await msg.sendLocale('COMMAND_HEAPSNAPSHOT_CAPTURING', [this.client.cache.usage]);
+		await msg.sendLocale('COMMAND_HEAPSNAPSHOT_CAPTURING');
 
 		const path = writeHeapSnapshot();
 

@@ -1,6 +1,5 @@
 import { Client } from 'discord.js';
 import { ContentFetchEngine, FetchApi } from './ContentFetchEngine';
-import { ClientCacheEngine } from '../util/cache/ClientCacheEngine';
 import { SchemaEngine } from './SchemaEngine';
 
 
@@ -9,8 +8,6 @@ export class ClientEngine {
 	public readonly client!: Client;
 
 	public network: ContentFetchEngine = new ContentFetchEngine(this);
-
-	public cache: ClientCacheEngine = new ClientCacheEngine(this);
 
 	public schemas: SchemaEngine = new SchemaEngine(this);
 

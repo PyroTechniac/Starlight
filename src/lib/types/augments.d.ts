@@ -1,8 +1,5 @@
 import { CustomGet } from '../settings/Shared';
 import { LongLivingReactionCollector } from '../util/LongLivingReactionCollector';
-import { ClientCacheEngine } from '../util/cache/ClientCacheEngine';
-import { UserCache } from '../util/cache/UserCache';
-import { MemberTags } from '../util/cache/MemberTags';
 import { FetchApi } from '../structures/ContentFetchEngine';
 import { ClientEngine } from '../structures/ClientEngine';
 import { Resolver } from '../structures/Resolver';
@@ -12,7 +9,6 @@ import { FSWatcher } from 'chokidar';
 import { AssetOptions } from '../structures/Asset';
 import { AssetStore } from '../structures/AssetStore';
 import { SchemaEngine } from '../structures/SchemaEngine';
-import { EmojiCache } from '../util/cache/EmojiCache';
 import { AnyObject } from './Types';
 
 
@@ -25,15 +21,8 @@ declare module 'discord.js' {
 		engine: ClientEngine;
 		fsWatcher: FSWatcher | null;
 		assets: AssetStore;
-		readonly cache: ClientCacheEngine;
 		readonly schemas: SchemaEngine;
-		readonly userCache: UserCache;
 		readonly cdn: FetchApi;
-	}
-
-	interface Guild {
-		readonly memberTags: MemberTags;
-		readonly emojiCache: EmojiCache;
 	}
 
 	interface GuildChannel {
