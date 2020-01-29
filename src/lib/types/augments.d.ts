@@ -10,7 +10,6 @@ import { AssetOptions } from '../structures/Asset';
 import { AssetStore } from '../structures/AssetStore';
 import { SchemaEngine } from '../structures/SchemaEngine';
 import { AnyObject } from './Types';
-import { DocsProviderOptions } from '../structures/docs/DocsProvider';
 
 
 // This file is for augments to other modules, such as d.js or klasa.
@@ -97,7 +96,6 @@ declare module 'klasa' {
 
 	interface PieceDefaults {
 		assets?: AssetOptions;
-		docsProviders?: DocsProviderOptions;
 	}
 
 	interface Provider {

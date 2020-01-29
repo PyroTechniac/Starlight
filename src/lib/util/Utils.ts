@@ -16,7 +16,6 @@ import { APIErrors, Events } from '../types/Enums';
 import { ReferredPromise } from '../types/Interfaces';
 import { rootFolder } from './Constants';
 import { Readable } from 'stream';
-import { DocEntries } from '../structures/docs/DocEntries';
 
 // Synonymous for `throw` but allows throwing in one-line arrow functions and ternary statements.
 export function toss(exception: any): never {
@@ -136,65 +135,3 @@ export function cast<V>(value: unknown): V {
 	return value as V;
 }
 
-export function generateRegExp(str: string): string {
-	return str.replace(/\w(?=(\w)?)/g, (letter, nextWord): string => `${letter}+${nextWord ? '\\W*' : ''}`);
-}
-
-const primitives: readonly string[] = [
-	'object',
-	'function',
-	'boolean',
-	'symbol',
-	'error',
-	'rangeerror',
-	'referenceerror',
-	'syntaxerror',
-	'typeerror',
-	'number',
-	'bigint',
-	'string',
-	'regexp',
-	'array',
-	'map',
-	'set',
-	'weakmap',
-	'weakset',
-	'arraybuffer',
-	'promise',
-	'proxy'
-];
-
-const escapeCharacters = /[<>]/g;
-
-export function formatTypes(types: string[][][], entries: DocEntries): string {
-	const returnString = [];
-	const flattenedTypes = types.flat(1);
-	let temp = '';
-	for (const type of flattenedTypes) {
-		if (type.length > 1) {
-			for (const str of type) {
-				temp += wrapURL(str, entries);
-			}
-			continue;
-		}
-		if (temp.length) {
-			returnString.push(temp);
-			temp = '';
-		}
-		returnString.push(wrapURL(type[0], entries));
-	}
-
-	if (temp.length) returnString.push(temp);
-	return returnString.join(' | ');
-}
-
-export function wrapURL(input: string, entries: DocEntries): string {
-	if (primitives.includes(input.toLowerCase())) return `[**${input}**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/${input})`;
-	if (escapeCharacters.test(input)) return input.replace(escapeCharacters, '\\$&');
-	try {
-		const item = entries.get(input);
-		return `[**${input}**](${item.url})`;
-	} catch {
-		return input;
-	}
-}

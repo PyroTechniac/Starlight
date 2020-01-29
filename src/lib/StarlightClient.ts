@@ -42,7 +42,8 @@ export class StarlightClient extends Klasa.Client {
 	public constructor(options: Klasa.KlasaClientOptions = {}) {
 		super(mergeDefault(STARLIGHT_OPTIONS, options));
 
-		this.assets = new AssetStore(this, join(__dirname, '..', '/'));
+		const coreDirectory = join(__dirname, '..', '/')
+		this.assets = new AssetStore(this, coreDirectory);
 
 		this.registerStore(this.assets);
 

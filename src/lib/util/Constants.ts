@@ -106,10 +106,6 @@ export const STARLIGHT_OPTIONS: KlasaClientOptions = {
 	pieceDefaults: {
 		assets: {
 			enabled: true
-		},
-		docsProviders: {
-			enabled: true,
-			fetch: []
 		}
 	},
 	messageCacheLifetime: 900,
