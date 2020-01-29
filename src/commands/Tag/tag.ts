@@ -1,5 +1,5 @@
 import { StarlightCommand, StarlightCommandOptions } from '../../lib/structures/StarlightCommand';
-import { ApplyOptions } from '../../lib/util/Decorators';
+import { ApplyOptions, staff } from '../../lib/util/Decorators';
 import { KlasaMessage } from 'klasa';
 import { GuildSettings } from '../../lib/settings/GuildSettings';
 
@@ -12,8 +12,8 @@ import { GuildSettings } from '../../lib/settings/GuildSettings';
 })
 export default class extends StarlightCommand {
 
+	@staff()
 	public async add(message: KlasaMessage, [tagName, content]: [string, string]): Promise<KlasaMessage> {
-		if (!await message.hasAtLeastPermissionLevel(4)) throw message.language.get('COMMAND_TAG_PERMISSIONLEVEL');
 		if (!content) throw message.language.get('COMMAND_TAG_CONTENT_REQUIRED');
 
 		const tags = message.guild!.settings.get(GuildSettings.Tags);
@@ -23,8 +23,8 @@ export default class extends StarlightCommand {
 		return message.sendLocale('COMMAND_TAG_ADDED', [tagName, content]);
 	}
 
+	@staff()
 	public async remove(message: KlasaMessage, [tagName]: [string]): Promise<KlasaMessage> {
-		if (!await message.hasAtLeastPermissionLevel(4)) throw message.language.get('COMMAND_TAG_PERMISSIONLEVEL');
 		const tags = message.guild!.settings.get(GuildSettings.Tags);
 
 		const tag = tags.find(([name]) => name === tagName);
@@ -34,8 +34,8 @@ export default class extends StarlightCommand {
 		return message.sendLocale('COMMAND_TAG_REMOVED', [tagName]);
 	}
 
+	@staff()
 	public async edit(message: KlasaMessage, [tagName, content]: [string, string]): Promise<KlasaMessage> {
-		if (!await message.hasAtLeastPermissionLevel(4)) throw message.language.get('COMMAND_TAG_PERMISSIONLEVEL');
 		if (!content) throw message.language.get('COMMAND_TAG_CONTENT_REQUIRED');
 
 		const tags = message.guild!.settings.get(GuildSettings.Tags);

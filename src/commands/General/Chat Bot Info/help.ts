@@ -14,7 +14,7 @@ const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAG
 	aliases: ['commands', 'cmds', 'cmd'],
 	description: (lang): string => lang.get('COMMAND_HELP_DESCRIPTION'),
 	guarded: true,
-	usage: '(Command:command{3}|page:integer|category:category)',
+	usage: '(Command:commandname{3}|page:integer|category:category)',
 	flagSupport: true,
 	flags: {
 		categories: {
