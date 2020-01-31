@@ -40,7 +40,7 @@
         "klasa-dashboard-hooks": "kyranet/klasa-dashboard-hooks#master",
         "node-fetch": "^2.6.0",
         "reflect-metadata": "^0.1.13",
-        "rethinkdb-ts": "^2.4.0-rc.16"
+        "rethinkdb-ts": "^2.4.1"
     },
     "devDependencies": {
         "@types/js-yaml": "^3.12.1",

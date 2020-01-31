@@ -1748,10 +1748,10 @@ restore-cursor@^3.1.0:
     onetime "^5.1.0"
     signal-exit "^3.0.2"
 
-rethinkdb-ts@^2.4.0-rc.16:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/rethinkdb-ts/-/rethinkdb-ts-2.4.0.tgz#45f7bd903cdc59eae03089a927e2ea97dc67ee87"
-  integrity sha512-bQC1/xJPDvjHAt9qtM+q8dodXZWjmmawu5yFd9XJVoDkJIVc8vSBS7UpO8GlbaBufu7yNIA00IRKwTGZBzaYGg==
+rethinkdb-ts@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/rethinkdb-ts/-/rethinkdb-ts-2.4.1.tgz#84f2d3ae103404832a77e189bea4ddfe51b7c222"
+  integrity sha512-7CLaJcmrNMB74aJzsSm1MmbZO1ppHLapznWgCW1v4xkd4PHMwbz7YW8HXEQYz/vHO2CvRG41yPPoVfQZ1ZiHyw==
 
 rimraf@2.6.3:
   version "2.6.3"
