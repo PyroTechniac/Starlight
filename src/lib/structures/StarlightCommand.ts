@@ -15,7 +15,7 @@ export abstract class StarlightCommand extends Command {
 
 		this.requiredGuildPermissions = new Permissions(options.requiredGuildPermissions);
 
-		this.usage = new StarlightUsage(this, options.usage!, options.usageDelim ?? null, options.flags ?? null);
+		this.usage = new StarlightUsage(this, options.usage!, options.usageDelim!, options.flags ?? null);
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
