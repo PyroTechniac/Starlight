@@ -23,7 +23,7 @@
         "db:restart": "pm2 restart Rethink"
     },
     "dependencies": {
-        "@discordjs/collection": "^0.1.3",
+        "@discordjs/collection": "^0.1.5",
         "@iarna/toml": "github:pyrotechniac/iarna-toml#latest",
         "@klasa/querybuilder": "^0.0.1",
         "@klasa/utils": "^0.0.4",
