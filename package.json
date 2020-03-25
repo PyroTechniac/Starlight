@@ -43,7 +43,7 @@
         "rethinkdb-ts": "^2.4.0-rc.16"
     },
     "devDependencies": {
-        "@types/js-yaml": "^3.12.1",
+        "@types/js-yaml": "^3.12.3",
         "@types/node": "^13.1.2",
         "@types/node-fetch": "^2.5.0",
         "@types/ws": "^6.0.3",
